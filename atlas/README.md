@@ -12,7 +12,11 @@ Country and state boundaries, visited places, recorded activity tracks, and tran
 
 The Netherlands ride is from the user-provided `11393102827.gpx`: May 12, 2024, 11,214 GPS points, Amsterdam to Utrecht. The five named places are user-confirmed visits, with place-center markers; they are not linked by an invented travel route.
 
-Distance is calculated from consecutive GPS points within each recorded segment. Elapsed time comes from track timestamps. Ascent is an estimate from positive altitude changes, shown with an approximate sign. These are GPX calculations, not official Strava statistics.
+The reviewed local Strava export adds 59 international activities, for 60 recorded activities across 13 countries/regions. Original titles, local dates, activity types, distance, elapsed time, and ascent are retained. The seven TMB recordings include both parts of day six; two additional Bourg-Saint-Maurice walks stay separate. Records without GPS are excluded. Existing Amsterdam data is preserved without duplication.
+
+Import a reviewed JSON manifest with `python atlas/scripts/import_strava.py EXPORT_DIRECTORY REVIEW.json` (FIT input requires `fitdecode`). Manifest entries select activities by `Activity ID` and retain the reviewed `Filename`, `date`, and `countries`. Strava CSV IDs are authoritative even when original FIT filenames have different IDs. FIT tracks are cropped to the CSV activity start and elapsed interval, since original files can include driving removed from the published hike. Track segments retain gaps; display geometry is simplified within 3 meters with segment endpoints preserved. Export statistics are not recalculated from the simplified geometry. Reimports skip existing activity IDs by default; `--replace` refreshes newly reviewed tracks while preserving activities marked `already_imported`.
+
+For the original GPX importer, distance is calculated from consecutive GPS points within each recorded segment, elapsed time comes from track timestamps, and ascent is an estimate from positive altitude changes, shown with an approximate sign. New bulk imports use the statistics from the Strava CSV instead.
 
 Import another GPX with `python atlas/scripts/import_gpx.py TRACK.gpx --journey netherlands --name "Amsterdam ride" --countries 528 --timezone Europe/Amsterdam`. Existing activity IDs are replaced on reimport. GPX track gaps remain separate segments.
 

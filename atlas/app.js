@@ -31,6 +31,7 @@
   const formatDuration = s => {const m=Math.round(s/60);return m<60?`${m}m`:`${Math.floor(m/60)}h ${m%60}m`;};
   const daySegments = day => day.segments || (day.coords ? [day.coords] : []);
   const dayPoints = day => daySegments(day).flat();
+  const activityLabel = (day, journey) => day.name || journey.name;
   function statePlaces(id) {
     const visit=US_VISITS[id];
     return [...visit.cities.map(([name,lat,lon])=>({name,coords:[lat,lon],state:id})),...visit.parks.map(([name,lat,lon])=>({name,coords:[lat,lon],park:true,state:id}))];
@@ -73,9 +74,10 @@
     return countryLayers.get(geometryId(id)).getBounds();
   }
   function activityContent(day,journey,index) {
-    const label=journey.id==='tmb'?`Day ${index+1}`:journey.name;
-    const stats=[['distance_m',formatDistance,'Distance'],['elapsed_s',formatDuration,'Elapsed'],['elevation_m',n=>`~${Math.round(n).toLocaleString()} m`,'Ascent']];
-    return `<div class="route-popup"><strong>${escape(label)}</strong><time datetime="${escape(day.date)}">${escape(day.date)}</time><div class="route-stats">${stats.filter(([field])=>Number.isFinite(day[field])).map(([field,format,name])=>`<div><b>${format(day[field])}</b><span>${name}</span></div>`).join('')}</div></div>`;
+    const label=activityLabel(day,journey);
+    const ascent=n=>`${day.source?.statistics==='Strava CSV'?'':'~'}${Math.round(n).toLocaleString()} m`;
+    const stats=[['distance_m',formatDistance,'Distance'],['elapsed_s',formatDuration,'Elapsed'],['elevation_m',ascent,'Ascent']];
+    return `<div class="route-popup"><strong>${escape(label)}</strong><span class="route-mode">${escape(day.sport||ROUTE_MODES[day.type]?.name||'Activity')}</span><time datetime="${escape(day.date)}">${escape(day.date)}</time><div class="route-stats">${stats.filter(([field])=>Number.isFinite(day[field])).map(([field,format,name])=>`<div><b>${format(day[field])}</b><span>${name}</span></div>`).join('')}</div></div>`;
   }
   function updateRouteStyles() {
     tracks.forEach(({id,color,outline,line})=>{
@@ -92,7 +94,7 @@
       daySegments(day).forEach(segment=>{
         if(segment.length<2)return;
         const outline=L.polyline(segment,{pane:'routes',color:'white',weight:6,opacity:.9,interactive:false}).addTo(routeLayers);
-        const label=journey.id==='tmb'?`Day ${index+1}`:journey.name;
+        const label=activityLabel(day,journey);
         const line=L.polyline(segment,{pane:'routes',color,weight:3.5,opacity:1,className:'activity-route'}).bindTooltip(label).on('click',event=>{
           activeDay=day.id;updateRouteStyles();activityPopup.setLatLng(event.latlng).setContent(activityContent(day,journey,index)).openOn(map);
         }).addTo(routeLayers);
@@ -143,7 +145,7 @@
       const content=`<div class="route-popup"><strong>${escape(trip.name)}</strong><p>${escape(trip.mode)}${trip.operator?' · '+escape(trip.operator):''}</p>${trip.dates.length?`<time>${trip.dates.map(escape).join(' · ')}</time>`:''}${trip.stops.length>2?`<p>Via ${escape(trip.stops.slice(1,-1).join(', '))}</p>`:''}</div>`;
       const color=ROUTE_MODES[trip.mode]?.color||'#697c84';
       L.polyline(trip.coords,{pane:'routes',color:'white',weight:6,opacity:.85,interactive:false}).addTo(transportLayers);
-      const line=L.polyline(trip.coords,{pane:'routes',color,weight:3.5,opacity:1,className:'transport-route'}).bindTooltip(escape(trip.name)).bindPopup(content,{className:'activity-popup',maxWidth:270}).addTo(transportLayers);
+      const line=L.polyline(trip.coords,{pane:'routes',color,weight:3.5,opacity:1,dashArray:trip.mode==='Ferry'?'8 6':null,className:'transport-route'}).bindTooltip(escape(trip.name)).bindPopup(content,{className:'activity-popup',maxWidth:270}).addTo(transportLayers);
       const node=line.getElement();node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',`${trip.mode}: ${trip.name}`);
       node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();line.openPopup(L.latLng(trip.coords[Math.floor(trip.coords.length/2)]));}});
     });
@@ -211,7 +213,7 @@
   }
   function accessibleRoute(layer,day,journey,index,segment) {
     const node=layer.getElement();if(!node)return;
-    node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',journey.id==='tmb'?`Day ${index+1}`:journey.name);
+    node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',activityLabel(day,journey));
     node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();activeDay=day.id;updateRouteStyles();activityPopup.setLatLng(segment[Math.floor(segment.length/2)]).setContent(activityContent(day,journey,index)).openOn(map);}});
   }
   function accessibleCountry(layer,id,label) {
