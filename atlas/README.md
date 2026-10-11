@@ -23,3 +23,5 @@ When changing the app or data, advance the asset version in `index.html` so GitH
 Context is built with `python atlas/scripts/build_context.py SOURCE_DIRECTORY` from the Natural Earth GitHub GeoJSON files `ne_10m_roads`, `ne_50m_lakes`, `ne_50m_rivers_lake_centerlines`, and `ne_50m_populated_places`. Roads cover the visited regions and nearby European transit areas. These generalized features provide context, rather than street-level navigation.
 
 Transport connections in `data/transport.json` show ticket-backed endpoints, dates, and operators. Dashed lines are schematic connections, not recorded GPS paths. Public data excludes personal addresses, email identifiers, booking references, payment details, and airport-only layovers. Unconfirmed Eurail stops remain omitted.
+
+Map details use unlabeled CARTO Voyager tiles (OpenStreetMap data) at every zoom. Country shading fades continuously between zoom levels 2.5 and 5. Wheel, trackpad, and zoom buttons interpolate a fractional camera; touch pinch does not snap to fixed levels.

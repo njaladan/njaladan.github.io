@@ -9,14 +9,13 @@
   const countryLayers = new Map(), tracks = [];
   let currentCountry = null, activeDay = null, activeJourneys = [], journeys = [], transport = [], worldLayer, tinyLayer, contextData;
   const routeLayers = L.layerGroup(), transportLayers = L.layerGroup(), cityLayers = L.layerGroup(), contextLabels = L.layerGroup();
-  const map = L.map('map', {zoomControl:false,scrollWheelZoom:true,dragging:true,touchZoom:true,zoomSnap:.25,minZoom:1,maxZoom:17,worldCopyJump:true});
-  L.control.zoom({position:'topright'}).addTo(map);
+  const map = L.map('map', {zoomControl:false,scrollWheelZoom:false,dragging:true,touchZoom:true,zoomSnap:0,zoomDelta:.5,zoomAnimation:false,minZoom:1,maxZoom:17,worldCopyJump:true});
+  const smoothZoom = installSmoothZoom(map, reduceMotion);
+  map.createPane('countries');map.getPane('countries').style.zIndex=350;
+  const terrain=L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png',{maxZoom:19,noWrap:true,attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
   map.attributionControl.setPrefix(false);
   map.attributionControl.addAttribution('<a href="https://www.naturalearthdata.com/">Natural Earth</a>');
   map.fitBounds(worldBounds,{padding:[15,15],animate:false});
-  map.createPane('context');map.getPane('context').style.zIndex=410;map.getPane('context').style.pointerEvents='none';
-  map.createPane('context-labels');map.getPane('context-labels').style.zIndex=440;map.getPane('context-labels').style.pointerEvents='none';
-  const contextRenderer=L.canvas({pane:'context',padding:.5});
   const activityPopup=L.popup({maxWidth:270,minWidth:180,className:'activity-popup'});
   const canonical = id => id === '344' ? '156' : id;
   const allowed = id => Boolean(VISITED_COUNTRIES[id]) || id === HOME_COUNTRY;
@@ -33,39 +32,17 @@
   function styleCountry(feature) {
     const id=String(feature.id),visited=isVisitedShape(id),home=id===HOME_COUNTRY;
     if(id==='010')return {opacity:0,fillOpacity:0};
-    if(currentCountry) return {color:'#c9d3d9',weight:.7,opacity:.55,fillColor:'#f7f7f2',fillOpacity:1};
-    return {color:'#f5f7f8',weight:.7,opacity:1,fillColor:home?'#557b73':visited?'#b7774a':'#c8d0d5',fillOpacity:visited ? .95 : .8};
+    return {color:'#f5f7f8',weight:.7,opacity:1,fillColor:home?'#557b73':visited?'#b7774a':'#c8d0d5',fillOpacity:visited ? .8 : .25};
   }
   function updateBasemap() {
-    const visible=Boolean(currentCountry)||map.getZoom()>3.5;
-    map.getPane('context').style.opacity=visible?'1':'0';
-    contextLabels.clearLayers();
-    if(!visible||!contextData)return;
-    const bounds=map.getBounds().pad(.1),occupied=[];
-    const visited=cities();
-    visited.forEach(city=>occupied.push(map.latLngToContainerPoint(city.coords)));
-    contextData.cities.filter(city=>bounds.contains(city.coords)).sort((a,b)=>a.rank-b.rank).forEach(city=>{
-      if(visited.some(place=>L.latLng(place.coords).distanceTo(city.coords)<6500))return;
-      const point=map.latLngToContainerPoint(city.coords);
-      if(occupied.some(other=>point.distanceTo(other)<65))return;
-      occupied.push(point);
-      L.marker(city.coords,{interactive:false,pane:'context-labels',icon:L.divIcon({className:'context-city',html:escape(city.name),iconSize:[100,16],iconAnchor:[0,8]})}).addTo(contextLabels);
-    });
-  }
-  function renderContext(data) {
-    contextData=data;
-    const geometry=(type,coordinates,style)=>L.geoJSON({type:'Feature',geometry:{type,coordinates},properties:{}},{interactive:false,renderer:contextRenderer,pane:'context',style}).addTo(map);
-    geometry('MultiPolygon',data.lakes,{stroke:false,fillColor:'#dceaf1',fillOpacity:1});
-    geometry('MultiLineString',data.rivers,{color:'#c9dfe9',weight:1.1,opacity:.85});
-    geometry('MultiLineString',data.roads,{color:'#d5d6cd',weight:1.1,opacity:.85});
-    contextLabels.addTo(map);
+    map.getPane('countries').style.opacity=Math.max(0,Math.min(1,(5-map.getZoom())/2.5));
   }
   function navigate(id) {
     id=canonical(id);
     if(allowed(id))location.hash=`country=${id}`;
   }
   function fitView(bounds,maxZoom=10,animate=true) {
-    map.stop();
+    smoothZoom.finish();map.stop();
     map.flyToBounds(bounds,{duration:reduceMotion||!animate?0:1.25,maxZoom,paddingTopLeft:[35,90],paddingBottomRight:[80,40]});
   }
   function countryBounds(id) {
@@ -133,7 +110,7 @@
     renderTransport();renderRoutes();renderCities();setGeographyAccess();updateBasemap();fitView(countryBounds(id),11,animate);
   }
   function showWorld(animate=true) {
-    map.closePopup();currentCountry=null;activeDay=null;activeJourneys=[];
+    smoothZoom.finish();map.closePopup();currentCountry=null;activeDay=null;activeJourneys=[];
     document.body.dataset.view='world';
     $('#back-world').hidden=true;$('#country-title').hidden=true;
     $('#map-status').textContent='';document.title='Atlas — Ganesh';
@@ -211,7 +188,7 @@
     const features=topojson.feature(world,world.objects.countries).features.map(splitDateline).flatMap(scopeFrance);
     features.forEach(feature=>{feature.id=String(feature.id);});
     worldLayer=L.geoJSON(features,{
-      style:styleCountry,
+      pane:'countries',style:styleCountry,
       onEachFeature(feature,layer){
         const id=String(feature.id),selectable=isVisitedShape(id);
         countryLayers.set(id,layer);layer.options.interactive=selectable;
@@ -231,22 +208,22 @@
       accessibleCountry(marker,item.id,countryName(item.id));marker.addTo(tinyLayer);
     });
     tinyLayer.addTo(map);transportLayers.addTo(map);routeLayers.addTo(map);cityLayers.addTo(map);
-    $('#visited-count').textContent=Object.keys(VISITED_COUNTRIES).length;
+
   }
   $('#back-world').addEventListener('click',()=>location.hash='');
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&currentCountry&&!map.isPopupOpen())location.hash='';});
   map.on('popupclose',event=>{if(event.popup===activityPopup){activeDay=null;updateRouteStyles();}});
-  map.on('moveend',updateBasemap);
+  map.on('zoom',updateBasemap);
+  updateBasemap();
   map.on('resize',()=>{if(worldLayer){if(currentCountry)fitView(countryBounds(currentCountry),11);else showWorld();}});
   window.addEventListener('hashchange',()=>{if(worldLayer)route();});
   Promise.all([
     fetch('data/world.json').then(response=>{if(!response.ok)throw Error('Geography unavailable');return response.json();}),
     fetch(`data/activities.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Activities unavailable');return response.json();}),
-    fetch(`data/context.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Context unavailable');return response.json();}),
     fetch(`data/transport.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Transport unavailable');return response.json();})
-  ]).then(([world,activities,context,connections])=>{
+  ]).then(([world,activities,connections])=>{
     journeys=activities.journeys||[];transport=connections.routes||[];
-    renderWorld(world);renderContext(context);$('#map-status').textContent='';route();window.ATLAS_READY=true;
+    renderWorld(world);$('#map-status').textContent='';route();window.ATLAS_READY=true;
     window.ATLAS_MAP=map;
   }).catch(error=>{$('#map-status').textContent='Map unavailable. Refresh to retry.';console.error(error);});
 })();
