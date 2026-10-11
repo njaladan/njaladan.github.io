@@ -15,8 +15,7 @@
   map.createPane('states');map.getPane('states').style.zIndex=360;
   map.createPane('cities');map.getPane('cities').style.zIndex=450;
   map.createPane('countries');map.getPane('countries').style.zIndex=350;
-  const terrain=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:13,maxZoom:17,noWrap:true,attribution:'Tiles © Esri · USGS, NGA, EPA, NPS'}).addTo(map);
-  const streets=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:17,noWrap:true,opacity:0,attribution:'Tiles © Esri'}).addTo(map);
+  const terrain=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:19,maxZoom:19,noWrap:true,attribution:'Tiles © Esri · HERE, Garmin, USGS'}).addTo(map);
   map.attributionControl.setPrefix(false);
   map.attributionControl.addAttribution('<a href="https://www.naturalearthdata.com/">Natural Earth</a>');
   map.fitBounds(worldBounds,{padding:[15,15],animate:false});
@@ -44,7 +43,6 @@
   }
   function updateBasemap() {
     const zoom=map.getZoom();
-    streets.setOpacity(Math.max(0,Math.min(1,(zoom-11.5)/1.5)));
     const countryOpacity=Math.max(0,Math.min(1,(5-zoom)/2.5));
     map.getPane('countries').style.opacity=countryOpacity;
     map.getPane('countries').style.pointerEvents=countryOpacity>.1?'auto':'none';
@@ -101,7 +99,7 @@
   function renderCities() {
     cityLayers.clearLayers();cityMarkers.length=0;
     cities().forEach(city=>{
-      const marker=L.circleMarker(city.coords,{pane:'cities',radius:5,color:'white',weight:2,fillColor:city.park?'#648243':'#364c60',fillOpacity:1,className:'city-marker'})
+      const marker=L.marker(city.coords,{pane:'cities',icon:L.divIcon({className:'city-marker',html:`<i style="background:${city.park?'#648243':'#364c60'}"></i>`,iconSize:[12,12],iconAnchor:[6,6]})})
         .bindTooltip(escape(city.name),{permanent:true,interactive:true,direction:'right',offset:[8,0],className:'city-label'}).addTo(cityLayers);
       // A city already has a map label; clicking only reveals a hidden label.
       const reveal=()=>{if(!marker.isTooltipOpen()){marker.openTooltip();const label=marker.getTooltip().getElement();if(label)label.style.visibility='visible';}};
@@ -275,7 +273,7 @@
     }).addTo(map);
     tinyLayer=L.layerGroup();
     [{id:'156',coords:[22.32,114.17]},{id:'336',coords:[41.9029,12.4534]}].forEach(item=>{
-      const marker=L.circleMarker(item.coords,{radius:5,color:'white',weight:1.5,fillColor:'#b7774a',fillOpacity:1,className:'tiny-country'}).bindTooltip(countryName(item.id)).on('click',()=>navigate(item.id));
+      const marker=L.marker(item.coords,{icon:L.divIcon({className:'tiny-country',html:'<i></i>',iconSize:[10,10],iconAnchor:[5,5]})}).bindTooltip(countryName(item.id)).on('click',()=>navigate(item.id));
       accessibleCountry(marker,item.id,countryName(item.id));marker.addTo(tinyLayer);
     });
     tinyLayer.addTo(map);transportLayers.addTo(map);routeLayers.addTo(map);cityLayers.addTo(map);
