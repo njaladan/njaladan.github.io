@@ -1,8 +1,6 @@
-// All personal trip details below are illustrative, not a record of Ganesh's actual itinerary.
-const PHOTO_ASSETS = {trail:'assets/trail.jpg',mountain:'assets/mountains.jpg',lake:'assets/lake.jpg',alpine:'assets/alpine.jpg',desert:'assets/desert.jpg'};
-// User-confirmed list. The US is displayed separately as home; Hong Kong is scoped explicitly.
+// User-confirmed countries. China represents Hong Kong only; the US is home.
 const VISITED_COUNTRIES = {
-  '124':{name:'Canada'}, '152':{name:'Chile'}, '156':{name:'China',scope:'Hong Kong'},
+  '124':{name:'Canada'}, '152':{name:'Chile'}, '156':{name:'China',scope:'Hong Kong',geometry:'344'},
   '203':{name:'Czechia'}, '818':{name:'Egypt'}, '250':{name:'France'},
   '300':{name:'Greece'}, '352':{name:'Iceland'}, '356':{name:'India'},
   '380':{name:'Italy'}, '392':{name:'Japan'}, '400':{name:'Jordan'},
@@ -12,32 +10,8 @@ const VISITED_COUNTRIES = {
   '336':{name:'Vatican City'}, '040':{name:'Austria'}
 };
 const HOME_COUNTRY = '840';
-const SAMPLE_CHILE = {
-  region:'SOUTH AMERICA',name:'Chile',hero:'trail',subtitle:'From city streets to the edge of Patagonia.',intro:'Two example visits, collected in one place. Select a stop, photo, or activity to explore the map.',
-  trips:[{id:'patagonia',name:'Patagonia · example visit',year:'Example visit A'},{id:'central',name:'Central Chile · example visit',year:'Example visit B'}],
-  stops:[
-    {id:'santiago',name:'Santiago',coords:[-33.4489,-70.6693],trip:'central',kind:'CITY',text:'A city stop before heading south. This space could hold the neighborhoods, walks, and places you remember.',photo:'desert'},
-    {id:'punta',name:'Punta Arenas',coords:[-53.1638,-70.9171],trip:'patagonia',kind:'CITY',text:'Arrival in the far south. A stop for a city walk and the start of the Patagonia route.',photo:'mountain'},
-    {id:'natales',name:'Puerto Natales',coords:[-51.7309,-72.4977],trip:'patagonia',kind:'BASE CAMP',text:'An example base for the mountains. Add your favorite meal, stay, or practical tip here.',photo:'lake'},
-    {id:'torres',name:'Torres del Paine',coords:[-50.9423,-73.4068],trip:'patagonia',kind:'NATIONAL PARK',text:'Follow the hiking tracks and open photo pins along the trail. The orange routes represent sample Strava activities.',photo:'trail'}
-  ],
-  routes:[{trip:'patagonia',coords:[[-53.1638,-70.9171],[-52.699,-71.003],[-52.15,-71.65],[-51.7309,-72.4977],[-51.3,-72.75],[-50.9423,-73.4068]]},{trip:'central',coords:[[-33.4489,-70.6693],[-33.386,-70.621],[-33.36,-70.495]]}],
-  photos:[{id:'ch1',title:'A moment on the trail',asset:'trail',coords:[-50.958,-73.15],trip:'patagonia',caption:'An illustrative image placed on the example hiking route. Replace it with your own geotagged photograph.'},{id:'ch2',title:'Water, mountains, a pause',asset:'lake',coords:[-51.72,-72.52],trip:'patagonia',caption:'A sample photo pin near Puerto Natales. A caption can be as simple as what made you stop here.'},{id:'ch3',title:'Into the mountains',asset:'mountain',coords:[-50.9,-73.39],trip:'patagonia',caption:'Illustrative mountain photography. Click “Show on map” to connect the image to its sample location.'},{id:'ch4',title:'A different landscape',asset:'desert',coords:[-33.385,-70.62],trip:'central',caption:'A stock image demonstrating a second visit. Photo location and subject are illustrative.'}],
-  activities:[{id:'ch-hike',title:'A day in Torres del Paine',type:'Hike',trip:'patagonia',distance:'18.4',elevation:'940',duration:'6h 12m',coords:[[-50.993,-72.88],[-50.981,-72.919],[-50.977,-72.946],[-50.961,-72.972],[-50.942,-72.975],[-50.932,-72.991],[-50.92,-73.019]],photo:'trail'},{id:'ch-lake',title:'Along the lakes',type:'Hike',trip:'patagonia',distance:'12.6',elevation:'380',duration:'4h 08m',coords:[[-51.067,-73.105],[-51.04,-73.13],[-51.023,-73.174],[-51.005,-73.185],[-50.983,-73.224],[-50.964,-73.249]],photo:'lake'},{id:'ch-run',title:'A city morning',type:'Run',trip:'central',distance:'5.2',elevation:'82',duration:'29m 10s',coords:[[-33.439,-70.638],[-33.433,-70.627],[-33.424,-70.621],[-33.418,-70.612],[-33.416,-70.603]],photo:'desert'}]
-};
-const SAMPLE_TMB = {
-  region:'EUROPE / A CROSS-BORDER JOURNEY',name:'France',hero:'lake',subtitle:'Tour du Mont Blanc. Three countries, one continuous trail.',intro:'The same TMB journey appears under France, Italy, and Switzerland. All its stops stay together so the trail retains its context.',
-  trips:[{id:'tmb',name:'Tour du Mont Blanc · example visit',year:'Example visit'}],
-  stops:[{id:'chamonix',name:'Chamonix',coords:[45.9237,6.8694],trip:'tmb',kind:'FRANCE · START',text:'An example starting point for the loop. Your real itinerary will determine the order and direction.',photo:'lake'},{id:'contamines',name:'Les Contamines',coords:[45.821,6.727],trip:'tmb',kind:'FRANCE · TRAIL STOP',text:'A place for the small details: the trail conditions, a memorable view, or the hut you stayed in.',photo:'trail'},{id:'courmayeur',name:'Courmayeur',coords:[45.791,6.971],trip:'tmb',kind:'ITALY · TRAIL STOP',text:'The trail crosses into Italy. Country boundaries remain visible without splitting the trip.',photo:'mountain'},{id:'champex',name:'Champex-Lac',coords:[46.03,7.116],trip:'tmb',kind:'SWITZERLAND · TRAIL STOP',text:'A lakeside pause on this illustrative loop. Add a photo or short note from your own visit.',photo:'alpine'}],
-  routes:[{trip:'tmb',coords:[[45.9237,6.8694],[45.891,6.786],[45.821,6.727],[45.742,6.717],[45.701,6.808],[45.749,6.9],[45.791,6.971],[45.845,7.015],[45.895,7.064],[45.97,7.087],[46.03,7.116],[46.067,7.006],[46.031,6.932],[45.974,6.924],[45.9237,6.8694]]}],
-  photos:[{id:'tmb1',title:'The valley opens up',asset:'lake',coords:[45.921,6.879],trip:'tmb',caption:'Illustrative alpine photograph. The final version can use your own TMB photos and their GPS positions.'},{id:'tmb2',title:'Somewhere along the way',asset:'trail',coords:[45.826,6.731],trip:'tmb',caption:'A sample photo location beside the route.'},{id:'tmb3',title:'Across the border',asset:'mountain',coords:[45.8,6.977],trip:'tmb',caption:'Example imagery for the Italian stretch of the journey.'},{id:'tmb4',title:'A quiet stop',asset:'alpine',coords:[46.03,7.12],trip:'tmb',caption:'Stock photography placed at a sample stop in Switzerland.'}],
-  activities:[{id:'tmb-hike',title:'An alpine trail day',type:'Hike',trip:'tmb',distance:'21.3',elevation:'1,240',duration:'7h 04m',coords:[[45.821,6.727],[45.801,6.719],[45.77,6.727],[45.742,6.717],[45.721,6.75],[45.701,6.808]],photo:'trail'},{id:'tmb-pass',title:'Over the pass',type:'Hike',trip:'tmb',distance:'16.8',elevation:'980',duration:'5h 46m',coords:[[45.791,6.971],[45.817,6.994],[45.845,7.015],[45.864,7.033],[45.895,7.064]],photo:'mountain'}]
-};
-const SAMPLE_US = {
-  region:'NORTH AMERICA',name:'United States of America',hero:'alpine',subtitle:'Race days, familiar streets, and a reason to keep moving.',intro:'An example of how a marathon and a 5K could sit together on your country map. Tracks and results here are illustrative.',
-  trips:[{id:'marathon',name:'Marathon · example race',year:'Example race A'},{id:'5k',name:'5K · example race',year:'Example race B'}],
-  stops:[{id:'jc',name:'Jersey City',coords:[40.726,-74.036],trip:'marathon',kind:'MARATHON · START / FINISH',text:'A race card can collect the course, your actual result, and a finish-line photo in one place.',photo:'trail'},{id:'ny',name:'New York',coords:[40.7829,-73.9654],trip:'5k',kind:'5K · RACE DAY',text:'A second race on the same country map. Select the orange line to see the example activity card.',photo:'alpine'}],
-  routes:[],photos:[{id:'us1',title:'The race-day photo goes here',asset:'trail',coords:[40.728,-74.032],trip:'marathon',caption:'Illustrative image placeholder for your own race-day photograph.'}],
-  activities:[{id:'us-marathon',title:'Marathon day',type:'Run',trip:'marathon',distance:'42.2',elevation:'116',duration:'3h 38m',coords:[[40.726,-74.036],[40.748,-74.028],[40.755,-74.041],[40.738,-74.06],[40.712,-74.057],[40.706,-74.039],[40.722,-74.031],[40.726,-74.036]],photo:'trail'},{id:'us-5k',title:'A 5K in the city',type:'Run',trip:'5k',distance:'5.0',elevation:'42',duration:'22m 14s',coords:[[40.772,-73.973],[40.78,-73.969],[40.79,-73.958],[40.786,-73.953],[40.775,-73.961],[40.772,-73.973]],photo:'alpine'}]
-};
-const SAMPLE_COUNTRIES = {'152':SAMPLE_CHILE,'250':SAMPLE_TMB,'380':{...SAMPLE_TMB,name:'Italy'},'756':{...SAMPLE_TMB,name:'Switzerland'},'840':SAMPLE_US};
+const TMB_COUNTRIES = ['250','380','756'];
+// A viewing area, not a claimed route or itinerary.
+const TMB_BOUNDS = [[45.65,6.6],[46.15,7.2]];
+
+const COUNTRY_PLACES = {};

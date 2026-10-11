@@ -3,51 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#182923">
-  <title>Field Notes — Ganesh's adventure atlas</title>
-  <meta name="description" content="A private adventure atlas mockup: explore country maps, journeys, photo pins, and example running and hiking activities.">
+  <meta name="theme-color" content="#f8f9fa">
+  <title>Atlas — Ganesh</title>
+  <meta name="description" content="Places I've visited, with running and hiking routes.">
   <link rel="stylesheet" href="vendor/leaflet.css">
   <link rel="stylesheet" href="style.css">
-  <script defer src="vendor/d3.min.js"></script>
   <script defer src="vendor/topojson.min.js"></script>
   <script defer src="vendor/leaflet.js"></script>
   <script defer src="data.js"></script>
   <script defer src="app.js"></script>
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body data-view="world">
   <header class="site-header">
-    <a href="#" class="brand" aria-label="Field Notes home"><span class="brand-mark"><svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span><span>Ganesh<span class="brand-divider">/</span><strong>FIELD NOTES</strong></span></a>
-    <nav aria-label="Main navigation"><a href="#" id="nav-atlas" class="active">The atlas</a><a href="https://nagaganesh.com/reading">Reading <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a><a href="https://nagaganesh.com/">About <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></nav>
-    <span class="prototype-label"><i></i> Travel mockup</span>
+    <a href="https://nagaganesh.com/">Ganesh</a><span class="divider">/</span><a href="#" id="atlas-home">Atlas</a>
+    <nav aria-label="Site navigation"><a href="https://nagaganesh.com/reading">Reading</a><a href="https://nagaganesh.com/">About</a></nav>
   </header>
-  <main id="main">
-    <section id="world-view">
-      <div class="world-hero">
-        <img src="assets/mountains.jpg" alt="Mountain landscape used as illustrative photography" class="hero-photo">
-        <div class="hero-shade"></div>
-        <div class="hero-copy"><p class="eyebrow light">ON FOOT. ON THE ROAD. SOMEWHERE NEW.</p><h1>Out there.</h1><p>A collection of places, paths, and moments along the way.</p></div>
-        <div class="hero-caption"><span class="crosshair">＋</span> An adventure atlas by Ganesh</div>
-      </div>
-      <section class="atlas-section" aria-labelledby="atlas-title">
-        <div class="section-heading"><div><p class="eyebrow">01 / THE WORLD</p><h2 id="atlas-title">Pick a place.</h2></div><p>Every country is an entry point.<br>Explore Chile, the Alps, or the US for a full example.</p></div>
-        <div class="atlas-toolbar"><div class="segmented"><button class="selected" id="show-all" aria-pressed="true">All countries</button><button id="show-samples" aria-pressed="false">Visited countries <span id="visited-count">23</span></button></div><form id="country-search" class="country-search"><label for="country-input" class="sr-only">Find a country</label><span aria-hidden="true">⌕</span><input id="country-input" list="country-options" placeholder="Find a country…" autocomplete="off"><datalist id="country-options"></datalist><button type="submit" aria-label="Open selected country"><svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button></form></div>
-        <div class="atlas-grid"><div class="world-map-wrap"><div id="world-map" role="group" aria-label="Interactive world map. Click a country or use the country search."></div><div id="map-tooltip" class="map-tooltip" aria-hidden="true"></div><div class="world-map-bottom"><span><i class="legend-dot"></i> Visited <i class="legend-dot home-dot"></i> Home</span><span>Click a country to explore <span aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span></span></div><p id="world-status" role="status" class="map-status">Loading the atlas…</p></div><aside class="journey-preview"><p class="eyebrow">START EXPLORING</p><button class="journey-card" data-country="152"><img src="assets/trail.jpg" alt="Illustrative hiking photograph"><span class="journey-card-content"><small>SOUTH AMERICA</small><strong>Chile</strong><span>City streets to mountain trails</span><span class="journey-meta">2 example trips <b><svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></b></span></span></button><button class="journey-card compact" data-country="250"><img src="assets/lake.jpg" alt="Illustrative alpine landscape"><span class="journey-card-content"><small>FRANCE · ITALY · SWITZERLAND</small><strong>Tour du Mont Blanc</strong><span>One trail, three countries <b><svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></b></span></span></button><button class="journey-card compact" data-country="840"><img src="assets/alpine.jpg" alt="Illustrative outdoor landscape"><span class="journey-card-content"><small>UNITED STATES</small><strong>Race days</strong><span>A marathon & a 5K <b><svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></b></span></span></button></aside></div>
-        <div class="visited-index"><p class="eyebrow">PLACES I’VE BEEN <span>23 countries · US shown separately as home</span></p><div id="visited-countries"></div></div><p class="demo-note"><span>REAL VISITS · DEMO JOURNALS</span> Country highlights follow your confirmed list. Routes, statistics, and stock photos are illustrative until your own records are added.</p>
-      </section>
-      <section class="how-section"><p class="eyebrow">THE SMALL DETAILS MAKE THE JOURNEY</p><div><h2>Follow the route.<br>Find the moments.</h2><p>Open a country to see all its visits on one map. Trace the path between cities, step into a hike, or open a photo right where it happened.</p><a href="#country=152" class="text-link">Explore the Chile example <span><svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span></a></div></section>
-    </section>
-    <section id="country-view" hidden aria-label="Country travel journal">
-      <div class="country-hero"><img id="country-hero-photo" src="assets/trail.jpg" alt="Illustrative landscape"><div class="hero-shade"></div><div class="country-hero-content"><button id="back-world" class="back-world">← Back to the world</button><div><p class="eyebrow light" id="country-region"></p><h1 id="country-title"></h1><p id="country-subtitle"></p></div></div><span class="sample-badge">Illustrative itinerary & photos</span></div>
-      <div class="country-controls"><div class="country-summary" id="country-summary"></div><div class="trip-select-wrap"><label for="trip-select">Showing</label><select id="trip-select"><option value="all">All visits together</option></select></div></div>
-      <div class="country-grid">
-        <aside class="country-journal"><div class="journal-heading"><p class="eyebrow">THE JOURNEY</p><h2 id="journal-title">A country, many paths.</h2><p id="journal-intro"></p></div><div class="journal-tabs" role="tablist" aria-label="Journal view"><button role="tab" aria-selected="true" data-tab="route">Itinerary</button><button role="tab" aria-selected="false" data-tab="photos">Photos</button><button role="tab" aria-selected="false" data-tab="activities">Activities</button></div><div id="journal-content" role="tabpanel"></div></aside>
-        <div class="country-map-column"><div class="country-map-shell"><div class="map-topline"><span><i></i> <span id="country-map-title">All visits on one map</span></span><button id="fit-map"><svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10" fill="none" stroke="currentColor" stroke-width="1.4"/></svg> Fit journey</button></div><div id="country-map" aria-label="Map of cities, routes, sample photos and activities"></div><div class="map-layer-controls" aria-label="Map layers"><button data-layer="cities" aria-pressed="true"><span class="layer-city">●</span> Cities</button><button data-layer="photos" aria-pressed="true"><svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="4" width="14" height="10" rx="2" fill="none" stroke="currentColor"/><circle cx="8" cy="9" r="3" fill="none" stroke="currentColor"/><path d="M5 4V2h6v2" fill="none" stroke="currentColor"/></svg> Photos</button><button data-layer="activities" aria-pressed="true"><span class="strava-symbol">▲</span> Activities</button><button data-layer="route" aria-pressed="true">↝ Route</button></div><div class="map-legend"><span><i class="route-line"></i> Travel route</span><span><i class="activity-line"></i> Run / hike</span><span>Tap a pin or choose a stop</span></div></div><div id="selection-card" class="selection-card" aria-live="polite"></div><p class="map-detail-note">Select a stop to move the map. Photo pins and orange activity routes are clickable.</p></div>
-      </div>
-      <div class="country-bottom-note demo-note"><span>DEMO CONTENT</span> Approximate sample tracks and photo locations; no live Strava connection. TMB is shown as one cross-border journey.</div>
-    </section>
+  <main id="main" aria-label="Travel atlas">
+    <div id="map" aria-label="Map of visited countries"></div>
+    <div class="map-toolbar">
+      <button id="back-world" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 4-6 6 6 6M4 10h13"/></svg>World map</button>
+      <h1 id="country-title" hidden></h1>
+    </div>
+    <div id="world-legend"><i></i><span id="visited-count">23</span> countries <i class="home-dot"></i>Home</div>
+    <p id="map-status" role="status">Loading map…</p>
   </main>
-  <footer><span>Ganesh / Field Notes</span><span>Made for the places worth remembering.</span><a href="credits.html">Map & photo credits <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></footer>
-  <dialog id="photo-dialog" aria-labelledby="photo-dialog-title"><button class="modal-close" aria-label="Close photo">×</button><img id="modal-photo" alt=""><div class="modal-copy"><p class="eyebrow">PHOTO PIN · ILLUSTRATIVE IMAGE</p><h2 id="photo-dialog-title"></h2><p id="modal-caption"></p><button id="photo-show-map" class="text-link">Show this moment on the map <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button></div></dialog>
 </body>
 </html>

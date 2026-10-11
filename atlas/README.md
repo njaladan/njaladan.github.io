@@ -1,21 +1,9 @@
-# Field Notes — adventure atlas mockup
+# Atlas
 
-A buildless, static prototype for Ganesh's personal travel journal. Serve `atlas/` with any static HTTP server. There is no backend, account system, or live Strava integration.
+Static map at `/atlas/`. Serve with `python -m http.server 8765 --directory atlas`.
 
-## Experience
+One persistent Leaflet map supports scroll zoom, dragging, touch gestures, and animated navigation. Only the confirmed visited countries and US home are selectable. China is scoped to Hong Kong. Markers make Hong Kong and Vatican City accessible on the world map. The World map button zooms back out.
 
-- Select any of 241 country and territory geometries from the world map or search.
-- Highlight the user's confirmed 23-country list, including Austria. The US is displayed separately as home. China is explicitly scoped to the Hong Kong visit, and that entry zooms to Hong Kong.
-- The visited-country index makes small countries such as Vatican City accessible without precise map clicking.
-- Chile, France, Italy, Switzerland, and the US contain labeled example journeys.
-- Countries combine all example visits by default. The visit selector can isolate one visit.
-- Country maps show travel routes, cities, photo pins, and run/hike tracks. Layer toggles are independent.
-- Selecting a stop or activity focuses its map location; photos open a lightbox and can be located on the map.
-- TMB remains one cross-border journey under France, Italy, and Switzerland.
-- Mobile layout places the map before the journal for convenient exploration.
+Routes, city markers, and future photo pins belong on the map. There are no splash sections, itineraries, country lists, side panels, or example activity records. All visits to a country appear together. Activity data is in `data/activities.json`; city locations are in `data.js`. TMB routes will appear across France, Italy, and Switzerland when the actual exports are available. No Strava links are included.
 
-The visited-country list is real, supplied by the user. All itinerary groupings, stats, routes, and photo locations are illustrative. Photos are stock imagery, not personal images. `data.js` contains the country list and sample data; actual Strava exports and geotagged photos can replace the samples later. Terrain tiles need network access; geographic world data, routes, pins, and photos are packaged locally. Fonts use Google Fonts, with system fallbacks.
-
-## Preview from this repository
-
-Run `python -m http.server 8765 --directory atlas` from the repository root, then open `http://localhost:8765/`. The mockup lives entirely in `atlas/`; the existing homepage, reading list, and layouts are unchanged.
+Natural Earth country geometry is packaged locally. Terrain tiles use Esri WorldTopoMap and require network access. Leaflet and TopoJSON retain their upstream license headers in `vendor/`.
