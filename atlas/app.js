@@ -10,16 +10,21 @@
   let currentCountry = null, currentState = null, stateLayer, activeDay = null, activeJourneys = [], journeys = [], transport = [], worldLayer, tinyLayer;
   const stateLayers=new Map(), cityMarkers=[];
   const routeLayers = L.layerGroup(), transportLayers = L.layerGroup(), cityLayers = L.layerGroup();
+  const flightLayers = L.layerGroup(), airportLayers = L.layerGroup();
+  let flightLog = {airports:{},flights:[],routes:[]}, flightsVisible = true;
   const map = L.map('map', {zoomControl:false,scrollWheelZoom:false,dragging:true,touchZoom:true,zoomSnap:0,zoomDelta:.5,zoomAnimation:false,minZoom:1,maxZoom:17,worldCopyJump:true});
   const smoothZoom = installSmoothZoom(map, reduceMotion);
   map.createPane('states');map.getPane('states').style.zIndex=360;
   map.createPane('routes');map.getPane('routes').style.zIndex=420;
+  map.createPane('flights');map.getPane('flights').style.zIndex=400;
+  map.createPane('airports');map.getPane('airports').style.zIndex=430;
   map.createPane('cities');map.getPane('cities').style.zIndex=450;
   map.createPane('countries');map.getPane('countries').style.zIndex=350;
   const terrain=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:19,maxZoom:19,noWrap:true,attribution:'Tiles © Esri · HERE, Garmin, USGS'}).addTo(map);
   map.attributionControl.setPrefix(false);
   map.attributionControl.addAttribution('Routes © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>');
   map.attributionControl.addAttribution('<a href="https://www.naturalearthdata.com/">Natural Earth</a>');
+  map.attributionControl.addAttribution('Airports: <a href="https://ourairports.com/data/">OurAirports</a>');
   map.fitBounds(worldBounds,{padding:[15,15],animate:false});
   const activityPopup=L.popup({maxWidth:270,minWidth:180,className:'activity-popup'});
   const canonical = id => id === '344' ? '156' : id;
@@ -56,7 +61,9 @@
     map.getPane('cities').style.pointerEvents=cityOpacity>.1?'auto':'none';
     const routeOpacity=Math.max(0,Math.min(1,(zoom-3)/1.5));
     map.getPane('routes').style.opacity=routeOpacity;map.getPane('routes').style.pointerEvents=routeOpacity>.1?'auto':'none';
-    $('#route-legend').hidden=zoom<3.5||!$('#route-legend').textContent;
+    const airportOpacity=Math.max(0,Math.min(1,zoom-4));
+    map.getPane('airports').style.opacity=airportOpacity;map.getPane('airports').style.pointerEvents=airportOpacity>.1?'auto':'none';
+    $('#route-legend').hidden=!$('#route-legend').textContent;
     map.getContainer().style.setProperty('--city-opacity',cityOpacity);
     if(cityOpacity<.1)cityMarkers.forEach(({marker})=>marker.closeTooltip());
   }
@@ -151,13 +158,38 @@
     });
     updateRouteLegend();
   }
+  function flightContent(connection) {
+    const [a,b]=connection.airports;
+    const records=connection.flights.map(index=>flightLog.flights[index]).sort((a,b)=>b.date.localeCompare(a.date));
+    return `<div class="route-popup flight-popup"><strong>${escape(a)} ↔ ${escape(b)}</strong><p>${escape(flightLog.airports[a].city)} · ${escape(flightLog.airports[b].city)}</p><p>${records.length} ${records.length===1?'flight':'flights'}</p><ol class="flight-history">${records.map(flight=>`<li><time datetime="${escape(flight.date)}">${escape(flight.date)}</time><b>${escape(flight.number)} · ${escape(flight.from)} → ${escape(flight.to)}</b><span>${flight.airline?escape(flight.airline)+' · ':''}${formatDuration(flight.duration_s)}</span></li>`).join('')}</ol><p class="route-note">Approximate connection between airports.</p></div>`;
+  }
+  function renderFlights() {
+    flightLayers.clearLayers();airportLayers.clearLayers();
+    flightLog.routes.forEach(connection=>{
+      const label=`${connection.airports.join(' ↔ ')} · ${connection.flights.length} ${connection.flights.length===1?'flight':'flights'}`;
+      const line=L.polyline(connection.segments,{pane:'flights',color:ROUTE_MODES.Flight.color,weight:2,opacity:.65,dashArray:'5 5',className:'flight-route'})
+        .bindTooltip(escape(label)).bindPopup(()=>flightContent(connection),{className:'activity-popup',maxWidth:300}).addTo(flightLayers);
+      const node=line.getElement();node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',label);
+      node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();const segment=connection.segments[0];line.openPopup(L.latLng(segment[Math.floor(segment.length/2)]));}});
+    });
+    Object.entries(flightLog.airports).forEach(([code,airport])=>{
+      const count=flightLog.flights.filter(flight=>flight.from===code||flight.to===code).length;
+      const label=`${airport.city} · ${code}`;
+      const marker=L.circleMarker(airport.coords,{pane:'airports',radius:4,color:'white',weight:1.5,fillColor:ROUTE_MODES.Flight.color,fillOpacity:1,className:'airport-marker'})
+        .bindTooltip(escape(label)).bindPopup(`<strong>${escape(code)} · ${escape(airport.name)}</strong><p>${count} flights arriving or departing</p>`,{maxWidth:270}).addTo(airportLayers);
+      const node=marker.getElement();node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',label);
+      node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();marker.openPopup();}});
+    });
+    $('#toggle-flights').textContent=`Flights (${flightLog.flights.length})`;
+  }
   function updateRouteLegend() {
     const bounds=map.getBounds();
     const types=new Set(transport.filter(trip=>L.latLngBounds(trip.coords).intersects(bounds)).map(trip=>trip.mode));
     journeys.forEach(journey=>(journey.days||[]).forEach(day=>{if(dayPoints(day).length&&L.latLngBounds(dayPoints(day)).intersects(bounds))types.add(day.type);}));
-    const modes=[...types].filter(type=>ROUTE_MODES[type]);
+    if(flightsVisible&&flightLog.routes.some(connection=>connection.segments.some(segment=>L.latLngBounds(segment).intersects(bounds))))types.add('Flight');
+    const modes=[...types].filter(type=>ROUTE_MODES[type]&&(map.getZoom()>=3.5||type==='Flight'));
     $('#route-legend').innerHTML=modes.map(type=>`<span><i style="background:${ROUTE_MODES[type].color}"></i>${ROUTE_MODES[type].name}</span>`).join('');
-    $('#route-legend').hidden=map.getZoom()<3.5||!modes.length;
+    $('#route-legend').hidden=!modes.length;
   }
   function setGeographyAccess() {
     document.querySelectorAll('.visited-country,.tiny-country').forEach(node=>node.setAttribute('tabindex',currentCountry?'-1':'0'));
@@ -293,11 +325,17 @@
       const marker=L.marker(item.coords,{icon:L.divIcon({className:'tiny-country',html:'<i></i>',iconSize:[10,10],iconAnchor:[5,5]})}).bindTooltip(countryName(item.id)).on('click',()=>navigate(item.id));
       accessibleCountry(marker,item.id,countryName(item.id));marker.addTo(tinyLayer);
     });
-    tinyLayer.addTo(map);transportLayers.addTo(map);routeLayers.addTo(map);cityLayers.addTo(map);
+    tinyLayer.addTo(map);flightLayers.addTo(map);airportLayers.addTo(map);transportLayers.addTo(map);routeLayers.addTo(map);cityLayers.addTo(map);
 
   }
   $('#back-us').addEventListener('click',()=>location.hash=`country=${HOME_COUNTRY}`);
   $('#back-world').addEventListener('click',()=>location.hash='');
+  $('#toggle-flights').addEventListener('click',()=>{
+    flightsVisible=!flightsVisible;map.closePopup();
+    $('#toggle-flights').setAttribute('aria-pressed',String(flightsVisible));
+    [flightLayers,airportLayers].forEach(layer=>{if(flightsVisible)layer.addTo(map);else map.removeLayer(layer);});
+    updateRouteLegend();
+  });
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&currentCountry&&!map.isPopupOpen())location.hash=currentState?`country=${HOME_COUNTRY}`:'';});
   map.on('popupclose',event=>{if(event.popup===activityPopup){activeDay=null;updateRouteStyles();}});
   map.on('zoom',updateBasemap);
@@ -309,10 +347,11 @@
     fetch('data/us-states.json').then(response=>{if(!response.ok)throw Error('State geography unavailable');return response.json();}),
     fetch('data/world.json').then(response=>{if(!response.ok)throw Error('Geography unavailable');return response.json();}),
     fetch(`data/activities.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Activities unavailable');return response.json();}),
-    fetch(`data/transport.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Transport unavailable');return response.json();})
-  ]).then(([states,world,activities,connections])=>{
-    journeys=activities.journeys||[];transport=connections.routes||[];
-    renderStates(states);renderWorld(world);renderCities();$('#map-status').textContent='';route();window.ATLAS_READY=true;
+    fetch(`data/transport.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Transport unavailable');return response.json();}),
+    fetch(`data/flights.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Flights unavailable');return response.json();})
+  ]).then(([states,world,activities,connections,flights])=>{
+    journeys=activities.journeys||[];transport=connections.routes||[];flightLog=flights;
+    renderStates(states);renderWorld(world);renderFlights();renderCities();$('#map-status').textContent='';route();window.ATLAS_READY=true;
     window.ATLAS_MAP=map;
   }).catch(error=>{$('#map-status').textContent='Map unavailable. Refresh to retry.';console.error(error);});
 })();

@@ -30,4 +30,10 @@ Transport connections in `data/transport.json` retain ticket-backed dates/operat
 
 Map details use Esri World Street Map at every zoom, with cities, roads and water and no elevation layer. Country shading fades continuously between zoom levels 2.5 and 5. Wheel, trackpad, and zoom buttons interpolate a fractional camera; touch pinch does not snap to fixed levels.
 
+## Flights
+
+The user-provided `flights.csv` contains 122 flights from January 9, 2021 through September 17, 2026, across 63 airports. `data/flights.json` preserves each flight's date, number, direction, logged duration, and airline when supplied. The 86 airport pairs group repeated flights in scrollable popups. The Flights button toggles the overlay; airport markers appear as the map zooms in. Airport arrivals/departures do not add city, state, or country visit claims.
+
+Dashed blue lines are approximate great-circle connections, not recorded flight paths. Dateline crossings are split to avoid drawing lines across the map. Airport coordinates come from the public-domain OurAirports dataset, with the 63 required entries saved in `data/airports.json`. No airport lookup or routing service is called by the browser. Reimport with `python atlas/scripts/import_flights.py PATH_TO_FLIGHTS.csv`; add coordinates to `data/airports.json` first when an export introduces a new airport. The uploaded CSV stays outside the public repository; seat numbers, registrations, notes, and internal export IDs are not published.
+
 US boundaries are packaged from us-atlas (US Census geometry). All 50 states can be explored, with 22 user-confirmed visited states, their cities/areas, and 12 national parks in `US_VISITS`. These are independent place markers, without invented US travel connections. State shading fades into the same detail map as the camera zooms. Visited-city labels use screen-space collision detection and alternative placements, and clicking a city does not open a duplicate name popup. Giza is omitted at the user’s request.

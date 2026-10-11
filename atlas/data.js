@@ -522,7 +522,7 @@ const US_VISITS = {
 };
 
 // Route colors are shared by recorded GPS tracks and confirmed transport legs.
-const ROUTE_MODES={hiking:{name:'Hike',color:'#859650'},walking:{name:'Walk',color:'#527b58'},running:{name:'Run',color:'#bd5574'},cycling:{name:'Bike',color:'#287f96'},Train:{name:'Train',color:'#8368a6'},Bus:{name:'Bus',color:'#b76c43'},Drive:{name:'Drive',color:'#b28c2c'},Ferry:{name:'Ferry',color:'#3269ac'}};
+const ROUTE_MODES={hiking:{name:'Hike',color:'#859650'},walking:{name:'Walk',color:'#527b58'},running:{name:'Run',color:'#bd5574'},cycling:{name:'Bike',color:'#287f96'},Train:{name:'Train',color:'#8368a6'},Bus:{name:'Bus',color:'#b76c43'},Drive:{name:'Drive',color:'#b28c2c'},Ferry:{name:'Ferry',color:'#3269ac'},Flight:{name:'Flight',color:'#427ab2'}};
 
 const CONFIRMED_ROUTE_PLACES={
  '756':[{name:'Bern',coords:[46.948,7.4474]},{name:'Lucerne',coords:[47.0502,8.3093]},{name:'Chur',coords:[46.8508,9.532]}],

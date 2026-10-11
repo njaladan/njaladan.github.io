@@ -1,0 +1,510 @@
+{
+  "source": "OurAirports (public domain)",
+  "source_url": "https://ourairports.com/data/",
+  "airports": {
+    "AMM": {
+      "name": "Queen Alia International Airport",
+      "city": "Amman",
+      "coords": [
+        31.722601,
+        35.993198
+      ]
+    },
+    "AQJ": {
+      "name": "King Hussein International Airport",
+      "city": "Aqaba",
+      "coords": [
+        29.611601,
+        35.018101
+      ]
+    },
+    "AVL": {
+      "name": "Asheville Regional Airport",
+      "city": "Asheville",
+      "coords": [
+        35.435488,
+        -82.541853
+      ]
+    },
+    "ATH": {
+      "name": "Athens Eleftherios Venizelos International Airport",
+      "city": "Athens",
+      "coords": [
+        37.936401,
+        23.9445
+      ]
+    },
+    "BGR": {
+      "name": "Bangor International Airport",
+      "city": "Bangor",
+      "coords": [
+        44.806364,
+        -68.826668
+      ]
+    },
+    "BCN": {
+      "name": "Josep Tarradellas Barcelona-El Prat Airport",
+      "city": "Barcelona",
+      "coords": [
+        41.2971,
+        2.07846
+      ]
+    },
+    "BGO": {
+      "name": "Bergen Airport, Flesland",
+      "city": "Bergen",
+      "coords": [
+        60.2934,
+        5.21814
+      ]
+    },
+    "BOS": {
+      "name": "Boston Logan International Airport",
+      "city": "Boston",
+      "coords": [
+        42.36197,
+        -71.0079
+      ]
+    },
+    "BUF": {
+      "name": "Buffalo Niagara International Airport",
+      "city": "Buffalo",
+      "coords": [
+        42.940498,
+        -78.732201
+      ]
+    },
+    "CAI": {
+      "name": "Cairo International Airport",
+      "city": "Cairo",
+      "coords": [
+        30.111534,
+        31.396694
+      ]
+    },
+    "MDW": {
+      "name": "Chicago Midway International Airport",
+      "city": "Chicago",
+      "coords": [
+        41.785999,
+        -87.752403
+      ]
+    },
+    "ORD": {
+      "name": "Chicago O'Hare International Airport",
+      "city": "Chicago",
+      "coords": [
+        41.9786,
+        -87.9048
+      ]
+    },
+    "DEL": {
+      "name": "Indira Gandhi International Airport",
+      "city": "Delhi",
+      "coords": [
+        28.55563,
+        77.09519
+      ]
+    },
+    "DEN": {
+      "name": "Denver International Airport",
+      "city": "Denver",
+      "coords": [
+        39.860027,
+        -104.673792
+      ]
+    },
+    "DTW": {
+      "name": "Detroit Metropolitan Wayne County Airport",
+      "city": "Detroit",
+      "coords": [
+        42.21377,
+        -83.353786
+      ]
+    },
+    "FEZ": {
+      "name": "Fes Saïss International Airport",
+      "city": "Fes",
+      "coords": [
+        33.927299,
+        -4.97796
+      ]
+    },
+    "FLL": {
+      "name": "Fort Lauderdale Hollywood International Airport",
+      "city": "Fort Lauderdale",
+      "coords": [
+        26.072599,
+        -80.152702
+      ]
+    },
+    "GVA": {
+      "name": "Geneva International Airport",
+      "city": "Geneva",
+      "coords": [
+        46.238098,
+        6.10895
+      ]
+    },
+    "HKG": {
+      "name": "Hong Kong International Airport",
+      "city": "Hong Kong",
+      "coords": [
+        22.31184,
+        113.914862
+      ]
+    },
+    "IAH": {
+      "name": "George Bush Intercontinental Airport",
+      "city": "Houston",
+      "coords": [
+        29.9844,
+        -95.3414
+      ]
+    },
+    "IST": {
+      "name": "İstanbul Airport",
+      "city": "Istanbul",
+      "coords": [
+        41.274874,
+        28.732136
+      ]
+    },
+    "JDH": {
+      "name": "Jodhpur Airport",
+      "city": "Jodhpur",
+      "coords": [
+        26.251101,
+        73.048897
+      ]
+    },
+    "KEF": {
+      "name": "Keflavik International Airport",
+      "city": "Keflavik",
+      "coords": [
+        63.985001,
+        -22.6056
+      ]
+    },
+    "LAS": {
+      "name": "Harry Reid International Airport",
+      "city": "Las Vegas",
+      "coords": [
+        36.083361,
+        -115.151817
+      ]
+    },
+    "LGW": {
+      "name": "London Gatwick Airport",
+      "city": "London",
+      "coords": [
+        51.148744,
+        -0.185739
+      ]
+    },
+    "LHR": {
+      "name": "London Heathrow Airport",
+      "city": "London",
+      "coords": [
+        51.470748,
+        -0.459909
+      ]
+    },
+    "LTN": {
+      "name": "London Luton Airport",
+      "city": "London",
+      "coords": [
+        51.874699,
+        -0.368333
+      ]
+    },
+    "LAX": {
+      "name": "Los Angeles International Airport",
+      "city": "Los Angeles",
+      "coords": [
+        33.942501,
+        -118.407997
+      ]
+    },
+    "RAK": {
+      "name": "Marrakesh Menara Airport",
+      "city": "Marrakech",
+      "coords": [
+        31.604807,
+        -8.035788
+      ]
+    },
+    "MEX": {
+      "name": "Mexico City Benito Juárez International Airport",
+      "city": "Mexico City",
+      "coords": [
+        19.435822,
+        -99.07033
+      ]
+    },
+    "MIA": {
+      "name": "Miami International Airport",
+      "city": "Miami",
+      "coords": [
+        25.796011,
+        -80.289751
+      ]
+    },
+    "MXP": {
+      "name": "Milan Malpensa International Airport",
+      "city": "Milan",
+      "coords": [
+        45.6306,
+        8.72811
+      ]
+    },
+    "MSP": {
+      "name": "Minneapolis–Saint Paul International Airport / Wold–Chamberlain Field",
+      "city": "Minneapolis",
+      "coords": [
+        44.880081,
+        -93.221741
+      ]
+    },
+    "MTY": {
+      "name": "Monterrey International Airport",
+      "city": "Monterrey",
+      "coords": [
+        25.778521,
+        -100.106989
+      ]
+    },
+    "YUL": {
+      "name": "Montreal / Pierre Elliott Trudeau International Airport",
+      "city": "Montreal",
+      "coords": [
+        45.467837,
+        -73.742294
+      ]
+    },
+    "BOM": {
+      "name": "Chhatrapati Shivaji Maharaj International Airport",
+      "city": "Mumbai",
+      "coords": [
+        19.088699,
+        72.867897
+      ]
+    },
+    "NAP": {
+      "name": "Naples International Airport",
+      "city": "Naples",
+      "coords": [
+        40.886002,
+        14.2908
+      ]
+    },
+    "BNA": {
+      "name": "Nashville International Airport",
+      "city": "Nashville",
+      "coords": [
+        36.1245,
+        -86.6782
+      ]
+    },
+    "MSY": {
+      "name": "Louis Armstrong New Orleans International Airport",
+      "city": "New Orleans",
+      "coords": [
+        29.993401,
+        -90.264673
+      ]
+    },
+    "JFK": {
+      "name": "John F. Kennedy International Airport",
+      "city": "New York",
+      "coords": [
+        40.639447,
+        -73.779317
+      ]
+    },
+    "LGA": {
+      "name": "LaGuardia Airport",
+      "city": "New York",
+      "coords": [
+        40.777199,
+        -73.872597
+      ]
+    },
+    "EWR": {
+      "name": "Newark Liberty International Airport",
+      "city": "Newark",
+      "coords": [
+        40.6894,
+        -74.170545
+      ]
+    },
+    "OAK": {
+      "name": "Oakland San Francisco Bay Airport",
+      "city": "Oakland",
+      "coords": [
+        37.720085,
+        -122.221184
+      ]
+    },
+    "MCO": {
+      "name": "Orlando International Airport",
+      "city": "Orlando",
+      "coords": [
+        28.429399,
+        -81.308998
+      ]
+    },
+    "OSL": {
+      "name": "Oslo-Gardermoen International Airport",
+      "city": "Oslo",
+      "coords": [
+        60.193901,
+        11.1004
+      ]
+    },
+    "PHX": {
+      "name": "Phoenix Sky Harbor International Airport",
+      "city": "Phoenix",
+      "coords": [
+        33.435302,
+        -112.005905
+      ]
+    },
+    "PIT": {
+      "name": "Pittsburgh International Airport",
+      "city": "Pittsburgh",
+      "coords": [
+        40.491501,
+        -80.232903
+      ]
+    },
+    "PRG": {
+      "name": "Václav Havel Airport Prague",
+      "city": "Prague",
+      "coords": [
+        50.100874,
+        14.259911
+      ]
+    },
+    "PNT": {
+      "name": "Lieutenant Julio Gallardo Airport",
+      "city": "Puerto Natales",
+      "coords": [
+        -51.67067,
+        -72.529078
+      ]
+    },
+    "CIA": {
+      "name": "Ciampino–G. B. Pastine International Airport",
+      "city": "Rome",
+      "coords": [
+        41.798769,
+        12.595331
+      ]
+    },
+    "FCO": {
+      "name": "Rome–Fiumicino Leonardo da Vinci International Airport",
+      "city": "Rome",
+      "coords": [
+        41.804532,
+        12.251998
+      ]
+    },
+    "SLC": {
+      "name": "Salt Lake City International Airport",
+      "city": "Salt Lake City",
+      "coords": [
+        40.78886,
+        -111.979866
+      ]
+    },
+    "SFO": {
+      "name": "San Francisco International Airport",
+      "city": "San Francisco",
+      "coords": [
+        37.619806,
+        -122.374821
+      ]
+    },
+    "SJC": {
+      "name": "Mineta San Jose International Airport",
+      "city": "San Jose",
+      "coords": [
+        37.362452,
+        -121.929188
+      ]
+    },
+    "SJU": {
+      "name": "Luis Munoz Marin International Airport",
+      "city": "San Juan",
+      "coords": [
+        18.4394,
+        -66.001801
+      ]
+    },
+    "SNA": {
+      "name": "John Wayne Orange County International Airport",
+      "city": "Santa Ana",
+      "coords": [
+        33.675063,
+        -117.869281
+      ]
+    },
+    "SCL": {
+      "name": "Comodoro Arturo Merino Benítez International Airport",
+      "city": "Santiago",
+      "coords": [
+        -33.393002,
+        -70.785797
+      ]
+    },
+    "SEA": {
+      "name": "Seattle–Tacoma International Airport",
+      "city": "Seattle",
+      "coords": [
+        47.447943,
+        -122.310276
+      ]
+    },
+    "STL": {
+      "name": "St. Louis Lambert International Airport",
+      "city": "St Louis",
+      "coords": [
+        38.748697,
+        -90.370003
+      ]
+    },
+    "HND": {
+      "name": "Tokyo Haneda International Airport",
+      "city": "Tokyo",
+      "coords": [
+        35.549678,
+        139.786958
+      ]
+    },
+    "TUN": {
+      "name": "Tunis Carthage International Airport",
+      "city": "Tunis",
+      "coords": [
+        36.851002,
+        10.2272
+      ]
+    },
+    "VIE": {
+      "name": "Vienna International Airport",
+      "city": "Vienna",
+      "coords": [
+        48.110298,
+        16.5697
+      ]
+    },
+    "DCA": {
+      "name": "Ronald Reagan Washington National Airport",
+      "city": "Washington",
+      "coords": [
+        38.8521,
+        -77.037697
+      ]
+    }
+  }
+}
