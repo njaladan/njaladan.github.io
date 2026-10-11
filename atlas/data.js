@@ -520,3 +520,17 @@ const US_VISITS = {
   '50': {name:'Vermont', cities:[['Killington',43.6045,-72.8201],['Weston / Okemo',43.2829,-72.7943]], parks:[]},
   '53': {name:'Washington', cities:[['Seattle',47.6062,-122.3321]], parks:[['Mount Rainier',46.8523,-121.7603],['Olympic',47.8021,-123.6044]]}
 };
+
+// Route colors are shared by recorded GPS tracks and confirmed transport legs.
+const ROUTE_MODES={hiking:{name:'Hike',color:'#859650'},cycling:{name:'Bike',color:'#287f96'},Train:{name:'Train',color:'#8368a6'},Bus:{name:'Bus',color:'#b76c43'},Drive:{name:'Drive',color:'#b28c2c'}};
+
+const CONFIRMED_ROUTE_PLACES={
+ '756':[{name:'Bern',coords:[46.948,7.4474]},{name:'Lucerne',coords:[47.0502,8.3093]},{name:'Chur',coords:[46.8508,9.532]}],
+ '380':[{name:'Bologna',coords:[44.4949,11.3426]}],
+ '578':[{name:'Myrdal',coords:[60.7351,7.1226]}],
+ '352':[{name:'Reykjavík',coords:[64.1466,-21.9426]},{name:'Múlagljúfur Canyon',coords:[63.9935,-16.394]}]
+};
+Object.entries(CONFIRMED_ROUTE_PLACES).forEach(([country,places])=>{
+ COUNTRY_PLACES[country]||=[];
+ places.forEach(place=>{if(!COUNTRY_PLACES[country].some(existing=>existing.name===place.name))COUNTRY_PLACES[country].push(place);});
+});

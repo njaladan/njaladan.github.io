@@ -7,16 +7,18 @@
   const worldBounds = L.latLngBounds([[-58,-178],[80,178]]);
   const colors = ['#b7774a','#4f7e8a','#807398','#859650','#bd825e','#62739d','#a26780'];
   const countryLayers = new Map(), tracks = [];
-  let currentCountry = null, currentState = null, stateLayer, activeDay = null, activeJourneys = [], journeys = [], transport = [], worldLayer, tinyLayer, contextData;
+  let currentCountry = null, currentState = null, stateLayer, activeDay = null, activeJourneys = [], journeys = [], transport = [], worldLayer, tinyLayer;
   const stateLayers=new Map(), cityMarkers=[];
-  const routeLayers = L.layerGroup(), transportLayers = L.layerGroup(), cityLayers = L.layerGroup(), contextLabels = L.layerGroup();
+  const routeLayers = L.layerGroup(), transportLayers = L.layerGroup(), cityLayers = L.layerGroup();
   const map = L.map('map', {zoomControl:false,scrollWheelZoom:false,dragging:true,touchZoom:true,zoomSnap:0,zoomDelta:.5,zoomAnimation:false,minZoom:1,maxZoom:17,worldCopyJump:true});
   const smoothZoom = installSmoothZoom(map, reduceMotion);
   map.createPane('states');map.getPane('states').style.zIndex=360;
+  map.createPane('routes');map.getPane('routes').style.zIndex=420;
   map.createPane('cities');map.getPane('cities').style.zIndex=450;
   map.createPane('countries');map.getPane('countries').style.zIndex=350;
   const terrain=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:19,maxZoom:19,noWrap:true,attribution:'Tiles © Esri · HERE, Garmin, USGS'}).addTo(map);
   map.attributionControl.setPrefix(false);
+  map.attributionControl.addAttribution('Routes © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>');
   map.attributionControl.addAttribution('<a href="https://www.naturalearthdata.com/">Natural Earth</a>');
   map.fitBounds(worldBounds,{padding:[15,15],animate:false});
   const activityPopup=L.popup({maxWidth:270,minWidth:180,className:'activity-popup'});
@@ -29,7 +31,6 @@
   const formatDuration = s => {const m=Math.round(s/60);return m<60?`${m}m`:`${Math.floor(m/60)}h ${m%60}m`;};
   const daySegments = day => day.segments || (day.coords ? [day.coords] : []);
   const dayPoints = day => daySegments(day).flat();
-  const allDays = () => activeJourneys.flatMap(journey=>journey.days||[]);
   function statePlaces(id) {
     const visit=US_VISITS[id];
     return [...visit.cities.map(([name,lat,lon])=>({name,coords:[lat,lon],state:id})),...visit.parks.map(([name,lat,lon])=>({name,coords:[lat,lon],park:true,state:id}))];
@@ -52,6 +53,9 @@
     const cityOpacity=Math.max(0,Math.min(1,(zoom-3.4)/1.2));
     map.getPane('cities').style.opacity=cityOpacity;
     map.getPane('cities').style.pointerEvents=cityOpacity>.1?'auto':'none';
+    const routeOpacity=Math.max(0,Math.min(1,(zoom-3)/1.5));
+    map.getPane('routes').style.opacity=routeOpacity;map.getPane('routes').style.pointerEvents=routeOpacity>.1?'auto':'none';
+    $('#route-legend').hidden=zoom<3.5||!$('#route-legend').textContent;
     map.getContainer().style.setProperty('--city-opacity',cityOpacity);
     if(cityOpacity<.1)cityMarkers.forEach(({marker})=>marker.closeTooltip());
   }
@@ -65,6 +69,7 @@
   }
   function countryBounds(id) {
     if(id===HOME_COUNTRY)return currentState?stateLayers.get(currentState).getBounds():L.latLngBounds([[24,-126],[50,-66]]);
+    if(id==='528')return L.latLngBounds([[50.75,3.25],[53.6,7.25]]);
     return countryLayers.get(geometryId(id)).getBounds();
   }
   function activityContent(day,journey,index) {
@@ -83,12 +88,12 @@
   function renderRoutes() {
     routeLayers.clearLayers();tracks.length=0;
     activeJourneys.forEach(journey=>(journey.days||[]).forEach((day,index)=>{
-      const color=colors[index%colors.length];
+      const color=ROUTE_MODES[day.type]?.color||colors[index%colors.length];
       daySegments(day).forEach(segment=>{
         if(segment.length<2)return;
-        const outline=L.polyline(segment,{color:'white',weight:6,opacity:.9,interactive:false}).addTo(routeLayers);
+        const outline=L.polyline(segment,{pane:'routes',color:'white',weight:6,opacity:.9,interactive:false}).addTo(routeLayers);
         const label=journey.id==='tmb'?`Day ${index+1}`:journey.name;
-        const line=L.polyline(segment,{color,weight:3.5,opacity:1,className:'activity-route'}).bindTooltip(label).on('click',event=>{
+        const line=L.polyline(segment,{pane:'routes',color,weight:3.5,opacity:1,className:'activity-route'}).bindTooltip(label).on('click',event=>{
           activeDay=day.id;updateRouteStyles();activityPopup.setLatLng(event.latlng).setContent(activityContent(day,journey,index)).openOn(map);
         }).addTo(routeLayers);
         accessibleRoute(line,day,journey,index,segment);
@@ -134,13 +139,23 @@
   }
   function renderTransport() {
     transportLayers.clearLayers();
-    transport.filter(trip=>trip.countries.includes(currentCountry)).forEach(trip=>{
-      const content=`<div class="route-popup"><strong>${escape(trip.name)}</strong><p>${escape(trip.mode)}${trip.operator?' · '+escape(trip.operator):''}</p><time>${trip.dates.map(escape).join(' · ')}</time><p class="route-note">Approximate connection${trip.stops.length>2?' · via '+escape(trip.stops.slice(1,-1).join(', ')):''}</p></div>`;
-      const line=L.polyline(trip.coords,{color:'#697c84',weight:2.5,opacity:.8,dashArray:'6 7',className:'transport-route'}).bindTooltip(escape(trip.name)).bindPopup(content,{className:'activity-popup',maxWidth:270}).addTo(transportLayers);
-      const node=line.getElement();
-      node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',`${trip.mode}: ${trip.name}`);
+    transport.forEach(trip=>{
+      const content=`<div class="route-popup"><strong>${escape(trip.name)}</strong><p>${escape(trip.mode)}${trip.operator?' · '+escape(trip.operator):''}</p>${trip.dates.length?`<time>${trip.dates.map(escape).join(' · ')}</time>`:''}${trip.stops.length>2?`<p>Via ${escape(trip.stops.slice(1,-1).join(', '))}</p>`:''}</div>`;
+      const color=ROUTE_MODES[trip.mode]?.color||'#697c84';
+      L.polyline(trip.coords,{pane:'routes',color:'white',weight:6,opacity:.85,interactive:false}).addTo(transportLayers);
+      const line=L.polyline(trip.coords,{pane:'routes',color,weight:3.5,opacity:1,className:'transport-route'}).bindTooltip(escape(trip.name)).bindPopup(content,{className:'activity-popup',maxWidth:270}).addTo(transportLayers);
+      const node=line.getElement();node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',`${trip.mode}: ${trip.name}`);
       node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();line.openPopup(L.latLng(trip.coords[Math.floor(trip.coords.length/2)]));}});
     });
+    updateRouteLegend();
+  }
+  function updateRouteLegend() {
+    const bounds=map.getBounds();
+    const types=new Set(transport.filter(trip=>L.latLngBounds(trip.coords).intersects(bounds)).map(trip=>trip.mode));
+    journeys.forEach(journey=>(journey.days||[]).forEach(day=>{if(dayPoints(day).length&&L.latLngBounds(dayPoints(day)).intersects(bounds))types.add(day.type);}));
+    const modes=[...types].filter(type=>ROUTE_MODES[type]);
+    $('#route-legend').innerHTML=modes.map(type=>`<span><i style="background:${ROUTE_MODES[type].color}"></i>${ROUTE_MODES[type].name}</span>`).join('');
+    $('#route-legend').hidden=map.getZoom()<3.5||!modes.length;
   }
   function setGeographyAccess() {
     document.querySelectorAll('.visited-country,.tiny-country').forEach(node=>node.setAttribute('tabindex',currentCountry?'-1':'0'));
@@ -149,7 +164,7 @@
     map.closePopup();currentCountry=id;activeDay=null;
     if(id!==HOME_COUNTRY)currentState=null;
     $('#back-us').hidden=!currentState;stateLayer.setStyle(styleState);
-    activeJourneys=journeys.filter(journey=>journey.countries.includes(id));
+    activeJourneys=journeys;
     document.body.dataset.view='country';
     $('#back-world').hidden=false;$('#country-title').hidden=false;$('#country-title').textContent=currentState?US_VISITS[currentState].name:countryName(id);
     document.title=`${currentState?US_VISITS[currentState].name:countryName(id)} — Atlas`;$('#map-status').textContent='';
@@ -157,11 +172,11 @@
     renderTransport();renderRoutes();renderCities();setGeographyAccess();updateBasemap();fitView(countryBounds(id),11,animate);
   }
   function showWorld(animate=true) {
-    smoothZoom.finish();map.closePopup();currentCountry=null;currentState=null;$('#back-us').hidden=true;stateLayer.setStyle(styleState);activeDay=null;activeJourneys=[];
+    smoothZoom.finish();map.closePopup();currentCountry=null;currentState=null;$('#back-us').hidden=true;stateLayer.setStyle(styleState);activeDay=null;activeJourneys=journeys;
     document.body.dataset.view='world';
     $('#back-world').hidden=true;$('#country-title').hidden=true;
     $('#map-status').textContent='';document.title='Atlas — Ganesh';
-    routeLayers.clearLayers();transportLayers.clearLayers();tracks.length=0;
+    renderTransport();renderRoutes();
     worldLayer.setStyle(styleCountry);tinyLayer.addTo(map);setGeographyAccess();
     if(animate){map.stop();map.flyToBounds(worldBounds,{padding:[15,15],duration:reduceMotion?0:1.25});}
     updateBasemap();
@@ -284,7 +299,7 @@
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&currentCountry&&!map.isPopupOpen())location.hash=currentState?`country=${HOME_COUNTRY}`:'';});
   map.on('popupclose',event=>{if(event.popup===activityPopup){activeDay=null;updateRouteStyles();}});
   map.on('zoom',updateBasemap);
-  map.on('moveend',declutterLabels);
+  map.on('moveend',()=>{declutterLabels();if(worldLayer)updateRouteLegend();});
   updateBasemap();
   map.on('resize',()=>{if(worldLayer){if(currentCountry)fitView(countryBounds(currentCountry),11);else showWorld();}});
   window.addEventListener('hashchange',()=>{if(worldLayer)route();});
