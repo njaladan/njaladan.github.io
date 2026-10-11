@@ -7,12 +7,16 @@
   const worldBounds = L.latLngBounds([[-58,-178],[80,178]]);
   const colors = ['#b7774a','#4f7e8a','#807398','#859650','#bd825e','#62739d','#a26780'];
   const countryLayers = new Map(), tracks = [];
-  let currentCountry = null, activeDay = null, activeJourneys = [], journeys = [], transport = [], worldLayer, tinyLayer, contextData;
+  let currentCountry = null, currentState = null, stateLayer, activeDay = null, activeJourneys = [], journeys = [], transport = [], worldLayer, tinyLayer, contextData;
+  const stateLayers=new Map(), cityMarkers=[];
   const routeLayers = L.layerGroup(), transportLayers = L.layerGroup(), cityLayers = L.layerGroup(), contextLabels = L.layerGroup();
   const map = L.map('map', {zoomControl:false,scrollWheelZoom:false,dragging:true,touchZoom:true,zoomSnap:0,zoomDelta:.5,zoomAnimation:false,minZoom:1,maxZoom:17,worldCopyJump:true});
   const smoothZoom = installSmoothZoom(map, reduceMotion);
+  map.createPane('states');map.getPane('states').style.zIndex=360;
+  map.createPane('cities');map.getPane('cities').style.zIndex=450;
   map.createPane('countries');map.getPane('countries').style.zIndex=350;
-  const terrain=L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png',{maxZoom:19,noWrap:true,attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
+  const terrain=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:13,maxZoom:17,noWrap:true,attribution:'Tiles © Esri · USGS, NGA, EPA, NPS'}).addTo(map);
+  const streets=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:17,noWrap:true,opacity:0,attribution:'Tiles © Esri'}).addTo(map);
   map.attributionControl.setPrefix(false);
   map.attributionControl.addAttribution('<a href="https://www.naturalearthdata.com/">Natural Earth</a>');
   map.fitBounds(worldBounds,{padding:[15,15],animate:false});
@@ -27,7 +31,11 @@
   const daySegments = day => day.segments || (day.coords ? [day.coords] : []);
   const dayPoints = day => daySegments(day).flat();
   const allDays = () => activeJourneys.flatMap(journey=>journey.days||[]);
-  const cities = () => COUNTRY_PLACES[currentCountry]||[];
+  function statePlaces(id) {
+    const visit=US_VISITS[id];
+    return [...visit.cities.map(([name,lat,lon])=>({name,coords:[lat,lon],state:id})),...visit.parks.map(([name,lat,lon])=>({name,coords:[lat,lon],park:true,state:id}))];
+  }
+  const cities = () => [...Object.entries(COUNTRY_PLACES).flatMap(([country,places])=>places.map(place=>({...place,country}))),...Object.keys(US_VISITS).flatMap(statePlaces)];
 
   function styleCountry(feature) {
     const id=String(feature.id),visited=isVisitedShape(id),home=id===HOME_COUNTRY;
@@ -35,7 +43,19 @@
     return {color:'#f5f7f8',weight:.7,opacity:1,fillColor:home?'#557b73':visited?'#b7774a':'#c8d0d5',fillOpacity:visited ? .8 : .25};
   }
   function updateBasemap() {
-    map.getPane('countries').style.opacity=Math.max(0,Math.min(1,(5-map.getZoom())/2.5));
+    const zoom=map.getZoom();
+    streets.setOpacity(Math.max(0,Math.min(1,(zoom-11.5)/1.5)));
+    const countryOpacity=Math.max(0,Math.min(1,(5-zoom)/2.5));
+    map.getPane('countries').style.opacity=countryOpacity;
+    map.getPane('countries').style.pointerEvents=countryOpacity>.1?'auto':'none';
+    const stateOpacity=Math.max(0,Math.min(1,(zoom-3.3)/1.2,(8-zoom)/2));
+    map.getPane('states').style.opacity=stateOpacity;
+    map.getPane('states').style.pointerEvents=stateOpacity>.1?'auto':'none';
+    const cityOpacity=Math.max(0,Math.min(1,(zoom-3.4)/1.2));
+    map.getPane('cities').style.opacity=cityOpacity;
+    map.getPane('cities').style.pointerEvents=cityOpacity>.1?'auto':'none';
+    map.getContainer().style.setProperty('--city-opacity',cityOpacity);
+    if(cityOpacity<.1)cityMarkers.forEach(({marker})=>marker.closeTooltip());
   }
   function navigate(id) {
     id=canonical(id);
@@ -46,7 +66,7 @@
     map.flyToBounds(bounds,{duration:reduceMotion||!animate?0:1.25,maxZoom,paddingTopLeft:[35,90],paddingBottomRight:[80,40]});
   }
   function countryBounds(id) {
-    if(id===HOME_COUNTRY)return L.latLngBounds([[24,-126],[50,-66]]);
+    if(id===HOME_COUNTRY)return currentState?stateLayers.get(currentState).getBounds():L.latLngBounds([[24,-126],[50,-66]]);
     return countryLayers.get(geometryId(id)).getBounds();
   }
   function activityContent(day,journey,index) {
@@ -79,12 +99,39 @@
     }));
   }
   function renderCities() {
-    cityLayers.clearLayers();
+    cityLayers.clearLayers();cityMarkers.length=0;
     cities().forEach(city=>{
-      const marker=L.circleMarker(city.coords,{radius:5,color:'white',weight:2,fillColor:'#364c60',fillOpacity:1,className:'city-marker'}).bindTooltip(escape(city.name),{permanent:true,direction:'right',offset:[8,0],className:'city-label'}).bindPopup(`<strong>${escape(city.name)}</strong>`,{className:'city-popup'}).addTo(cityLayers);
-      const node=marker.getElement();
-      node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',city.name);
-      node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();marker.openPopup();}});
+      const marker=L.circleMarker(city.coords,{pane:'cities',radius:5,color:'white',weight:2,fillColor:city.park?'#648243':'#364c60',fillOpacity:1,className:'city-marker'})
+        .bindTooltip(escape(city.name),{permanent:true,interactive:true,direction:'right',offset:[8,0],className:'city-label'}).addTo(cityLayers);
+      // A city already has a map label; clicking only reveals a hidden label.
+      const reveal=()=>{if(!marker.isTooltipOpen()){marker.openTooltip();const label=marker.getTooltip().getElement();if(label)label.style.visibility='visible';}};
+      marker.on('click',reveal);
+      const node=marker.getElement();node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',city.name+(city.park?' National park':''));
+      node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();reveal();}});
+      node.addEventListener('focus',reveal);
+      cityMarkers.push({marker,city});
+    });
+    declutterLabels();
+  }
+  function declutterLabels() {
+    const zoom=map.getZoom(),bounds=map.getBounds(),size=map.getSize();
+    const root=map.getContainer().getBoundingClientRect();
+    const occupied=[...document.querySelectorAll('.map-toolbar,.leaflet-control-zoom')].map(node=>node.getBoundingClientRect());
+    const visible=cityMarkers.filter(({city})=>bounds.contains(city.coords));
+    visible.sort((a,b)=>Number(b.city.state===currentState&&Boolean(currentState))-Number(a.city.state===currentState&&Boolean(currentState)));
+    cityMarkers.filter(item=>!visible.includes(item)).forEach(({marker})=>marker.closeTooltip());
+    visible.forEach(({marker})=>{
+      if(zoom<3.5){marker.closeTooltip();return;}
+      marker.openTooltip();const tooltip=marker.getTooltip(),node=tooltip.getElement();if(!node)return;
+      node.style.visibility='hidden';let placed=false;
+      for(const direction of ['right','left','top','bottom']) {
+        tooltip.options.direction=direction;tooltip.options.offset=L.point(direction==='right'?8:direction==='left'?-8:0,direction==='top'?-6:direction==='bottom'?6:0);tooltip.update();
+        const rect=node.getBoundingClientRect();
+        const inside=rect.left>=root.left+8&&rect.right<=root.left+size.x-8&&rect.top>=root.top+8&&rect.bottom<=root.top+size.y-25;
+        const collides=occupied.some(other=>rect.left<other.right+5&&rect.right+5>other.left&&rect.top<other.bottom+4&&rect.bottom+4>other.top);
+        if(inside&&!collides){occupied.push(rect);node.style.visibility='visible';placed=true;break;}
+      }
+      if(!placed)marker.closeTooltip();
     });
   }
   function renderTransport() {
@@ -102,28 +149,52 @@
   }
   function showCountry(id,animate=true) {
     map.closePopup();currentCountry=id;activeDay=null;
+    if(id!==HOME_COUNTRY)currentState=null;
+    $('#back-us').hidden=!currentState;stateLayer.setStyle(styleState);
     activeJourneys=journeys.filter(journey=>journey.countries.includes(id));
     document.body.dataset.view='country';
-    $('#back-world').hidden=false;$('#country-title').hidden=false;$('#country-title').textContent=countryName(id);
-    document.title=`${countryName(id)} — Atlas`;$('#map-status').textContent='';
+    $('#back-world').hidden=false;$('#country-title').hidden=false;$('#country-title').textContent=currentState?US_VISITS[currentState].name:countryName(id);
+    document.title=`${currentState?US_VISITS[currentState].name:countryName(id)} — Atlas`;$('#map-status').textContent='';
     worldLayer.setStyle(styleCountry);tinyLayer.remove();
     renderTransport();renderRoutes();renderCities();setGeographyAccess();updateBasemap();fitView(countryBounds(id),11,animate);
   }
   function showWorld(animate=true) {
-    smoothZoom.finish();map.closePopup();currentCountry=null;activeDay=null;activeJourneys=[];
+    smoothZoom.finish();map.closePopup();currentCountry=null;currentState=null;$('#back-us').hidden=true;stateLayer.setStyle(styleState);activeDay=null;activeJourneys=[];
     document.body.dataset.view='world';
     $('#back-world').hidden=true;$('#country-title').hidden=true;
     $('#map-status').textContent='';document.title='Atlas — Ganesh';
-    routeLayers.clearLayers();transportLayers.clearLayers();cityLayers.clearLayers();tracks.length=0;
+    routeLayers.clearLayers();transportLayers.clearLayers();tracks.length=0;
     worldLayer.setStyle(styleCountry);tinyLayer.addTo(map);setGeographyAccess();
     if(animate){map.stop();map.flyToBounds(worldBounds,{padding:[15,15],duration:reduceMotion?0:1.25});}
     updateBasemap();
   }
   function route() {
-    const raw=new URLSearchParams(location.hash.slice(1)).get('country');
+    const params=new URLSearchParams(location.hash.slice(1));
+    const raw=params.get('country');currentState=raw===HOME_COUNTRY&&US_VISITS[params.get('state')]?params.get('state'):null;
     const id=canonical(raw);
     if(id&&allowed(id))showCountry(id);
     else {if(raw)history.replaceState(null,'',location.pathname+location.search);showWorld(Boolean(currentCountry));}
+  }
+  function styleState(feature) {
+    const id=String(feature.id).padStart(2,'0'),visited=Boolean(US_VISITS[id]),selected=currentState===id;
+    return {color:selected?'#31594f':'#ffffff',weight:selected?2:1,fillColor:visited?'#557b73':'#c8d0d5',fillOpacity:currentState?(selected ? .25 : .07):(visited ? .55 : .18)};
+  }
+  function renderStates(states) {
+    const features=topojson.feature(states,states.objects.states).features.filter(feature=>!['11','60','66','69','72','78'].includes(String(feature.id).padStart(2,'0')));
+    stateLayer=L.geoJSON(features,{
+      pane:'states',style:styleState,
+      onEachFeature(feature,layer) {
+        const id=String(feature.id).padStart(2,'0'),visit=US_VISITS[id];
+        stateLayers.set(id,layer);layer.options.className='state-shape';
+        const label=visit?visit.name:feature.properties.name;
+        layer.bindTooltip(escape(label),{sticky:true});
+        const content=visit?`<strong>${escape(visit.name)}</strong><h2>Cities / areas visited</h2><p>${[...visit.cities.map(city=>city[0]),...(visit.areas||[])].map(escape).join(' · ')}</p>${visit.parks.length?`<h2>National parks visited</h2><p>${visit.parks.map(park=>escape(park[0])).join(' · ')}</p>`:''}`:`<strong>${escape(label)}</strong><p>No visits recorded</p>`;
+        layer.bindPopup(content,{className:'state-popup',maxWidth:290});
+        const select=()=>{if(visit){if(currentState===id)layer.openPopup();else location.hash=`country=${HOME_COUNTRY}&state=${id}`;}else layer.openPopup();};
+        layer.on('click',select);
+        layer.on('add',()=>{const node=layer.getElement();if(!node)return;node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',label+(visit?' — visited':''));node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();select();}});});
+      }
+    }).addTo(map);
   }
   function accessibleRoute(layer,day,journey,index,segment) {
     const node=layer.getElement();if(!node)return;
@@ -210,20 +281,23 @@
     tinyLayer.addTo(map);transportLayers.addTo(map);routeLayers.addTo(map);cityLayers.addTo(map);
 
   }
+  $('#back-us').addEventListener('click',()=>location.hash=`country=${HOME_COUNTRY}`);
   $('#back-world').addEventListener('click',()=>location.hash='');
-  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&currentCountry&&!map.isPopupOpen())location.hash='';});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&currentCountry&&!map.isPopupOpen())location.hash=currentState?`country=${HOME_COUNTRY}`:'';});
   map.on('popupclose',event=>{if(event.popup===activityPopup){activeDay=null;updateRouteStyles();}});
   map.on('zoom',updateBasemap);
+  map.on('moveend',declutterLabels);
   updateBasemap();
   map.on('resize',()=>{if(worldLayer){if(currentCountry)fitView(countryBounds(currentCountry),11);else showWorld();}});
   window.addEventListener('hashchange',()=>{if(worldLayer)route();});
   Promise.all([
+    fetch('data/us-states.json').then(response=>{if(!response.ok)throw Error('State geography unavailable');return response.json();}),
     fetch('data/world.json').then(response=>{if(!response.ok)throw Error('Geography unavailable');return response.json();}),
     fetch(`data/activities.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Activities unavailable');return response.json();}),
     fetch(`data/transport.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Transport unavailable');return response.json();})
-  ]).then(([world,activities,connections])=>{
+  ]).then(([states,world,activities,connections])=>{
     journeys=activities.journeys||[];transport=connections.routes||[];
-    renderWorld(world);$('#map-status').textContent='';route();window.ATLAS_READY=true;
+    renderStates(states);renderWorld(world);renderCities();$('#map-status').textContent='';route();window.ATLAS_READY=true;
     window.ATLAS_MAP=map;
   }).catch(error=>{$('#map-status').textContent='Map unavailable. Refresh to retry.';console.error(error);});
 })();

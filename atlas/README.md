@@ -24,4 +24,6 @@ Context is built with `python atlas/scripts/build_context.py SOURCE_DIRECTORY` f
 
 Transport connections in `data/transport.json` show ticket-backed endpoints, dates, and operators. Dashed lines are schematic connections, not recorded GPS paths. Public data excludes personal addresses, email identifiers, booking references, payment details, and airport-only layovers. Unconfirmed Eurail stops remain omitted.
 
-Map details use unlabeled CARTO Voyager tiles (OpenStreetMap data) at every zoom. Country shading fades continuously between zoom levels 2.5 and 5. Wheel, trackpad, and zoom buttons interpolate a fractional camera; touch pinch does not snap to fixed levels.
+Map details use Esri World Terrain Base at every zoom, with street-level WorldTopoMap detail fading in between levels 11.5 and 13. Country shading fades continuously between zoom levels 2.5 and 5. Wheel, trackpad, and zoom buttons interpolate a fractional camera; touch pinch does not snap to fixed levels.
+
+US boundaries are packaged from us-atlas (US Census geometry). All 50 states can be explored, with 22 user-confirmed visited states, their cities/areas, and 12 national parks in `US_VISITS`. These are independent place markers, without invented US travel connections. State shading fades into the same detail map as the camera zooms. Visited-city labels use screen-space collision detection and alternative placements, and clicking a city does not open a duplicate name popup. Giza is omitted at the user’s request.

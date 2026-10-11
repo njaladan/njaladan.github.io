@@ -65,13 +65,6 @@ const COUNTRY_PLACES = {
       ]
     },
     {
-      "name": "Giza",
-      "coords": [
-        29.9792,
-        31.1342
-      ]
-    },
-    {
       "name": "Luxor",
       "coords": [
         25.6872,
@@ -500,4 +493,30 @@ const COUNTRY_PLACES = {
       ]
     }
   ]
+};
+
+// State visits supplied by Ganesh. Coordinates are place centers, not a route.
+const US_VISITS = {
+  '06': {name:'California', cities:[['Berkeley',37.8715,-122.273],['San Francisco',37.7749,-122.4194],['San Jose',37.3382,-121.8863],['Los Angeles',34.0522,-118.2437],['San Diego',32.7157,-117.1611],['Fresno',36.7378,-119.7871],['Clovis',36.8252,-119.7029]], parks:[['Kings Canyon',36.8879,-118.5551],['Yosemite',37.7459,-119.5332],['Lassen Volcanic',40.4977,-121.4207],['Redwood',41.2132,-124.0046],['Sequoia',36.4864,-118.5658]]},
+  '08': {name:'Colorado', cities:[['Denver',39.7392,-104.9903],['Estes Park',40.3772,-105.5217],['Copper Mountain',39.5022,-106.1518],['Steamboat Springs',40.485,-106.8317]], parks:[['Rocky Mountain',40.3428,-105.6836]]},
+  '09': {name:'Connecticut', cities:[['New Haven',41.3083,-72.9279]], parks:[]},
+  '12': {name:'Florida', cities:[['Orlando',28.5383,-81.3792],['Kissimmee',28.2919,-81.4076],['Miami',25.7617,-80.1918]], parks:[]},
+  '13': {name:'Georgia', cities:[['Atlanta',33.749,-84.388]], parks:[]},
+  '17': {name:'Illinois', cities:[['Chicago',41.8781,-87.6298]], parks:[]},
+  '22': {name:'Louisiana', cities:[['New Orleans',29.9511,-90.0715]], parks:[]},
+  '23': {name:'Maine', cities:[['Bangor',44.8016,-68.7712],['Bar Harbor',44.3876,-68.2039]], parks:[['Acadia',44.3386,-68.2733]]},
+  '25': {name:'Massachusetts', cities:[['Boston',42.3601,-71.0589],['Cambridge',42.3736,-71.1097]], parks:[]},
+  '29': {name:'Missouri', cities:[['St. Louis',38.627,-90.1994]], parks:[['Gateway Arch',38.6247,-90.1848]]},
+  '32': {name:'Nevada', cities:[['Las Vegas',36.1699,-115.1398]], parks:[]},
+  '34': {name:'New Jersey', cities:[['Jersey City',40.7178,-74.0431],['Newark',40.7357,-74.1724],['Princeton',40.3573,-74.6672]], parks:[]},
+  '36': {name:'New York', cities:[['NYC',40.7128,-74.006],['Mount Marcy / Adirondacks',44.1126,-73.9235]], parks:[]},
+  '37': {name:'North Carolina', cities:[['Asheville',35.5951,-82.5515]], parks:[]},
+  '41': {name:'Oregon', cities:[['Portland',45.5152,-122.6784],['Bend',44.0582,-121.3153],['Mount Hood',45.3735,-121.6959]], parks:[['Crater Lake',42.9446,-122.109]]},
+  '42': {name:'Pennsylvania', cities:[['Philadelphia',39.9526,-75.1652],['Pittsburgh',40.4406,-79.9959],['Havertown',39.9809,-75.3085]], parks:[]},
+  '44': {name:'Rhode Island', cities:[['Providence',41.824,-71.4128]], parks:[]},
+  '47': {name:'Tennessee', cities:[['Nashville',36.1627,-86.7816]], parks:[]},
+  '48': {name:'Texas', cities:[['Austin',30.2672,-97.7431]], parks:[]},
+  '49': {name:'Utah', cities:[['Salt Lake City',40.7608,-111.891]], areas:['ski areas'], parks:[['Zion',37.2982,-113.0263]]},
+  '50': {name:'Vermont', cities:[['Killington',43.6045,-72.8201],['Weston / Okemo',43.2829,-72.7943]], parks:[]},
+  '53': {name:'Washington', cities:[['Seattle',47.6062,-122.3321]], parks:[['Mount Rainier',46.8523,-121.7603],['Olympic',47.8021,-123.6044]]}
 };
