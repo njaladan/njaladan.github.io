@@ -14,4 +14,13 @@ const TMB_COUNTRIES = ['250','380','756'];
 // A viewing area, not a claimed route or itinerary.
 const TMB_BOUNDS = [[45.65,6.6],[46.15,7.2]];
 
-const COUNTRY_PLACES = {};
+// User-confirmed places, marked independently of the recorded cycling route.
+const COUNTRY_PLACES = {
+  '528': [
+    {name:'Amsterdam',coords:[52.3676,4.9041]},
+    {name:'Haarlem',coords:[52.3874,4.6462]},
+    {name:'Keukenhof',coords:[52.2712,4.5463]},
+    {name:'Zaanse Schans',coords:[52.4739,4.8162]},
+    {name:'Utrecht',coords:[52.0907,5.1214]}
+  ]
+};

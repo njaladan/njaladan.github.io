@@ -7,3 +7,15 @@ One persistent Leaflet map supports scroll zoom, dragging, touch gestures, and a
 Routes, city markers, and future photo pins belong on the map. There are no splash sections, itineraries, country lists, side panels, or example activity records. All visits to a country appear together. Activity data is in `data/activities.json`; city locations are in `data.js`. TMB routes will appear across France, Italy, and Switzerland when the actual exports are available. No Strava links are included.
 
 Natural Earth country geometry is packaged locally. Terrain tiles use Esri WorldTopoMap and require network access. Leaflet and TopoJSON retain their upstream license headers in `vendor/`.
+
+## Imported activity data
+
+The Netherlands ride is from the user-provided `11393102827.gpx`: May 12, 2024, 11,214 GPS points, Amsterdam to Utrecht. The five named places are user-confirmed visits, with place-center markers; they are not linked by an invented travel route.
+
+Distance is calculated from consecutive GPS points within each recorded segment. Elapsed time comes from track timestamps. Ascent is an estimate from positive altitude changes, shown with an approximate sign. These are GPX calculations, not official Strava statistics.
+
+Import another GPX with `python atlas/scripts/import_gpx.py TRACK.gpx --journey netherlands --name "Amsterdam ride" --countries 528 --timezone Europe/Amsterdam`. Existing activity IDs are replaced on reimport. GPX track gaps remain separate segments.
+
+TMB exports can use `--journey tmb --name "Tour du Mont Blanc" --countries 250,380,756 --timezone Europe/Paris`. TMB imports are checked against the Mont Blanc area. Routes show together by default and can be selected directly on the map.
+
+When changing the app or data, advance the asset version in `index.html` so GitHub Pages caches cannot mix old code with new markup or activity data.

@@ -61,7 +61,7 @@
   }
   function activityContent(day,journey,index) {
     const label=journey.id==='tmb'?`Day ${index+1}`:journey.name;
-    const stats=[['distance_m',formatDistance,'Distance'],['elapsed_s',formatDuration,'Elapsed time'],['elevation_m',n=>`${Math.round(n).toLocaleString()} m`,'GPX ascent']];
+    const stats=[['distance_m',formatDistance,'Distance'],['elapsed_s',formatDuration,'Elapsed'],['elevation_m',n=>`~${Math.round(n).toLocaleString()} m`,'Ascent']];
     return `<div class="route-popup"><strong>${escape(label)}</strong><time datetime="${escape(day.date)}">${escape(day.date)}</time><div class="route-stats">${stats.filter(([field])=>Number.isFinite(day[field])).map(([field,format,name])=>`<div><b>${format(day[field])}</b><span>${name}</span></div>`).join('')}</div></div>`;
   }
   function updateRouteStyles() {
@@ -91,7 +91,10 @@
   function renderCities() {
     cityLayers.clearLayers();
     cities().forEach(city=>{
-      L.circleMarker(city.coords,{radius:5,color:'white',weight:2,fillColor:'#364c60',fillOpacity:1,className:'city-marker'}).bindTooltip(escape(city.name),{permanent:true,direction:'right',offset:[8,0],className:'city-label'}).bindPopup(`<strong>${escape(city.name)}</strong>`,{className:'city-popup'}).addTo(cityLayers);
+      const marker=L.circleMarker(city.coords,{radius:5,color:'white',weight:2,fillColor:'#364c60',fillOpacity:1,className:'city-marker'}).bindTooltip(escape(city.name),{permanent:true,direction:'right',offset:[8,0],className:'city-label'}).bindPopup(`<strong>${escape(city.name)}</strong>`,{className:'city-popup'}).addTo(cityLayers);
+      const node=marker.getElement();
+      node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',city.name);
+      node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();marker.openPopup();}});
     });
   }
   function setGeographyAccess() {
