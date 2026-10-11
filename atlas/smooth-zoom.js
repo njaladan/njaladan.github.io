@@ -14,7 +14,7 @@ function installSmoothZoom(map, reduceMotion) {
     target = map.getZoom();
   }
   function tick(time) {
-    const elapsed = Math.min(time - lastTime || 16, 64);
+    const elapsed = lastTime === null ? 16 : Math.max(1, Math.min(time - lastTime, 64));
     lastTime = time;
     const current = map.getZoom();
     const next = current + (target - current) * (reduceMotion ? 1 : 1 - Math.exp(-elapsed / 65));
@@ -36,7 +36,7 @@ function installSmoothZoom(map, reduceMotion) {
     anchor = map.containerPointToLatLng(cursor);
     point = cursor;
     target = clamp(target + delta);
-    if (frame === null) { lastTime = performance.now(); frame = requestAnimationFrame(tick); }
+    if (frame === null) { lastTime = null; frame = requestAnimationFrame(tick); }
   }
   function wheel(event) {
     // Browser pinch-to-zoom on trackpads arrives as a Ctrl-wheel event.
