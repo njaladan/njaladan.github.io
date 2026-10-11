@@ -3,6 +3,7 @@
   const $ = selector => document.querySelector(selector);
   const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const assetVersion = new URL(document.querySelector('script[src^="app.js"]').src).searchParams.get('v') || '1';
   const worldBounds = L.latLngBounds([[-58,-178],[80,178]]);
   const colors = ['#b7774a','#4f7e8a','#807398','#859650','#bd825e','#62739d','#a26780'];
   const countryLayers = new Map(), tracks = [];
@@ -34,6 +35,7 @@
 
   function styleCountry(feature) {
     const id=String(feature.id),visited=isVisitedShape(id),home=id===HOME_COUNTRY;
+    if(id==='010')return {opacity:0,fillOpacity:0};
     if(currentCountry) return {color:'#89959e',weight:.8,opacity:id===geometryId(currentCountry)? .65 : 0,fillOpacity:0};
     return {color:'#f5f7f8',weight:.7,opacity:1,fillColor:home?'#557b73':visited?'#b7774a':'#c8d0d5',fillOpacity:visited ? .95 : .8};
   }
@@ -132,8 +134,45 @@
       node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();if(!currentCountry)navigate(id);}});
     });
   }
+  // Split dateline crossings so Leaflet does not draw Russia and Fiji across the world.
+  function splitDateline(feature) {
+    if(!['643','242'].includes(String(feature.id)))return feature;
+    const polygons=feature.geometry.type==='Polygon'?[feature.geometry.coordinates]:feature.geometry.coordinates;
+    const clip=(ring,edge,keep)=>{
+      const result=[];
+      ring.forEach((point,i)=>{
+        const previous=ring[(i+ring.length-1)%ring.length];
+        if(keep(previous[0])!==keep(point[0])){
+          const t=(edge-previous[0])/(point[0]-previous[0]);
+          result.push([edge,previous[1]+t*(point[1]-previous[1])]);
+        }
+        if(keep(point[0]))result.push(point);
+      });return result;
+    };
+    const pieces=[];
+    polygons.forEach(polygon=>{
+      const rings=polygon.map(ring=>{
+        let longitude=ring[0][0];
+        return ring.slice(0,-1).map(([lon,lat])=>{
+          while(lon-longitude>180)lon-=360;
+          while(lon-longitude< -180)lon+=360;
+          longitude=lon;return [lon,lat];
+        });
+      });
+      const longitudes=rings[0].map(point=>point[0]);
+      for(let part=Math.floor((Math.min(...longitudes)+180)/360);part<=Math.floor((Math.max(...longitudes)+180)/360);part++){
+        const west=-180+part*360,east=180+part*360;
+        const clipped=rings.map(ring=>clip(clip(ring,west,lon=>lon>=west),east,lon=>lon<=east));
+        if(clipped[0].length<3)continue;
+        pieces.push(clipped.filter(ring=>ring.length>=3).map(ring=>{
+          const shifted=ring.map(([lon,lat])=>[lon-part*360,lat]);return [...shifted,shifted[0]];
+        }));
+      }
+    });
+    return {...feature,geometry:{type:'MultiPolygon',coordinates:pieces}};
+  }
   function renderWorld(world) {
-    const features=topojson.feature(world,world.objects.countries).features;
+    const features=topojson.feature(world,world.objects.countries).features.map(splitDateline);
     features.forEach(feature=>{feature.id=String(feature.id);});
     worldLayer=L.geoJSON(features,{
       style:styleCountry,
@@ -166,7 +205,7 @@
   window.addEventListener('hashchange',()=>{if(worldLayer)route();});
   Promise.all([
     fetch('data/world.json').then(response=>{if(!response.ok)throw Error('Geography unavailable');return response.json();}),
-    fetch('data/activities.json').then(response=>{if(!response.ok)throw Error('Activities unavailable');return response.json();})
+    fetch(`data/activities.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Activities unavailable');return response.json();})
   ]).then(([world,activities])=>{
     journeys=activities.journeys||[];
     renderWorld(world);$('#map-status').textContent='';route();window.ATLAS_READY=true;
