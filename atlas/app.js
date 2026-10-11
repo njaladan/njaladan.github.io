@@ -7,19 +7,16 @@
   const worldBounds = L.latLngBounds([[-58,-178],[80,178]]);
   const colors = ['#b7774a','#4f7e8a','#807398','#859650','#bd825e','#62739d','#a26780'];
   const countryLayers = new Map(), tracks = [];
-  let currentCountry = null, activeDay = null, activeJourneys = [], journeys = [], worldLayer, tinyLayer;
-  const routeLayers = L.layerGroup(), cityLayers = L.layerGroup();
+  let currentCountry = null, activeDay = null, activeJourneys = [], journeys = [], worldLayer, tinyLayer, contextData;
+  const routeLayers = L.layerGroup(), cityLayers = L.layerGroup(), contextLabels = L.layerGroup();
   const map = L.map('map', {zoomControl:false,scrollWheelZoom:true,dragging:true,touchZoom:true,zoomSnap:.25,minZoom:1,maxZoom:17,worldCopyJump:true});
   L.control.zoom({position:'topright'}).addTo(map);
   map.attributionControl.setPrefix(false);
   map.attributionControl.addAttribution('<a href="https://www.naturalearthdata.com/">Natural Earth</a>');
   map.fitBounds(worldBounds,{padding:[15,15],animate:false});
-  const terrain = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-    maxZoom:17,noWrap:true,attribution:'Tiles © Esri · USGS, NGA, EPA, NPS'
-  });
-  let tileErrors = 0;
-  terrain.on('tileload',()=>{tileErrors=0;if($('#map-status').textContent==='Terrain unavailable.')$('#map-status').textContent='';});
-  terrain.on('tileerror',()=>{if(++tileErrors===8)$('#map-status').textContent='Terrain unavailable.';});
+  map.createPane('context');map.getPane('context').style.zIndex=410;map.getPane('context').style.pointerEvents='none';
+  map.createPane('context-labels');map.getPane('context-labels').style.zIndex=440;map.getPane('context-labels').style.pointerEvents='none';
+  const contextRenderer=L.canvas({pane:'context',padding:.5});
   const activityPopup=L.popup({maxWidth:270,minWidth:180,className:'activity-popup'});
   const canonical = id => id === '344' ? '156' : id;
   const allowed = id => Boolean(VISITED_COUNTRIES[id]) || id === HOME_COUNTRY;
@@ -36,13 +33,32 @@
   function styleCountry(feature) {
     const id=String(feature.id),visited=isVisitedShape(id),home=id===HOME_COUNTRY;
     if(id==='010')return {opacity:0,fillOpacity:0};
-    if(currentCountry) return {color:'#89959e',weight:.8,opacity:id===geometryId(currentCountry)? .65 : 0,fillOpacity:0};
+    if(currentCountry) return {color:'#c9d3d9',weight:.7,opacity:.55,fillColor:'#f7f7f2',fillOpacity:1};
     return {color:'#f5f7f8',weight:.7,opacity:1,fillColor:home?'#557b73':visited?'#b7774a':'#c8d0d5',fillOpacity:visited ? .95 : .8};
   }
   function updateBasemap() {
     const visible=Boolean(currentCountry)||map.getZoom()>3.5;
-    if(visible&&!map.hasLayer(terrain))terrain.addTo(map);
-    if(!visible&&map.hasLayer(terrain))map.removeLayer(terrain);
+    map.getPane('context').style.opacity=visible?'1':'0';
+    contextLabels.clearLayers();
+    if(!visible||!contextData)return;
+    const bounds=map.getBounds().pad(.1),occupied=[];
+    const visited=cities();
+    visited.forEach(city=>occupied.push(map.latLngToContainerPoint(city.coords)));
+    contextData.cities.filter(city=>bounds.contains(city.coords)).sort((a,b)=>a.rank-b.rank).forEach(city=>{
+      if(visited.some(place=>L.latLng(place.coords).distanceTo(city.coords)<6500))return;
+      const point=map.latLngToContainerPoint(city.coords);
+      if(occupied.some(other=>point.distanceTo(other)<65))return;
+      occupied.push(point);
+      L.marker(city.coords,{interactive:false,pane:'context-labels',icon:L.divIcon({className:'context-city',html:escape(city.name),iconSize:[100,16],iconAnchor:[0,8]})}).addTo(contextLabels);
+    });
+  }
+  function renderContext(data) {
+    contextData=data;
+    const geometry=(type,coordinates,style)=>L.geoJSON({type:'Feature',geometry:{type,coordinates},properties:{}},{interactive:false,renderer:contextRenderer,pane:'context',style}).addTo(map);
+    geometry('MultiPolygon',data.lakes,{stroke:false,fillColor:'#dceaf1',fillOpacity:1});
+    geometry('MultiLineString',data.rivers,{color:'#c9dfe9',weight:1.1,opacity:.85});
+    geometry('MultiLineString',data.roads,{color:'#d5d6cd',weight:1.1,opacity:.85});
+    contextLabels.addTo(map);
   }
   function navigate(id) {
     id=canonical(id);
@@ -55,7 +71,6 @@
   function countryBounds(id) {
     const points=[...allDays().flatMap(dayPoints),...cities().map(city=>city.coords)];
     if(points.length)return L.latLngBounds(points);
-    if(TMB_COUNTRIES.includes(id))return L.latLngBounds(TMB_BOUNDS);
     if(id===HOME_COUNTRY)return L.latLngBounds([[24,-126],[50,-66]]);
     return countryLayers.get(geometryId(id)).getBounds();
   }
@@ -174,8 +189,18 @@
     });
     return {...feature,geometry:{type:'MultiPolygon',coordinates:pieces}};
   }
+  function scopeFrance(feature) {
+    if(String(feature.id)!=='250')return [feature];
+    const polygons=feature.geometry.type==='Polygon'?[feature.geometry.coordinates]:feature.geometry.coordinates;
+    const metropolitan=polygons.filter(polygon=>polygon[0].every(([lon,lat])=>lon>=-6&&lon<=10&&lat>=40&&lat<=52));
+    const overseas=polygons.filter(polygon=>!metropolitan.includes(polygon));
+    return [
+      {...feature,geometry:{type:'MultiPolygon',coordinates:metropolitan}},
+      {...feature,id:'250-overseas',properties:{name:'France (overseas)'},geometry:{type:'MultiPolygon',coordinates:overseas}}
+    ];
+  }
   function renderWorld(world) {
-    const features=topojson.feature(world,world.objects.countries).features.map(splitDateline);
+    const features=topojson.feature(world,world.objects.countries).features.map(splitDateline).flatMap(scopeFrance);
     features.forEach(feature=>{feature.id=String(feature.id);});
     worldLayer=L.geoJSON(features,{
       style:styleCountry,
@@ -203,15 +228,16 @@
   $('#back-world').addEventListener('click',()=>location.hash='');
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&currentCountry&&!map.isPopupOpen())location.hash='';});
   map.on('popupclose',event=>{if(event.popup===activityPopup){activeDay=null;updateRouteStyles();}});
-  map.on('zoomend',updateBasemap);
+  map.on('moveend',updateBasemap);
   map.on('resize',()=>{if(worldLayer){if(currentCountry)fitView(countryBounds(currentCountry),11);else showWorld();}});
   window.addEventListener('hashchange',()=>{if(worldLayer)route();});
   Promise.all([
     fetch('data/world.json').then(response=>{if(!response.ok)throw Error('Geography unavailable');return response.json();}),
-    fetch(`data/activities.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Activities unavailable');return response.json();})
-  ]).then(([world,activities])=>{
+    fetch(`data/activities.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Activities unavailable');return response.json();}),
+    fetch(`data/context.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Context unavailable');return response.json();})
+  ]).then(([world,activities,context])=>{
     journeys=activities.journeys||[];
-    renderWorld(world);$('#map-status').textContent='';route();window.ATLAS_READY=true;
+    renderWorld(world);renderContext(context);$('#map-status').textContent='';route();window.ATLAS_READY=true;
     window.ATLAS_MAP=map;
   }).catch(error=>{$('#map-status').textContent='Map unavailable. Refresh to retry.';console.error(error);});
 })();

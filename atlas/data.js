@@ -1,6 +1,6 @@
-// User-confirmed countries. China represents Hong Kong only; the US is home.
+// User-confirmed places. Hong Kong SAR is scoped to its own geometry; the US is home.
 const VISITED_COUNTRIES = {
-  '124':{name:'Canada'}, '152':{name:'Chile'}, '156':{name:'China',scope:'Hong Kong',geometry:'344'},
+  '124':{name:'Canada'}, '152':{name:'Chile'}, '156':{name:'Hong Kong SAR',geometry:'344'},
   '203':{name:'Czechia'}, '818':{name:'Egypt'}, '250':{name:'France'},
   '300':{name:'Greece'}, '352':{name:'Iceland'}, '356':{name:'India'},
   '380':{name:'Italy'}, '392':{name:'Japan'}, '400':{name:'Jordan'},
@@ -10,9 +10,6 @@ const VISITED_COUNTRIES = {
   '336':{name:'Vatican City'}, '040':{name:'Austria'}
 };
 const HOME_COUNTRY = '840';
-const TMB_COUNTRIES = ['250','380','756'];
-// A viewing area, not a claimed route or itinerary.
-const TMB_BOUNDS = [[45.65,6.6],[46.15,7.2]];
 
 // User-confirmed places, marked independently of the recorded cycling route.
 const COUNTRY_PLACES = {
