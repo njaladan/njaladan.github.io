@@ -1,5 +1,17 @@
 // All personal trip details below are illustrative, not a record of Ganesh's actual itinerary.
 const PHOTO_ASSETS = {trail:'assets/trail.jpg',mountain:'assets/mountains.jpg',lake:'assets/lake.jpg',alpine:'assets/alpine.jpg',desert:'assets/desert.jpg'};
+// User-confirmed list. The US is displayed separately as home; Hong Kong is scoped explicitly.
+const VISITED_COUNTRIES = {
+  '124':{name:'Canada'}, '152':{name:'Chile'}, '156':{name:'China',scope:'Hong Kong'},
+  '203':{name:'Czechia'}, '818':{name:'Egypt'}, '250':{name:'France'},
+  '300':{name:'Greece'}, '352':{name:'Iceland'}, '356':{name:'India'},
+  '380':{name:'Italy'}, '392':{name:'Japan'}, '400':{name:'Jordan'},
+  '484':{name:'Mexico'}, '504':{name:'Morocco'}, '528':{name:'Netherlands'},
+  '578':{name:'Norway'}, '724':{name:'Spain'}, '756':{name:'Switzerland'},
+  '788':{name:'Tunisia'}, '792':{name:'Turkey'}, '826':{name:'United Kingdom'},
+  '336':{name:'Vatican City'}, '040':{name:'Austria'}
+};
+const HOME_COUNTRY = '840';
 const SAMPLE_CHILE = {
   region:'SOUTH AMERICA',name:'Chile',hero:'trail',subtitle:'From city streets to the edge of Patagonia.',intro:'Two example visits, collected in one place. Select a stop, photo, or activity to explore the map.',
   trips:[{id:'patagonia',name:'Patagonia · example visit',year:'Example visit A'},{id:'central',name:'Central Chile · example visit',year:'Example visit B'}],
