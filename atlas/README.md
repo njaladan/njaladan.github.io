@@ -21,3 +21,5 @@ TMB exports can use `--journey tmb --name "Tour du Mont Blanc" --countries 250,3
 When changing the app or data, advance the asset version in `index.html` so GitHub Pages caches cannot mix old code with new markup or activity data.
 
 Context is built with `python atlas/scripts/build_context.py SOURCE_DIRECTORY` from the Natural Earth GitHub GeoJSON files `ne_10m_roads`, `ne_50m_lakes`, `ne_50m_rivers_lake_centerlines`, and `ne_50m_populated_places`. Roads cover the visited regions and nearby European transit areas. These generalized features provide context, rather than street-level navigation.
+
+Transport connections in `data/transport.json` show ticket-backed endpoints, dates, and operators. Dashed lines are schematic connections, not recorded GPS paths. Public data excludes personal addresses, email identifiers, booking references, payment details, and airport-only layovers. Unconfirmed Eurail stops remain omitted.

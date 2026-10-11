@@ -7,8 +7,8 @@
   const worldBounds = L.latLngBounds([[-58,-178],[80,178]]);
   const colors = ['#b7774a','#4f7e8a','#807398','#859650','#bd825e','#62739d','#a26780'];
   const countryLayers = new Map(), tracks = [];
-  let currentCountry = null, activeDay = null, activeJourneys = [], journeys = [], worldLayer, tinyLayer, contextData;
-  const routeLayers = L.layerGroup(), cityLayers = L.layerGroup(), contextLabels = L.layerGroup();
+  let currentCountry = null, activeDay = null, activeJourneys = [], journeys = [], transport = [], worldLayer, tinyLayer, contextData;
+  const routeLayers = L.layerGroup(), transportLayers = L.layerGroup(), cityLayers = L.layerGroup(), contextLabels = L.layerGroup();
   const map = L.map('map', {zoomControl:false,scrollWheelZoom:true,dragging:true,touchZoom:true,zoomSnap:.25,minZoom:1,maxZoom:17,worldCopyJump:true});
   L.control.zoom({position:'topright'}).addTo(map);
   map.attributionControl.setPrefix(false);
@@ -69,8 +69,6 @@
     map.flyToBounds(bounds,{duration:reduceMotion||!animate?0:1.25,maxZoom,paddingTopLeft:[35,90],paddingBottomRight:[80,40]});
   }
   function countryBounds(id) {
-    const points=[...allDays().flatMap(dayPoints),...cities().map(city=>city.coords)];
-    if(points.length)return L.latLngBounds(points);
     if(id===HOME_COUNTRY)return L.latLngBounds([[24,-126],[50,-66]]);
     return countryLayers.get(geometryId(id)).getBounds();
   }
@@ -112,6 +110,16 @@
       node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();marker.openPopup();}});
     });
   }
+  function renderTransport() {
+    transportLayers.clearLayers();
+    transport.filter(trip=>trip.countries.includes(currentCountry)).forEach(trip=>{
+      const content=`<div class="route-popup"><strong>${escape(trip.name)}</strong><p>${escape(trip.mode)}${trip.operator?' · '+escape(trip.operator):''}</p><time>${trip.dates.map(escape).join(' · ')}</time><p class="route-note">Approximate connection${trip.stops.length>2?' · via '+escape(trip.stops.slice(1,-1).join(', ')):''}</p></div>`;
+      const line=L.polyline(trip.coords,{color:'#697c84',weight:2.5,opacity:.8,dashArray:'6 7',className:'transport-route'}).bindTooltip(escape(trip.name)).bindPopup(content,{className:'activity-popup',maxWidth:270}).addTo(transportLayers);
+      const node=line.getElement();
+      node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',`${trip.mode}: ${trip.name}`);
+      node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();line.openPopup(L.latLng(trip.coords[Math.floor(trip.coords.length/2)]));}});
+    });
+  }
   function setGeographyAccess() {
     document.querySelectorAll('.visited-country,.tiny-country').forEach(node=>node.setAttribute('tabindex',currentCountry?'-1':'0'));
   }
@@ -122,14 +130,14 @@
     $('#back-world').hidden=false;$('#country-title').hidden=false;$('#country-title').textContent=countryName(id);
     document.title=`${countryName(id)} — Atlas`;$('#map-status').textContent='';
     worldLayer.setStyle(styleCountry);tinyLayer.remove();
-    renderRoutes();renderCities();setGeographyAccess();updateBasemap();fitView(countryBounds(id),11,animate);
+    renderTransport();renderRoutes();renderCities();setGeographyAccess();updateBasemap();fitView(countryBounds(id),11,animate);
   }
   function showWorld(animate=true) {
     map.closePopup();currentCountry=null;activeDay=null;activeJourneys=[];
     document.body.dataset.view='world';
     $('#back-world').hidden=true;$('#country-title').hidden=true;
     $('#map-status').textContent='';document.title='Atlas — Ganesh';
-    routeLayers.clearLayers();cityLayers.clearLayers();tracks.length=0;
+    routeLayers.clearLayers();transportLayers.clearLayers();cityLayers.clearLayers();tracks.length=0;
     worldLayer.setStyle(styleCountry);tinyLayer.addTo(map);setGeographyAccess();
     if(animate){map.stop();map.flyToBounds(worldBounds,{padding:[15,15],duration:reduceMotion?0:1.25});}
     updateBasemap();
@@ -222,7 +230,7 @@
       const marker=L.circleMarker(item.coords,{radius:5,color:'white',weight:1.5,fillColor:'#b7774a',fillOpacity:1,className:'tiny-country'}).bindTooltip(countryName(item.id)).on('click',()=>navigate(item.id));
       accessibleCountry(marker,item.id,countryName(item.id));marker.addTo(tinyLayer);
     });
-    tinyLayer.addTo(map);routeLayers.addTo(map);cityLayers.addTo(map);
+    tinyLayer.addTo(map);transportLayers.addTo(map);routeLayers.addTo(map);cityLayers.addTo(map);
     $('#visited-count').textContent=Object.keys(VISITED_COUNTRIES).length;
   }
   $('#back-world').addEventListener('click',()=>location.hash='');
@@ -234,9 +242,10 @@
   Promise.all([
     fetch('data/world.json').then(response=>{if(!response.ok)throw Error('Geography unavailable');return response.json();}),
     fetch(`data/activities.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Activities unavailable');return response.json();}),
-    fetch(`data/context.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Context unavailable');return response.json();})
-  ]).then(([world,activities,context])=>{
-    journeys=activities.journeys||[];
+    fetch(`data/context.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Context unavailable');return response.json();}),
+    fetch(`data/transport.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Transport unavailable');return response.json();})
+  ]).then(([world,activities,context,connections])=>{
+    journeys=activities.journeys||[];transport=connections.routes||[];
     renderWorld(world);renderContext(context);$('#map-status').textContent='';route();window.ATLAS_READY=true;
     window.ATLAS_MAP=map;
   }).catch(error=>{$('#map-status').textContent='Map unavailable. Refresh to retry.';console.error(error);});
