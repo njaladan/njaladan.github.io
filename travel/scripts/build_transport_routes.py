@@ -7,7 +7,8 @@ ROOT=pathlib.Path(__file__).resolve().parents[1]
 STOPS={
  'Amsterdam':('528',[52.3791,4.9003]),'Haarlem':('528',[52.3879,4.6384]),'Utrecht':('528',[52.0894,5.1102]),'Keukenhof':('528',[52.2712,4.5463]),
  'Bern':('756',[46.948993,7.4390602]),'Lucerne':('756',[47.0502,8.3102]),'Chur':('756',[46.853,9.529]),'Tirano':('380',[46.2164,10.1678]),'Milan':('380',[45.4863,9.2045]),'Bologna':('380',[44.5061,11.3426]),'Florence':('380',[43.7765,11.2486]),'Rome':('380',[41.901,12.5016]),
- 'Oslo':('578',[59.9109,10.7526]),'Bergen':('578',[60.3904,5.3335]),'Cairo':('818',[30.0444,31.2357]),'Luxor':('818',[25.6872,32.6396])}
+ 'Oslo':('578',[59.9109,10.7526]),'Bergen':('578',[60.3904,5.3335]),'Cairo':('818',[30.0444,31.2357]),'Luxor':('818',[25.6872,32.6396]),
+ 'Tokyo':('392',[35.6812,139.7671]),'Odawara':('392',[35.2564,139.1551])}
 LEGS=[
  ('Amsterdam','Bern','train','europe',[[50.943,6.958],[50.107,8.663],[47.5464543,7.5884019]]),
  ('Bern','Lucerne','train','europe',[]),('Lucerne','Chur','train','europe',[[47.173,8.517],[47.202,8.778],[47.046,9.443]]),
@@ -15,7 +16,7 @@ LEGS=[
  ('Tirano','Milan','train','europe',[[45.856,9.397]]),('Milan','Bologna','train','europe',[]),('Bologna','Florence','train','europe',[]),('Florence','Rome','train','europe',[]),
  ('Amsterdam','Haarlem','train','netherlands',[]),('Utrecht','Haarlem','train','netherlands',[]),('Haarlem','Keukenhof','drive',None,[]),
  ('Oslo','Bergen','train','norway',[]),
- ('Cairo','Luxor','drive',None,[])]
+ ('Cairo','Luxor','drive',None,[]),('Tokyo','Odawara','train',None,[])]
 def meters(a,b):
  lat1,lon1,lat2,lon2=map(math.radians,(*a,*b));dlat=lat2-lat1;dlon=lon2-lon1
  return 6371000*2*math.asin(min(1,math.sqrt(math.sin(dlat/2)**2+math.cos(lat1)*math.cos(lat2)*math.sin(dlon/2)**2)))
@@ -90,7 +91,7 @@ def main():
   points=[STOPS[origin][1],*via,STOPS[dest][1]];mode=mode.title()
   if origin=='Tirano':points[0]=[46.21586,10.16743]
   coords=routed(points,mode,args.cache,slug)
-  name=origin+' → '+dest
+  name='Tokyo ↔ Odawara · Round trip' if origin=='Tokyo' and dest=='Odawara' else origin+' → '+dest
   if origin=='Chur' and dest=='Tirano':name+=' · Bernina Express'
   trip={'id':slug,'name':name,'stops':[origin,dest],'countries':list(dict.fromkeys([STOPS[origin][0],STOPS[dest][0]])),'mode':mode,'operator':'Bernina Express' if origin=='Chur' and dest=='Tirano' else '', 'dates':[], 'coords':simplify(coords),'geometry_source':'BRouter rail · OpenStreetMap' if mode=='Train' else 'OSRM driving · OpenStreetMap'}
   routes.append(trip);print(name,mode,len(coords),'vertices',flush=True)
