@@ -4,9 +4,29 @@ Static map at `/travel/`. Serve with `python -m http.server 8765 --directory tra
 
 One persistent Leaflet map supports scroll zoom, dragging, touch gestures, and animated navigation. Only the confirmed visited countries and US home are selectable. China is scoped to Hong Kong. Markers make Hong Kong and Vatican City accessible on the world map. The World map button zooms back out.
 
-Routes, city markers, and future photo pins belong on the map. There are no splash sections, itineraries, country lists, side panels, or example activity records. All visits to a country appear together. Activity data is in `data/activities.json`; city locations are in `data.js`. France, Italy, and Switzerland open their own maps. TMB gets a shared route view only when actual exports are present. No Strava links are included.
+Routes, city markers, and photo pins belong on the map. There are no splash sections, itineraries, country lists, side panels, or example activity records. All visits to a country appear together. Activity data is in `data/activities.json`; city locations are in `data.js`. France, Italy, and Switzerland open their own maps. TMB gets a shared route view only when actual exports are present. No Strava links are included.
 
 Country and state boundaries, visited places, recorded activity tracks, and transport paths are packaged locally. The neutral basemap uses white water, almost-white land, gray outlines, and high-level labels. Visited countries have a terracotta fill, with sage green for the US home; the fills fade between zoom levels 3.5 and 5 so close views remain neutral; it has no terrain or elevation layer. At regional/city zoom, a grayscale Esri Light Gray street basemap fades in to show roads, rivers, parks, nearby places, and landmarks. Detail tiles require network access; the packaged overview and travel overlays work independently of the provider. Background labels yield to visited-place labels. Country selection uses local geometry and an animated camera. Country clicks focus on recorded visits: nearby places are weighted by activity count, with each activity contributing once rather than by GPS point count. A neighborhood containing at least 60% of the visit/activity weight gets the initial focus; otherwise all recorded areas are framed. UK opens around London. Flights and cross-country transport endpoints do not affect focus. Pan and zoom remain free, without a whole-country button; the US initially opens at the national level. France uses metropolitan geometry for selection. Hong Kong SAR uses its own geometry. Leaflet and TopoJSON retain their upstream license headers in `vendor/`.
+
+## Photos
+
+Import a photo from the repository root:
+
+```sh
+python -m pip install -r travel/scripts/requirements-photos.txt
+python travel/scripts/import_photo.py /path/to/louve.jpg \
+  --id louvre-pyramid --place "Louvre · Paris" \
+  --lat 48.8606 --lon 2.3358 --country 250 \
+  --caption "The Louvre Pyramid"
+```
+
+The Louvre tag uses the pyramid's landmark coordinates, not an inferred camera position. Set coordinates explicitly for future photos. Optional `--date YYYY-MM-DD` records a confirmed date; dates are never invented. Reusing `--id` updates that photo without duplicating it. Advance the asset version in `index.html` after imports to refresh the photo manifest on GitHub Pages.
+
+`data/photos.json` stores place tags, coordinates, captions, optional dates, and asset dimensions/byte counts. `photos/PHOTO_ID/` stores a byte-for-byte copy of the original, including its source metadata, plus four responsive derivatives. The pipeline applies EXIF orientation, converts embedded color profiles to sRGB, strips derivative metadata, and uses Lanczos resizing without upscaling. Long-edge sizes are 128, 640, 1280, and 2400 pixels, with higher quality for larger views. Derivatives use WebP; at full resolution, an upright RGB JPEG without an embedded color profile keeps its original compressed image data when that is smaller, with metadata removed and no recompression. Asset names include content fingerprints to allow caching without stale replacements. Originals only load through the explicit download link. This is a static-site import workflow; the public map has no upload endpoint.
+
+Photo thumbnails start at zoom 3.5. Nearby photos group into one pin with a count; fixed pixel spacing reveals more pins as you zoom. Clicking a group zooms to its area; photos at the same location can be paged in their preview and viewer. Clicking a single photo focuses its landmark and opens a preview. The Photos button finds your photos from the overview. Visible map pins load only 128-pixel thumbnails; previews and the modal use responsive image sizes, and offscreen photos do not request image assets. Photo pins reserve space in the existing city/background label placement. An empty or unavailable photo manifest leaves the rest of the map usable.
+
+Verify ingestion with `python -m unittest discover -s tests -p 'test_photo_import.py'`. Browser regression coverage uses Playwright with Chromium: `python -m unittest discover -s tests -p 'test_travel_photos.py'`. Test images and tags are generated in temporary directories and never added to the public travel records.
 
 ## Imported activity data
 

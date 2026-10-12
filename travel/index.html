@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f8f9fa">
   <title>Travel — Ganesh</title>
-  <meta name="description" content="Places I've visited, with journeys and recorded activity routes.">
+  <meta name="description" content="Places I've visited, with photos, journeys and recorded activity routes.">
   <link rel="stylesheet" href="vendor/leaflet.css">
-  <link rel="stylesheet" href="style.css?v=18">
+  <link rel="stylesheet" href="style.css?v=22">
   <script defer src="vendor/topojson.min.js"></script>
   <script defer src="vendor/leaflet.js"></script>
-  <script defer src="data.js?v=21"></script>
-  <script defer src="smooth-zoom.js?v=18"></script>
-  <script defer src="basemap-labels.js?v=18"></script>
-  <script defer src="app.js?v=21"></script>
+  <script defer src="data.js?v=22"></script>
+  <script defer src="smooth-zoom.js?v=22"></script>
+  <script defer src="basemap-labels.js?v=22"></script>
+  <script defer src="photos.js?v=22"></script>
+  <script defer src="app.js?v=22"></script>
 </head>
 <body data-view="world">
   <header class="site-header">
@@ -26,10 +27,16 @@
       <button id="back-world" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 4-6 6 6 6M4 10h13"/></svg>World map</button>
       <button id="back-us" hidden>All states</button>
       <h1 id="country-title" hidden></h1>
+      <button id="show-photos" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h3l1-2h6l1 2h3v10H3z"/><circle cx="10" cy="11" r="3"/></svg><span>Photos</span></button>
     </div>
     <div id="route-legend" hidden aria-label="Route colors"></div>
     <p id="map-status" role="status">Loading map…</p>
   </main>
+  <dialog id="photo-viewer" aria-labelledby="photo-title">
+    <div class="photo-viewer-header"><div><h2 id="photo-title"></h2><p class="photo-caption" hidden></p></div><button class="photo-close" aria-label="Close photo">×</button></div>
+    <div class="photo-stage"><img alt=""><p class="photo-image-status" role="status"></p></div>
+    <div class="photo-viewer-footer"><div class="photo-navigation"><button class="photo-previous" aria-label="Previous photo">←</button><span class="photo-counter" aria-live="polite"></span><button class="photo-next" aria-label="Next photo">→</button></div><a class="photo-original" download>Download original</a></div>
+  </dialog>
   <footer class="site-footer">Logo courtesy of <a href="https://www.emersonhsieh.com/">Emerson Hsieh</a>.</footer>
 </body>
 </html>

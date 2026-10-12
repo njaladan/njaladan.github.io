@@ -1,0 +1,47 @@
+{
+  "photos": [
+    {
+      "id": "louvre-pyramid",
+      "place": "Louvre · Paris",
+      "coords": [
+        48.8606,
+        2.3358
+      ],
+      "caption": "The Louvre Pyramid",
+      "width": 1875,
+      "height": 1243,
+      "sha256": "464a6dd214fa73ccae89cd4f5d0732d237119cad0e410a6b025207c362aa1dde",
+      "original": {
+        "src": "photos/louvre-pyramid/464a6dd214fa73cc-original.jpg",
+        "bytes": 506827
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/louvre-pyramid/d4dc4bac6363248a-thumbnail.webp",
+          "width": 128,
+          "height": 85,
+          "bytes": 2182
+        },
+        "small": {
+          "src": "photos/louvre-pyramid/d4dc4bac6363248a-small.webp",
+          "width": 640,
+          "height": 424,
+          "bytes": 54920
+        },
+        "medium": {
+          "src": "photos/louvre-pyramid/d4dc4bac6363248a-medium.webp",
+          "width": 1280,
+          "height": 849,
+          "bytes": 349956
+        },
+        "large": {
+          "src": "photos/louvre-pyramid/d4dc4bac6363248a-large.jpg",
+          "width": 1875,
+          "height": 1243,
+          "bytes": 506783
+        }
+      },
+      "country": "250"
+    }
+  ]
+}

@@ -33,6 +33,22 @@
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',detailOptions)
   ]);
   const backgroundLabels = installBasemapLabels(map);
+  const atlasPhotos = installAtlasPhotos(map, {onLayout: () => declutterLabels(), focus: target => {
+    smoothZoom.finish();map.stop();
+    if(currentCountry&&target.country!==currentCountry) {
+      history.replaceState(null,'',location.pathname+location.search);showWorld(false);
+    }
+    $('#back-world').hidden=false;
+    const complete=()=>{map.off('moveend',complete);target.complete?.();};
+    if(target.complete)map.once('moveend',complete);
+    if(target.coords) {
+      const coords=L.latLng(target.coords),zoom=Math.min(17,target.zoom);
+      if(map.getCenter().equals(coords)&&map.getZoom()===zoom)complete();
+      else if(reduceMotion)map.setView(coords,zoom,{animate:false});
+      else map.flyTo(coords,zoom,{duration:1.1});
+    } else fitView(target.bounds,target.maxZoom);
+    return ()=>map.off('moveend',complete);
+  }});
   map.attributionControl.setPrefix(false);
   map.attributionControl.addAttribution('Routes © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>');
   map.attributionControl.addAttribution('<a href="https://www.naturalearthdata.com/">Natural Earth</a>');
@@ -185,6 +201,7 @@
     const zoom=map.getZoom(),bounds=map.getBounds(),size=map.getSize();
     const root=map.getContainer().getBoundingClientRect();
     const occupied=[...document.querySelectorAll('.map-toolbar,.leaflet-control-zoom,#route-legend')].filter(node=>!node.hidden).map(node=>node.getBoundingClientRect());
+    occupied.push(...atlasPhotos.occupied());
     const visible=cityMarkers.filter(({city})=>bounds.contains(city.coords));
     visible.sort((a,b)=>Number(b.city.state===currentState&&Boolean(currentState)||b.city.country===currentCountry)-Number(a.city.state===currentState&&Boolean(currentState)||a.city.country===currentCountry));
     cityMarkers.filter(item=>!visible.includes(item)).forEach(({marker})=>marker.closeTooltip());
@@ -256,6 +273,7 @@
     document.querySelectorAll('.visited-country,.tiny-country').forEach(node=>node.setAttribute('tabindex',currentCountry?'-1':'0'));
   }
   function showCountry(id,animate=true) {
+    atlasPhotos.cancel();
     map.closePopup();currentCountry=id;activeDay=null;
     worldLayer.eachLayer(layer=>layer.closeTooltip());
     stateLayer.eachLayer(layer=>layer.closeTooltip());
@@ -269,6 +287,7 @@
     renderTransport();renderRoutes();renderCities();setGeographyAccess();updateBasemap();fitView(countryBounds(id),12,animate);
   }
   function showWorld(animate=true) {
+    atlasPhotos.cancel();
     smoothZoom.finish();map.closePopup();currentCountry=null;currentState=null;$('#back-us').hidden=true;stateLayer.setStyle(styleState);activeDay=null;activeJourneys=journeys;
     document.body.dataset.view='world';
     $('#back-world').hidden=true;$('#country-title').hidden=true;
@@ -398,13 +417,15 @@
 
   }
   $('#back-us').addEventListener('click',()=>location.hash=`country=${HOME_COUNTRY}`);
-  $('#back-world').addEventListener('click',()=>location.hash='');
-  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&currentCountry&&!map.isPopupOpen())location.hash=currentState?`country=${HOME_COUNTRY}`:'';});
+  function returnToWorld() { if(location.hash)location.hash='';else showWorld(true); }
+  $('#back-world').addEventListener('click',returnToWorld);
+  $('#atlas-home').addEventListener('click',event=>{event.preventDefault();returnToWorld();});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!atlasPhotos.isOpen()&&currentCountry&&!map.isPopupOpen())location.hash=currentState?`country=${HOME_COUNTRY}`:'';});
   map.on('popupclose',event=>{if(event.popup===activityPopup){activeDay=null;updateRouteStyles();}});
   map.on('zoom',updateBasemap);
   map.on('moveend',()=>requestAnimationFrame(()=>{if(worldLayer)updateRouteLegend();declutterLabels();}));
   updateBasemap();
-  map.on('resize',()=>{if(worldLayer){if(currentCountry)fitView(countryBounds(currentCountry),12);else showWorld();}});
+  map.on('resize',()=>{if(worldLayer){updateBasemap();declutterLabels();}});
   window.addEventListener('hashchange',()=>{if(worldLayer)route();});
   Promise.all([
     fetch(`data/context.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Background labels unavailable');return response.json();}),
@@ -412,11 +433,14 @@
     fetch('data/world.json').then(response=>{if(!response.ok)throw Error('Geography unavailable');return response.json();}),
     fetch(`data/activities.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Activities unavailable');return response.json();}),
     fetch(`data/transport.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Transport unavailable');return response.json();}),
-    fetch(`data/flights.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Flights unavailable');return response.json();})
-  ]).then(([context,states,world,activities,connections,flights])=>{
+    fetch(`data/flights.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Flights unavailable');return response.json();}),
+    fetch(`data/photos.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Photos unavailable');return response.json();}).catch(error=>{console.warn(error);return {photos:[],unavailable:true};})
+  ]).then(([context,states,world,activities,connections,flights,photos])=>{
     journeys=activities.journeys||[];transport=connections.routes||[];flightLog=flights;
     backgroundLabels.cities(context.cities||[]);
     renderStates(states);renderWorld(world);renderFlights();renderCities();$('#map-status').textContent='';route();window.ATLAS_READY=true;
+    atlasPhotos.load(photos.photos||[]);
+    if(photos.unavailable)$('#map-status').textContent='Photos unavailable. Refresh to retry.';
     window.ATLAS_MAP=map;
   }).catch(error=>{$('#map-status').textContent='Map unavailable. Refresh to retry.';console.error(error);});
 })();
