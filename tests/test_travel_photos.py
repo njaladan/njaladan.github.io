@@ -139,6 +139,16 @@ class TravelPhotosTest(unittest.TestCase):
         self.assertEqual(center, after)
         self.assertFalse(any("-original." in url for url in self.requests))
 
+    def test_heic_original_link_preserves_pin_preview_and_webp_viewer(self):
+        photo = {**self.photos[0], "original": {"src": "photos/fixture-0/source-original.heic", "bytes": 100}}
+        page = self.page(photos=[photo], mobile=True)
+        page.locator(".photo-pin").tap()
+        page.get_by_role("button", name="View photo", exact=True).tap()
+        page.wait_for_function("document.querySelector('#photo-viewer img').complete && document.querySelector('#photo-viewer img').naturalWidth > 0")
+        self.assertEqual(page.locator(".photo-original").get_attribute("href"), photo["original"]["src"])
+        self.assertEqual(page.locator(".photo-original").get_attribute("download"), "fixture-0-original.heic")
+        self.assertFalse(any(url.endswith(".heic") for url in self.requests))
+
     def test_world_overview_keeps_separate_photo_groups_on_desktop_and_mobile(self):
         photos = [{**photo, "coords": coords} for photo, coords in zip(self.photos, [
             [48.86, 2.34], [22.32, 114.17], [-50.94, -73.41], [64.15, -21.94]])]

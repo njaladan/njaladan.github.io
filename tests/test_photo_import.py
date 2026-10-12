@@ -14,6 +14,25 @@ spec.loader.exec_module(module)
 
 
 class PhotoImportTest(unittest.TestCase):
+    def test_heic_original_is_preserved_with_browser_readable_derivatives(self):
+        from pillow_heif import register_heif_opener
+        register_heif_opener()
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "source.HEIC"
+            exif = Image.Exif()
+            exif[315] = "private source metadata"
+            Image.new("RGB", (900, 1200), "#bb9966").save(source, format="HEIF", exif=exif)
+            record = module.import_photo(source, place="Petra", lat=30.3285, lon=35.4444,
+                                         root=root, photo_id="petra")
+            self.assertEqual((root / record["original"]["src"]).read_bytes(), source.read_bytes())
+            self.assertTrue(record["original"]["src"].endswith(".heic"))
+            self.assertEqual((record["width"], record["height"]), (900, 1200))
+            for variant in record["variants"].values():
+                with Image.open(root / variant["src"]) as image:
+                    self.assertEqual(image.format, "WEBP")
+                    self.assertFalse(image.getexif())
+
     def test_original_is_preserved_and_derivatives_are_oriented_without_metadata(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

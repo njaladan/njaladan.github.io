@@ -64,6 +64,9 @@ def import_photo(source, *, place, lat, lon, photo_id=None, country=None, captio
     if date:
         datetime.strptime(date, "%Y-%m-%d")
     original = source.read_bytes()
+    if source.suffix.lower() in {".heic", ".heif"}:
+        from pillow_heif import register_heif_opener
+        register_heif_opener()
     digest = hashlib.sha256(original).hexdigest()
     photo_id = photo_id or (re.sub(r"[^a-z0-9]+", "-", place.lower()).strip("-") or "photo") + "-" + digest[:8]
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,99}", photo_id):
@@ -71,9 +74,9 @@ def import_photo(source, *, place, lat, lon, photo_id=None, country=None, captio
     manifest_path = root / "data/photos.json"
     manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {"photos": []}
     with Image.open(io.BytesIO(original)) as raw:
-        extension = {"JPEG": ".jpg", "PNG": ".png", "WEBP": ".webp"}.get(raw.format)
+        extension = {"JPEG": ".jpg", "PNG": ".png", "WEBP": ".webp", "HEIF": ".heic"}.get(raw.format)
         if not extension or getattr(raw, "n_frames", 1) != 1:
-            raise ValueError("Use a single JPEG, PNG or WebP image")
+            raise ValueError("Use a single JPEG, PNG, WebP or HEIC image")
         # Apply EXIF rotation before resizing; keep the unmodified source separately.
         image = ImageOps.exif_transpose(raw)
         profile = image.info.get("icc_profile")

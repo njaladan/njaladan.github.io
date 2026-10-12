@@ -1,9 +1,10 @@
 (() => {
   const gallery = document.querySelector('#photo-gallery');
+  const assetVersion = new URL(document.currentScript.src).searchParams.get('v') || '1';
   const valid = photo => photo && Array.isArray(photo.coords) && photo.coords.length === 2 && photo.coords.every(Number.isFinite) &&
     Math.abs(photo.coords[0]) <= 90 && Math.abs(photo.coords[1]) <= 180 && photo.variants && typeof photo.place === 'string';
   const asset = src => typeof src === 'string' && /^photos\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpg|png)$/.test(src) ? `/travel/${src}` : '';
-  fetch('/travel/data/photos.json')
+  fetch(`/travel/data/photos.json?v=${assetVersion}`)
     .then(response => { if (!response.ok) throw new Error('Photo list unavailable'); return response.json(); })
     .then(({photos = []}) => {
       const entries = photos.filter(valid).sort((a,b) => (b.date || '').localeCompare(a.date || '') || a.id.localeCompare(b.id));

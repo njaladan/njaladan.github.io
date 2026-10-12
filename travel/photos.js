@@ -17,9 +17,10 @@ function installAtlasPhotos(map, {focus, onLayout}) {
   map.getPane('photos').style.zIndex = 460;
   const layer = L.layerGroup().addTo(map);
 
-  function asset(src) {
+  function asset(src, original = false) {
     // Photo files must come from the atlas, never arbitrary URLs from data.
-    if (typeof src !== 'string' || !/^photos\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpg|png)$/.test(src)) return '';
+    if (typeof src !== 'string' || !(/^photos\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpg|png)$/.test(src) ||
+        original && /^photos\/[a-z0-9-]+\/[a-z0-9-]+\.(heic|heif)$/.test(src))) return '';
     return src;
   }
   function valid(photo) {
@@ -27,7 +28,7 @@ function installAtlasPhotos(map, {focus, onLayout}) {
       Array.isArray(photo.coords) && photo.coords.length === 2 && photo.coords.every(Number.isFinite) &&
       Math.abs(photo.coords[0]) <= 90 && Math.abs(photo.coords[1]) <= 180 &&
       Number.isFinite(photo.width) && photo.width > 0 && Number.isFinite(photo.height) && photo.height > 0 &&
-      ['thumbnail', 'small', 'medium', 'large'].every(key => asset(photo.variants?.[key]?.src) && Number.isFinite(photo.variants[key].width)) && asset(photo.original?.src);
+      ['thumbnail', 'small', 'medium', 'large'].every(key => asset(photo.variants?.[key]?.src) && Number.isFinite(photo.variants[key].width)) && asset(photo.original?.src, true);
   }
   function setImage(node, photo, full = false) {
     node.alt = photo.caption || `Photo at ${photo.place}`;
@@ -52,7 +53,7 @@ function installAtlasPhotos(map, {focus, onLayout}) {
     caption.hidden = !caption.textContent;
     counter.textContent = selection.length > 1 ? `${selectedIndex + 1} / ${selection.length}` : '';
     previous.hidden = next.hidden = selection.length < 2;
-    original.href = asset(photo.original.src);
+    original.href = asset(photo.original.src, true);
     original.download = `${photo.id}-original.${photo.original.src.split('.').pop()}`;
     status.textContent = 'Loading photo…';
     image.onload = () => { status.textContent = ''; };

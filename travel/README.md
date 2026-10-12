@@ -32,6 +32,10 @@ Verify ingestion with `python -m unittest discover -s tests -p 'test_photo_impor
 `bundle exec jekyll build`, then run `python -m unittest discover -s tests -p 'test_travel_photos.py'`.
 The tests serve `_site` by default; set `SITE_BUILD_DIR` to test another build directory. Test images and tags are generated in temporary directories and never added to the public travel records.
 
+The October 2026 Drive ZIP adds 20 photos to the map and Photos gallery. Nineteen are HEIC: install the photo requirements to enable `pillow-heif` decoding. HEIC originals remain byte-for-byte downloads; browser previews use the same oriented, sRGB WebP pipeline as other photos. HEIC paths are accepted only for original downloads, never display derivatives.
+
+None of these 20 photos contains GPS metadata. Location tags use visual landmarks, existing TMB routes, and the user's confirmations of Montréal, Barcelona, the Mont Blanc gondola, the Lac Blanc area, an Egyptian felucca, and a large Paris garden south of the Seine. Approximate area/route tags are labeled accordingly. Original filenames, confidence, coordinate scope, and evidence are retained in `data/photos.json`; [PHOTO_LOCATION_MAPPING.md](PHOTO_LOCATION_MAPPING.md) and `data/photo-location-mapping.csv` provide the complete mapping. EXIF capture dates are used where available; the scanned garden JPEG has no date assigned.
+
 ## Imported activity data
 
 The Netherlands ride is from the user-provided `11393102827.gpx`: 11,214 GPS points, Amsterdam to Utrecht. The five named places are user-confirmed visits, with place-center markers; they are not linked by an invented travel route.

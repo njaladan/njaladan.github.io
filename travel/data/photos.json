@@ -630,6 +630,1064 @@
           "bytes": 249988
         }
       }
+    },
+    {
+      "id": "img-0964",
+      "place": "Jardin du Luxembourg · Paris (approx.)",
+      "coords": [
+        48.8462,
+        2.3372
+      ],
+      "caption": "",
+      "width": 1789,
+      "height": 3025,
+      "sha256": "51f06d528b65b91a5cd43738b13ebca6838ff24de2a7604afbaf966e6eca8aba",
+      "original": {
+        "src": "photos/img-0964/51f06d528b65b91a-original.jpg",
+        "bytes": 1368651
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-0964/edb3e464c54bbdde-thumbnail.webp",
+          "width": 76,
+          "height": 128,
+          "bytes": 2814
+        },
+        "small": {
+          "src": "photos/img-0964/edb3e464c54bbdde-small.webp",
+          "width": 378,
+          "height": 640,
+          "bytes": 67616
+        },
+        "medium": {
+          "src": "photos/img-0964/edb3e464c54bbdde-medium.webp",
+          "width": 757,
+          "height": 1280,
+          "bytes": 313354
+        },
+        "large": {
+          "src": "photos/img-0964/edb3e464c54bbdde-large.webp",
+          "width": 1419,
+          "height": 2400,
+          "bytes": 948206
+        }
+      },
+      "country": "250",
+      "source_filename": "IMG_0964.jpg",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "medium",
+        "scope": "area",
+        "camera_gps": false,
+        "evidence": "User described a large garden south of the Seine; clipped tree alley is consistent with Luxembourg Gardens. Exact alley unconfirmed. Film-scan timestamp is not used as a capture date."
+      }
+    },
+    {
+      "id": "img-1406",
+      "place": "St. Peter’s Basilica · Vatican City",
+      "coords": [
+        41.9022,
+        12.4539
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "1b0a45bcaf15012a881dae91cc466ea754f9fbcb4e0178b580df65c2f3792e66",
+      "original": {
+        "src": "photos/img-1406/1b0a45bcaf15012a-original.heic",
+        "bytes": 2607389
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-1406/4e7b26ca164334a1-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 5770
+        },
+        "small": {
+          "src": "photos/img-1406/4e7b26ca164334a1-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 148880
+        },
+        "medium": {
+          "src": "photos/img-1406/4e7b26ca164334a1-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 593964
+        },
+        "large": {
+          "src": "photos/img-1406/4e7b26ca164334a1-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 1784862
+        }
+      },
+      "country": "336",
+      "date": "2024-05-16",
+      "source_filename": "IMG_1406.heic",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "high",
+        "scope": "landmark",
+        "camera_gps": false,
+        "evidence": "Distinctive coffered vault, dome crossing, and Latin inscription identify the basilica. Landmark-center pin."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-1482",
+      "place": "Largo di Torre Argentina · Rome",
+      "coords": [
+        41.8956,
+        12.4768
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "e466455cb85d6f393f0020aa841cc62c9c789dd334d1cfc72cc24124f609da65",
+      "original": {
+        "src": "photos/img-1482/e466455cb85d6f39-original.heic",
+        "bytes": 2262886
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-1482/d4de8885745b8b11-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 2412
+        },
+        "small": {
+          "src": "photos/img-1482/d4de8885745b8b11-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 60200
+        },
+        "medium": {
+          "src": "photos/img-1482/d4de8885745b8b11-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 291960
+        },
+        "large": {
+          "src": "photos/img-1482/d4de8885745b8b11-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 1054216
+        }
+      },
+      "country": "380",
+      "date": "2024-05-16",
+      "source_filename": "IMG_1482.heic",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "high",
+        "scope": "landmark",
+        "camera_gps": false,
+        "evidence": "Roman ruins viewed through a masonry arch, with the matching yellow and orange buildings across Largo di Torre Argentina. Landmark-center pin."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-1540",
+      "place": "Koutoubia Mosque · Marrakech",
+      "coords": [
+        31.6242,
+        -7.9935
+      ],
+      "caption": "",
+      "width": 2835,
+      "height": 3780,
+      "sha256": "cb65206c690bbfddebc71020adb03457024919e21c227c1d1316f4228c9bf431",
+      "original": {
+        "src": "photos/img-1540/cb65206c690bbfdd-original.heic",
+        "bytes": 1419135
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-1540/7fa14cde7af1960f-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 3118
+        },
+        "small": {
+          "src": "photos/img-1540/7fa14cde7af1960f-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 73820
+        },
+        "medium": {
+          "src": "photos/img-1540/7fa14cde7af1960f-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 314762
+        },
+        "large": {
+          "src": "photos/img-1540/7fa14cde7af1960f-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 987070
+        }
+      },
+      "country": "504",
+      "date": "2024-05-17",
+      "source_filename": "IMG_1540.heic",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "high",
+        "scope": "landmark",
+        "camera_gps": false,
+        "evidence": "Distinctive Koutoubia minaret and adjacent ruins. Landmark-center pin."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-1561",
+      "place": "Medina souks · Marrakech (approx.)",
+      "coords": [
+        31.629,
+        -7.989
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "ff1e0bef1e33bb51b6f0d0564002fd988be208ad09399f12585c277a000a6159",
+      "original": {
+        "src": "photos/img-1561/ff1e0bef1e33bb51-original.heic",
+        "bytes": 3814248
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-1561/c93df593e702db81-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 5784
+        },
+        "small": {
+          "src": "photos/img-1561/c93df593e702db81-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 123222
+        },
+        "medium": {
+          "src": "photos/img-1561/c93df593e702db81-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 538656
+        },
+        "large": {
+          "src": "photos/img-1561/c93df593e702db81-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 1861392
+        }
+      },
+      "country": "504",
+      "date": "2024-05-17",
+      "source_filename": "IMG_1561.heic",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "medium",
+        "scope": "area",
+        "camera_gps": false,
+        "evidence": "Covered textile and souvenir souk; Marrakech inferred from the adjacent Koutoubia photo and same-day metadata. Exact souk lane unconfirmed."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-1658",
+      "place": "Casa Milà · Barcelona",
+      "coords": [
+        41.3954,
+        2.1619
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "a21cb0da60fac002f5b4879df81019d76a93b1c1ffc888a938b8ff7dd87e220a",
+      "original": {
+        "src": "photos/img-1658/a21cb0da60fac002-original.heic",
+        "bytes": 2500587
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-1658/ac689836fb23d667-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 6006
+        },
+        "small": {
+          "src": "photos/img-1658/ac689836fb23d667-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 132464
+        },
+        "medium": {
+          "src": "photos/img-1658/ac689836fb23d667-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 544780
+        },
+        "large": {
+          "src": "photos/img-1658/ac689836fb23d667-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 1708492
+        }
+      },
+      "country": "724",
+      "date": "2024-05-19",
+      "source_filename": "IMG_1658.heic",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "high",
+        "scope": "landmark",
+        "camera_gps": false,
+        "evidence": "Gaudí’s undulating stone facade and wrought-iron balconies identify Casa Milà. Landmark-center pin."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-1697",
+      "place": "Barcelona waterfront (approx.)",
+      "coords": [
+        41.385,
+        2.199
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "feda11ffb2ebef193c2913f2b6f3f8a4ae06b63e5f452a749ea6eaac23927962",
+      "original": {
+        "src": "photos/img-1697/feda11ffb2ebef19-original.heic",
+        "bytes": 3173869
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-1697/71a275b6f6e8f0d3-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 3690
+        },
+        "small": {
+          "src": "photos/img-1697/71a275b6f6e8f0d3-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 80192
+        },
+        "medium": {
+          "src": "photos/img-1697/71a275b6f6e8f0d3-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 369314
+        },
+        "large": {
+          "src": "photos/img-1697/71a275b6f6e8f0d3-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 1313266
+        }
+      },
+      "country": "724",
+      "date": "2024-05-19",
+      "source_filename": "IMG_1697.heic",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "medium",
+        "scope": "area",
+        "camera_gps": false,
+        "evidence": "User confirmed Barcelona. Representative waterfront pin; exact harbor or breakwater unconfirmed."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-6377",
+      "place": "Samuel-De Champlain Bridge · Montréal",
+      "coords": [
+        45.4696,
+        -73.509
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "7511bc81fef4edfb949dce9c9bfc96f66dd1129d701ce0803c9fefe17bd5de8d",
+      "original": {
+        "src": "photos/img-6377/7511bc81fef4edfb-original.heic",
+        "bytes": 2607050
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-6377/2939dd35d2a9e4bc-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 3700
+        },
+        "small": {
+          "src": "photos/img-6377/2939dd35d2a9e4bc-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 59306
+        },
+        "medium": {
+          "src": "photos/img-6377/2939dd35d2a9e4bc-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 241548
+        },
+        "large": {
+          "src": "photos/img-6377/2939dd35d2a9e4bc-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 1010076
+        }
+      },
+      "country": "124",
+      "date": "2026-08-04",
+      "source_filename": "IMG_6377.HEIC",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "high",
+        "scope": "landmark",
+        "camera_gps": false,
+        "evidence": "User confirmed Montréal. Modern twin deck and pier geometry identify the Samuel-De Champlain Bridge. Representative bridge pin; exact under-bridge viewpoint unconfirmed."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-6446",
+      "place": "Bionnassay suspension bridge · TMB",
+      "coords": [
+        45.86284,
+        6.78305
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "a052ea6e45b4b4c838f4aa5c137b05d9c164a7524d0b37ac25d6ef913f3c62cc",
+      "original": {
+        "src": "photos/img-6446/a052ea6e45b4b4c8-original.heic",
+        "bytes": 4745312
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-6446/527a28f9bc40fa0f-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 5658
+        },
+        "small": {
+          "src": "photos/img-6446/527a28f9bc40fa0f-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 164562
+        },
+        "medium": {
+          "src": "photos/img-6446/527a28f9bc40fa0f-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 730168
+        },
+        "large": {
+          "src": "photos/img-6446/527a28f9bc40fa0f-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 2436836
+        }
+      },
+      "country": "250",
+      "date": "2026-08-13",
+      "source_filename": "IMG_6446.HEIC",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "high",
+        "scope": "landmark",
+        "camera_gps": false,
+        "evidence": "User confirmed TMB. Suspension bridge over the glacial torrent matches the Bionnassay crossing on the recorded Day 1 trail; landmark coordinates from Refuges.info."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-6452",
+      "place": "Col de Tricot trail · TMB (approx.)",
+      "coords": [
+        45.85,
+        6.779
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "9832dc3f65f6ae073bff3d343073cf3480cc859abf199b2874b15d305d2de90c",
+      "original": {
+        "src": "photos/img-6452/9832dc3f65f6ae07-original.heic",
+        "bytes": 3616812
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-6452/1cee06f5a0998cf2-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 2904
+        },
+        "small": {
+          "src": "photos/img-6452/1cee06f5a0998cf2-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 82346
+        },
+        "medium": {
+          "src": "photos/img-6452/1cee06f5a0998cf2-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 388538
+        },
+        "large": {
+          "src": "photos/img-6452/1cee06f5a0998cf2-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 1411352
+        }
+      },
+      "country": "250",
+      "date": "2026-08-13",
+      "source_filename": "IMG_6452.HEIC",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "medium",
+        "scope": "area",
+        "camera_gps": false,
+        "evidence": "User confirmed TMB. Grassy ridge on the Day 1 Bionnassay–Col de Tricot section; photo follows the bridge image by 55 minutes. Representative trail-area pin, not an exact camera position."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-6511",
+      "place": "Val Veny · TMB (approx.)",
+      "coords": [
+        45.774,
+        6.866
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "11333592c07365d62d3d002de33458f6904b875a17ab2df3c00331a225f6d5ae",
+      "original": {
+        "src": "photos/img-6511/11333592c07365d6-original.heic",
+        "bytes": 3595912
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-6511/7944d27717e6ea0f-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 4088
+        },
+        "small": {
+          "src": "photos/img-6511/7944d27717e6ea0f-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 98450
+        },
+        "medium": {
+          "src": "photos/img-6511/7944d27717e6ea0f-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 452416
+        },
+        "large": {
+          "src": "photos/img-6511/7944d27717e6ea0f-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 1609158
+        }
+      },
+      "country": "380",
+      "date": "2026-08-15",
+      "source_filename": "IMG_6511.HEIC",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "medium",
+        "scope": "area",
+        "camera_gps": false,
+        "evidence": "User confirmed TMB. Miage glacier, valley flats and red-roofed building are consistent with Val Veny/Lac Combal along the recorded Day 3 route. Representative valley pin."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-6517",
+      "place": "Mont Chétif view · Courmayeur, TMB (approx.)",
+      "coords": [
+        45.814,
+        6.963
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "f39e8d04c97648b6f75f9f7dbd9edb3d70e079dfea74d0c9a3be01ec86fb07a9",
+      "original": {
+        "src": "photos/img-6517/f39e8d04c97648b6-original.heic",
+        "bytes": 3711616
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-6517/9349067b9f32ae58-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 4040
+        },
+        "small": {
+          "src": "photos/img-6517/9349067b9f32ae58-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 98282
+        },
+        "medium": {
+          "src": "photos/img-6517/9349067b9f32ae58-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 448328
+        },
+        "large": {
+          "src": "photos/img-6517/9349067b9f32ae58-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 1693940
+        }
+      },
+      "country": "380",
+      "date": "2026-08-16",
+      "source_filename": "IMG_6517.HEIC",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "medium",
+        "scope": "area",
+        "camera_gps": false,
+        "evidence": "User confirmed TMB. Pyramid-shaped Mont Chétif and the Mont Blanc massif are consistent with the Courmayeur–Rifugio Bertone section of recorded Day 4. Representative viewpoint area."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-6566",
+      "place": "Aiguille du Midi · Chamonix",
+      "coords": [
+        45.8786,
+        6.8873
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "e3dde12804a47dd1ffe731bd62af9098c71ee41745673c303ea02f2d782e7e95",
+      "original": {
+        "src": "photos/img-6566/e3dde12804a47dd1-original.heic",
+        "bytes": 2167724
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-6566/61ba9d9abbd2a11c-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 3538
+        },
+        "small": {
+          "src": "photos/img-6566/61ba9d9abbd2a11c-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 71550
+        },
+        "medium": {
+          "src": "photos/img-6566/61ba9d9abbd2a11c-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 326976
+        },
+        "large": {
+          "src": "photos/img-6566/61ba9d9abbd2a11c-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 1103950
+        }
+      },
+      "country": "250",
+      "date": "2026-08-18",
+      "source_filename": "IMG_6566.HEIC",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "high",
+        "scope": "landmark",
+        "camera_gps": false,
+        "evidence": "User confirmed Aiguille du Midi for the image looking down at the gray structure. Landmark-center pin."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-6567",
+      "place": "Mont Blanc gondola route (approx.)",
+      "coords": [
+        45.8625,
+        6.9095
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "4b50f03fa95a3a96466deed1924356455b79e71b42d30cc0aed8cf3483afc292",
+      "original": {
+        "src": "photos/img-6567/4b50f03fa95a3a96-original.heic",
+        "bytes": 1634918
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-6567/fe43c8c9154fd3d3-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 2024
+        },
+        "small": {
+          "src": "photos/img-6567/fe43c8c9154fd3d3-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 38806
+        },
+        "medium": {
+          "src": "photos/img-6567/fe43c8c9154fd3d3-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 181148
+        },
+        "large": {
+          "src": "photos/img-6567/fe43c8c9154fd3d3-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 611878
+        }
+      },
+      "country": "250",
+      "date": "2026-08-18",
+      "source_filename": "IMG_6567.HEIC",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "medium",
+        "scope": "route",
+        "camera_gps": false,
+        "evidence": "User confirmed this view was along the gondola ride. Approximate representative point on the Panoramic Mont-Blanc gondola corridor, not an exact cabin position."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-6618",
+      "place": "Lac Blanc area · Chamonix (approx.)",
+      "coords": [
+        45.9848,
+        6.902
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "274904182ea79307a5493ca8b63304901e12d9bb9a3082d0bde47a01b6c83903",
+      "original": {
+        "src": "photos/img-6618/274904182ea79307-original.heic",
+        "bytes": 3409166
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-6618/a572b4042ad8ae84-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 4278
+        },
+        "small": {
+          "src": "photos/img-6618/a572b4042ad8ae84-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 102316
+        },
+        "medium": {
+          "src": "photos/img-6618/a572b4042ad8ae84-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 465406
+        },
+        "large": {
+          "src": "photos/img-6618/a572b4042ad8ae84-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 1638512
+        }
+      },
+      "country": "250",
+      "date": "2026-08-18",
+      "source_filename": "IMG_6618.HEIC",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "medium",
+        "scope": "area",
+        "camera_gps": false,
+        "evidence": "User confirmed the Lac Blanc side. Lake and Argentière glacier view are consistent with nearby Lacs des Chéserys along recorded Day 6. Approximate lake-area pin; specific lake unconfirmed."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-6663",
+      "place": "Meteora · Greece",
+      "coords": [
+        39.7217,
+        21.6306
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "f70f7f6a238eb4c166822534862975f5e2619af32104ed313599cf66cfd8ccff",
+      "original": {
+        "src": "photos/img-6663/f70f7f6a238eb4c1-original.heic",
+        "bytes": 3542628
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-6663/9293fd591e454474-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 3764
+        },
+        "small": {
+          "src": "photos/img-6663/9293fd591e454474-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 94062
+        },
+        "medium": {
+          "src": "photos/img-6663/9293fd591e454474-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 427302
+        },
+        "large": {
+          "src": "photos/img-6663/9293fd591e454474-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 1570828
+        }
+      },
+      "country": "300",
+      "date": "2026-08-20",
+      "source_filename": "IMG_6663.HEIC",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "high",
+        "scope": "landmark",
+        "camera_gps": false,
+        "evidence": "Distinctive conglomerate rock towers and monastery road network identify Meteora. Representative landmark-area pin."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-6899",
+      "place": "Tomb of Ramesses III (KV11) · Luxor",
+      "coords": [
+        25.7402,
+        32.6014
+      ],
+      "caption": "",
+      "width": 4032,
+      "height": 3024,
+      "sha256": "203ef19b8ba0ec5430e7d186c780dbcebd22eadaf6be00756cf0e0487f35d5ed",
+      "original": {
+        "src": "photos/img-6899/203ef19b8ba0ec54-original.heic",
+        "bytes": 3618857
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-6899/40beb0bc789e2c48-thumbnail.webp",
+          "width": 128,
+          "height": 96,
+          "bytes": 3536
+        },
+        "small": {
+          "src": "photos/img-6899/40beb0bc789e2c48-small.webp",
+          "width": 640,
+          "height": 480,
+          "bytes": 76112
+        },
+        "medium": {
+          "src": "photos/img-6899/40beb0bc789e2c48-medium.webp",
+          "width": 1280,
+          "height": 960,
+          "bytes": 368328
+        },
+        "large": {
+          "src": "photos/img-6899/40beb0bc789e2c48-large.webp",
+          "width": 2400,
+          "height": 1800,
+          "bytes": 1383900
+        }
+      },
+      "country": "818",
+      "date": "2026-08-24",
+      "source_filename": "IMG_6899.HEIC",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "high",
+        "scope": "landmark",
+        "camera_gps": false,
+        "evidence": "Four decorated pillars and central descending passage match KV11 reference photography. Landmark pin in the Valley of the Kings; exact room position is not geotagged."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-6924",
+      "place": "Felucca on the Nile · Luxor (approx.)",
+      "coords": [
+        25.7,
+        32.634
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "a853752103cf63fba430d4a4b2b7828d9b77906cbdb924f1e8d6b60967f12296",
+      "original": {
+        "src": "photos/img-6924/a853752103cf63fb-original.heic",
+        "bytes": 1949243
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-6924/8f2612714f37ad7e-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 1584
+        },
+        "small": {
+          "src": "photos/img-6924/8f2612714f37ad7e-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 30052
+        },
+        "medium": {
+          "src": "photos/img-6924/8f2612714f37ad7e-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 129576
+        },
+        "large": {
+          "src": "photos/img-6924/8f2612714f37ad7e-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 555420
+        }
+      },
+      "country": "818",
+      "date": "2026-08-24",
+      "source_filename": "IMG_6924.HEIC",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "medium",
+        "scope": "area",
+        "camera_gps": false,
+        "evidence": "User confirmed a felucca in Egypt. Luxor inferred from the same-day Valley of the Kings photo, riverbanks and western hills. Representative river pin; exact boat position unconfirmed."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-7116",
+      "place": "The Treasury · Petra",
+      "coords": [
+        30.3285,
+        35.4444
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "65293990d24ef9863d58972fa086d277244c7d6149a7d8d85dcd6ba991f67514",
+      "original": {
+        "src": "photos/img-7116/65293990d24ef986-original.heic",
+        "bytes": 3091530
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-7116/aa82a8230bcb98aa-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 4248
+        },
+        "small": {
+          "src": "photos/img-7116/aa82a8230bcb98aa-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 106012
+        },
+        "medium": {
+          "src": "photos/img-7116/aa82a8230bcb98aa-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 481888
+        },
+        "large": {
+          "src": "photos/img-7116/aa82a8230bcb98aa-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 1594094
+        }
+      },
+      "country": "400",
+      "date": "2026-08-27",
+      "source_filename": "IMG_7116.HEIC",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "high",
+        "scope": "landmark",
+        "camera_gps": false,
+        "evidence": "Distinctive Al-Khazneh rock-cut facade. Landmark-center pin."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "img-7366",
+      "place": "Museo Soumaya · Mexico City",
+      "coords": [
+        19.4409,
+        -99.2047
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "8e776a83398f59123863dbc9ec989dd947f6766d5320bd6a2e18bccefee5da1c",
+      "original": {
+        "src": "photos/img-7366/8e776a83398f5912-original.heic",
+        "bytes": 2142296
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/img-7366/a0ce4c82c60d1543-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 3936
+        },
+        "small": {
+          "src": "photos/img-7366/a0ce4c82c60d1543-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 88704
+        },
+        "medium": {
+          "src": "photos/img-7366/a0ce4c82c60d1543-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 307470
+        },
+        "large": {
+          "src": "photos/img-7366/a0ce4c82c60d1543-large.webp",
+          "width": 1800,
+          "height": 2400,
+          "bytes": 911966
+        }
+      },
+      "country": "484",
+      "date": "2026-09-14",
+      "source_filename": "IMG_7366.HEIC",
+      "location_tag": {
+        "method": "user_context_and_visual_inference",
+        "confidence": "high",
+        "scope": "landmark",
+        "camera_gps": false,
+        "evidence": "Distinctive curved facade covered in silver hexagonal panels. Landmark-center pin."
+      },
+      "date_source": "EXIF DateTimeOriginal; not independently verified"
     }
   ]
 }
