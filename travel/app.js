@@ -12,7 +12,7 @@
   const stateLayers=new Map(), cityMarkers=[];
   const routeLayers = L.layerGroup(), transportLayers = L.layerGroup(), cityLayers = L.layerGroup();
   const flightLayers = L.layerGroup(), airportLayers = L.layerGroup();
-  let flightLog = {airports:{},flights:[],routes:[]}, flightsVisible = true;
+  let flightLog = {airports:{},flights:[],routes:[]};
   const map = L.map('map', {zoomControl:false,scrollWheelZoom:false,dragging:true,touchZoom:true,zoomSnap:0,zoomDelta:.5,zoomAnimation:false,minZoom:1,maxZoom:17,worldCopyJump:true});
   const smoothZoom = installSmoothZoom(map, reduceMotion);
   map.createPane('states');map.getPane('states').style.zIndex=360;
@@ -200,12 +200,12 @@
   function flightContent(connection) {
     const [a,b]=connection.airports;
     const records=connection.flights.map(index=>flightLog.flights[index]).sort((a,b)=>b.date.localeCompare(a.date));
-    return `<div class="route-popup flight-popup"><strong>${escape(a)} ↔ ${escape(b)}</strong><p>${escape(flightLog.airports[a].city)} · ${escape(flightLog.airports[b].city)}</p><p>${records.length} ${records.length===1?'flight':'flights'}</p><ol class="flight-history">${records.map(flight=>`<li><time datetime="${escape(flight.date)}">${escape(flight.date)}</time><b>${escape(flight.number)} · ${escape(flight.from)} → ${escape(flight.to)}</b><span>${flight.airline?escape(flight.airline)+' · ':''}${formatDuration(flight.duration_s)}</span></li>`).join('')}</ol></div>`;
+    return `<div class="route-popup flight-popup"><strong>${escape(a)} ↔ ${escape(b)}</strong><p>${escape(flightLog.airports[a].city)} · ${escape(flightLog.airports[b].city)}</p><ol class="flight-history">${records.map(flight=>`<li><time datetime="${escape(flight.date)}">${escape(flight.date)}</time><b>${escape(flight.number)} · ${escape(flight.from)} → ${escape(flight.to)}</b><span>${flight.airline?escape(flight.airline)+' · ':''}${formatDuration(flight.duration_s)}</span></li>`).join('')}</ol></div>`;
   }
   function renderFlights() {
     flightLayers.clearLayers();airportLayers.clearLayers();
     flightLog.routes.forEach(connection=>{
-      const label=`${connection.airports.join(' ↔ ')} · ${connection.flights.length} ${connection.flights.length===1?'flight':'flights'}`;
+      const label=connection.airports.join(' ↔ ');
       const quiet={color:ROUTE_MODES.Flight.color,weight:1,opacity:.13,dashArray:'3 7'};
       const line=L.polyline(connection.segments,{pane:'flights',...quiet,className:'flight-route'})
         .bindTooltip(escape(label)).bindPopup(()=>flightContent(connection),{className:'activity-popup',maxWidth:300}).addTo(flightLayers);
@@ -217,20 +217,18 @@
       node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();const segment=connection.segments[0];line.openPopup(L.latLng(segment[Math.floor(segment.length/2)]));}});
     });
     Object.entries(flightLog.airports).forEach(([code,airport])=>{
-      const count=flightLog.flights.filter(flight=>flight.from===code||flight.to===code).length;
       const label=`${airport.city} · ${code}`;
       const marker=L.circleMarker(airport.coords,{pane:'airports',radius:4,color:'white',weight:1.5,fillColor:ROUTE_MODES.Flight.color,fillOpacity:1,className:'airport-marker'})
-        .bindTooltip(escape(label)).bindPopup(`<strong>${escape(code)} · ${escape(airport.name)}</strong><p>${count} flights arriving or departing</p>`,{maxWidth:270}).addTo(airportLayers);
+        .bindTooltip(escape(label)).bindPopup(`<strong>${escape(code)} · ${escape(airport.name)}</strong><p>${escape(airport.city)}</p>`,{maxWidth:270}).addTo(airportLayers);
       const node=marker.getElement();node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',label);
       node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();marker.openPopup();}});
     });
-    $('#toggle-flights').textContent=`Flights (${flightLog.flights.length})`;
   }
   function updateRouteLegend() {
     const bounds=map.getBounds();
     const types=new Set(transport.filter(trip=>L.latLngBounds(trip.coords).intersects(bounds)).map(trip=>trip.mode));
     journeys.forEach(journey=>(journey.days||[]).forEach(day=>{if(dayPoints(day).length&&L.latLngBounds(dayPoints(day)).intersects(bounds))types.add(day.type);}));
-    if(flightsVisible&&flightLog.routes.some(connection=>connection.segments.some(segment=>L.latLngBounds(segment).intersects(bounds))))types.add('Flight');
+    if(flightLog.routes.some(connection=>connection.segments.some(segment=>L.latLngBounds(segment).intersects(bounds))))types.add('Flight');
     const modes=[...types].filter(type=>ROUTE_MODES[type]&&(map.getZoom()>=3.5||type==='Flight'));
     const visits=map.getZoom()<5?`<span><i style="background:${visitColors.visited}"></i>Visited</span><span><i style="background:${visitColors.home}"></i>Home</span>`:'';
     $('#route-legend').innerHTML=visits+modes.map(type=>`<span><i style="background:${ROUTE_MODES[type].color}"></i>${ROUTE_MODES[type].name}</span>`).join('');
@@ -383,12 +381,6 @@
   }
   $('#back-us').addEventListener('click',()=>location.hash=`country=${HOME_COUNTRY}`);
   $('#back-world').addEventListener('click',()=>location.hash='');
-  $('#toggle-flights').addEventListener('click',()=>{
-    flightsVisible=!flightsVisible;map.closePopup();
-    $('#toggle-flights').setAttribute('aria-pressed',String(flightsVisible));
-    [flightLayers,airportLayers].forEach(layer=>{if(flightsVisible)layer.addTo(map);else map.removeLayer(layer);});
-    updateRouteLegend();
-  });
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&currentCountry&&!map.isPopupOpen())location.hash=currentState?`country=${HOME_COUNTRY}`:'';});
   map.on('popupclose',event=>{if(event.popup===activityPopup){activeDay=null;updateRouteStyles();}});
   map.on('zoom',updateBasemap);
