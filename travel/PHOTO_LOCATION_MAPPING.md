@@ -8,7 +8,7 @@ Dates, when present, come from EXIF DateTimeOriginal and are not independently v
 | --- | --- | --- | --- |
 | IMG_0964.jpg | Jardin du Luxembourg · Paris (approx.) | 48.8462, 2.3372 | medium |
 | IMG_1406.heic | St. Peter’s Basilica · Vatican City | 41.9022, 12.4539 | high |
-| IMG_1482.heic | Largo di Torre Argentina · Rome | 41.8956, 12.4768 | high |
+| IMG_1482.heic | Colosseum · Rome | 41.8902, 12.4922 | high |
 | IMG_1540.heic | Koutoubia Mosque · Marrakech | 31.6242, -7.9935 | high |
 | IMG_1561.heic | Medina souks · Marrakech (approx.) | 31.629, -7.989 | medium |
 | IMG_1658.heic | Casa Milà · Barcelona | 41.3954, 2.1619 | high |
@@ -31,7 +31,7 @@ Dates, when present, come from EXIF DateTimeOriginal and are not independently v
 
 - **IMG_0964.jpg**: User described a large garden south of the Seine; clipped tree alley is consistent with Luxembourg Gardens. Exact alley unconfirmed. Film-scan timestamp is not used as a capture date.
 - **IMG_1406.heic**: Distinctive coffered vault, dome crossing, and Latin inscription identify the basilica. Landmark-center pin.
-- **IMG_1482.heic**: Roman ruins viewed through a masonry arch, with the matching yellow and orange buildings across Largo di Torre Argentina. Landmark-center pin.
+- **IMG_1482.heic**: Colosseum interior brick-and-travertine arch, looking toward the yellow and orange buildings across Via Labicana. Reference views confirm the landmark; landmark-center pin.
 - **IMG_1540.heic**: Distinctive Koutoubia minaret and adjacent ruins. Landmark-center pin.
 - **IMG_1561.heic**: Covered textile and souvenir souk; Marrakech inferred from the adjacent Koutoubia photo and same-day metadata. Exact souk lane unconfirmed.
 - **IMG_1658.heic**: Gaudí’s undulating stone facade and wrought-iron balconies identify Casa Milà. Landmark-center pin.

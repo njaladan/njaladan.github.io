@@ -737,10 +737,10 @@
     },
     {
       "id": "img-1482",
-      "place": "Largo di Torre Argentina · Rome",
+      "place": "Colosseum · Rome",
       "coords": [
-        41.8956,
-        12.4768
+        41.8902,
+        12.4922
       ],
       "caption": "",
       "width": 3024,
@@ -784,7 +784,7 @@
         "confidence": "high",
         "scope": "landmark",
         "camera_gps": false,
-        "evidence": "Roman ruins viewed through a masonry arch, with the matching yellow and orange buildings across Largo di Torre Argentina. Landmark-center pin."
+        "evidence": "Colosseum interior brick-and-travertine arch, looking toward the yellow and orange buildings across Via Labicana. Reference views confirm the landmark; landmark-center pin."
       },
       "date_source": "EXIF DateTimeOriginal; not independently verified"
     },
