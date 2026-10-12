@@ -524,7 +524,7 @@ const CONFIRMED_ROUTE_PLACES={
  '578':[{name:'Myrdal',coords:[60.7351,7.1226]}],
  '352':[{name:'Reykjavík',coords:[64.1466,-21.9426]},{name:'Múlagljúfur Canyon',coords:[63.9935,-16.394]},{name:'Landeyjahöfn',coords:[63.530904,-20.116991]}],
  '380':[{name:'Bologna',coords:[44.4949,11.3426]},{name:'Minori',coords:[40.6483,14.6262]},{name:'Positano',coords:[40.628,14.4863]}],
- '152':[{name:'Paine Grande',coords:[-51.072421,-73.093889]},{name:'Pudeto',coords:[-51.062769,-72.990295]}]
+ '152':[{name:'Paine Grande',coords:[-51.0738149,-73.0928088]},{name:'Pudeto',coords:[-51.0628048,-72.9903369]}]
 };
 Object.entries(CONFIRMED_ROUTE_PLACES).forEach(([country,places])=>{
  COUNTRY_PLACES[country]||=[];
