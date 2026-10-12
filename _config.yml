@@ -1,14 +1,15 @@
 # Site
-name: "Blog"
-title: "Blog"
+name: "Ganesh"
+title: "Ganesh"
+url: "https://nagaganesh.com"
+description: "Reading, movies, and travel."
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/logo.png'
 google_analytics: 'UA-xxxxxxxx-1'
 disqus: 'nagaganesh'
-mailchimp-list: 'https://nagaganesh.us10.list-manage.com/subscribe/post?u=c10469f133a9f006a6bb15a4c&amp;id=285fa5bca8'
 include: ["_pages"]
 permalink: /:title/
-email: nagaganesh@berkeley.edu
+email: ganesh.jaladanki@gmail.com
 
 # Plugins
 plugins:
@@ -51,4 +52,4 @@ sass:
   sass_dir: _sass
   style: compressed
 
-exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock]
+exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock, scripts, tests, _pages/blog.md, _pages/projects.md, _pages/categories.md, _pages/tags.md, feed.xml, assets/js/lunrsearchengine.js, assets/css/theme.scss, _posts/2016-01-01-things.md, _posts/2018-01-16-etherball.md, _posts/2018-02-25-hashpy.md, _posts/2018-05-20-chip8emu.md, _posts/2019-02-15-codequeue-post.md, _posts/2019-03-28-nesmerize.md, _posts/2019-10-16-riscy.md]

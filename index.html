@@ -1,41 +1,21 @@
 ---
 layout: default
-title: Nagaganesh Jaladanki
+title: About
+description: "Ganesh — trader in NYC, UC Berkeley EECS graduate. Reading, movies, and travel."
 ---
-
-<div class="page-single">
-    <div class="entry-header">
-        <div>
-            <h1 class="posttitle">
-                Hi, I'm Ganesh.
-            </h1>
-        </div>
-        <a href="{{ site.baseurl }}/reading" class="btn btn-dark">Read my notes &rarr;</a>
-    </div>
-</div>
-
-
-<!-- Featured Image -->
-<div class="entry-featured-image">
-    <div class="about-featured-image me image-shadow"></div>
-</div>
-<!-- Content -->
-<div class="article-post">
-    <p>I'm a software engineer. My primary interests are product, finance, and computational complexity.</p>
-
-    <p>In the past, I've worked at <a href="https://stripe.com/">Stripe</a> as a product engineer, <a href="https://www.deshaw.com/">D. E. Shaw</a> as a quant developer intern and <a href="https://www.evernote.com/">Evernote</a> as an ML Applications intern.</p>
-
-    <p>I'm passionate about teaching. Previously, I've helped teach <a href="http://www.avishaytal.org/cs-278-complexity-theory">Graduate Computational Complexity</a>, <a href="https://cs170.org/">Efficient Algorithms</a>, <a href="https://www.eecs70.org/">Discrete Mathematics</a>, and <a href="https://cs161.org/">Computer Security</a> as a TA at Berkeley.</p>
-
-    <p>In my free time, I enjoy <a href="{{ site.baseurl }}/reading">reading</a>, watching plays, <a href="https://www.strava.com/athletes/14026876">distance running</a>, drinking tea, and <a href="https://nagaganesh.com/projects">programming</a>.</p>
-
-    <p>My full name is Nagaganesh Jaladanki. <a href="javascript:alert(' i t ');">This</a> is how you pronounce it.</p>
-
-    <p>If you'd like to say hi, feel free to send me an <a href="mailto:ganesh.jaladanki@gmail.com">email</a>.</p>
-
-    <div class="icons">
-        <a href="https://www.linkedin.com/in/nagaganesh/"><i class="fab fa-lg fa-linkedin"></i></a>
-        <a href="https://www.github.com/njaladan"><i class="fab fa-lg fa-github"></i></a>
-        <a href="mailto:ganesh.jaladanki@gmail.com"><i class="far fa-lg fa-envelope"></i></a>
-    </div>
-</div>
+<section class="bio" aria-labelledby="bio-title">
+  <div class="bio-copy">
+    <p class="eyebrow">New York City</p>
+    <h1 id="bio-title">Hi, I’m Ganesh.</h1>
+    <p>I work as a trader in NYC. Previously, I worked at <a href="https://www.janestreet.com/">Jane Street</a>, <a href="https://stripe.com/">Stripe</a>, and <a href="https://www.deshaw.com/">D. E. Shaw</a>.</p>
+    <p>I graduated from UC Berkeley, where I studied electrical engineering and computer sciences.</p>
+    <p>Outside work, I enjoy <a href="{{ '/reading' | relative_url }}">reading</a>, distance running, <a href="{{ '/travel/' | relative_url }}">traveling</a>, and drinking coffee.</p>
+    <p class="bio-contact"><a href="mailto:ganesh.jaladanki@gmail.com">Email</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/nagaganesh/">LinkedIn</a> &nbsp;·&nbsp; <a href="https://github.com/njaladan">GitHub</a></p>
+  </div>
+  <img class="portrait" src="{{ '/assets/images/ganesh.jpg' | relative_url }}" alt="Ganesh" width="140" height="180">
+</section>
+<section class="home-collection" aria-label="Explore">
+  <div><h2><a href="{{ '/reading' | relative_url }}">Reading <span class="arrow">↗</span></a></h2><p>A library of books I’ve read over the years, with occasional notes.</p></div>
+  <div><h2><a href="{{ '/movies' | relative_url }}">Movies <span class="arrow">↗</span></a></h2><p>A collection of {{ site.data.movies.films | size }} movies I’ve watched.</p></div>
+  <div><h2><a href="{{ '/travel/' | relative_url }}">Travel <span class="arrow">↗</span></a></h2><p>Places I’ve been, and the journeys between them.</p></div>
+</section>

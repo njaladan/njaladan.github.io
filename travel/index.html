@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f9fa">
+  <title>Travel — Ganesh</title>
+  <meta name="description" content="Places I've visited, with flights, journeys, and recorded activity routes.">
+  <link rel="stylesheet" href="vendor/leaflet.css">
+  <link rel="stylesheet" href="style.css?v=14">
+  <script defer src="vendor/topojson.min.js"></script>
+  <script defer src="vendor/leaflet.js"></script>
+  <script defer src="data.js?v=13"></script>
+  <script defer src="smooth-zoom.js?v=13"></script>
+  <script defer src="app.js?v=14"></script>
+</head>
+<body data-view="world">
+  <header class="site-header">
+    <a href="/">Ganesh</a><span class="divider">/</span><a href="#" id="atlas-home">Travel</a>
+    <nav aria-label="Site navigation"><a href="/">About</a><a href="/reading">Reading</a><a href="/movies">Movies</a><a href="/travel/" aria-current="page">Travel</a></nav>
+  </header>
+  <main id="main" aria-label="Travel atlas">
+    <div id="map" aria-label="Map of visited countries"></div>
+    <div class="map-toolbar">
+      <button id="back-world" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 4-6 6 6 6M4 10h13"/></svg>World map</button>
+      <button id="back-us" hidden>All states</button>
+      <h1 id="country-title" hidden></h1>
+      <button id="toggle-flights" aria-pressed="true">Flights</button>
+    </div>
+    <div id="route-legend" hidden aria-label="Route colors"></div>
+    <p id="map-status" role="status">Loading map…</p>
+  </main>
+</body>
+</html>

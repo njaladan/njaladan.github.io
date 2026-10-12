@@ -1,0 +1,9 @@
+{% assign film = site.data.movies.films | where: 'id', include.film_id | first %}
+<article class="library-card" data-title="{{ film.title | escape }}" data-date="{{ include.date }}" data-section="{{ include.section }}" data-release="{{ film.year | escape }}">
+  <div class="cover movie-cover">
+    <div class="cover-fallback" aria-hidden="true"><span>{{ film.title | escape }}</span><small>{{ film.year | escape }}</small></div>
+    {% if film.cover %}<img src="{{ film.cover | relative_url }}" alt="" width="300" height="450" loading="lazy" decoding="async">{% endif %}
+  </div>
+  <span class="card-title">{{ film.title | escape }}</span>
+  <span class="card-meta">{{ film.year | escape }}{% if include.date %} · <time datetime="{{ include.date }}">{{ include.date | date: '%b %-d' }}</time>{% endif %}{% if include.rewatch %} · Rewatch{% endif %}</span>
+</article>

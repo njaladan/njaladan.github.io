@@ -1,0 +1,40 @@
+---
+layout: default
+---
+<div data-library="movies">
+  <p class="eyebrow">The library</p>
+  <h1>Movies</h1>
+  <p class="page-intro">Movies I’ve watched. A diary of recent viewings, followed by the rest of the collection.</p>
+  <div class="library-toolbar">
+    <div class="library-controls js-controls" hidden>
+      <label class="control control-search">Find a movie<input type="search" data-search placeholder="Title or release year" aria-label="Search movies"></label>
+      <label class="control">Show<select data-filter><option value="all">All movies</option><option value="dated">Diary</option><option value="earlier">Earlier watches</option></select></label>
+      <label class="control">Sort<select data-sort><option value="newest">Recently watched</option><option value="oldest">Earliest watched</option><option value="title">Title (A–Z)</option></select></label>
+    </div>
+    <p class="result-count" data-count role="status" aria-live="polite">{{ site.data.movies.films | size }} movies · {{ site.data.movies.viewings | size }} diary entries</p>
+  </div>
+  <nav class="year-nav" data-year-nav aria-label="Viewing years">
+    {% assign previous_year = '' %}{% for viewing in site.data.movies.viewings %}{% assign year = viewing.date | slice: 0, 4 %}{% if year != previous_year %}<a href="#y{{ year }}">{{ year }}</a>{% assign previous_year = year %}{% endif %}{% endfor %}
+    <a href="#earlier">Earlier watches</a>
+  </nav>
+  <div data-groups>
+    {% assign previous_year = '' %}
+    {% for viewing in site.data.movies.viewings %}
+      {% assign year = viewing.date | slice: 0, 4 %}
+      {% if year != previous_year %}
+        {% unless forloop.first %}</div></section>{% endunless %}
+        <section class="library-group" id="y{{ year }}"><div class="group-heading"><h2>{{ year }}</h2></div><div class="shelf">
+        {% assign previous_year = year %}
+      {% endif %}
+      {% include movie-card.html film_id=viewing.film_id date=viewing.date section='dated' rewatch=viewing.rewatch %}
+      {% if forloop.last %}</div></section>{% endif %}
+    {% endfor %}
+    <section class="library-group" id="earlier">
+      <div class="group-heading"><h2>Earlier watches</h2><span>{{ site.data.movies.earlier | size }} movies</span></div>
+      <p class="earlier-intro">The rest of my watched collection, without recorded viewing dates. Listed alphabetically.</p>
+      <div class="shelf">{% for film_id in site.data.movies.earlier %}{% include movie-card.html film_id=film_id section='earlier' %}{% endfor %}</div>
+    </section>
+  </div>
+  <p class="empty-state" data-empty hidden>No movies found. Try another search.</p>
+  <p class="art-credit">Poster artwork from <a href="https://www.themoviedb.org/">TMDB</a>.</p>
+</div>

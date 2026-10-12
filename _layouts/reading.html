@@ -1,39 +1,53 @@
 ---
 layout: default
 ---
-
-<div class="page-single">
-    <div class="entry-header">       
-        <h1 class="posttitle">Book Notes</h1>
+{% assign books = site.tags.Books | sort: 'date' | reverse %}
+<div data-library="books">
+  <p class="eyebrow">The library</p>
+  <h1>Reading</h1>
+  <p class="page-intro">Books I’ve read over the years. Some have notes; all have a place on the shelf.</p>
+  <div class="library-toolbar">
+    <div class="library-controls js-controls" hidden>
+      <label class="control control-search">Find a book<input type="search" data-search placeholder="Title or author" aria-label="Search books"></label>
+      <label class="control">Show<select data-filter><option value="all">All books</option><option value="notes">With notes</option></select></label>
+      <label class="control">Sort<select data-sort><option value="newest">Recently read</option><option value="oldest">Earliest read</option><option value="title">Title (A–Z)</option></select></label>
     </div>
+    <p class="result-count" data-count role="status" aria-live="polite">{{ books | size }} books</p>
+  </div>
+  <nav class="year-nav" data-year-nav aria-label="Reading years">
+    {% assign previous_year = '' %}{% for book in books %}{% assign year = book.date | date: '%Y' %}{% if year != previous_year %}<a href="#y{{ year }}">{{ year }}</a>{% assign previous_year = year %}{% endif %}{% endfor %}
+  </nav>
+  <div data-groups>
+    {% assign previous_year = '' %}
+    {% for book in books %}
+      {% assign year = book.date | date: '%Y' %}
+      {% assign book_id = book.path | split: '/' | last | remove: '.md' %}
+      {% assign metadata = site.data.books | where: 'id', book_id | first %}
+      {% assign review_text = book.content | strip %}
+      {% if year != previous_year %}
+        {% unless forloop.first %}</div></section>{% endunless %}
+        <section class="library-group" id="y{{ year }}"><div class="group-heading"><h2>{{ year }}</h2></div><div class="shelf">
+        {% assign previous_year = year %}
+      {% endif %}
+      <article class="library-card" data-title="{{ book.title | escape }}" data-author="{{ metadata.author | escape }}" data-date="{{ book.date | date: '%Y-%m-%d' }}" data-section="dated" data-notes="{% if review_text != '' %}true{% else %}false{% endif %}">
+        {% if review_text != '' %}<a class="card-link" data-review href="{{ book.url | relative_url }}" aria-label="Read notes on {{ book.title | escape }}">{% else %}<div class="card-link">{% endif %}
+          <div class="cover">
+            <div class="cover-fallback" aria-hidden="true"><span>{{ book.title | escape }}</span><small>{{ metadata.author | default: 'Reading' | escape }}</small></div>
+            {% if metadata.cover %}<img src="{{ metadata.cover | relative_url }}" alt="" width="300" height="450" loading="lazy" decoding="async">{% endif %}
+          </div>
+          <span class="card-title">{{ book.title | escape }}</span>
+          {% if metadata.author %}<span class="card-meta">{{ metadata.author | escape }}</span>{% endif %}
+          {% if review_text != '' %}<span class="note-marker">Read notes ↗</span>{% endif %}
+        {% if review_text != '' %}</a>{% else %}</div>{% endif %}
+        {% if review_text != '' %}<template data-review-content><div class="dialog-content">{{ book.content | markdownify }}</div></template>{% endif %}
+      </article>
+      {% if forloop.last %}</div></section>{% endif %}
+    {% endfor %}
+  </div>
+  <p class="empty-state" data-empty hidden>No books found. Try another search.</p>
+  <p class="art-credit">Cover artwork from <a href="https://openlibrary.org/">Open Library</a>.</p>
 </div>
-
-<h4 class="mt-5 mb-neg-30"><span class="text-capitalize text-small badge badge-primary">Books</span></h4><br /><br />
-{% for tag in site.tags %}
-{% if tag[0] == "Books" %}
-{% assign pages_list = tag[1] %}
-{% for post in pages_list reversed %}
-{% if post.title != null %}
-{% if group == null or group == post.group %}
-{% assign currentdate = post.date | date: "%Y" %}
-{% if currentdate != date %}
-    <a class="card-title text-dark" id="y{{currentdate}}">{{ currentdate }}</a>
-    {% assign date = currentdate %} 
-{% endif %}
-        <div class="card-body">
-            <div>
-                {% if post.link %}
-                <a class="card-title" class="text-dark" href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-                {% else %}
-                <a class="card-title" class="text-dark">{{ post.title }}</a>
-                {% endif %}
-                <span class="post-date">{{ post.date | date_to_string }}</span>
-            </div>
-        </div>
-{% endif %}
-{% endif %}
-{% endfor %}
-{% assign pages_list = nil %}
-{% assign group = nil %}
-{% endif %}
-{% endfor %}
+<dialog id="review-dialog" aria-labelledby="review-title">
+  <button class="dialog-close" type="button" aria-label="Close review" autofocus>×</button>
+  <div class="dialog-inner"><p class="eyebrow">Reading notes</p><h2 id="review-title" class="dialog-title"></h2><p class="dialog-meta" id="review-meta"></p><div id="review-body"></div><a class="dialog-permalink" id="review-permalink">Open full note ↗</a></div>
+</dialog>
