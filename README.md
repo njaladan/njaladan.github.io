@@ -20,7 +20,7 @@ python scripts/import_movies.py /path/to/diary.csv /path/to/watched.csv
 ```
 
 `Watched Date` determines the diary order, newest first. Repeated diary entries are
-preserved. Films without a diary date appear alphabetically under Earlier watches;
+preserved. Films without a diary date appear alphabetically under Other movies;
 the added date is never presented as a viewing date. Existing poster metadata is
 preserved during reimports.
 

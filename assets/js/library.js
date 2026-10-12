@@ -45,7 +45,7 @@
       const heading = document.createElement('div');
       heading.className = 'group-heading';
       const title = document.createElement('h2');
-      title.textContent = key === 'earlier' ? 'Earlier watches'
+      title.textContent = key === 'earlier' ? 'Other movies'
         : key === 'all' ? kind === 'books' ? 'The collection' : 'The diary' : key;
       const count = document.createElement('span');
       count.textContent = `${items.length} ${kind === 'books' ? 'books' : key === 'earlier' ? 'movies' : 'viewings'}`;
@@ -64,7 +64,7 @@
       content.append(section);
       const link = document.createElement('a');
       link.href = `#${section.id}`;
-      link.textContent = key === 'earlier' ? 'Earlier watches' : key === 'all' ? 'The collection' : key;
+      link.textContent = key === 'earlier' ? 'Other movies' : key === 'all' ? 'The collection' : key;
       links.append(link);
     }
     groups.replaceChildren(content);
