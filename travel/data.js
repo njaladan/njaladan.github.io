@@ -516,7 +516,7 @@ const US_VISITS = {
 };
 
 // Route colors are shared by recorded GPS tracks and confirmed transport legs.
-const ROUTE_MODES={hiking:{name:'Hike',color:'#859650'},walking:{name:'Walk',color:'#527b58'},running:{name:'Run',color:'#bd5574'},cycling:{name:'Bike',color:'#287f96'},Train:{name:'Train',color:'#8368a6'},Drive:{name:'Drive',color:'#b28c2c'},Ferry:{name:'Ferry',color:'#3269ac'},Flight:{name:'Flight',color:'#2f6ea9'}};
+const ROUTE_MODES={hiking:{name:'Hike',color:'#859650'},walking:{name:'Walk',color:'#527b58'},running:{name:'Run',color:'#bd5574'},cycling:{name:'Bike',color:'#287f96'},Train:{name:'Train',color:'#8368a6'},Drive:{name:'Drive',color:'#b28c2c'},Ferry:{name:'Ferry',color:'#3269ac'},Gondola:{name:'Gondola',color:'#a45b83'},Flight:{name:'Flight',color:'#2f6ea9'}};
 
 const CONFIRMED_ROUTE_PLACES={
  '300':[{name:'Piraeus',coords:[37.942569,23.642746]},{name:'Syros',coords:[37.440886,24.941164]}],
