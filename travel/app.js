@@ -17,7 +17,7 @@
   const smoothZoom = installSmoothZoom(map, reduceMotion);
   map.createPane('states');map.getPane('states').style.zIndex=360;
   map.createPane('routes');map.getPane('routes').style.zIndex=420;
-  map.createPane('flights');map.getPane('flights').style.zIndex=400;
+  map.createPane('flights');map.getPane('flights').style.zIndex=440;
   map.createPane('airports');map.getPane('airports').style.zIndex=430;
   map.createPane('cities');map.getPane('cities').style.zIndex=450;
   map.createPane('countries');map.getPane('countries').style.zIndex=350;
@@ -206,10 +206,10 @@
     flightLayers.clearLayers();airportLayers.clearLayers();
     flightLog.routes.forEach(connection=>{
       const label=connection.airports.join(' ↔ ');
-      const quiet={color:ROUTE_MODES.Flight.color,weight:1.2,opacity:.24,dashArray:'4 6'};
+      const quiet={color:ROUTE_MODES.Flight.color,weight:1.8,opacity:.62,dashArray:'5 4'};
       const line=L.polyline(connection.segments,{pane:'flights',...quiet,className:'flight-route'})
         .bindTooltip(escape(label)).bindPopup(()=>flightContent(connection),{className:'activity-popup',maxWidth:300}).addTo(flightLayers);
-      const highlight=()=>line.setStyle({weight:1.8,opacity:.65});
+      const highlight=()=>line.setStyle({weight:2.6,opacity:.95});
       const reset=()=>line.setStyle(quiet);
       line.on('mouseover popupopen',highlight).on('mouseout',()=>{if(!line.isPopupOpen())reset();}).on('popupclose',reset);
       const node=line.getElement();node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',label);
