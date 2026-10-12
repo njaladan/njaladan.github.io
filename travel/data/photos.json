@@ -42,6 +42,594 @@
         }
       },
       "country": "250"
+    },
+    {
+      "id": "pantheon-columns",
+      "place": "Columns · Pantheon, Paris",
+      "coords": [
+        48.8462,
+        2.3464
+      ],
+      "caption": "",
+      "width": 2048,
+      "height": 3090,
+      "sha256": "61f765eb9178ef7cfa341c62abf5c201a65b527e8f0af9edd04751f19179698f",
+      "original": {
+        "src": "photos/pantheon-columns/pantheon-columns-original.jpg",
+        "bytes": 1286414
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/pantheon-columns/pantheon-columns-thumbnail.webp",
+          "width": 128,
+          "height": 193,
+          "bytes": 4510
+        },
+        "small": {
+          "src": "photos/pantheon-columns/pantheon-columns-small.webp",
+          "width": 640,
+          "height": 966,
+          "bytes": 88086
+        },
+        "medium": {
+          "src": "photos/pantheon-columns/pantheon-columns-medium.webp",
+          "width": 1280,
+          "height": 1931,
+          "bytes": 331034
+        },
+        "large": {
+          "src": "photos/pantheon-columns/pantheon-columns-large.webp",
+          "width": 1920,
+          "height": 2897,
+          "bytes": 613024
+        }
+      }
+    },
+    {
+      "id": "eiffel-tower",
+      "place": "Eiffel Tower",
+      "coords": [
+        48.8584,
+        2.2945
+      ],
+      "caption": "",
+      "width": 2048,
+      "height": 3090,
+      "sha256": "7bceb17711bbef46088badf53b619fcb1b40997e268a1773ac1b7bd5fe3d3cc5",
+      "original": {
+        "src": "photos/eiffel-tower/eiffel-tower-original.jpg",
+        "bytes": 1153708
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/eiffel-tower/eiffel-tower-thumbnail.webp",
+          "width": 128,
+          "height": 193,
+          "bytes": 4202
+        },
+        "small": {
+          "src": "photos/eiffel-tower/eiffel-tower-small.webp",
+          "width": 640,
+          "height": 966,
+          "bytes": 77196
+        },
+        "medium": {
+          "src": "photos/eiffel-tower/eiffel-tower-medium.webp",
+          "width": 1280,
+          "height": 1931,
+          "bytes": 338874
+        },
+        "large": {
+          "src": "photos/eiffel-tower/eiffel-tower-large.webp",
+          "width": 1920,
+          "height": 2897,
+          "bytes": 648790
+        }
+      }
+    },
+    {
+      "id": "london-selfie",
+      "place": "City of London",
+      "coords": [
+        51.5074,
+        -0.1278
+      ],
+      "caption": "",
+      "width": 3090,
+      "height": 2048,
+      "sha256": "7753fa1652575dc0b8172637204aee12ec8630032fd9b70c23abd347f366e8b6",
+      "original": {
+        "src": "photos/london-selfie/london-selfie-original.jpg",
+        "bytes": 1008568
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/london-selfie/london-selfie-thumbnail.webp",
+          "width": 128,
+          "height": 85,
+          "bytes": 2210
+        },
+        "small": {
+          "src": "photos/london-selfie/london-selfie-small.webp",
+          "width": 640,
+          "height": 424,
+          "bytes": 23700
+        },
+        "medium": {
+          "src": "photos/london-selfie/london-selfie-medium.webp",
+          "width": 1280,
+          "height": 848,
+          "bytes": 124558
+        },
+        "large": {
+          "src": "photos/london-selfie/london-selfie-large.webp",
+          "width": 1920,
+          "height": 1273,
+          "bytes": 296192
+        }
+      }
+    },
+    {
+      "id": "haarlem-organ",
+      "place": "Organ · Haarlem church",
+      "coords": [
+        52.3817,
+        4.6364
+      ],
+      "caption": "",
+      "width": 2376,
+      "height": 3584,
+      "sha256": "90dd8c1216a035f3ec5849f1c0586cb9ca1c1e9e1d1467067e2b904ae8b89296",
+      "original": {
+        "src": "photos/haarlem-organ/haarlem-organ-original.jpg",
+        "bytes": 2547770
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/haarlem-organ/haarlem-organ-thumbnail.webp",
+          "width": 128,
+          "height": 193,
+          "bytes": 9008
+        },
+        "small": {
+          "src": "photos/haarlem-organ/haarlem-organ-small.webp",
+          "width": 640,
+          "height": 965,
+          "bytes": 163412
+        },
+        "medium": {
+          "src": "photos/haarlem-organ/haarlem-organ-medium.webp",
+          "width": 1280,
+          "height": 1931,
+          "bytes": 673552
+        },
+        "large": {
+          "src": "photos/haarlem-organ/haarlem-organ-large.webp",
+          "width": 1920,
+          "height": 2896,
+          "bytes": 1385362
+        }
+      }
+    },
+    {
+      "id": "keukenhof-shrubs",
+      "place": "Shrubs · Keukenhof",
+      "coords": [
+        52.2713,
+        4.5463
+      ],
+      "caption": "",
+      "width": 2376,
+      "height": 3584,
+      "sha256": "ffd8532201ed18a03400d525e1e3834fadafb84747f922b1df9b2478ef390114",
+      "original": {
+        "src": "photos/keukenhof-shrubs/keukenhof-shrubs-original.jpg",
+        "bytes": 2666908
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/keukenhof-shrubs/keukenhof-shrubs-thumbnail.webp",
+          "width": 128,
+          "height": 193,
+          "bytes": 9258
+        },
+        "small": {
+          "src": "photos/keukenhof-shrubs/keukenhof-shrubs-small.webp",
+          "width": 640,
+          "height": 965,
+          "bytes": 207896
+        },
+        "medium": {
+          "src": "photos/keukenhof-shrubs/keukenhof-shrubs-medium.webp",
+          "width": 1280,
+          "height": 1931,
+          "bytes": 752276
+        },
+        "large": {
+          "src": "photos/keukenhof-shrubs/keukenhof-shrubs-large.webp",
+          "width": 1920,
+          "height": 2896,
+          "bytes": 1473054
+        }
+      }
+    },
+    {
+      "id": "lucerne-lion",
+      "place": "Lion Monument · Lucerne",
+      "coords": [
+        47.0589,
+        8.3109
+      ],
+      "caption": "",
+      "width": 3584,
+      "height": 2376,
+      "sha256": "b0702432624d8be3b93782b67271baa2dcf4b55bc7605a910c533979b0225186",
+      "original": {
+        "src": "photos/lucerne-lion/lucerne-lion-original.jpg",
+        "bytes": 2521456
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/lucerne-lion/lucerne-lion-thumbnail.webp",
+          "width": 128,
+          "height": 85,
+          "bytes": 3728
+        },
+        "small": {
+          "src": "photos/lucerne-lion/lucerne-lion-small.webp",
+          "width": 640,
+          "height": 424,
+          "bytes": 69264
+        },
+        "medium": {
+          "src": "photos/lucerne-lion/lucerne-lion-medium.webp",
+          "width": 1280,
+          "height": 849,
+          "bytes": 283618
+        },
+        "large": {
+          "src": "photos/lucerne-lion/lucerne-lion-large.webp",
+          "width": 1920,
+          "height": 1273,
+          "bytes": 662712
+        }
+      }
+    },
+    {
+      "id": "milano-turnstiles",
+      "place": "Milano Centrale",
+      "coords": [
+        45.4862,
+        9.2045
+      ],
+      "caption": "",
+      "width": 3584,
+      "height": 2376,
+      "sha256": "6dd581a7c760d099d4dc332d02e508e6a07c8da597d7e09c61bb4afa94afeb70",
+      "original": {
+        "src": "photos/milano-turnstiles/milano-turnstiles-original.jpg",
+        "bytes": 2197175
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/milano-turnstiles/milano-turnstiles-thumbnail.webp",
+          "width": 128,
+          "height": 85,
+          "bytes": 3350
+        },
+        "small": {
+          "src": "photos/milano-turnstiles/milano-turnstiles-small.webp",
+          "width": 640,
+          "height": 424,
+          "bytes": 37774
+        },
+        "medium": {
+          "src": "photos/milano-turnstiles/milano-turnstiles-medium.webp",
+          "width": 1280,
+          "height": 849,
+          "bytes": 170908
+        },
+        "large": {
+          "src": "photos/milano-turnstiles/milano-turnstiles-large.webp",
+          "width": 1920,
+          "height": 1273,
+          "bytes": 509552
+        }
+      }
+    },
+    {
+      "id": "hong-kong-umbrella",
+      "place": "Central Pier No. 10 · Hong Kong",
+      "coords": [
+        22.2869,
+        114.1581
+      ],
+      "caption": "",
+      "width": 1536,
+      "height": 2048,
+      "sha256": "4aa22d54cf7e5512a766e289b6a3e1c0f853cdd94a24b92d469cdbe7f47fc431",
+      "original": {
+        "src": "photos/hong-kong-umbrella/hong-kong-umbrella-original.jpg",
+        "bytes": 1022491
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/hong-kong-umbrella/hong-kong-umbrella-thumbnail.webp",
+          "width": 128,
+          "height": 171,
+          "bytes": 6842
+        },
+        "small": {
+          "src": "photos/hong-kong-umbrella/hong-kong-umbrella-small.webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 145116
+        },
+        "medium": {
+          "src": "photos/hong-kong-umbrella/hong-kong-umbrella-medium.webp",
+          "width": 1280,
+          "height": 1707,
+          "bytes": 564194
+        },
+        "large": {
+          "src": "photos/hong-kong-umbrella/hong-kong-umbrella-large.webp",
+          "width": 1536,
+          "height": 2048,
+          "bytes": 766892
+        }
+      }
+    },
+    {
+      "id": "iceland-sheep",
+      "place": "Iceland waterfall hike",
+      "coords": [
+        63.5964,
+        -19.4352
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "d4f03b3a888b43903dab0739e7692d4b5bebc779e1ff9ca0a6bb4e68b2d324ca",
+      "original": {
+        "src": "photos/iceland-sheep/iceland-sheep-original.jpg",
+        "bytes": 3272939
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/iceland-sheep/iceland-sheep-thumbnail.webp",
+          "width": 128,
+          "height": 171,
+          "bytes": 9070
+        },
+        "small": {
+          "src": "photos/iceland-sheep/iceland-sheep-small.webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 220526
+        },
+        "medium": {
+          "src": "photos/iceland-sheep/iceland-sheep-medium.webp",
+          "width": 1280,
+          "height": 1707,
+          "bytes": 764190
+        },
+        "large": {
+          "src": "photos/iceland-sheep/iceland-sheep-large.webp",
+          "width": 1920,
+          "height": 2560,
+          "bytes": 1371254
+        }
+      }
+    },
+    {
+      "id": "iceland-aurora",
+      "place": "Iceland drive",
+      "coords": [
+        64.03,
+        -22.2
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "a576172c360066c9ed80f988bded05d2c5b210853d14c8e56daf4975273a6dcd",
+      "original": {
+        "src": "photos/iceland-aurora/iceland-aurora-original.jpg",
+        "bytes": 1576758
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/iceland-aurora/iceland-aurora-thumbnail.webp",
+          "width": 128,
+          "height": 171,
+          "bytes": 1454
+        },
+        "small": {
+          "src": "photos/iceland-aurora/iceland-aurora-small.webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 12370
+        },
+        "medium": {
+          "src": "photos/iceland-aurora/iceland-aurora-medium.webp",
+          "width": 1280,
+          "height": 1707,
+          "bytes": 165990
+        },
+        "large": {
+          "src": "photos/iceland-aurora/iceland-aurora-large.webp",
+          "width": 1920,
+          "height": 2560,
+          "bytes": 467592
+        }
+      }
+    },
+    {
+      "id": "cinque-terre-waterfront",
+      "place": "Cinque Terre",
+      "coords": [
+        44.1355,
+        9.684
+      ],
+      "caption": "",
+      "width": 2659,
+      "height": 3545,
+      "sha256": "b4e7ea0ef6b728cd1813eabdd012a0f946209220efae3a589e6566cfbf460c22",
+      "original": {
+        "src": "photos/cinque-terre-waterfront/cinque-terre-waterfront-original.jpg",
+        "bytes": 2015322
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/cinque-terre-waterfront/cinque-terre-waterfront-thumbnail.webp",
+          "width": 128,
+          "height": 171,
+          "bytes": 4776
+        },
+        "small": {
+          "src": "photos/cinque-terre-waterfront/cinque-terre-waterfront-small.webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 126658
+        },
+        "medium": {
+          "src": "photos/cinque-terre-waterfront/cinque-terre-waterfront-medium.webp",
+          "width": 1280,
+          "height": 1707,
+          "bytes": 443148
+        },
+        "large": {
+          "src": "photos/cinque-terre-waterfront/cinque-terre-waterfront-large.webp",
+          "width": 1920,
+          "height": 2560,
+          "bytes": 828172
+        }
+      }
+    },
+    {
+      "id": "w-trek-smile",
+      "place": "W Trek",
+      "coords": [
+        -50.9837,
+        -73.0556
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "c977ae475699647ced68bdc8d68eb897fa0a7ed9a30667251a66a925c3639ac4",
+      "original": {
+        "src": "photos/w-trek-smile/w-trek-smile-original.jpg",
+        "bytes": 2907412
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/w-trek-smile/w-trek-smile-thumbnail.webp",
+          "width": 128,
+          "height": 171,
+          "bytes": 7540
+        },
+        "small": {
+          "src": "photos/w-trek-smile/w-trek-smile-small.webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 145388
+        },
+        "medium": {
+          "src": "photos/w-trek-smile/w-trek-smile-medium.webp",
+          "width": 1280,
+          "height": 1707,
+          "bytes": 466738
+        },
+        "large": {
+          "src": "photos/w-trek-smile/w-trek-smile-large.webp",
+          "width": 1920,
+          "height": 2560,
+          "bytes": 895706
+        }
+      }
+    },
+    {
+      "id": "lac-blanc-hair",
+      "place": "Lac Blanc · Chamonix",
+      "coords": [
+        45.9814,
+        6.8962
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "89cfbe9b085120fb16b899b5fc52dce3180601f0f212f66256d325d02fe1ba86",
+      "original": {
+        "src": "photos/lac-blanc-hair/lac-blanc-hair-original.jpg",
+        "bytes": 2083073
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/lac-blanc-hair/lac-blanc-hair-thumbnail.webp",
+          "width": 128,
+          "height": 171,
+          "bytes": 5216
+        },
+        "small": {
+          "src": "photos/lac-blanc-hair/lac-blanc-hair-small.webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 90152
+        },
+        "medium": {
+          "src": "photos/lac-blanc-hair/lac-blanc-hair-medium.webp",
+          "width": 1280,
+          "height": 1707,
+          "bytes": 303756
+        },
+        "large": {
+          "src": "photos/lac-blanc-hair/lac-blanc-hair-large.webp",
+          "width": 1920,
+          "height": 2560,
+          "bytes": 581224
+        }
+      }
+    },
+    {
+      "id": "wadi-rum-sand",
+      "place": "Wadi Rum",
+      "coords": [
+        29.576,
+        35.42
+      ],
+      "caption": "",
+      "width": 3024,
+      "height": 4032,
+      "sha256": "da4b0092e79d4c5dac7d5f02aa97ab03d0b0a1a8120f80220c04f23003a7274c",
+      "original": {
+        "src": "photos/wadi-rum-sand/wadi-rum-sand-original.jpg",
+        "bytes": 1141364
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/wadi-rum-sand/wadi-rum-sand-thumbnail.webp",
+          "width": 128,
+          "height": 171,
+          "bytes": 2540
+        },
+        "small": {
+          "src": "photos/wadi-rum-sand/wadi-rum-sand-small.webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 37132
+        },
+        "medium": {
+          "src": "photos/wadi-rum-sand/wadi-rum-sand-medium.webp",
+          "width": 1280,
+          "height": 1707,
+          "bytes": 122978
+        },
+        "large": {
+          "src": "photos/wadi-rum-sand/wadi-rum-sand-large.webp",
+          "width": 1920,
+          "height": 2560,
+          "bytes": 249988
+        }
+      }
     }
   ]
 }
