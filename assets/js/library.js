@@ -16,7 +16,7 @@
     const query = fold(search.value.trim());
     const visible = cards.filter(card => {
       const data = card.dataset;
-      const matches = fold([data.title, data.author || '', data.release || ''].join(' ')).includes(query);
+      const matches = fold(data.title || '').includes(query);
       const category = filter.value === 'all' ||
         (filter.value === 'notes' ? data.notes === 'true' : data.section === filter.value);
       return matches && category;
@@ -68,7 +68,7 @@
     root.querySelector('[data-empty]').hidden = Boolean(visible.length);
     const dated = visible.filter(card => card.dataset.section === 'dated').length;
     const resultCount = root.querySelector('[data-count]');
-    if (resultCount) resultCount.textContent = `${new Set(visible.map(card => `${card.dataset.title}\0${card.dataset.release}`)).size} movies · ${dated} diary entries`;
+    if (resultCount) resultCount.textContent = `${new Set(visible.map(card => card.dataset.filmId)).size} movies · ${dated} diary entries`;
   }
   search.addEventListener('input', update);
   filter.addEventListener('change', update);
