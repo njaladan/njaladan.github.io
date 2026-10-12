@@ -1128,13 +1128,6 @@
       "art_source": "https://www.themoviedb.org/movie/315162-puss-in-boots-the-last-wish"
     },
     {
-      "id": "1ad77a0bad79",
-      "title": "The Wonderful Story of Henry Sugar",
-      "year": "2023",
-      "cover": "/assets/images/movies/1ad77a0bad79.webp",
-      "art_source": "https://www.themoviedb.org/movie/923939-the-wonderful-story-of-henry-sugar"
-    },
-    {
       "id": "9c8760a2d615",
       "title": "Killers of the Flower Moon",
       "year": "2023",
@@ -1189,13 +1182,6 @@
       "year": "2011",
       "cover": "/assets/images/movies/7835cf1ce22e.webp",
       "art_source": "https://www.themoviedb.org/movie/94329-serbuan-maut"
-    },
-    {
-      "id": "968d5dc3fa4a",
-      "title": "To Fly!",
-      "year": "1976",
-      "cover": "/assets/images/movies/968d5dc3fa4a.webp",
-      "art_source": "https://www.themoviedb.org/movie/195012-to-fly"
     },
     {
       "id": "e173bcbb6f05",
@@ -1537,13 +1523,6 @@
       "year": "2011",
       "cover": "/assets/images/movies/f6fe090316f3.webp",
       "art_source": "https://www.themoviedb.org/movie/64690-drive"
-    },
-    {
-      "id": "ad4d7b54ad46",
-      "title": "Encounters in the Milky Way",
-      "year": "2025",
-      "cover": "/assets/images/movies/ad4d7b54ad46.webp",
-      "art_source": "https://www.themoviedb.org/movie/1599557-encounters-in-the-milky-way"
     },
     {
       "id": "45688ff0d2a2",
@@ -2316,67 +2295,11 @@
       "art_source": "https://www.themoviedb.org/movie/274-the-silence-of-the-lambs"
     },
     {
-      "id": "110f5b46429b",
-      "title": "An Ostrich Told Me the World Is Fake and I Think I Believe It",
-      "year": "2022",
-      "cover": "/assets/images/movies/110f5b46429b.webp",
-      "art_source": "https://www.themoviedb.org/movie/943776-an-ostrich-told-me-the-world-is-fake-and-i-think-i-believe-it"
-    },
-    {
-      "id": "f16dafc78217",
-      "title": "Ice Merchants",
-      "year": "2022",
-      "cover": "/assets/images/movies/f16dafc78217.webp",
-      "art_source": "https://www.themoviedb.org/movie/965171-ice-merchants"
-    },
-    {
-      "id": "3b61952ab633",
-      "title": "Jane Austen's Period Drama",
-      "year": "2024",
-      "cover": "/assets/images/movies/3b61952ab633.webp",
-      "art_source": "https://www.themoviedb.org/movie/1272266-jane-austen-s-period-drama"
-    },
-    {
-      "id": "faf370838ef5",
-      "title": "My Year of Dicks",
-      "year": "2022",
-      "cover": "/assets/images/movies/faf370838ef5.webp",
-      "art_source": "https://www.themoviedb.org/movie/971188-my-year-of-dicks"
-    },
-    {
-      "id": "a8cbc5d75030",
-      "title": "The Boy, the Mole, the Fox and the Horse",
-      "year": "2022",
-      "cover": "/assets/images/movies/a8cbc5d75030.webp",
-      "art_source": "https://www.themoviedb.org/movie/995133-the-boy-the-mole-the-fox-and-the-horse"
-    },
-    {
-      "id": "125e824f3734",
-      "title": "The Flying Sailor",
-      "year": "2022",
-      "cover": "/assets/images/movies/125e824f3734.webp",
-      "art_source": "https://www.themoviedb.org/movie/742872-the-flying-sailor"
-    },
-    {
-      "id": "dc16bd1000a6",
-      "title": "The Singers",
-      "year": "2025",
-      "cover": "/assets/images/movies/dc16bd1000a6.webp",
-      "art_source": "https://www.themoviedb.org/movie/1442908-the-singers"
-    },
-    {
       "id": "d25c456e8678",
       "title": "Time Freak",
       "year": "2018",
       "cover": "/assets/images/movies/d25c456e8678.webp",
       "art_source": "https://www.themoviedb.org/movie/451925-time-freak"
-    },
-    {
-      "id": "2c994fa98a83",
-      "title": "Two People Exchanging Saliva",
-      "year": "2024",
-      "cover": "/assets/images/movies/2c994fa98a83.webp",
-      "art_source": "https://www.themoviedb.org/movie/1340625-deux-personnes-echangeant-de-la-salive"
     },
     {
       "id": "d86ea83bcc52",
@@ -3898,48 +3821,6 @@
       "art_source": "https://www.themoviedb.org/movie/74643-the-artist"
     },
     {
-      "id": "5aa014a4581f",
-      "title": "La luna",
-      "year": "2011",
-      "cover": "/assets/images/movies/5aa014a4581f.webp",
-      "art_source": "https://www.themoviedb.org/movie/83564-la-luna"
-    },
-    {
-      "id": "b45c192612b3",
-      "title": "Jack-Jack Attack",
-      "year": "2005",
-      "cover": "/assets/images/movies/b45c192612b3.webp",
-      "art_source": "https://www.themoviedb.org/movie/13932-jack-jack-attack"
-    },
-    {
-      "id": "6596f23f7671",
-      "title": "Paperman",
-      "year": "2012",
-      "cover": "/assets/images/movies/6596f23f7671.webp",
-      "art_source": "https://www.themoviedb.org/movie/140420-paperman"
-    },
-    {
-      "id": "a11730832415",
-      "title": "Tangled Ever After",
-      "year": "2012",
-      "cover": "/assets/images/movies/a11730832415.webp",
-      "art_source": "https://www.themoviedb.org/movie/82881-tangled-ever-after"
-    },
-    {
-      "id": "e928be7f831a",
-      "title": "Olaf's Frozen Adventure",
-      "year": "2017",
-      "cover": "/assets/images/movies/e928be7f831a.webp",
-      "art_source": "https://www.themoviedb.org/movie/460793-olaf-s-frozen-adventure"
-    },
-    {
-      "id": "416bb4ecd4dd",
-      "title": "Once Upon a Snowman",
-      "year": "2020",
-      "cover": "/assets/images/movies/416bb4ecd4dd.webp",
-      "art_source": "https://www.themoviedb.org/movie/741074-once-upon-a-snowman"
-    },
-    {
       "id": "cce39c0ffcbb",
       "title": "Mad Max: Fury Road",
       "year": "2015",
@@ -4099,11 +3980,6 @@
       "rewatch": false
     },
     {
-      "film_id": "ad4d7b54ad46",
-      "date": "2026-07-30",
-      "rewatch": false
-    },
-    {
       "film_id": "f6fe090316f3",
       "date": "2026-07-20",
       "rewatch": false
@@ -4254,21 +4130,6 @@
       "rewatch": false
     },
     {
-      "film_id": "3b61952ab633",
-      "group_year": "2026",
-      "rewatch": false
-    },
-    {
-      "film_id": "dc16bd1000a6",
-      "group_year": "2026",
-      "rewatch": false
-    },
-    {
-      "film_id": "2c994fa98a83",
-      "group_year": "2026",
-      "rewatch": false
-    },
-    {
       "film_id": "3709bd33401c",
       "date": "2025-11-30",
       "rewatch": false
@@ -4354,11 +4215,6 @@
       "rewatch": false
     },
     {
-      "film_id": "968d5dc3fa4a",
-      "date": "2024-05-28",
-      "rewatch": false
-    },
-    {
       "film_id": "7835cf1ce22e",
       "date": "2024-05-10",
       "rewatch": false
@@ -4410,11 +4266,6 @@
     },
     {
       "film_id": "5bf33032aea0",
-      "date": "2023-10-13",
-      "rewatch": false
-    },
-    {
-      "film_id": "1ad77a0bad79",
       "date": "2023-10-13",
       "rewatch": false
     },
@@ -4534,11 +4385,6 @@
       "rewatch": false
     },
     {
-      "film_id": "110f5b46429b",
-      "group_year": "2022",
-      "rewatch": false
-    },
-    {
       "film_id": "d859996c5358",
       "group_year": "2022",
       "rewatch": false
@@ -4574,32 +4420,12 @@
       "rewatch": false
     },
     {
-      "film_id": "f16dafc78217",
-      "group_year": "2022",
-      "rewatch": false
-    },
-    {
-      "film_id": "faf370838ef5",
-      "group_year": "2022",
-      "rewatch": false
-    },
-    {
       "film_id": "3fa7b7f2bb1f",
       "group_year": "2022",
       "rewatch": false
     },
     {
       "film_id": "34b9078b2fe6",
-      "group_year": "2022",
-      "rewatch": false
-    },
-    {
-      "film_id": "a8cbc5d75030",
-      "group_year": "2022",
-      "rewatch": false
-    },
-    {
-      "film_id": "125e824f3734",
       "group_year": "2022",
       "rewatch": false
     },
@@ -4850,7 +4676,6 @@
     "0a5abaccb43d",
     "a6988e4782fa",
     "bb34ed61b764",
-    "b45c192612b3",
     "434d77900a74",
     "fd3d74674af4",
     "54a12bce9ab0",
@@ -4864,7 +4689,6 @@
     "7bac2d91c5d3",
     "fbc12c0dd63c",
     "1bb2e2b5b66b",
-    "5aa014a4581f",
     "5b31ddaf9c61",
     "8bb68de3d292",
     "adedaa2664f6",
@@ -4921,13 +4745,10 @@
     "434fe6cb30dc",
     "98b4ff60bb72",
     "2d75d5db5ab5",
-    "e928be7f831a",
     "5488e94ba0f4",
-    "416bb4ecd4dd",
     "428b8dfc4433",
     "99b827206bb2",
     "469dc00e1d08",
-    "6596f23f7671",
     "a0fca33eb644",
     "d9b78076ff3c",
     "3ecc6e6a7260",
@@ -4997,7 +4818,6 @@
     "36c1cc08f30b",
     "a237ac4f6abc",
     "3705d6bf7418",
-    "a11730832415",
     "49b01216b2cc",
     "0131935b34ac",
     "784d6246e3cd",
