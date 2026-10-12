@@ -26,3 +26,6 @@ main{height:calc(100dvh - 54px);min-height:380px;position:relative;overflow:hidd
 /* Shared literary navigation; map controls retain their own compact UI. */
 .site-header{font-family:Georgia,"Times New Roman",serif;background:#faf8f3;color:#272724;border-color:#dcd7cb}.site-header>a:first-child{font-weight:400;font-size:20px}.site-header nav{font-family:system-ui,-apple-system,sans-serif;gap:24px;color:#77756f}.site-header nav a[aria-current=page]{color:#272724;text-decoration:underline;text-underline-offset:5px}
 @media(max-width:600px){.site-header{padding:0 12px;gap:9px}.site-header nav{gap:12px;font-size:11px}.site-header>a:first-child{font-size:17px}}
+
+.site-logo{display:block;line-height:0;flex-shrink:0}.site-logo img{display:block;width:34px;height:34px}.site-footer{height:42px;padding:12px 16px;border-top:1px solid #dcd7cb;background:#faf8f3;color:#77756f;font:11px/17px system-ui,-apple-system,sans-serif;text-align:center}.site-footer a{text-decoration:underline;text-underline-offset:3px}main{height:calc(100dvh - 96px)}
+@media(max-width:700px){main{height:calc(100dvh - 90px)}.site-logo img{width:30px;height:30px}}

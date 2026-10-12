@@ -6,14 +6,14 @@
   <meta name="theme-color" content="#faf8f3">
   <link rel="icon" href="{{ '/assets/images/logo.png' | relative_url }}">
   {% seo %}
-  <link rel="stylesheet" href="{{ '/assets/css/library.css' | relative_url }}">
-  {% if page.library %}<script defer src="{{ '/assets/js/library.js' | relative_url }}"></script>{% endif %}
+  <link rel="stylesheet" href="{{ '/assets/css/library.css' | relative_url }}?v=2">
+  {% if page.library %}<script defer src="{{ '/assets/js/library.js' | relative_url }}?v=2"></script>{% endif %}
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="site-shell">
     <header class="site-header">
-      <a class="wordmark" href="{{ '/' | relative_url }}">Ganesh.</a>
+      <a class="site-logo" href="{{ '/' | relative_url }}" aria-label="Home"><img src="{{ '/assets/images/logo.png' | relative_url }}" alt="" width="48" height="48"></a>
       <nav class="site-nav" aria-label="Main navigation">
         <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}>About</a>
         <a href="{{ '/reading' | relative_url }}" {% if page.url == '/reading' or page.tags contains 'Books' %}aria-current="page"{% endif %}>Reading</a>
@@ -22,7 +22,7 @@
       </nav>
     </header>
     <main id="main">{{ content }}</main>
-    <footer class="site-footer"><span>Ganesh · New York City</span><a href="mailto:ganesh.jaladanki@gmail.com">Say hello ↗</a></footer>
+    <footer class="site-footer">Logo courtesy of <a href="https://www.emersonhsieh.com/">Emerson Hsieh</a>.</footer>
   </div>
 </body>
 </html>

@@ -3,16 +3,13 @@ layout: default
 ---
 {% assign books = site.tags.Books | sort: 'date' | reverse %}
 <div data-library="books">
-  <p class="eyebrow">The library</p>
   <h1>Reading</h1>
-  <p class="page-intro">Books I’ve read over the years. Some have notes; all have a place on the shelf.</p>
   <div class="library-toolbar">
     <div class="library-controls js-controls" hidden>
       <label class="control control-search">Find a book<input type="search" data-search placeholder="Title or author" aria-label="Search books"></label>
       <label class="control">Show<select data-filter><option value="all">All books</option><option value="notes">With notes</option></select></label>
       <label class="control">Sort<select data-sort><option value="newest">Recently read</option><option value="oldest">Earliest read</option><option value="title">Title (A–Z)</option></select></label>
     </div>
-    <p class="result-count" data-count role="status" aria-live="polite">{{ books | size }} books</p>
   </div>
   <nav class="year-nav" data-year-nav aria-label="Reading years">
     {% assign previous_year = '' %}{% for book in books %}{% assign year = book.date | date: '%Y' %}{% if year != previous_year %}<a href="#y{{ year }}">{{ year }}</a>{% assign previous_year = year %}{% endif %}{% endfor %}
@@ -33,7 +30,7 @@ layout: default
         {% if review_text != '' %}<a class="card-link" data-review href="{{ book.url | relative_url }}" aria-label="Read notes on {{ book.title | escape }}">{% else %}<div class="card-link">{% endif %}
           <div class="cover">
             <div class="cover-fallback" aria-hidden="true"><span>{{ book.title | escape }}</span><small>{{ metadata.author | default: 'Reading' | escape }}</small></div>
-            {% if metadata.cover %}<img src="{{ metadata.cover | relative_url }}" alt="" width="300" height="450" loading="lazy" decoding="async">{% endif %}
+            {% if metadata.cover %}<img src="{{ metadata.cover | relative_url }}?v=2" alt="" width="300" height="450" loading="lazy" decoding="async">{% endif %}
           </div>
           <span class="card-title">{{ book.title | escape }}</span>
           {% if metadata.author %}<span class="card-meta">{{ metadata.author | escape }}</span>{% endif %}
@@ -45,9 +42,9 @@ layout: default
     {% endfor %}
   </div>
   <p class="empty-state" data-empty hidden>No books found. Try another search.</p>
-  <p class="art-credit">Cover artwork from <a href="https://openlibrary.org/">Open Library</a>.</p>
+  <p class="art-credit">Cover artwork from publishers, booksellers, and <a href="https://openlibrary.org/">Open Library</a>.</p>
 </div>
 <dialog id="review-dialog" aria-labelledby="review-title">
   <button class="dialog-close" type="button" aria-label="Close review" autofocus>×</button>
-  <div class="dialog-inner"><p class="eyebrow">Reading notes</p><h2 id="review-title" class="dialog-title"></h2><p class="dialog-meta" id="review-meta"></p><div id="review-body"></div><a class="dialog-permalink" id="review-permalink">Open full note ↗</a></div>
+  <div class="dialog-inner"><p class="eyebrow">Reading notes</p><h2 id="review-title" class="dialog-title"></h2><p class="dialog-meta" id="review-meta"></p><div id="review-body"></div></div>
 </dialog>

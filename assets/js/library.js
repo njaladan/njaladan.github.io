@@ -45,18 +45,13 @@
       const heading = document.createElement('div');
       heading.className = 'group-heading';
       const title = document.createElement('h2');
-      title.textContent = key === 'earlier' ? 'Other movies'
+      title.textContent = key === 'earlier' ? 'Undated'
         : key === 'all' ? kind === 'books' ? 'The collection' : 'The diary' : key;
       const count = document.createElement('span');
       count.textContent = `${items.length} ${kind === 'books' ? 'books' : key === 'earlier' ? 'movies' : 'viewings'}`;
-      heading.append(title, count);
+      heading.append(title);
+      if (kind === 'movies') heading.append(count);
       section.append(heading);
-      if (key === 'earlier') {
-        const intro = document.createElement('p');
-        intro.className = 'earlier-intro';
-        intro.textContent = 'The rest of my watched collection, without recorded viewing dates. Listed alphabetically.';
-        section.append(intro);
-      }
       const shelf = document.createElement('div');
       shelf.className = 'shelf';
       items.forEach(card => shelf.append(card));
@@ -64,7 +59,7 @@
       content.append(section);
       const link = document.createElement('a');
       link.href = `#${section.id}`;
-      link.textContent = key === 'earlier' ? 'Other movies' : key === 'all' ? 'The collection' : key;
+      link.textContent = key === 'earlier' ? 'Undated' : key === 'all' ? 'The collection' : key;
       links.append(link);
     }
     groups.replaceChildren(content);
@@ -72,8 +67,8 @@
     nav.hidden = !visible.length;
     root.querySelector('[data-empty]').hidden = Boolean(visible.length);
     const dated = visible.filter(card => card.dataset.section === 'dated').length;
-    root.querySelector('[data-count]').textContent = kind === 'books' ? `${visible.length} books`
-      : `${new Set(visible.map(card => `${card.dataset.title}\0${card.dataset.release}`)).size} movies · ${dated} diary entries`;
+    const resultCount = root.querySelector('[data-count]');
+    if (resultCount) resultCount.textContent = `${new Set(visible.map(card => `${card.dataset.title}\0${card.dataset.release}`)).size} movies · ${dated} diary entries`;
   }
   search.addEventListener('input', update);
   filter.addEventListener('change', update);
@@ -95,7 +90,6 @@
         year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
       }).format(new Date(`${card.dataset.date}T00:00:00Z`));
       document.getElementById('review-body').replaceChildren(template.content.cloneNode(true));
-      document.getElementById('review-permalink').href = link.href;
       dialog.showModal();
       dialog.scrollTop = 0;
     });

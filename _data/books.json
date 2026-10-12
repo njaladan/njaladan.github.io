@@ -93,13 +93,15 @@
     "date": "2022-09-10",
     "author": "William Shakespeare",
     "cover": "/assets/images/books/2022-09-10-macbeth.webp",
-    "art_source": "https://covers.openlibrary.org/b/id/872432-M.jpg"
+    "art_source": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781451694727/macbeth-9781451694727_lg.jpg"
   },
   {
     "id": "2021-12-15-the-world-for-sale",
     "title": "The World For Sale",
     "date": "2021-12-15",
-    "author": "Javier Blas, Jack Farchy"
+    "author": "Javier Blas, Jack Farchy",
+    "cover": "/assets/images/books/2021-12-15-the-world-for-sale.webp",
+    "art_source": "https://cdn.penguin.co.uk/dam-assets/books/9781847942678/9781847942678-jacket-large.jpg"
   },
   {
     "id": "2021-10-18-kafka-on-the-shore",
@@ -129,7 +131,9 @@
     "id": "2021-09-12-the-new-rules-of-coffee",
     "title": "The New Rules of Coffee",
     "date": "2021-09-12",
-    "author": "Jordan Michelman, Zachary Carlsen"
+    "author": "Jordan Michelman, Zachary Carlsen",
+    "cover": "/assets/images/books/2021-09-12-the-new-rules-of-coffee.webp",
+    "art_source": "https://images4.penguinrandomhouse.com/cover/9780399581625"
   },
   {
     "id": "2021-04-15-exhalations",
@@ -207,7 +211,10 @@
     "id": "2020-07-02-raise-a-genius",
     "title": "Raise a Genius!",
     "date": "2020-07-02",
-    "author": "László Polgár"
+    "author": "László Polgár",
+    "cover": "/assets/images/books/2020-07-02-raise-a-genius.webp",
+    "art_source": "https://cdn.antikvarium.hu/foto/nagy/45130154.jpg",
+    "cover_edition": "Original Hungarian edition (Nevelj zsenit!, 1989)"
   },
   {
     "id": "2020-06-14-monetizing-innovation",
@@ -231,7 +238,7 @@
     "date": "2020-05-26",
     "author": "Kurt Vonnegut",
     "cover": "/assets/images/books/2020-05-26-cat-s-cradle.webp",
-    "art_source": "https://covers.openlibrary.org/b/id/12709654-M.jpg"
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780385333481"
   },
   {
     "id": "2020-03-31-station-eleven",
@@ -245,7 +252,9 @@
     "id": "2020-01-20-rivals-unto-death",
     "title": "Rivals Unto Death",
     "date": "2020-01-20",
-    "author": "Rick Beyer"
+    "author": "Rick Beyer",
+    "cover": "/assets/images/books/2020-01-20-rivals-unto-death.webp",
+    "art_source": "https://www.hachettebookgroup.com/wp-content/uploads/2017/06/9780316504973.jpg"
   },
   {
     "id": "2019-12-16-zero-to-one",
@@ -269,7 +278,7 @@
     "date": "2019-07-14",
     "author": "Graeme Simsion",
     "cover": "/assets/images/books/2019-07-14-the-rosie-project.webp",
-    "art_source": "https://covers.openlibrary.org/b/id/10186221-M.jpg"
+    "art_source": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781476729091/the-rosie-project-9781476729091_lg.jpg"
   },
   {
     "id": "2019-07-14-the-rosie-effect",
@@ -277,7 +286,7 @@
     "date": "2019-07-14",
     "author": "Graeme Simsion",
     "cover": "/assets/images/books/2019-07-14-the-rosie-effect.webp",
-    "art_source": "https://covers.openlibrary.org/b/id/10167193-M.jpg"
+    "art_source": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781476767321/the-rosie-effect-9781476767321_lg.jpg"
   },
   {
     "id": "2019-05-19-the-alchemist",
@@ -291,7 +300,9 @@
     "id": "2019-03-16-the-wandering-earth",
     "title": "The Wandering Earth",
     "date": "2019-03-16",
-    "author": "Cixin Liu"
+    "author": "Cixin Liu",
+    "cover": "/assets/images/books/2019-03-16-the-wandering-earth.webp",
+    "art_source": "https://mpd-biblio-covers.imgix.net/9781250796844.jpg"
   },
   {
     "id": "2019-02-17-the-power-of-habit",
@@ -355,7 +366,7 @@
     "date": "2018-10-03",
     "author": "Jules Verne",
     "cover": "/assets/images/books/2018-10-03-20-000-leagues-under-the-sea.webp",
-    "art_source": "https://covers.openlibrary.org/b/id/10817535-M.jpg"
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780593081518"
   },
   {
     "id": "2018-08-15-death-s-end",
@@ -377,7 +388,9 @@
     "id": "2018-08-06-the-three-body-problem",
     "title": "The Three Body Problem",
     "date": "2018-08-06",
-    "author": "Cixin Liu"
+    "author": "Cixin Liu",
+    "cover": "/assets/images/books/2018-08-06-the-three-body-problem.webp",
+    "art_source": "https://mpd-biblio-covers.imgix.net/9780765382030.jpg"
   },
   {
     "id": "2018-07-28-hamlet",
@@ -385,7 +398,7 @@
     "date": "2018-07-28",
     "author": "William Shakespeare",
     "cover": "/assets/images/books/2018-07-28-hamlet.webp",
-    "art_source": "https://covers.openlibrary.org/b/id/8281954-M.jpg"
+    "art_source": "https://d28hgpri8am2if.cloudfront.net/book_images/cvr9780743477123_9780743477123_lg.jpg"
   },
   {
     "id": "2018-07-26-origin",
@@ -409,7 +422,7 @@
     "date": "2018-07-19",
     "author": "Isaac Asimov",
     "cover": "/assets/images/books/2018-07-19-second-foundation.webp",
-    "art_source": "https://covers.openlibrary.org/b/id/9261324-M.jpg"
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780553382594"
   },
   {
     "id": "2018-07-17-foundation-and-empire",
@@ -417,7 +430,7 @@
     "date": "2018-07-17",
     "author": "Isaac Asimov",
     "cover": "/assets/images/books/2018-07-17-foundation-and-empire.webp",
-    "art_source": "https://covers.openlibrary.org/b/id/9300695-M.jpg"
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780553382587"
   },
   {
     "id": "2018-07-12-high-output-management",
@@ -433,7 +446,7 @@
     "date": "2018-07-10",
     "author": "Isaac Asimov",
     "cover": "/assets/images/books/2018-07-10-foundation.webp",
-    "art_source": "https://covers.openlibrary.org/b/id/14612610-M.jpg"
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780553382570"
   },
   {
     "id": "2018-07-03-the-big-short",
@@ -465,7 +478,7 @@
     "date": "2018-06-19",
     "author": "Jules Verne",
     "cover": "/assets/images/books/2018-06-19-journey-to-the-center-of-the-earth.webp",
-    "art_source": "https://covers.openlibrary.org/b/id/8359565-M.jpg"
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780451532152"
   },
   {
     "id": "2018-06-15-freakonomics",
@@ -489,7 +502,7 @@
     "date": "2018-06-02",
     "author": "Vladimir Nabokov",
     "cover": "/assets/images/books/2018-06-02-lolita.webp",
-    "art_source": "https://covers.openlibrary.org/b/id/12984540-M.jpg"
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780679723165"
   },
   {
     "id": "2018-05-30-dune",
@@ -497,7 +510,7 @@
     "date": "2018-05-30",
     "author": "Frank Herbert",
     "cover": "/assets/images/books/2018-05-30-dune.webp",
-    "art_source": "https://covers.openlibrary.org/b/id/11481354-M.jpg"
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780593099322"
   },
   {
     "id": "2018-05-22-the-attention-merchants",

@@ -33,6 +33,12 @@ uncertain or unavailable artwork uses a readable title cover. Supplied book auth
 are preserved; matching artwork requires the author as well as the title. Visitors make no
 requests to the artwork providers. Keep the source credits on the library pages.
 
+The home portrait shows the childhood photo on hover or keyboard focus. The site
+uses the original logo and credits Emerson Hsieh in its footer.
+
+Movie release years and viewing dates have separate labels and styles. Undated
+movies stay below the diary. Book counts and the extra library introductions are omitted.
+
 Book covers with written notes open an accessible native dialog. Each also links
 to the original note URL, so notes remain readable without JavaScript. Search and
 sort enhance the static library; all entries are present in the generated HTML.

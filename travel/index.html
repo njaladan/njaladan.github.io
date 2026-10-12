@@ -7,7 +7,7 @@
   <title>Travel — Ganesh</title>
   <meta name="description" content="Places I've visited, with flights, journeys, and recorded activity routes.">
   <link rel="stylesheet" href="vendor/leaflet.css">
-  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="stylesheet" href="style.css?v=15">
   <script defer src="vendor/topojson.min.js"></script>
   <script defer src="vendor/leaflet.js"></script>
   <script defer src="data.js?v=13"></script>
@@ -16,7 +16,7 @@
 </head>
 <body data-view="world">
   <header class="site-header">
-    <a href="/">Ganesh</a><span class="divider">/</span><a href="#" id="atlas-home">Travel</a>
+    <a class="site-logo" href="/" aria-label="Home"><img src="/assets/images/logo.png" alt="" width="34" height="34"></a><span class="divider">/</span><a href="#" id="atlas-home">Travel</a>
     <nav aria-label="Site navigation"><a href="/">About</a><a href="/reading">Reading</a><a href="/movies">Movies</a><a href="/travel/" aria-current="page">Travel</a></nav>
   </header>
   <main id="main" aria-label="Travel atlas">
@@ -30,5 +30,6 @@
     <div id="route-legend" hidden aria-label="Route colors"></div>
     <p id="map-status" role="status">Loading map…</p>
   </main>
+  <footer class="site-footer">Logo courtesy of <a href="https://www.emersonhsieh.com/">Emerson Hsieh</a>.</footer>
 </body>
 </html>
