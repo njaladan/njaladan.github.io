@@ -71,6 +71,8 @@ def main():
  source=json.loads((ROOT/'data/transport.json').read_text())['routes']
  routes=[]
  for trip in source:
+  trip['dates']=[]
+  if trip.get('mode')=='Train':trip['operator']=''
   if trip.get('geometry_source'):
    start=STATION_COORDS.get(trip['stops'][0])
    if start and meters(trip['coords'][0],start)>meters(trip['coords'][-1],start):trip['coords'].reverse()
@@ -92,8 +94,7 @@ def main():
   if origin=='Tirano':points[0]=[46.21586,10.16743]
   coords=routed(points,mode,args.cache,slug)
   name='Tokyo ↔ Odawara · Round trip' if origin=='Tokyo' and dest=='Odawara' else origin+' → '+dest
-  if origin=='Chur' and dest=='Tirano':name+=' · Bernina Express'
-  trip={'id':slug,'name':name,'stops':[origin,dest],'countries':list(dict.fromkeys([STOPS[origin][0],STOPS[dest][0]])),'mode':mode,'operator':'Bernina Express' if origin=='Chur' and dest=='Tirano' else '', 'dates':[], 'coords':simplify(coords),'geometry_source':'BRouter rail · OpenStreetMap' if mode=='Train' else 'OSRM driving · OpenStreetMap'}
+  trip={'id':slug,'name':name,'stops':[origin,dest],'countries':list(dict.fromkeys([STOPS[origin][0],STOPS[dest][0]])),'mode':mode,'operator':'', 'dates':[], 'coords':simplify(coords),'geometry_source':'BRouter rail · OpenStreetMap' if mode=='Train' else 'OSRM driving · OpenStreetMap'}
   routes.append(trip);print(name,mode,len(coords),'vertices',flush=True)
   (ROOT/'data/transport.json').write_text(json.dumps({'routes':routes},separators=(',',':'))+'\n')
  activities=json.loads((ROOT/'data/activities.json').read_text())

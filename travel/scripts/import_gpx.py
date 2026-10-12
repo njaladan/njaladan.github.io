@@ -7,7 +7,6 @@ import json
 import math
 from pathlib import Path
 import xml.etree.ElementTree as ET
-from zoneinfo import ZoneInfo
 
 
 def parse_time(value):
@@ -60,8 +59,6 @@ def read_gpx(path, timezone='UTC'):
         raise ValueError(f'No activity date in {path.name}')
     item = {
         'id': path.name.removesuffix('.gz').removesuffix('.gpx'),
-        'date': start.astimezone(ZoneInfo(timezone)).date().isoformat(),
-        'started_at': start.isoformat(),
         'original_title': root.findtext('./{*}trk/{*}name'),
         'type': root.findtext('./{*}trk/{*}type'),
         'distance_m': round(total_distance, 1),
@@ -77,7 +74,7 @@ def read_gpx(path, timezone='UTC'):
 
 def merge_days(existing, imported):
     by_id = {day['id']: day for day in [*existing, *imported]}
-    return sorted(by_id.values(), key=lambda day: day['started_at'])
+    return sorted(by_id.values(), key=lambda day: day.get('started_at', ''))
 
 
 def main():
@@ -102,9 +99,13 @@ def main():
         journey = {'id': args.journey, 'name': args.name, 'countries': args.countries.split(','), 'days': []}
         document['journeys'].append(journey)
     journey['days'] = merge_days(journey['days'], imported)
+    for existing_journey in document['journeys']:
+        for day in existing_journey.get('days', []):
+            day.pop('date', None)
+            day.pop('started_at', None)
     args.output.write_text(json.dumps(document, separators=(',', ':'))+'\n')
     for day in imported:
-        print(f"{day['source']['file']}: {day['date']}, {day['distance_m']/1000:.1f} km, {day['source']['points']} points")
+        print(f"{day['source']['file']}: {day['distance_m']/1000:.1f} km, {day['source']['points']} points")
 
 
 if __name__ == '__main__':

@@ -23,21 +23,21 @@ TRIPS = [
     {
         'id': 'jordan-aqaba-wadi-rum',
         'name': 'Aqaba → Wadi Rum',
-        'countries': ['400'], 'dates': ['2026-08-26'],
+        'countries': ['400'], 'dates': [],
         'stops': ['Aqaba', 'Wadi Rum Visitor Center', 'Wadi Rum'],
         'points': [[29.5321, 35.0063], [29.6397, 35.4342], [29.5734, 35.421]],
     },
     {
         'id': 'jordan-wadi-rum-petra',
         'name': 'Wadi Rum → Petra / Wadi Musa',
-        'countries': ['400'], 'dates': ['2026-08-27'],
+        'countries': ['400'], 'dates': [],
         'stops': ['Wadi Rum', 'Wadi Musa'],
         'points': [[29.5734, 35.421], [30.3216, 35.4801]],
     },
     {
         'id': 'jordan-petra-amman',
         'name': 'Petra / Wadi Musa → Amman via Wadi Mujib and the Dead Sea',
-        'countries': ['400'], 'dates': ['2026-08-28'],
+        'countries': ['400'], 'dates': [],
         'stops': ['Wadi Musa', 'Wadi Mujib Adventure Center', 'Dead Sea', 'Amman'],
         'points': [[30.3216, 35.4801], [31.4676824, 35.5715571],
                    [31.7509267, 35.5897894], [31.9539, 35.9106]],
@@ -45,7 +45,7 @@ TRIPS = [
     {
         'id': 'tunisia-sahara-day-1',
         'name': 'Tunisia Sahara tour · Day 1',
-        'countries': ['788'], 'dates': ['2026-08-30'],
+        'countries': ['788'], 'dates': [],
         'operator': 'Tours sans soucis',
         'stops': ['Tunis airport', 'Kairouan', 'Matmata', 'Tamezret', 'Ksar Ghilane'],
         'points': [[36.851, 10.2272], [35.6781, 10.0963], [33.5445, 9.9716],
@@ -55,7 +55,7 @@ TRIPS = [
     {
         'id': 'tunisia-sahara-day-2',
         'name': 'Tunisia Sahara tour · Day 2',
-        'countries': ['788'], 'dates': ['2026-08-31'],
+        'countries': ['788'], 'dates': [],
         'operator': 'Tours sans soucis',
         'stops': ['Ksar Ghilane', 'Tataouine', 'Chenini', 'Ksar Haddada', 'El Jem', 'Tunis airport'],
         'points': [[32.9855, 9.6371], [32.9297, 10.4518], [32.9111, 10.2619],

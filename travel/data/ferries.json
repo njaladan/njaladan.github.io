@@ -12,10 +12,7 @@
       ],
       "mode": "Ferry",
       "operator": "Herjólfur",
-      "dates": [
-        "2025-10-04",
-        "2025-10-05"
-      ],
+      "dates": [],
       "coords": [
         [
           63.530904,
@@ -228,9 +225,7 @@
       ],
       "mode": "Ferry",
       "operator": "Seajets",
-      "dates": [
-        "2026-08-21"
-      ],
+      "dates": [],
       "coords": [
         [
           37.942569,
@@ -300,9 +295,7 @@
       ],
       "mode": "Ferry",
       "operator": "Hellenic Seaways",
-      "dates": [
-        "2026-08-21"
-      ],
+      "dates": [],
       "coords": [
         [
           37.440886,
@@ -344,9 +337,7 @@
       ],
       "mode": "Ferry",
       "operator": "Blue Star Ferries",
-      "dates": [
-        "2026-08-22"
-      ],
+      "dates": [],
       "coords": [
         [
           37.106993,
@@ -420,9 +411,7 @@
       ],
       "mode": "Ferry",
       "operator": "Travelmar",
-      "dates": [
-        "2025-10-19"
-      ],
+      "dates": [],
       "coords": [
         [
           40.6483,
@@ -459,9 +448,7 @@
       ],
       "mode": "Ferry",
       "operator": "Travelmar",
-      "dates": [
-        "2025-10-20"
-      ],
+      "dates": [],
       "coords": [
         [
           40.628,
@@ -506,9 +493,7 @@
       ],
       "mode": "Ferry",
       "operator": "Catamaran Lago Pehoé",
-      "dates": [
-        "2026-03-17"
-      ],
+      "dates": [],
       "coords": [
         [
           -51.072421,
