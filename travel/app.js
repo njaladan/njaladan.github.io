@@ -206,7 +206,7 @@
     flightLayers.clearLayers();airportLayers.clearLayers();
     flightLog.routes.forEach(connection=>{
       const label=connection.airports.join(' ↔ ');
-      const quiet={color:ROUTE_MODES.Flight.color,weight:1,opacity:.13,dashArray:'3 7'};
+      const quiet={color:ROUTE_MODES.Flight.color,weight:1.2,opacity:.24,dashArray:'4 6'};
       const line=L.polyline(connection.segments,{pane:'flights',...quiet,className:'flight-route'})
         .bindTooltip(escape(label)).bindPopup(()=>flightContent(connection),{className:'activity-popup',maxWidth:300}).addTo(flightLayers);
       const highlight=()=>line.setStyle({weight:1.8,opacity:.65});
