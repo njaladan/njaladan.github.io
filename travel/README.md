@@ -34,7 +34,7 @@ Confirmed ferry definitions live in the readable `data/ferries.json` and are mer
 
 Five driving paths reconstruct the Jordan and Tunisia trips at the user's request. They use dashed Drive lines, with estimate/source notes retained in the data rather than the popups. They use road geometry rather than GPS recordings. Jordan's road order is Aqaba → Wadi Rum → Wadi Musa (Petra) → Wadi Mujib Adventure Center → Dead Sea → Amman, based on arrival, tour, hotel, and user-confirmed stop details for the trip details. The routes follow OpenStreetMap roads and stop in Wadi Musa rather than tracing roads through the archaeological site. No Jerash or desert jeep excursions are added.
 
-Additional estimated road trips are Washington, DC → New Haven, NYC → Providence, NYC → the Mount Marcy trailhead, NYC → Acadia National Park, and Las Vegas → Irvine. The Mount Marcy route ends at Adirondack Loj, and the Acadia route ends at the Hulls Cove Visitor Center. These use OpenStreetMap road geometry, not GPS recordings.
+Additional estimated road trips are Washington, DC → New Haven, NYC → Providence, NYC → the Mount Marcy trailhead, NYC → Acadia National Park, Las Vegas → Irvine, and Asheville → Nashville via the Great Smoky Mountains National Park Sugarlands Visitor Center. The Mount Marcy route ends at Adirondack Loj, and the Acadia route ends at the Hulls Cove Visitor Center. These use OpenStreetMap road geometry, not GPS recordings. Great Smoky Mountains National Park has a place marker at the Sugarlands Visitor Center.
 
 The Athens → Meteora road trip follows OpenStreetMap's main-road route via the A1 and A3 highways and the Meteora–Kastraki road. It is an estimated route, not a GPS recording.
 

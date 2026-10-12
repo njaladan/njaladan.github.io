@@ -508,7 +508,7 @@ const US_VISITS = {
   '41': {name:'Oregon', cities:[['Portland',45.5152,-122.6784],['Bend',44.0582,-121.3153],['Mount Hood',45.3735,-121.6959],['Cannon Beach',45.8918,-123.9615]], parks:[['Crater Lake',42.9446,-122.109]]},
   '42': {name:'Pennsylvania', cities:[['Philadelphia',39.9526,-75.1652],['Pittsburgh',40.4406,-79.9959]], parks:[]},
   '44': {name:'Rhode Island', cities:[['Providence',41.824,-71.4128]], parks:[]},
-  '47': {name:'Tennessee', cities:[['Nashville',36.1627,-86.7816]], parks:[]},
+  '47': {name:'Tennessee', cities:[['Nashville',36.1627,-86.7816]], parks:[['Great Smoky Mountains National Park',35.6862,-83.5369]]},
   '48': {name:'Texas', cities:[['Austin',30.2672,-97.7431]], parks:[]},
   '49': {name:'Utah', cities:[['Salt Lake City',40.7608,-111.891]], areas:['ski areas'], parks:[['Zion',37.2982,-113.0263]]},
   '50': {name:'Vermont', cities:[['Killington',43.6045,-72.8201]], parks:[]},

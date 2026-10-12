@@ -53,6 +53,14 @@ TRIPS = [
         'note': 'Estimated main-road route; not a GPS recording.',
     },
     {
+        'id': 'asheville-nashville-via-smokies',
+        'name': 'Asheville → Nashville via Great Smoky Mountains',
+        'countries': ['840'], 'dates': [],
+        'stops': ['Asheville', 'Great Smoky Mountains National Park (Sugarlands Visitor Center)', 'Nashville'],
+        'points': [[35.5951, -82.5515], [35.6862, -83.5369], [36.1627, -86.7816]],
+        'note': 'Estimated main-road route via the Sugarlands Visitor Center in Great Smoky Mountains National Park; not a GPS recording.',
+    },
+    {
         'id': 'athens-meteora-road-trip',
         'name': 'Athens → Meteora',
         'countries': ['300'], 'dates': [],
