@@ -28,10 +28,11 @@ TRIPS = [
     },
     {
         'id': 'jordan-petra-amman',
-        'name': 'Petra / Wadi Musa → Amman',
+        'name': 'Petra / Wadi Musa → Amman via Wadi Mujib and the Dead Sea',
         'countries': ['400'], 'dates': ['2026-08-28'],
-        'stops': ['Wadi Musa', 'Amman'],
-        'points': [[30.3216, 35.4801], [31.9539, 35.9106]],
+        'stops': ['Wadi Musa', 'Wadi Mujib Adventure Center', 'Dead Sea', 'Amman'],
+        'points': [[30.3216, 35.4801], [31.4676824, 35.5715571],
+                   [31.7509267, 35.5897894], [31.9539, 35.9106]],
     },
     {
         'id': 'tunisia-sahara-day-1',
