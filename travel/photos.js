@@ -113,7 +113,7 @@ function installAtlasPhotos(map, {focus, onLayout}) {
     const groups = [], cells = new Map();
     // Fixed screen-space spacing means more individual photos emerge as the camera zooms.
     const spacing = zoom < 8 ? 76 : 64;
-    if (zoom >= 3.5) photos.forEach(photo => {
+    photos.forEach(photo => {
       const point = map.latLngToContainerPoint(photo.coords);
       if (point.x < 30 || point.x > size.x - 30 || point.y < 80 || point.y > size.y - 45) return;
       const x = Math.floor(point.x / spacing), y = Math.floor(point.y / spacing);

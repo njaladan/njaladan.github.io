@@ -62,13 +62,13 @@ class TravelPhotosTest(unittest.TestCase):
             context.close()
         self.assertEqual(self.errors, [])
 
-    def page(self, photos=None, mobile=False, unavailable=False, animated=False):
+    def page(self, photos=None, mobile=False, unavailable=False, animated=False, missing_assets=False):
         context = self.browser.new_context(viewport={"width": 390 if mobile else 1440, "height": 844 if mobile else 1000},
                                           is_mobile=mobile, has_touch=mobile, reduced_motion="no-preference" if animated else "reduce")
         self.contexts.append(context)
         context.route("https://**/*", lambda route: route.abort())  # The map still works without detail tiles.
         context.route("**/data/photos.json*", lambda route: route.fulfill(status=503) if unavailable else route.fulfill(json={"photos": self.photos if photos is None else photos}))
-        context.route("**/travel/photos/**", lambda route: route.fulfill(path=self.assets / route.request.url.split("/travel/")[1]))
+        context.route("**/travel/photos/**", lambda route: route.fulfill(status=503) if missing_assets else route.fulfill(path=self.assets / route.request.url.split("/travel/")[1]))
         page = context.new_page()
         page.on("pageerror", lambda error: self.errors.append(str(error)))
         page.on("request", lambda request: self.requests.append(request.url))
@@ -78,7 +78,10 @@ class TravelPhotosTest(unittest.TestCase):
 
     def test_visible_pins_load_thumbnails_and_separate_as_zoom_increases(self):
         page = self.page()
-        self.assertFalse(any("/photos/" in url for url in self.requests))
+        self.assertEqual(page.locator(".photo-pin").count(), 1)
+        self.assertEqual(page.locator(".photo-pin-count").inner_text(), "5")
+        page.evaluate("void ATLAS_MAP.setZoom(ATLAS_MAP.getMinZoom(), {animate:false})")
+        self.assertEqual(page.locator(".photo-pin").count(), 1)
         page.evaluate("void ATLAS_MAP.setView([48.8606, 2.3358], 6, {animate:false})")
         self.assertEqual(page.locator(".photo-pin").count(), 1)
         self.assertEqual(page.locator(".photo-pin-count").inner_text(), "5")
@@ -113,7 +116,7 @@ class TravelPhotosTest(unittest.TestCase):
 
     def test_mobile_preview_viewer_and_resize_keep_location(self):
         page = self.page(photos=self.photos[:1], mobile=True)
-        page.locator("#show-photos").tap()
+        page.locator(".photo-pin").tap()
         page.wait_for_selector(".photo-preview-meta")
         self.assertGreaterEqual(page.evaluate("ATLAS_MAP.getZoom()"), 15)
         popup = page.locator(".photo-popup").bounding_box()
@@ -132,18 +135,73 @@ class TravelPhotosTest(unittest.TestCase):
         self.assertEqual(center, after)
         self.assertFalse(any("-original." in url for url in self.requests))
 
+    def test_world_overview_keeps_separate_photo_groups_on_desktop_and_mobile(self):
+        photos = [{**photo, "coords": coords} for photo, coords in zip(self.photos, [
+            [48.86, 2.34], [22.32, 114.17], [-50.94, -73.41], [64.15, -21.94]])]
+        for mobile in (False, True):
+            with self.subTest(mobile=mobile):
+                page = self.page(photos=photos, mobile=mobile)
+                page.evaluate("void ATLAS_MAP.setZoom(ATLAS_MAP.getMinZoom(), {animate:false})")
+                self.assertGreaterEqual(page.locator(".photo-pin").count(), 2)
+                page.wait_for_function("[...document.querySelectorAll('.photo-pin img')].every(img => img.complete && img.naturalWidth > 0)")
+                self.assertTrue(all("-thumbnail.webp" in url for url in self.requests if "/photos/" in url))
+
+    def test_country_focus_allows_dragging_and_selecting_another_country(self):
+        page = self.page(photos=[])
+        france = page.locator('.visited-country[aria-label="France"]')
+        france.focus()
+        page.keyboard.press("Enter")
+        page.wait_for_function("location.hash === '#country=250' && ATLAS_MAP.getZoom() > 5")
+        self.assertEqual(page.title(), "Travel — Ganesh")
+        self.assertGreater(page.locator('.visited-country[tabindex="0"]').count(), 15)
+        self.assertEqual(page.locator('.tiny-country').count(), 2)
+        before = page.evaluate("[ATLAS_MAP.getCenter().lat, ATLAS_MAP.getCenter().lng]")
+        page.mouse.move(950, 600)
+        page.mouse.down()
+        page.mouse.move(1100, 700, steps=12)
+        page.mouse.up()
+        page.wait_for_function("before => Math.abs(ATLAS_MAP.getCenter().lng - before[1]) > .001", arg=before)
+        page.evaluate("void ATLAS_MAP.setView([47, 8], 6, {animate:false})")
+        point = page.evaluate("() => {const p = ATLAS_MAP.latLngToContainerPoint([46.8, 8]), r = document.querySelector('#map').getBoundingClientRect(); return {x: p.x + r.left, y: p.y + r.top};}")
+        self.assertEqual(page.evaluate("p => document.elementFromPoint(p.x, p.y).getAttribute('aria-label')", point), "Switzerland")
+        page.mouse.click(point["x"], point["y"])
+        page.wait_for_function("location.hash === '#country=756'")
+        page.locator('.visited-country[aria-label="Netherlands"]').focus()
+        page.keyboard.press("Enter")
+        page.wait_for_function("location.hash === '#country=528'")
+        focus = page.evaluate("[ATLAS_MAP.getCenter().lat, ATLAS_MAP.getCenter().lng]")
+        page.evaluate("void ATLAS_MAP.panBy([100, 0], {animate:false})")
+        page.locator('.visited-country[aria-label="Netherlands"]').focus()
+        page.keyboard.press("Enter")
+        after = page.evaluate("[ATLAS_MAP.getCenter().lat, ATLAS_MAP.getCenter().lng]")
+        self.assertAlmostEqual(focus[0], after[0], places=5)
+        self.assertAlmostEqual(focus[1], after[1], places=5)
+        self.assertGreater(page.locator('.activity-route').count(), 0)
+        page.locator('#back-world').click()
+        page.wait_for_function("location.hash === '' && ATLAS_MAP.getZoom() < 3")
+
+    def test_country_deep_link_keeps_routes_and_other_countries_available(self):
+        page = self.page(photos=[])
+        page.goto(self.url + "#country=250")
+        page.wait_for_function("window.ATLAS_READY === true && ATLAS_MAP.getZoom() > 5")
+        self.assertGreater(page.locator('.activity-route').count(), 0)
+        self.assertGreater(page.locator('.transport-route').count(), 0)
+        self.assertEqual(page.title(), "Travel — Ganesh")
+        page.locator('.visited-country[aria-label="Iceland"]').focus()
+        page.keyboard.press("Enter")
+        page.wait_for_function("location.hash === '#country=352'")
+
     def test_empty_missing_and_invalid_photo_data_preserve_map(self):
         for photos, unavailable in [([], False), ({"wrong": "shape"}, False), ([{"id": "invalid"}], False), ([], True)]:
             with self.subTest(unavailable=unavailable, photos=photos):
                 page = self.page(photos=photos, unavailable=unavailable)
-                self.assertTrue(page.locator("#show-photos").is_hidden())
                 self.assertEqual(page.locator(".photo-pin").count(), 0)
                 self.assertGreater(page.locator(".visited-country").count(), 0)
                 self.assertEqual(page.locator("#map-status").inner_text(), "Photos unavailable. Refresh to retry." if unavailable else "")
 
     def test_animated_photo_selection_finishes_with_preview(self):
         page = self.page(photos=self.photos[:1], animated=True)
-        page.locator("#show-photos").click()
+        page.locator(".photo-pin").click()
         page.wait_for_selector(".photo-preview-meta")
         self.assertGreaterEqual(page.evaluate("ATLAS_MAP.getZoom()"), 15)
         self.assertEqual(page.locator(".photo-preview-meta strong").inner_text(), "Fixture 0")
@@ -152,8 +210,7 @@ class TravelPhotosTest(unittest.TestCase):
         self.assertEqual(page.locator(".photo-preview-meta").count(), 0)
 
     def test_missing_image_assets_keep_pins_and_viewer_usable(self):
-        page = self.page(photos=self.photos[:2])
-        page.context.route("**/travel/photos/**", lambda route: route.fulfill(status=503))
+        page = self.page(photos=self.photos[:2], missing_assets=True)
         page.evaluate("void ATLAS_MAP.setView([48.8606, 2.3358], 13, {animate:false})")
         page.wait_for_selector(".photo-pin-fallback")
         self.assertEqual(page.locator(".photo-pin-count").inner_text(), "2")

@@ -8,7 +8,7 @@
   const colors = ['#b7774a','#4f7e8a','#807398','#859650','#bd825e','#62739d','#a26780'];
   const visitColors = {visited:'#c79572',home:'#829e94'};
   const countryLayers = new Map(), tracks = [];
-  let currentCountry = null, currentState = null, stateLayer, activeDay = null, activeJourneys = [], journeys = [], transport = [], worldLayer, tinyLayer;
+  let currentCountry = null, currentState = null, stateLayer, activeDay = null, journeys = [], transport = [], worldLayer, tinyLayer;
   const stateLayers=new Map(), cityMarkers=[];
   const routeLayers = L.layerGroup(), transportLayers = L.layerGroup(), cityLayers = L.layerGroup();
   const flightLayers = L.layerGroup(), airportLayers = L.layerGroup();
@@ -35,10 +35,8 @@
   const backgroundLabels = installBasemapLabels(map);
   const atlasPhotos = installAtlasPhotos(map, {onLayout: () => declutterLabels(), focus: target => {
     smoothZoom.finish();map.stop();
-    if(currentCountry&&target.country!==currentCountry) {
-      history.replaceState(null,'',location.pathname+location.search);showWorld(false);
-    }
-    $('#back-world').hidden=false;
+    currentCountry=target.country||null;currentState=null;
+    $('#back-us').hidden=true;stateLayer.setStyle(styleState);
     const complete=()=>{map.off('moveend',complete);target.complete?.();};
     if(target.complete)map.once('moveend',complete);
     if(target.coords) {
@@ -102,7 +100,7 @@
     if(detailOpacity>0&&!map.hasLayer(detail))detail.addTo(map);
     if(detailOpacity===0&&map.hasLayer(detail))map.removeLayer(detail);
     map.getPane('backgroundLabels').style.opacity=1-detailOpacity;
-    map.getPane('countries').style.pointerEvents=zoom<5?'auto':'none';
+    map.getPane('countries').style.pointerEvents='auto';
     const stateOpacity=Math.max(0,Math.min(1,(zoom-3.3)/1.2));
     map.getPane('states').style.opacity=stateOpacity;
     map.getPane('states').style.pointerEvents=stateOpacity>.1?'auto':'none';
@@ -118,7 +116,10 @@
   }
   function navigate(id) {
     id=canonical(id);
-    if(allowed(id))location.hash=`country=${id}`;
+    if(!allowed(id))return;
+    const target=`#country=${id}`;
+    if(location.hash===target)focusCountry(id);
+    else location.hash=target;
   }
   function fitView(bounds,maxZoom=10,animate=true) {
     smoothZoom.finish();map.stop();
@@ -166,7 +167,7 @@
   }
   function renderRoutes() {
     routeLayers.clearLayers();tracks.length=0;
-    activeJourneys.forEach(journey=>(journey.days||[]).forEach((day,index)=>{
+    journeys.forEach(journey=>(journey.days||[]).forEach((day,index)=>{
       const color=ROUTE_MODES[day.type]?.color||colors[index%colors.length];
       daySegments(day).forEach(segment=>{
         if(segment.length<2)return;
@@ -269,40 +270,30 @@
     $('#route-legend').innerHTML=visits+modes.map(type=>`<span><i style="background:${ROUTE_MODES[type].color}"></i>${ROUTE_MODES[type].name}</span>`).join('');
     $('#route-legend').hidden=!visits&&!modes.length;
   }
-  function setGeographyAccess() {
-    document.querySelectorAll('.visited-country,.tiny-country').forEach(node=>node.setAttribute('tabindex',currentCountry?'-1':'0'));
-  }
-  function showCountry(id,animate=true) {
+  function focusCountry(id,animate=true) {
     atlasPhotos.cancel();
     map.closePopup();currentCountry=id;activeDay=null;
     worldLayer.eachLayer(layer=>layer.closeTooltip());
     stateLayer.eachLayer(layer=>layer.closeTooltip());
     if(id!==HOME_COUNTRY)currentState=null;
     $('#back-us').hidden=!currentState;stateLayer.setStyle(styleState);
-    activeJourneys=journeys;
-    document.body.dataset.view='country';
-    $('#back-world').hidden=false;$('#country-title').hidden=false;$('#country-title').textContent=currentState?US_VISITS[currentState].name:countryName(id);
-    document.title=`${currentState?US_VISITS[currentState].name:countryName(id)} — Travel`;$('#map-status').textContent='';
-    worldLayer.setStyle(styleCountry);tinyLayer.remove();
-    renderTransport();renderRoutes();renderCities();setGeographyAccess();updateBasemap();fitView(countryBounds(id),12,animate);
+    updateRouteStyles();$('#map-status').textContent='';
+    fitView(countryBounds(id),12,animate);
   }
   function showWorld(animate=true) {
     atlasPhotos.cancel();
-    smoothZoom.finish();map.closePopup();currentCountry=null;currentState=null;$('#back-us').hidden=true;stateLayer.setStyle(styleState);activeDay=null;activeJourneys=journeys;
-    document.body.dataset.view='world';
-    $('#back-world').hidden=true;$('#country-title').hidden=true;
+    smoothZoom.finish();map.closePopup();currentCountry=null;currentState=null;$('#back-us').hidden=true;stateLayer.setStyle(styleState);activeDay=null;updateRouteStyles();
     $('#map-status').textContent='';document.title='Travel — Ganesh';
-    renderTransport();renderRoutes();
-    worldLayer.setStyle(styleCountry);tinyLayer.addTo(map);setGeographyAccess();
+    worldLayer.setStyle(styleCountry);
     if(animate){map.stop();if(reduceMotion)map.fitBounds(worldBounds,{padding:[15,15],animate:false});else map.flyToBounds(worldBounds,{padding:[15,15],duration:1.25});}
     updateBasemap();
   }
-  function route() {
+  function route(animate=true) {
     const params=new URLSearchParams(location.hash.slice(1));
     const raw=params.get('country');currentState=raw===HOME_COUNTRY&&US_VISITS[params.get('state')]?params.get('state'):null;
     const id=canonical(raw);
-    if(id&&allowed(id))showCountry(id);
-    else {if(raw)history.replaceState(null,'',location.pathname+location.search);showWorld(Boolean(currentCountry));}
+    if(id&&allowed(id))focusCountry(id,animate);
+    else {if(raw)history.replaceState(null,'',location.pathname+location.search);showWorld(animate);}
   }
   function styleState(feature) {
     const id=String(feature.id).padStart(2,'0'),visited=Boolean(US_VISITS[id]),selected=currentState===id;
@@ -335,7 +326,7 @@
     layer.on('add',()=>{
       const node=layer.getElement();if(!node)return;
       node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',label);
-      node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();if(!currentCountry)navigate(id);}});
+      node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();navigate(id);}});
     });
   }
   // Split dateline crossings so Leaflet does not draw Russia and Fiji across the world.
@@ -401,8 +392,8 @@
         layer.options.className=`country-shape ${selectable?'visited-country':''}`;
         if(selectable){
           layer.bindTooltip(countryName(canonical(id)),{sticky:true});
-          layer.on('click',()=>{if(!currentCountry)navigate(canonical(id));});
-          layer.on('mouseover',()=>{if(!currentCountry)layer.setStyle({color:'#8c959c',weight:1.4});});
+          layer.on('click',()=>navigate(canonical(id)));
+          layer.on('mouseover',()=>layer.setStyle({color:'#8c959c',weight:1.4}));
           layer.on('mouseout',()=>layer.setStyle(styleCountry(feature)));
           accessibleCountry(layer,canonical(id),countryName(canonical(id)));
         }
@@ -438,7 +429,7 @@
   ]).then(([context,states,world,activities,connections,flights,photos])=>{
     journeys=activities.journeys||[];transport=connections.routes||[];flightLog=flights;
     backgroundLabels.cities(context.cities||[]);
-    renderStates(states);renderWorld(world);renderFlights();renderCities();$('#map-status').textContent='';route();window.ATLAS_READY=true;
+    renderStates(states);renderWorld(world);renderFlights();renderTransport();renderRoutes();renderCities();$('#map-status').textContent='';route(false);window.ATLAS_READY=true;
     atlasPhotos.load(photos.photos||[]);
     if(photos.unavailable)$('#map-status').textContent='Photos unavailable. Refresh to retry.';
     window.ATLAS_MAP=map;

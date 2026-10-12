@@ -24,7 +24,6 @@ main { height: calc(100dvh - 54px); min-height: 380px; position: relative; overf
 .leaflet-tooltip { font-family: inherit; font-size: 11px; border: 1px solid var(--line); box-shadow: none; border-radius: 3px; }
 .country-shape { transition: stroke .15s; }
 .visited-country, .tiny-country, .activity-route, .transport-route, .state-shape, .city-marker, .flight-route, .airport-marker { cursor: pointer; }
-body[data-view=country] .country-shape { pointer-events: none; }
 .map-toolbar { position: absolute; z-index: 500; top: 18px; left: 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; max-width: calc(100% - 76px); }
 .map-toolbar button, h1 { margin: 0; min-height: 36px; padding: 8px 11px; background: #fffffff2; border: 1px solid var(--line); border-radius: 4px; box-shadow: none; font-size: 12px; font-weight: 500; }
 h1 { font-weight: 600; }
