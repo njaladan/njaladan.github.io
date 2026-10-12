@@ -133,20 +133,20 @@ const COUNTRY_PLACES = {
     }
   ],
   "352": [
-    {
-      "name": "Hvolsvöllur",
-      "coords": [
-        63.75,
-        -20.2245
-      ]
-    },
-    {
-      "name": "Heimaey",
-      "coords": [
-        63.4427,
-        -20.2734
-      ]
-    }
+    {"name":"Keflavík International Airport","coords":[63.985,-22.6056]},
+    {"name":"Fagradalsfjall","coords":[63.8675,-22.312]},
+    {"name":"Glymur","coords":[64.3872,-21.2707]},
+    {"name":"Þingvellir National Park","coords":[64.2601,-21.1243]},
+    {"name":"Kerið Crater","coords":[64.0417,-20.8856]},
+    {"name":"Skógafoss","coords":[63.5601,-19.4789]},
+    {"name":"Reynisfjara Black Sand Beach","coords":[63.4133,-19.0182]},
+    {"name":"Fjaðrárgljúfur Canyon","coords":[63.7741,-18.1734]},
+    {"name":"Skaftafell","coords":[64.0204,-16.9742]},
+    {"name":"Múlagljúfur Canyon","coords":[63.9896,-16.4562]},
+    {"name":"Falljökull Glacier","coords":[63.967,-16.8072]},
+    {"name":"Vík","coords":[63.4186,-19.006]},
+    {"name":"Hvolsvöllur","coords":[63.75,-20.2245]},
+    {"name":"Heimaey","coords":[63.4427,-20.2734]}
   ],
   "356": [
     {
@@ -422,8 +422,8 @@ const COUNTRY_PLACES = {
     {
       "name": "Ferret",
       "coords": [
-        45.9339,
-        7.0974
+        45.916056,
+        7.105187
       ]
     }
   ],

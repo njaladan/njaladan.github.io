@@ -25,10 +25,10 @@ def build_routes(document, activities, cache):
     cache.mkdir(parents=True, exist_ok=True)
     # Replace the old direct drive; leave all other countries' routes intact.
     document['routes'] = [r for r in document['routes'] if r['id'] != 'reykjavik-mulagljufur' and not r['id'].startswith('iceland-drive-')]
-    previous = {'name': 'Reykjavík', 'point': [64.1466, -21.9426], 'id': None}
+    previous = {'name': 'Keflavík International Airport', 'point': [63.985, -22.6056], 'id': None}
     for hike in hikes:
         destination = {'name': HIKE_PLACES[hike['id']], 'point': hike['segments'][0][0], 'id': hike['id']}
-        via = [[63.75, -20.2245]] if previous['id'] == '16013018406' else []
+        via = [[64.1466, -21.9426]] if previous['id'] is None else [[63.75, -20.2245]] if previous['id'] == '16013018406' else []
         document['routes'].append(drive_leg(previous, destination, via, cache))
         previous = {'name': destination['name'], 'point': hike['segments'][-1][-1], 'id': hike['id']}
     destination = {'name': 'Landeyjahöfn ferry terminal', 'point': LANDEYJAHOFN, 'id': None}
@@ -50,7 +50,7 @@ def drive_leg(origin, destination, via, cache):
     coords = [points[0], *simplify(coords), points[-1]]
     coords = [p for i, p in enumerate(coords) if not i or p != coords[i-1]]
     trip = {'id': slug, 'name': origin['name']+' → '+destination['name'],
-            'stops': [origin['name'], *(['Hvolsvöllur'] if via else []), destination['name']],
+            'stops': [origin['name'], *(('Reykjavík',) if origin['id'] is None else ('Hvolsvöllur',) if via else ()), destination['name']],
             'countries': ['352'], 'mode': 'Drive', 'operator': '', 'dates': [],
             'coords': coords, 'geometry_source': 'OSRM driving · OpenStreetMap',
             'activity_endpoints': {'from': origin['id'], 'to': destination['id']},

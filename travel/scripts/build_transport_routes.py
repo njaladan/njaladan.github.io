@@ -7,7 +7,7 @@ ROOT=pathlib.Path(__file__).resolve().parents[1]
 STOPS={
  'Amsterdam':('528',[52.3791,4.9003]),'Haarlem':('528',[52.3879,4.6384]),'Utrecht':('528',[52.0894,5.1102]),'Keukenhof':('528',[52.2712,4.5463]),
  'Bern':('756',[46.948993,7.4390602]),'Lucerne':('756',[47.0502,8.3102]),'Chur':('756',[46.853,9.529]),'Tirano':('380',[46.2164,10.1678]),'Milan':('380',[45.4863,9.2045]),'Bologna':('380',[44.5061,11.3426]),'Florence':('380',[43.7765,11.2486]),'Rome':('380',[41.901,12.5016]),
- 'Oslo':('578',[59.9109,10.7526]),'Bergen':('578',[60.3904,5.3335]),'Cairo':('818',[30.0444,31.2357]),'Luxor':('818',[25.6872,32.6396]),
+ 'Oslo':('578',[59.9109,10.7526]),'Bergen':('578',[60.3904,5.3335]),'Finhaut':('756',[46.082478,6.976185]),'Chamonix':('250',[45.920944,6.870048]),'Ferret':('756',[45.916056,7.105187]),'Orsières':('756',[46.0293,7.145]),'Cairo':('818',[30.0444,31.2357]),'Luxor':('818',[25.6872,32.6396]),
  'Tokyo':('392',[35.6812,139.7671]),'Odawara':('392',[35.2564,139.1551]),
  'San Jose':('840',[37.3290,-121.9024]),'Seattle':('840',[47.5983,-122.3294]),
  'St Louis':('840',[38.6231542,-90.2038216]),'New Orleans':('840',[29.9465016,-90.0788318]),
@@ -18,7 +18,7 @@ LEGS=[
  ('Chur','Tirano','train','europe',[[46.6976,9.4405],[46.6768,9.6826],[46.6294,9.7455],[46.491,9.901],[46.4082,10.0199],[46.3241,10.0546]]),
  ('Tirano','Milan','train','europe',[[45.856,9.397]]),('Milan','Bologna','train','europe',[]),('Bologna','Florence','train','europe',[]),('Florence','Rome','train','europe',[]),
  ('Amsterdam','Haarlem','train','netherlands',[]),('Utrecht','Haarlem','train','netherlands',[]),('Haarlem','Keukenhof','drive',None,[]),
- ('Oslo','Bergen','train','norway',[]),
+ ('Oslo','Bergen','train','norway',[]),('Finhaut','Chamonix','train',None,[[46.034,6.926]]),
  ('Cairo','Luxor','drive',None,[]),('Tokyo','Odawara','train',None,[]),
  ('San Jose','Seattle','train','amtrak',[[37.7946,-122.2717],[38.0187,-122.1334],[38.2490,-122.0393],[38.5424779,-121.7386404],[38.585893,-121.5011671],[40.5853101,-122.3939168],[41.2087,-122.2726],[42.2249,-121.7806],[45.5289,-122.6769]]),
  ('St Louis','New Orleans','train','amtrak',[[37.7242592,-89.2162768],[35.1351,-90.058596],[32.300052,-90.191155]]),
@@ -115,10 +115,6 @@ def main():
   from build_iceland_routes import build_routes
   document=build_routes({'routes':routes},activities,args.cache)
  else:
-  points=[[64.1466,-21.9426],[63.9886,-16.399]]
-  coords=routed(points,'Drive',args.cache,'reykjavik-mulagljufur')
-  routes=[trip for trip in routes if trip['id']!='reykjavik-mulagljufur']
-  routes.append({'id':'reykjavik-mulagljufur','name':'Reykjavík → Múlagljúfur Canyon','stops':['Reykjavík','Múlagljúfur Canyon'],'countries':['352'],'mode':'Drive','operator':'','dates':[],'coords':simplify(coords),'geometry_source':'OSRM driving · OpenStreetMap'})
   document={'routes':routes}
  if (ROOT/'data/ferries.json').exists():
   from build_ferry_routes import merge_ferries

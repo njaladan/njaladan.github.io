@@ -46,7 +46,25 @@
   const isVisitedShape = id => id !== '156' && allowed(canonical(id));
   const formatDistance = m => `${(m/1000).toFixed(1)} km`;
   const formatDuration = s => {const m=Math.round(s/60);return m<60?`${m}m`:`${Math.floor(m/60)}h ${m%60}m`;};
-  const daySegments = day => day.segments || (day.coords ? [day.coords] : []);
+  const daySegments = day => {
+    const segments=day.segments || (day.coords ? [day.coords] : []);
+    if(day.sport!=='Walk')return segments;
+    const split=[];
+    segments.forEach(segment=>{
+      let current=[];
+      segment.forEach(point=>{
+        if(current.length){
+          const previous=current[current.length-1],rad=Math.PI/180;
+          const lat1=previous[0]*rad,lat2=point[0]*rad,dLat=(point[0]-previous[0])*rad,dLon=(point[1]-previous[1])*rad;
+          const a=Math.sin(dLat/2)**2+Math.cos(lat1)*Math.cos(lat2)*Math.sin(dLon/2)**2;
+          if(6371000*2*Math.asin(Math.sqrt(a))>500){if(current.length>1)split.push(current);current=[];}
+        }
+        current.push(point);
+      });
+      if(current.length>1)split.push(current);
+    });
+    return split;
+  };
   const dayPoints = day => daySegments(day).flat();
   const activityLabel = (day, journey) => day.name || journey.name;
   function statePlaces(id) {
@@ -191,7 +209,7 @@
       const content=`<div class="route-popup"><strong>${escape(trip.name)}</strong><p>${escape(trip.mode)}${trip.operator?' · '+escape(trip.operator):''}</p>${trip.stops.length>2?`<p>Via ${escape(trip.stops.slice(1,-1).join(', '))}</p>`:''}</div>`;
       const color=ROUTE_MODES[trip.mode]?.color||'#697c84';
       L.polyline(trip.coords,{pane:'routes',color:'white',weight:6,opacity:.85,interactive:false}).addTo(transportLayers);
-      const line=L.polyline(trip.coords,{pane:'routes',color,weight:3.5,opacity:1,dashArray:trip.approximate?'5 5':trip.mode==='Ferry'?'8 6':null,className:'transport-route'}).bindTooltip(escape(trip.name)).bindPopup(content,{className:'activity-popup',maxWidth:270}).addTo(transportLayers);
+      const line=L.polyline(trip.coords,{pane:'routes',color,weight:3.5,opacity:1,dashArray:trip.mode==='Bus'?null:trip.approximate?'5 5':trip.mode==='Ferry'?'8 6':null,className:'transport-route'}).bindTooltip(escape(trip.name)).bindPopup(content,{className:'activity-popup',maxWidth:270}).addTo(transportLayers);
       const node=line.getElement();node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',`${trip.mode}: ${trip.name}`);
       node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();line.openPopup(L.latLng(trip.coords[Math.floor(trip.coords.length/2)]));}});
     });
