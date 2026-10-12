@@ -1,0 +1,30 @@
+(() => {
+  const gallery = document.querySelector('#photo-gallery');
+  const valid = photo => photo && Array.isArray(photo.coords) && photo.coords.length === 2 && photo.coords.every(Number.isFinite) &&
+    Math.abs(photo.coords[0]) <= 90 && Math.abs(photo.coords[1]) <= 180 && photo.variants && typeof photo.place === 'string';
+  const asset = src => typeof src === 'string' && /^photos\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpg|png)$/.test(src) ? `/travel/${src}` : '';
+  fetch('/travel/data/photos.json')
+    .then(response => { if (!response.ok) throw new Error('Photo list unavailable'); return response.json(); })
+    .then(({photos = []}) => {
+      const entries = photos.filter(valid).sort((a,b) => (b.date || '').localeCompare(a.date || '') || a.id.localeCompare(b.id));
+      if (!entries.length) {
+        gallery.innerHTML = '<p class="gallery-empty">No geotagged photos are available yet.</p>';
+        return;
+      }
+      entries.forEach(photo => {
+        const imagePath = asset(photo.variants.small?.src || photo.variants.medium?.src);
+        if (!imagePath) return;
+        const link = document.createElement('a');
+        link.className = 'photo-card';
+        link.href = `/travel/?lat=${encodeURIComponent(photo.coords[0])}&lng=${encodeURIComponent(photo.coords[1])}&zoom=15`;
+        link.setAttribute('aria-label', `View ${photo.place} on the map`);
+        const figure = document.createElement('figure'); figure.style.margin = '0';
+        const image = document.createElement('img'); image.src = imagePath; image.alt = photo.caption || `Photo at ${photo.place}`; image.loading = 'lazy'; image.decoding = 'async';
+        const caption = document.createElement('figcaption');
+        const place = document.createElement('strong'); place.textContent = photo.place; caption.append(place);
+        if (photo.date) { const date = document.createElement('span'); date.textContent = new Date(`${photo.date}T12:00:00`).toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'}); caption.append(date); }
+        figure.append(image,caption); link.append(figure); gallery.append(link);
+      });
+    })
+    .catch(() => { gallery.innerHTML = '<p class="gallery-empty">Photos could not be loaded. Refresh to try again.</p>'; });
+})();

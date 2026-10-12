@@ -432,6 +432,8 @@
     renderStates(states);renderWorld(world);renderFlights();renderTransport();renderRoutes();renderCities();$('#map-status').textContent='';route(false);window.ATLAS_READY=true;
     atlasPhotos.load(photos.photos||[]);
     if(photos.unavailable)$('#map-status').textContent='Photos unavailable. Refresh to retry.';
+    const viewParams=new URLSearchParams(location.search),photoLat=Number(viewParams.get('lat')),photoLng=Number(viewParams.get('lng')),photoZoom=Number(viewParams.get('zoom'))||13;
+    if(viewParams.has('lat')&&viewParams.has('lng')&&Number.isFinite(photoLat)&&Number.isFinite(photoLng)&&photoLat>=-90&&photoLat<=90&&photoLng>=-180&&photoLng<=180)map.setView([photoLat,photoLng],Math.max(1,Math.min(17,photoZoom)),{animate:false});
     window.ATLAS_MAP=map;
   }).catch(error=>{$('#map-status').textContent='Map unavailable. Refresh to retry.';console.error(error);});
 })();
