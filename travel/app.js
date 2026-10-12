@@ -20,7 +20,16 @@
   map.createPane('airports');map.getPane('airports').style.zIndex=430;
   map.createPane('cities');map.getPane('cities').style.zIndex=450;
   map.createPane('countries');map.getPane('countries').style.zIndex=350;
-  const terrain=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:19,maxZoom:19,noWrap:true,attribution:'Tiles © Esri · HERE, Garmin, USGS'}).addTo(map);
+  map.createPane('detail');map.getPane('detail').style.zIndex=370;
+  map.getPane('detail').style.pointerEvents='none';
+  const detailOptions={pane:'detail',minZoom:5,maxNativeZoom:16,maxZoom:17,noWrap:true};
+  const detail=L.layerGroup([
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
+      ...detailOptions,attribution:'Tiles © Esri · HERE · Garmin · OpenStreetMap contributors'
+    }),
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',detailOptions)
+  ]);
+  const backgroundLabels = installBasemapLabels(map);
   map.attributionControl.setPrefix(false);
   map.attributionControl.addAttribution('Routes © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>');
   map.attributionControl.addAttribution('<a href="https://www.naturalearthdata.com/">Natural Earth</a>');
@@ -46,23 +55,25 @@
   function styleCountry(feature) {
     const id=String(feature.id),visited=isVisitedShape(id),home=id===HOME_COUNTRY;
     if(id==='010')return {opacity:0,fillOpacity:0};
-    return {color:'#f5f7f8',weight:.7,opacity:1,fillColor:home?'#557b73':visited?'#b7774a':'#c8d0d5',fillOpacity:visited ? .8 : .25};
+    return {color:visited||home?'#b6bdc2':'#d9dde0',weight:visited||home?1:.7,opacity:1,fillColor:'#fafafa',fillOpacity:.95};
   }
   function updateBasemap() {
     const zoom=map.getZoom();
-    const countryOpacity=Math.max(0,Math.min(1,(5-zoom)/2.5));
-    map.getPane('countries').style.opacity=countryOpacity;
-    map.getPane('countries').style.pointerEvents=countryOpacity>.1?'auto':'none';
-    const stateOpacity=Math.max(0,Math.min(1,(zoom-3.3)/1.2,(8-zoom)/2));
+    const detailOpacity=Math.max(0,Math.min(1,(zoom-5)/2));
+    map.getPane('detail').style.opacity=detailOpacity;
+    if(detailOpacity>0&&!map.hasLayer(detail))detail.addTo(map);
+    if(detailOpacity===0&&map.hasLayer(detail))map.removeLayer(detail);
+    map.getPane('backgroundLabels').style.opacity=1-detailOpacity;
+    map.getPane('countries').style.pointerEvents=zoom<5?'auto':'none';
+    const stateOpacity=Math.max(0,Math.min(1,(zoom-3.3)/1.2));
     map.getPane('states').style.opacity=stateOpacity;
     map.getPane('states').style.pointerEvents=stateOpacity>.1?'auto':'none';
     const cityOpacity=Math.max(0,Math.min(1,(zoom-3.4)/1.2));
-    map.getPane('cities').style.opacity=cityOpacity;
-    map.getPane('cities').style.pointerEvents=cityOpacity>.1?'auto':'none';
+    map.getPane('cities').style.opacity=1;
     const routeOpacity=Math.max(0,Math.min(1,(zoom-3)/1.5));
     map.getPane('routes').style.opacity=routeOpacity;map.getPane('routes').style.pointerEvents=routeOpacity>.1?'auto':'none';
     const airportOpacity=Math.max(0,Math.min(1,zoom-4));
-    map.getPane('airports').style.opacity=airportOpacity;map.getPane('airports').style.pointerEvents=airportOpacity>.1?'auto':'none';
+    map.getPane('airports').style.opacity=airportOpacity*.45;map.getPane('airports').style.pointerEvents=airportOpacity>.1?'auto':'none';
     $('#route-legend').hidden=!$('#route-legend').textContent;
     map.getContainer().style.setProperty('--city-opacity',cityOpacity);
     if(cityOpacity<.1)cityMarkers.forEach(({marker})=>marker.closeTooltip());
@@ -73,12 +84,33 @@
   }
   function fitView(bounds,maxZoom=10,animate=true) {
     smoothZoom.finish();map.stop();
-    map.flyToBounds(bounds,{duration:reduceMotion||!animate?0:1.25,maxZoom,paddingTopLeft:[35,90],paddingBottomRight:[80,40]});
+    const options={maxZoom,paddingTopLeft:[35,90],paddingBottomRight:[80,40]};
+    if(reduceMotion||!animate)map.fitBounds(bounds,{...options,animate:false});
+    else map.flyToBounds(bounds,{...options,duration:1.25});
   }
   function countryBounds(id) {
-    if(id===HOME_COUNTRY)return currentState?stateLayers.get(currentState).getBounds():L.latLngBounds([[24,-126],[50,-66]]);
-    if(id==='528')return L.latLngBounds([[50.75,3.25],[53.6,7.25]]);
-    return countryLayers.get(geometryId(id)).getBounds();
+    const outline=id===HOME_COUNTRY?(currentState?stateLayers.get(currentState).getBounds():L.latLngBounds([[24,-126],[50,-66]])):countryLayers.get(geometryId(id)).getBounds();
+    if(id===HOME_COUNTRY&&!currentState)return outline;
+    const places=currentState?statePlaces(currentState):COUNTRY_PLACES[id]||[];
+    const candidates=places.map(place=>({...place,weight:1,points:[place.coords]}));
+    journeys.filter(journey=>journey.countries.includes(id)).forEach(journey=>(journey.days||[]).forEach(day=>{
+      const points=dayPoints(day);
+      if(!points.length)return;
+      const center=L.latLngBounds(points).getCenter();
+      const nearest=[...candidates].sort((a,b)=>center.distanceTo(a.coords)-center.distanceTo(b.coords))[0];
+      if(nearest&&center.distanceTo(nearest.coords)<80000){nearest.weight++;nearest.points.push(...points.filter(point=>L.latLng(point).distanceTo(nearest.coords)<100000));}
+      else if(outline.contains(center))candidates.push({coords:[center.lat,center.lng],weight:1,points});
+    }));
+    if(!candidates.length)return outline;
+    const neighborhoods=candidates.map(seed=>({seed,members:candidates.filter(candidate=>L.latLng(seed.coords).distanceTo(candidate.coords)<65000)}));
+    neighborhoods.forEach(group=>group.weight=group.members.reduce((sum,member)=>sum+member.weight,0));
+    neighborhoods.sort((a,b)=>b.weight-a.weight);
+    const busiest=neighborhoods[0],total=candidates.reduce((sum,candidate)=>sum+candidate.weight,0);
+    const selected=busiest.weight/total>=.6?busiest.members:candidates;
+    const bounds=L.latLngBounds(selected.flatMap(candidate=>candidate.points));
+    const center=bounds.getCenter();
+    bounds.extend([center.lat-.035,center.lng-.055]);bounds.extend([center.lat+.035,center.lng+.055]);
+    return bounds.pad(.12);
   }
   function activityContent(day,journey,index) {
     const label=activityLabel(day,journey);
@@ -113,10 +145,12 @@
   function renderCities() {
     cityLayers.clearLayers();cityMarkers.length=0;
     cities().forEach(city=>{
-      const marker=L.marker(city.coords,{pane:'cities',icon:L.divIcon({className:'city-marker',html:`<i style="background:${city.park?'#648243':'#364c60'}"></i>`,iconSize:[12,12],iconAnchor:[6,6]})})
+      const marker=L.marker(city.coords,{pane:'cities',icon:L.divIcon({className:'city-marker',html:`<i style="background:${city.park?'#648243':'#364c60'}"></i>`,iconSize:[8,8],iconAnchor:[4,4]})})
         .bindTooltip(escape(city.name),{permanent:true,interactive:true,direction:'right',offset:[8,0],className:'city-label'}).addTo(cityLayers);
-      // A city already has a map label; clicking only reveals a hidden label.
-      const reveal=()=>{if(!marker.isTooltipOpen()){marker.openTooltip();const label=marker.getTooltip().getElement();if(label)label.style.visibility='visible';}};
+      const reveal=()=>{
+        if(map.getZoom()<3.5){if(city.country)navigate(city.country);else if(city.state)location.hash=`country=${HOME_COUNTRY}&state=${city.state}`;return;}
+        if(!marker.isTooltipOpen()){marker.openTooltip();const label=marker.getTooltip().getElement();if(label)label.style.visibility='visible';}
+      };
       marker.on('click',reveal);
       const node=marker.getElement();node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',city.name+(city.park?' National park':''));
       node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();reveal();}});
@@ -128,9 +162,9 @@
   function declutterLabels() {
     const zoom=map.getZoom(),bounds=map.getBounds(),size=map.getSize();
     const root=map.getContainer().getBoundingClientRect();
-    const occupied=[...document.querySelectorAll('.map-toolbar,.leaflet-control-zoom')].map(node=>node.getBoundingClientRect());
+    const occupied=[...document.querySelectorAll('.map-toolbar,.leaflet-control-zoom,#route-legend')].filter(node=>!node.hidden).map(node=>node.getBoundingClientRect());
     const visible=cityMarkers.filter(({city})=>bounds.contains(city.coords));
-    visible.sort((a,b)=>Number(b.city.state===currentState&&Boolean(currentState))-Number(a.city.state===currentState&&Boolean(currentState)));
+    visible.sort((a,b)=>Number(b.city.state===currentState&&Boolean(currentState)||b.city.country===currentCountry)-Number(a.city.state===currentState&&Boolean(currentState)||a.city.country===currentCountry));
     cityMarkers.filter(item=>!visible.includes(item)).forEach(({marker})=>marker.closeTooltip());
     visible.forEach(({marker})=>{
       if(zoom<3.5){marker.closeTooltip();return;}
@@ -145,11 +179,12 @@
       }
       if(!placed)marker.closeTooltip();
     });
+    backgroundLabels.layout(occupied,new Set(visible.map(({city})=>city.name.toLocaleLowerCase())));
   }
   function renderTransport() {
     transportLayers.clearLayers();
     transport.forEach(trip=>{
-      const content=`<div class="route-popup"><strong>${escape(trip.name)}</strong><p>${escape(trip.mode)}${trip.operator?' · '+escape(trip.operator):''}</p>${trip.dates.length?`<time>${trip.dates.map(escape).join(' · ')}</time>`:''}${trip.stops.length>2?`<p>Via ${escape(trip.stops.slice(1,-1).join(', '))}</p>`:''}${trip.note?`<p class="route-note">${escape(trip.note)}</p>`:''}</div>`;
+      const content=`<div class="route-popup"><strong>${escape(trip.name)}</strong><p>${escape(trip.mode)}${trip.operator?' · '+escape(trip.operator):''}</p>${trip.dates.length?`<time>${trip.dates.map(escape).join(' · ')}</time>`:''}${trip.stops.length>2?`<p>Via ${escape(trip.stops.slice(1,-1).join(', '))}</p>`:''}</div>`;
       const color=ROUTE_MODES[trip.mode]?.color||'#697c84';
       L.polyline(trip.coords,{pane:'routes',color:'white',weight:6,opacity:.85,interactive:false}).addTo(transportLayers);
       const line=L.polyline(trip.coords,{pane:'routes',color,weight:3.5,opacity:1,dashArray:trip.approximate?'5 5':trip.mode==='Ferry'?'8 6':null,className:'transport-route'}).bindTooltip(escape(trip.name)).bindPopup(content,{className:'activity-popup',maxWidth:270}).addTo(transportLayers);
@@ -161,15 +196,20 @@
   function flightContent(connection) {
     const [a,b]=connection.airports;
     const records=connection.flights.map(index=>flightLog.flights[index]).sort((a,b)=>b.date.localeCompare(a.date));
-    return `<div class="route-popup flight-popup"><strong>${escape(a)} ↔ ${escape(b)}</strong><p>${escape(flightLog.airports[a].city)} · ${escape(flightLog.airports[b].city)}</p><p>${records.length} ${records.length===1?'flight':'flights'}</p><ol class="flight-history">${records.map(flight=>`<li><time datetime="${escape(flight.date)}">${escape(flight.date)}</time><b>${escape(flight.number)} · ${escape(flight.from)} → ${escape(flight.to)}</b><span>${flight.airline?escape(flight.airline)+' · ':''}${formatDuration(flight.duration_s)}</span></li>`).join('')}</ol><p class="route-note">Approximate connection between airports.</p></div>`;
+    return `<div class="route-popup flight-popup"><strong>${escape(a)} ↔ ${escape(b)}</strong><p>${escape(flightLog.airports[a].city)} · ${escape(flightLog.airports[b].city)}</p><p>${records.length} ${records.length===1?'flight':'flights'}</p><ol class="flight-history">${records.map(flight=>`<li><time datetime="${escape(flight.date)}">${escape(flight.date)}</time><b>${escape(flight.number)} · ${escape(flight.from)} → ${escape(flight.to)}</b><span>${flight.airline?escape(flight.airline)+' · ':''}${formatDuration(flight.duration_s)}</span></li>`).join('')}</ol></div>`;
   }
   function renderFlights() {
     flightLayers.clearLayers();airportLayers.clearLayers();
     flightLog.routes.forEach(connection=>{
       const label=`${connection.airports.join(' ↔ ')} · ${connection.flights.length} ${connection.flights.length===1?'flight':'flights'}`;
-      const line=L.polyline(connection.segments,{pane:'flights',color:ROUTE_MODES.Flight.color,weight:2,opacity:.65,dashArray:'5 5',className:'flight-route'})
+      const quiet={color:ROUTE_MODES.Flight.color,weight:1,opacity:.13,dashArray:'3 7'};
+      const line=L.polyline(connection.segments,{pane:'flights',...quiet,className:'flight-route'})
         .bindTooltip(escape(label)).bindPopup(()=>flightContent(connection),{className:'activity-popup',maxWidth:300}).addTo(flightLayers);
+      const highlight=()=>line.setStyle({weight:1.8,opacity:.65});
+      const reset=()=>line.setStyle(quiet);
+      line.on('mouseover popupopen',highlight).on('mouseout',()=>{if(!line.isPopupOpen())reset();}).on('popupclose',reset);
       const node=line.getElement();node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',label);
+      node.addEventListener('focus',highlight);node.addEventListener('blur',()=>{if(!line.isPopupOpen())reset();});
       node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();const segment=connection.segments[0];line.openPopup(L.latLng(segment[Math.floor(segment.length/2)]));}});
     });
     Object.entries(flightLog.airports).forEach(([code,airport])=>{
@@ -196,6 +236,8 @@
   }
   function showCountry(id,animate=true) {
     map.closePopup();currentCountry=id;activeDay=null;
+    worldLayer.eachLayer(layer=>layer.closeTooltip());
+    stateLayer.eachLayer(layer=>layer.closeTooltip());
     if(id!==HOME_COUNTRY)currentState=null;
     $('#back-us').hidden=!currentState;stateLayer.setStyle(styleState);
     activeJourneys=journeys;
@@ -203,7 +245,7 @@
     $('#back-world').hidden=false;$('#country-title').hidden=false;$('#country-title').textContent=currentState?US_VISITS[currentState].name:countryName(id);
     document.title=`${currentState?US_VISITS[currentState].name:countryName(id)} — Travel`;$('#map-status').textContent='';
     worldLayer.setStyle(styleCountry);tinyLayer.remove();
-    renderTransport();renderRoutes();renderCities();setGeographyAccess();updateBasemap();fitView(countryBounds(id),11,animate);
+    renderTransport();renderRoutes();renderCities();setGeographyAccess();updateBasemap();fitView(countryBounds(id),12,animate);
   }
   function showWorld(animate=true) {
     smoothZoom.finish();map.closePopup();currentCountry=null;currentState=null;$('#back-us').hidden=true;stateLayer.setStyle(styleState);activeDay=null;activeJourneys=journeys;
@@ -212,7 +254,7 @@
     $('#map-status').textContent='';document.title='Travel — Ganesh';
     renderTransport();renderRoutes();
     worldLayer.setStyle(styleCountry);tinyLayer.addTo(map);setGeographyAccess();
-    if(animate){map.stop();map.flyToBounds(worldBounds,{padding:[15,15],duration:reduceMotion?0:1.25});}
+    if(animate){map.stop();if(reduceMotion)map.fitBounds(worldBounds,{padding:[15,15],animate:false});else map.flyToBounds(worldBounds,{padding:[15,15],duration:1.25});}
     updateBasemap();
   }
   function route() {
@@ -224,10 +266,11 @@
   }
   function styleState(feature) {
     const id=String(feature.id).padStart(2,'0'),visited=Boolean(US_VISITS[id]),selected=currentState===id;
-    return {color:selected?'#31594f':'#ffffff',weight:selected?2:1,fillColor:visited?'#557b73':'#c8d0d5',fillOpacity:currentState?(selected ? .25 : .07):(visited ? .55 : .18)};
+    return {color:selected?'#858e95':visited?'#b6bdc2':'#d9dde0',weight:selected?1.5:.7,fillOpacity:0};
   }
   function renderStates(states) {
     const features=topojson.feature(states,states.objects.states).features.filter(feature=>!['11','60','66','69','72','78'].includes(String(feature.id).padStart(2,'0')));
+    backgroundLabels.geography(features,'state');
     stateLayer=L.geoJSON(features,{
       pane:'states',style:styleState,
       onEachFeature(feature,layer) {
@@ -305,6 +348,7 @@
   function renderWorld(world) {
     const features=topojson.feature(world,world.objects.countries).features.map(splitDateline).flatMap(scopeFrance);
     features.forEach(feature=>{feature.id=String(feature.id);});
+    backgroundLabels.geography(features,'country');
     worldLayer=L.geoJSON(features,{
       pane:'countries',style:styleCountry,
       onEachFeature(feature,layer){
@@ -314,7 +358,7 @@
         if(selectable){
           layer.bindTooltip(countryName(canonical(id)),{sticky:true});
           layer.on('click',()=>{if(!currentCountry)navigate(canonical(id));});
-          layer.on('mouseover',()=>{if(!currentCountry)layer.setStyle({fillColor:'#ce956c'});});
+          layer.on('mouseover',()=>{if(!currentCountry)layer.setStyle({color:'#8c959c',weight:1.4});});
           layer.on('mouseout',()=>layer.setStyle(styleCountry(feature)));
           accessibleCountry(layer,canonical(id),countryName(canonical(id)));
         }
@@ -339,18 +383,20 @@
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&currentCountry&&!map.isPopupOpen())location.hash=currentState?`country=${HOME_COUNTRY}`:'';});
   map.on('popupclose',event=>{if(event.popup===activityPopup){activeDay=null;updateRouteStyles();}});
   map.on('zoom',updateBasemap);
-  map.on('moveend',()=>{declutterLabels();if(worldLayer)updateRouteLegend();});
+  map.on('moveend',()=>requestAnimationFrame(()=>{if(worldLayer)updateRouteLegend();declutterLabels();}));
   updateBasemap();
-  map.on('resize',()=>{if(worldLayer){if(currentCountry)fitView(countryBounds(currentCountry),11);else showWorld();}});
+  map.on('resize',()=>{if(worldLayer){if(currentCountry)fitView(countryBounds(currentCountry),12);else showWorld();}});
   window.addEventListener('hashchange',()=>{if(worldLayer)route();});
   Promise.all([
+    fetch(`data/context.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Background labels unavailable');return response.json();}),
     fetch('data/us-states.json').then(response=>{if(!response.ok)throw Error('State geography unavailable');return response.json();}),
     fetch('data/world.json').then(response=>{if(!response.ok)throw Error('Geography unavailable');return response.json();}),
     fetch(`data/activities.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Activities unavailable');return response.json();}),
     fetch(`data/transport.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Transport unavailable');return response.json();}),
     fetch(`data/flights.json?v=${assetVersion}`).then(response=>{if(!response.ok)throw Error('Flights unavailable');return response.json();})
-  ]).then(([states,world,activities,connections,flights])=>{
+  ]).then(([context,states,world,activities,connections,flights])=>{
     journeys=activities.journeys||[];transport=connections.routes||[];flightLog=flights;
+    backgroundLabels.cities(context.cities||[]);
     renderStates(states);renderWorld(world);renderFlights();renderCities();$('#map-status').textContent='';route();window.ATLAS_READY=true;
     window.ATLAS_MAP=map;
   }).catch(error=>{$('#map-status').textContent='Map unavailable. Refresh to retry.';console.error(error);});
