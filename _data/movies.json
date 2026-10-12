@@ -2316,25 +2316,11 @@
       "art_source": "https://www.themoviedb.org/movie/274-the-silence-of-the-lambs"
     },
     {
-      "id": "0742b768c983",
-      "title": "A Friend of Dorothy",
-      "year": "2025",
-      "cover": "/assets/images/movies/0742b768c983.webp",
-      "art_source": "https://www.themoviedb.org/movie/1470465-a-friend-of-dorothy"
-    },
-    {
       "id": "110f5b46429b",
       "title": "An Ostrich Told Me the World Is Fake and I Think I Believe It",
       "year": "2022",
       "cover": "/assets/images/movies/110f5b46429b.webp",
       "art_source": "https://www.themoviedb.org/movie/943776-an-ostrich-told-me-the-world-is-fake-and-i-think-i-believe-it"
-    },
-    {
-      "id": "bc4499e8e568",
-      "title": "Butcher's Stain",
-      "year": "2025",
-      "cover": "/assets/images/movies/bc4499e8e568.webp",
-      "art_source": "https://www.themoviedb.org/movie/1560394"
     },
     {
       "id": "f16dafc78217",
@@ -2356,13 +2342,6 @@
       "year": "2022",
       "cover": "/assets/images/movies/faf370838ef5.webp",
       "art_source": "https://www.themoviedb.org/movie/971188-my-year-of-dicks"
-    },
-    {
-      "id": "a7b636cd9d67",
-      "title": "The Black Phone",
-      "year": "2021",
-      "cover": "/assets/images/movies/a7b636cd9d67.webp",
-      "art_source": "https://www.themoviedb.org/movie/756999-the-black-phone"
     },
     {
       "id": "a8cbc5d75030",
@@ -2573,13 +2552,6 @@
       "year": "2018",
       "cover": "/assets/images/movies/5780d8583610.webp",
       "art_source": "https://www.themoviedb.org/movie/260513-incredibles-2"
-    },
-    {
-      "id": "d7a648b5232f",
-      "title": "Inside Out 2",
-      "year": "2024",
-      "cover": "/assets/images/movies/d7a648b5232f.webp",
-      "art_source": "https://www.themoviedb.org/movie/1022789-inside-out-2"
     },
     {
       "id": "fbc12c0dd63c",
@@ -3793,13 +3765,6 @@
       "art_source": "https://www.themoviedb.org/movie/206647-spectre"
     },
     {
-      "id": "e10a5246b4ea",
-      "title": "No Time to Die",
-      "year": "2021",
-      "cover": "/assets/images/movies/e10a5246b4ea.webp",
-      "art_source": "https://www.themoviedb.org/movie/370172-no-time-to-die"
-    },
-    {
       "id": "4bc679cb1e65",
       "title": "Terminator Genisys",
       "year": "2015",
@@ -4289,6 +4254,21 @@
       "rewatch": false
     },
     {
+      "film_id": "3b61952ab633",
+      "group_year": "2026",
+      "rewatch": false
+    },
+    {
+      "film_id": "dc16bd1000a6",
+      "group_year": "2026",
+      "rewatch": false
+    },
+    {
+      "film_id": "2c994fa98a83",
+      "group_year": "2026",
+      "rewatch": false
+    },
+    {
       "film_id": "3709bd33401c",
       "date": "2025-11-30",
       "rewatch": false
@@ -4319,27 +4299,12 @@
       "rewatch": false
     },
     {
-      "film_id": "0742b768c983",
-      "group_year": "2025",
-      "rewatch": false
-    },
-    {
-      "film_id": "bc4499e8e568",
-      "group_year": "2025",
-      "rewatch": false
-    },
-    {
       "film_id": "dfe40771074e",
       "group_year": "2025",
       "rewatch": false
     },
     {
       "film_id": "b867601118ea",
-      "group_year": "2025",
-      "rewatch": false
-    },
-    {
-      "film_id": "dc16bd1000a6",
       "group_year": "2025",
       "rewatch": false
     },
@@ -4425,21 +4390,6 @@
     },
     {
       "film_id": "3f1fb92b955a",
-      "group_year": "2024",
-      "rewatch": false
-    },
-    {
-      "film_id": "d7a648b5232f",
-      "group_year": "2024",
-      "rewatch": false
-    },
-    {
-      "film_id": "3b61952ab633",
-      "group_year": "2024",
-      "rewatch": false
-    },
-    {
-      "film_id": "2c994fa98a83",
       "group_year": "2024",
       "rewatch": false
     },
@@ -4574,6 +4524,16 @@
       "rewatch": false
     },
     {
+      "film_id": "1a09176ca493",
+      "group_year": "2023",
+      "rewatch": false
+    },
+    {
+      "film_id": "613d7895893a",
+      "group_year": "2022",
+      "rewatch": false
+    },
+    {
       "film_id": "110f5b46429b",
       "group_year": "2022",
       "rewatch": false
@@ -4590,6 +4550,11 @@
     },
     {
       "film_id": "7d5165471a3f",
+      "group_year": "2022",
+      "rewatch": false
+    },
+    {
+      "film_id": "bdb5018e2652",
       "group_year": "2022",
       "rewatch": false
     },
@@ -4639,28 +4604,23 @@
       "rewatch": false
     },
     {
+      "film_id": "22967d395341",
+      "group_year": "2022",
+      "rewatch": false
+    },
+    {
       "film_id": "13a5417e6d26",
       "group_year": "2022",
       "rewatch": false
     },
     {
-      "film_id": "1a09176ca493",
+      "film_id": "c2d0f6b48a46",
       "group_year": "2022",
       "rewatch": false
     },
     {
       "film_id": "9fe9090b9717",
       "date": "2021-03-11",
-      "rewatch": false
-    },
-    {
-      "film_id": "613d7895893a",
-      "group_year": "2021",
-      "rewatch": false
-    },
-    {
-      "film_id": "bdb5018e2652",
-      "group_year": "2021",
       "rewatch": false
     },
     {
@@ -4679,22 +4639,7 @@
       "rewatch": false
     },
     {
-      "film_id": "e10a5246b4ea",
-      "group_year": "2021",
-      "rewatch": false
-    },
-    {
       "film_id": "c028e8cfea6b",
-      "group_year": "2021",
-      "rewatch": false
-    },
-    {
-      "film_id": "a7b636cd9d67",
-      "group_year": "2021",
-      "rewatch": false
-    },
-    {
-      "film_id": "22967d395341",
       "group_year": "2021",
       "rewatch": false
     },
@@ -4710,11 +4655,6 @@
     },
     {
       "film_id": "8e650f008de4",
-      "group_year": "2021",
-      "rewatch": false
-    },
-    {
-      "film_id": "c2d0f6b48a46",
       "group_year": "2021",
       "rewatch": false
     },
