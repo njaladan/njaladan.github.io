@@ -8,7 +8,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def merge_ferries(document, ferries):
     ids = {route['id'] for route in ferries['routes']}
+    for route in ferries['routes']:
+        route['dates'] = []
     document['routes'] = [route for route in document['routes'] if route['id'] not in ids] + ferries['routes']
+    for route in document['routes']:
+        route['dates'] = []
     return document
 
 

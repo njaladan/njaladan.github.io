@@ -1,7 +1,6 @@
 """Import flight-log CSV rows and bundle approximate airport connections."""
 import argparse
 import csv
-import datetime
 import io
 import json
 import math
@@ -57,18 +56,14 @@ def import_flights(path, airports):
     flights = []
     connections = {}
     for row in rows:
-        date = datetime.date.fromisoformat(row['Date']).isoformat()
         origin, destination = (airport_code(row[key]) for key in ('From', 'To'))
         if origin not in airports or destination not in airports:
             raise ValueError(f"Missing airport coordinates: {origin} → {destination}")
         hours, minutes, seconds = map(int, row['Duration'].split(':'))
         if hours < 0 or not 0 <= minutes < 60 or not 0 <= seconds < 60:
             raise ValueError(f"Invalid duration: {row['Duration']}")
-        flight = {'date': date, 'number': row['Flight number'], 'from': origin, 'to': destination,
+        flight = {'number': row['Flight number'], 'from': origin, 'to': destination,
                   'duration_s': hours*3600+minutes*60+seconds}
-        airline = row['Airline'].split(' (')[0].strip()
-        if airline:
-            flight['airline'] = airline
         flights.append(flight)
         key = tuple(sorted((origin, destination)))
         connections.setdefault(key, []).append(len(flights)-1)

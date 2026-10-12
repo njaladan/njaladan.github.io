@@ -19,7 +19,7 @@ HIKE_PLACES = {
 
 def build_routes(document, activities, cache):
     days = {d['id']: d for j in activities['journeys'] for d in j['days']}
-    hikes = sorted((days[id] for id in HIKE_PLACES if id in days), key=lambda d: d['started_at'])
+    hikes = [days[id] for id in HIKE_PLACES if id in days]
     if not hikes:
         return document
     cache.mkdir(parents=True, exist_ok=True)
@@ -29,14 +29,14 @@ def build_routes(document, activities, cache):
     for hike in hikes:
         destination = {'name': HIKE_PLACES[hike['id']], 'point': hike['segments'][0][0], 'id': hike['id']}
         via = [[63.75, -20.2245]] if previous['id'] == '16013018406' else []
-        document['routes'].append(drive_leg(previous, destination, hike['date'], via, cache))
+        document['routes'].append(drive_leg(previous, destination, via, cache))
         previous = {'name': destination['name'], 'point': hike['segments'][-1][-1], 'id': hike['id']}
     destination = {'name': 'Landeyjahöfn ferry terminal', 'point': LANDEYJAHOFN, 'id': None}
-    document['routes'].append(drive_leg(previous, destination, hikes[-1]['date'], [], cache))
+    document['routes'].append(drive_leg(previous, destination, [], cache))
     return document
 
 
-def drive_leg(origin, destination, date, via, cache):
+def drive_leg(origin, destination, via, cache):
     slug = f"iceland-drive-{origin['id'] or 'reykjavik'}-{destination['id'] or 'landeyjahofn'}"
     points = [origin['point'], *via, destination['point']]
     fingerprint = hashlib.sha256(json.dumps(points).encode()).hexdigest()[:10]
@@ -51,7 +51,7 @@ def drive_leg(origin, destination, date, via, cache):
     coords = [p for i, p in enumerate(coords) if not i or p != coords[i-1]]
     trip = {'id': slug, 'name': origin['name']+' → '+destination['name'],
             'stops': [origin['name'], *(['Hvolsvöllur'] if via else []), destination['name']],
-            'countries': ['352'], 'mode': 'Drive', 'operator': '', 'dates': [date],
+            'countries': ['352'], 'mode': 'Drive', 'operator': '', 'dates': [],
             'coords': coords, 'geometry_source': 'OSRM driving · OpenStreetMap',
             'activity_endpoints': {'from': origin['id'], 'to': destination['id']},
             'road_snap_distance_m': [round(offset, 1) for offset in offsets]}

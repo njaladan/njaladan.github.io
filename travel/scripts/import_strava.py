@@ -137,7 +137,7 @@ def import_selection(export, review, output, replace=False):
             day = read_tcx(path)
         else:
             raise ValueError(f'Unsupported track format: {path.name}')
-        day.update(id=activity_id, date=entry['date'], name=row['Activity Name'],
+        day.update(id=activity_id, name=row['Activity Name'],
                    original_title=row['Activity Name'], type=TYPES[row['Activity Type']],
                    sport=row['Activity Type'])
         for field, column in [('distance_m', 'Distance'), ('elapsed_s', 'Elapsed Time'), ('elevation_m', 'Elevation Gain')]:
@@ -164,10 +164,14 @@ def import_selection(export, review, output, replace=False):
             document['journeys'].append(journey)
         journey['countries'] = list(dict.fromkeys([*journey['countries'], *countries]))
         journey['days'].append(day)
-        journey['days'].sort(key=lambda d: d['started_at'])
+        journey['days'].sort(key=lambda d: d.get('started_at', ''))
         existing.add(activity_id)
         added += 1
-        print(f"{activity_id}: {day['date']} · {day['name']} · {day['source']['display_points']} display points", flush=True)
+        print(f"{activity_id}: {day['name']} · {day['source']['display_points']} display points", flush=True)
+    for journey in document['journeys']:
+        for day in journey.get('days', []):
+            day.pop('date', None)
+            day.pop('started_at', None)
     output.write_text(json.dumps(document, separators=(',', ':'), ensure_ascii=False)+'\n')
     print(f'Added {added}; total {len(existing)} activities', flush=True)
 
