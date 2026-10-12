@@ -33,7 +33,6 @@ h1 { font-weight: 600; }
 .map-toolbar svg { width: 16px; height: 16px; flex-shrink: 0; }
 .map-toolbar svg path { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .map-toolbar svg circle { fill: none; stroke: currentColor; stroke-width: 1.5; }
-#show-photos { display: flex; align-items: center; gap: 7px; }
 #toggle-flights[aria-pressed=true] { color: #71818d; }
 #map-status { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 600; background: #fffffff0; border: 1px solid var(--line); padding: 9px 13px; font-size: 12px; border-radius: 4px; margin: 0; max-width: 85%; text-align: center; }
 #map-status:empty { display: none; }

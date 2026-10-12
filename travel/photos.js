@@ -1,7 +1,6 @@
 /* Photo assets are fetched only for visible pins or an explicitly opened image. */
 'use strict';
 function installAtlasPhotos(map, {focus, onLayout}) {
-  const button = document.querySelector('#show-photos');
   const dialog = document.querySelector('#photo-viewer');
   const image = dialog.querySelector('img');
   const title = dialog.querySelector('#photo-title');
@@ -146,12 +145,6 @@ function installAtlasPhotos(map, {focus, onLayout}) {
     });
     pins.forEach((marker, key) => { if (!active.has(key)) { layer.removeLayer(marker); pins.delete(key); } });
   }
-  button.addEventListener('click', () => {
-    if (!photos.length) return;
-    if (cancelFocus) { cancelFocus(); cancelFocus = null; }
-    if (photos.length === 1) select(photos);
-    else focus({bounds: L.latLngBounds(photos.map(photo => photo.coords)), maxZoom: 12});
-  });
   previous.addEventListener('click', () => changeImage(-1));
   next.addEventListener('click', () => changeImage(1));
   dialog.querySelector('.photo-close').addEventListener('click', () => dialog.close());
@@ -170,7 +163,6 @@ function installAtlasPhotos(map, {focus, onLayout}) {
       const ids = new Set();
       photos = (Array.isArray(records) ? records : []).filter(photo => { if (!valid(photo) || ids.has(photo.id)) return false; ids.add(photo.id); return true; });
       photos.sort((a, b) => (b.date || '').localeCompare(a.date || '') || a.id.localeCompare(b.id));
-      button.hidden = !photos.length; button.querySelector('span').textContent = `Photos · ${photos.length}`;
       layout(); onLayout();
     },
     occupied: () => [...pins.values()].map(marker => marker.getElement().getBoundingClientRect()),
