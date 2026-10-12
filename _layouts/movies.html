@@ -12,19 +12,19 @@ layout: default
     <p class="result-count" data-count role="status" aria-live="polite">{{ site.data.movies.films | size }} movies</p>
   </div>
   <nav class="year-nav" data-year-nav aria-label="Viewing years">
-    {% assign previous_year = '' %}{% for viewing in site.data.movies.viewings %}{% assign year = viewing.date | slice: 0, 4 %}{% if year != previous_year %}<a href="#y{{ year }}">{{ year }}</a>{% assign previous_year = year %}{% endif %}{% endfor %}
+    {% assign previous_year = '' %}{% for viewing in site.data.movies.viewings %}{% assign year = viewing.group_year | default: viewing.date | slice: 0, 4 %}{% if year != previous_year %}<a href="#y{{ year }}">{{ year }}</a>{% assign previous_year = year %}{% endif %}{% endfor %}
     <a href="#earlier">Undated</a>
   </nav>
   <div data-groups>
     {% assign previous_year = '' %}
     {% for viewing in site.data.movies.viewings %}
-      {% assign year = viewing.date | slice: 0, 4 %}
+      {% assign year = viewing.group_year | default: viewing.date | slice: 0, 4 %}
       {% if year != previous_year %}
         {% unless forloop.first %}</div></section>{% endunless %}
         <section class="library-group" id="y{{ year }}"><div class="group-heading"><h2>{{ year }}</h2></div><div class="shelf">
         {% assign previous_year = year %}
       {% endif %}
-      {% include movie-card.html film_id=viewing.film_id date=viewing.date section='dated' rewatch=viewing.rewatch %}
+      {% include movie-card.html film_id=viewing.film_id date=viewing.date year=year section='dated' rewatch=viewing.rewatch %}
       {% if forloop.last %}</div></section>{% endif %}
     {% endfor %}
     <section class="library-group" id="earlier">

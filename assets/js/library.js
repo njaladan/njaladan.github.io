@@ -26,13 +26,23 @@
       if (a.dataset.section !== b.dataset.section) return a.dataset.section === 'earlier' ? 1 : -1;
       if (a.dataset.section === 'earlier' || sort.value === 'title')
         return a.dataset.title.localeCompare(b.dataset.title);
+      const yearA = a.dataset.year || a.dataset.date.slice(0, 4);
+      const yearB = b.dataset.year || b.dataset.date.slice(0, 4);
+      const yearOrder = sort.value === 'oldest'
+        ? yearA.localeCompare(yearB)
+        : yearB.localeCompare(yearA);
+      if (yearOrder) return yearOrder;
+      if (!a.dataset.date || !b.dataset.date) {
+        if (!a.dataset.date && !b.dataset.date) return a.dataset.title.localeCompare(b.dataset.title);
+        return a.dataset.date ? -1 : 1;
+      }
       return sort.value === 'oldest' ? a.dataset.date.localeCompare(b.dataset.date)
         : b.dataset.date.localeCompare(a.dataset.date);
     });
     const sections = new Map();
     for (const card of visible) {
       const key = card.dataset.section === 'earlier' ? 'earlier'
-        : sort.value === 'title' ? 'all' : card.dataset.date.slice(0, 4);
+        : sort.value === 'title' ? 'all' : card.dataset.year || card.dataset.date.slice(0, 4);
       if (!sections.has(key)) sections.set(key, []);
       sections.get(key).push(card);
     }

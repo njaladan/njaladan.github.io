@@ -10,8 +10,10 @@ The old `/atlas/` URL redirects to `/travel/`.
 ## Movies
 
 `_data/movies.json` contains only titles, release years, viewing dates, rewatch flags,
-and matched poster metadata. Ratings, reviews, profile links, tags, and added dates
-are deliberately absent. The source CSV exports stay outside the public repository.
+and matched poster metadata. An undated earlier watch can include `group_year` to place
+it in a release-year section without inventing a viewing date. Ratings, reviews,
+profile links, tags, and added dates are deliberately absent. The source CSV exports
+stay outside the public repository.
 
 Import updated exports with:
 
