@@ -1,4 +1,4 @@
-"""Build saved train/bus paths from OSM networks and confirmed journey stops.
+"""Build saved train/drive paths from OSM networks and confirmed journey stops.
 Rails use BRouter’s rail profile; roads use OSRM full geometry.
 No live routing service is required by the published atlas.
 """
@@ -13,9 +13,9 @@ LEGS=[
  ('Bern','Lucerne','train','europe',[]),('Lucerne','Chur','train','europe',[[47.173,8.517],[47.202,8.778],[47.046,9.443]]),
  ('Chur','Tirano','train','europe',[[46.6976,9.4405],[46.6768,9.6826],[46.6294,9.7455],[46.491,9.901],[46.4082,10.0199],[46.3241,10.0546]]),
  ('Tirano','Milan','train','europe',[[45.856,9.397]]),('Milan','Bologna','train','europe',[]),('Bologna','Florence','train','europe',[]),('Florence','Rome','train','europe',[]),
- ('Amsterdam','Haarlem','train','netherlands',[]),('Utrecht','Haarlem','train','netherlands',[]),('Haarlem','Keukenhof','bus',None,[]),
+ ('Amsterdam','Haarlem','train','netherlands',[]),('Utrecht','Haarlem','train','netherlands',[]),('Haarlem','Keukenhof','drive',None,[]),
  ('Oslo','Bergen','train','norway',[]),
- ('Cairo','Luxor','bus',None,[])]
+ ('Cairo','Luxor','drive',None,[])]
 def meters(a,b):
  lat1,lon1,lat2,lon2=map(math.radians,(*a,*b));dlat=lat2-lat1;dlon=lon2-lon1
  return 6371000*2*math.asin(min(1,math.sqrt(math.sin(dlat/2)**2+math.cos(lat1)*math.cos(lat2)*math.sin(dlon/2)**2)))
