@@ -1,6 +1,7 @@
 """Browser checks using temporary photo data; no sample visits are published."""
 import functools
 import importlib.util
+import os
 import shutil
 import tempfile
 import threading
@@ -30,6 +31,9 @@ class QuietHandler(SimpleHTTPRequestHandler):
 class TravelPhotosTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        site = Path(os.environ.get("SITE_BUILD_DIR", REPO / "_site"))
+        if not (site / "travel/index.html").exists():
+            raise unittest.SkipTest("Build the site with Jekyll before running browser checks")
         cls.temporary = tempfile.TemporaryDirectory()
         cls.assets = Path(cls.temporary.name)
         source = cls.assets / "fixture.jpg"
@@ -37,7 +41,7 @@ class TravelPhotosTest(unittest.TestCase):
         cls.photos = [importer.import_photo(source, place=f"Fixture {index}", lat=48.8606 + dy, lon=2.3358 + dx,
                      photo_id=f"fixture-{index}", root=cls.assets)
                      for index, (dy, dx) in enumerate([(0, 0), (0, 0), (.006, .008), (.025, .015), (-.02, -.03)])]
-        cls.server = ThreadingHTTPServer(("127.0.0.1", 0), functools.partial(QuietHandler, directory=str(REPO)))
+        cls.server = ThreadingHTTPServer(("127.0.0.1", 0), functools.partial(QuietHandler, directory=str(site)))
         cls.thread = threading.Thread(target=cls.server.serve_forever, daemon=True)
         cls.thread.start()
         cls.url = f"http://127.0.0.1:{cls.server.server_port}/travel/"

@@ -1,28 +1,15 @@
+---
+layout: null
+sitemap: false
+---
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f8f9fa">
-  <title>Photos — Travel — Ganesh</title>
-  <meta name="description" content="Geotagged travel photos and the places they were taken.">
-  <link rel="stylesheet" href="../style.css?v=26">
-  <link rel="stylesheet" href="gallery.css?v=1">
+  <meta http-equiv="refresh" content="0;url={{ '/photos/' | relative_url }}">
+  <title>Photos — Ganesh</title>
+  <link rel="canonical" href="{{ '/photos/' | absolute_url }}">
 </head>
-<body class="gallery-page">
-  <header class="site-header">
-    <a class="site-logo" href="/" aria-label="Home"><img src="/assets/images/logo.png" alt="" width="34" height="34"></a><span class="divider">/</span><a href="/travel/">Travel</a>
-    <nav aria-label="Site navigation"><a href="/">About</a><a href="/reading">Reading</a><a href="/movies">Movies</a><a href="/travel/">Map</a><a href="/travel/gallery/" aria-current="page">Photos</a></nav>
-  </header>
-  <main class="gallery-main">
-    <section class="gallery-intro" aria-labelledby="gallery-title">
-      <p class="gallery-kicker">TRAVEL / PHOTOS</p>
-      <h1 id="gallery-title">Places, in pictures.</h1>
-      <p>Geotagged moments from the road. Choose a photo to find it on the map.</p>
-    </section>
-    <section id="photo-gallery" class="photo-gallery" aria-label="Geotagged travel photos" aria-live="polite"></section>
-    <p class="gallery-footer"><a href="/travel/">← Back to the map</a></p>
-  </main>
-  <script src="gallery.js?v=1" defer></script>
-</body>
+<body><p>The photos are now at <a href="{{ '/photos/' | relative_url }}">Photos</a>.</p></body>
 </html>

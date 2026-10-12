@@ -1,6 +1,8 @@
 # Travel
 
-Static map at `/travel/`. Serve with `python -m http.server 8765 --directory travel`.
+Map at `/travel/`, with the same site header as About, Reading, Movies, and Photos.
+Run `bundle exec jekyll serve` from the repository root to render the shared header.
+The photo gallery is at `/photos/`; `/travel/gallery/` redirects there.
 
 One persistent Leaflet map supports scroll zoom, dragging, touch gestures, and animated navigation. Only the confirmed visited countries and US home are selectable. China is scoped to Hong Kong. Markers make Hong Kong and Vatican City accessible on the world map. The World map button zooms back out.
 
@@ -26,7 +28,9 @@ The Louvre tag uses the pyramid's landmark coordinates, not an inferred camera p
 
 Photo thumbnails appear at every zoom, including the widest world overview. Nearby photos group into one pin with a count; fixed pixel spacing reveals more pins as you zoom. Clicking a group zooms to its area; photos at the same location can be paged in their preview and viewer. Clicking a single photo focuses its landmark and opens a preview. Visible map pins load only 128-pixel thumbnails; previews and the modal use responsive image sizes, and offscreen photos do not request image assets. Photo pins reserve space in the existing city/background label placement. An empty or unavailable photo manifest leaves the rest of the map usable.
 
-Verify ingestion with `python -m unittest discover -s tests -p 'test_photo_import.py'`. Browser regression coverage uses Playwright with Chromium: `python -m unittest discover -s tests -p 'test_travel_photos.py'`. Test images and tags are generated in temporary directories and never added to the public travel records.
+Verify ingestion with `python -m unittest discover -s tests -p 'test_photo_import.py'`. Browser regression coverage uses Playwright with Chromium. Build the site with
+`bundle exec jekyll build`, then run `python -m unittest discover -s tests -p 'test_travel_photos.py'`.
+The tests serve `_site` by default; set `SITE_BUILD_DIR` to test another build directory. Test images and tags are generated in temporary directories and never added to the public travel records.
 
 ## Imported activity data
 

@@ -6,22 +6,18 @@
   <meta name="theme-color" content="#faf8f3">
   <link rel="icon" href="{{ '/assets/images/logo.png' | relative_url }}">
   {% seo %}
-  <link rel="stylesheet" href="{{ '/assets/css/library.css' | relative_url }}?v=2">
+  <link rel="stylesheet" href="{{ '/assets/css/library.css' | relative_url }}?v=3">
+  <link rel="stylesheet" href="{{ '/assets/css/header.css' | relative_url }}?v=1">
+  {% if page.photos %}
+  <link rel="stylesheet" href="{{ '/travel/gallery/gallery.css' | relative_url }}?v=2">
+  <script defer src="{{ '/travel/gallery/gallery.js' | relative_url }}?v=2"></script>
+  {% endif %}
   {% if page.library %}<script defer src="{{ '/assets/js/library.js' | relative_url }}?v=2"></script>{% endif %}
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  {% include site-header.html %}
   <div class="site-shell">
-    <header class="site-header">
-      <a class="site-logo" href="{{ '/' | relative_url }}" aria-label="Home"><img src="{{ '/assets/images/logo.png' | relative_url }}" alt="" width="48" height="48"></a>
-      <nav class="site-nav" aria-label="Main navigation">
-        <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}>About</a>
-        <a href="{{ '/reading' | relative_url }}" {% if page.url == '/reading' or page.tags contains 'Books' %}aria-current="page"{% endif %}>Reading</a>
-        <a href="{{ '/movies' | relative_url }}" {% if page.url == '/movies' %}aria-current="page"{% endif %}>Movies</a>
-        <a href="{{ '/travel/' | relative_url }}">Travel</a>
-      </nav>
-    </header>
-    <main id="main">{{ content }}</main>
+    <main id="main"{% if page.photos %} class="gallery-main"{% endif %}>{{ content }}</main>
     <footer class="site-footer">Logo courtesy of <a href="https://www.emersonhsieh.com/">Emerson Hsieh</a>.</footer>
   </div>
 </body>

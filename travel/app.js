@@ -410,7 +410,6 @@
   $('#back-us').addEventListener('click',()=>location.hash=`country=${HOME_COUNTRY}`);
   function returnToWorld() { if(location.hash)location.hash='';else showWorld(true); }
   $('#back-world').addEventListener('click',returnToWorld);
-  $('#atlas-home').addEventListener('click',event=>{event.preventDefault();returnToWorld();});
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!atlasPhotos.isOpen()&&currentCountry&&!map.isPopupOpen())location.hash=currentState?`country=${HOME_COUNTRY}`:'';});
   map.on('popupclose',event=>{if(event.popup===activityPopup){activeDay=null;updateRouteStyles();}});
   map.on('zoom',updateBasemap);

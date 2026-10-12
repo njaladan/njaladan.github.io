@@ -1,3 +1,7 @@
+---
+layout: null
+title: Travel
+---
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,21 +10,20 @@
   <meta name="theme-color" content="#f8f9fa">
   <title>Travel — Ganesh</title>
   <meta name="description" content="Places I've visited, with photos, journeys and recorded activity routes.">
+  <link rel="icon" href="{{ '/assets/images/logo.png' | relative_url }}">
   <link rel="stylesheet" href="vendor/leaflet.css">
-  <link rel="stylesheet" href="style.css?v=26">
+  <link rel="stylesheet" href="style.css?v=27">
+  <link rel="stylesheet" href="{{ '/assets/css/header.css' | relative_url }}?v=1">
   <script defer src="vendor/topojson.min.js"></script>
   <script defer src="vendor/leaflet.js"></script>
   <script defer src="data.js?v=24"></script>
   <script defer src="smooth-zoom.js?v=23"></script>
   <script defer src="basemap-labels.js?v=23"></script>
   <script defer src="photos.js?v=25"></script>
-  <script defer src="app.js?v=26"></script>
+  <script defer src="app.js?v=27"></script>
 </head>
 <body>
-  <header class="site-header">
-    <a class="site-logo" href="/" aria-label="Home"><img src="/assets/images/logo.png" alt="" width="34" height="34"></a><span class="divider">/</span><a href="#" id="atlas-home">Travel</a>
-    <nav aria-label="Site navigation"><a href="/">About</a><a href="/reading">Reading</a><a href="/movies">Movies</a><a href="/travel/" aria-current="page">Map</a><a href="/travel/gallery/">Photos</a></nav>
-  </header>
+  {% include site-header.html %}
   <main id="main" aria-label="Travel atlas">
     <div id="map" aria-label="Map of visited countries"></div>
     <div class="map-toolbar">

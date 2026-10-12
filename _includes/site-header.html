@@ -1,0 +1,13 @@
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="{{ '/' | relative_url }}" aria-label="Home"><img src="{{ '/assets/images/logo.png' | relative_url }}" alt="" width="36" height="36"></a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}>About</a>
+      <a href="{{ '/reading' | relative_url }}" {% if page.url == '/reading' or page.tags contains 'Books' %}aria-current="page"{% endif %}>Reading</a>
+      <a href="{{ '/movies' | relative_url }}" {% if page.url == '/movies' %}aria-current="page"{% endif %}>Movies</a>
+      <a href="{{ '/travel/' | relative_url }}" {% if page.url == '/travel/' %}aria-current="page"{% endif %}>Travel</a>
+      <a href="{{ '/photos/' | relative_url }}" {% if page.url == '/photos/' %}aria-current="page"{% endif %}>Photos</a>
+    </nav>
+  </div>
+</header>
