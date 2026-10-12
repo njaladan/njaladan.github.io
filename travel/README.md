@@ -34,7 +34,7 @@ The tests serve `_site` by default; set `SITE_BUILD_DIR` to test another build d
 
 The October 2026 Drive ZIP adds 20 photos to the map and Photos gallery. Nineteen are HEIC: install the photo requirements to enable `pillow-heif` decoding. HEIC originals remain byte-for-byte downloads; browser previews use the same oriented, sRGB WebP pipeline as other photos. HEIC paths are accepted only for original downloads, never display derivatives.
 
-None of these 20 photos contains GPS metadata. Location tags use visual landmarks, existing TMB routes, and the user's confirmations of Montréal, Barcelona, the Mont Blanc gondola, the Lac Blanc area, an Egyptian felucca, and a large Paris garden south of the Seine. Approximate area/route tags are labeled accordingly. Original filenames, confidence, coordinate scope, and evidence are retained in `data/photos.json`; [PHOTO_LOCATION_MAPPING.md](PHOTO_LOCATION_MAPPING.md) and `data/photo-location-mapping.csv` provide the complete mapping. EXIF capture dates are used where available; the scanned garden JPEG has no date assigned.
+None of these 20 photos contains GPS metadata. Location tags use visual landmarks, existing TMB routes, and the user's confirmations of Montréal, Barcelona, the Mont Blanc gondola, the Lac Blanc area, an Egyptian felucca, and a large Paris garden south of the Seine. Original filenames, confidence, coordinate scope, and evidence are retained in `data/photos.json`; [PHOTO_LOCATION_MAPPING.md](PHOTO_LOCATION_MAPPING.md) and `data/photo-location-mapping.csv` provide the complete mapping. EXIF capture dates are used where available; the scanned garden JPEG has no date assigned.
 
 ## Imported activity data
 

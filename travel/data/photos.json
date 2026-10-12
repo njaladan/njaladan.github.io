@@ -633,7 +633,7 @@
     },
     {
       "id": "img-0964",
-      "place": "Jardin du Luxembourg · Paris (approx.)",
+      "place": "Jardin du Luxembourg · Paris",
       "coords": [
         48.8462,
         2.3372
@@ -843,7 +843,7 @@
     },
     {
       "id": "img-1561",
-      "place": "Medina souks · Marrakech (approx.)",
+      "place": "Medina souks · Marrakech",
       "coords": [
         31.629,
         -7.989
@@ -949,7 +949,7 @@
     },
     {
       "id": "img-1697",
-      "place": "Barcelona waterfront (approx.)",
+      "place": "Barcelona waterfront",
       "coords": [
         41.385,
         2.199
@@ -1108,7 +1108,7 @@
     },
     {
       "id": "img-6452",
-      "place": "Col de Tricot trail · TMB (approx.)",
+      "place": "Col de Tricot trail · TMB",
       "coords": [
         45.85,
         6.779
@@ -1161,7 +1161,7 @@
     },
     {
       "id": "img-6511",
-      "place": "Val Veny · TMB (approx.)",
+      "place": "Val Veny · TMB",
       "coords": [
         45.774,
         6.866
@@ -1214,7 +1214,7 @@
     },
     {
       "id": "img-6517",
-      "place": "Mont Chétif view · Courmayeur, TMB (approx.)",
+      "place": "Mont Chétif view · Courmayeur, TMB",
       "coords": [
         45.814,
         6.963
@@ -1320,7 +1320,7 @@
     },
     {
       "id": "img-6567",
-      "place": "Mont Blanc gondola route (approx.)",
+      "place": "Mont Blanc gondola route",
       "coords": [
         45.8625,
         6.9095
@@ -1367,13 +1367,13 @@
         "confidence": "medium",
         "scope": "route",
         "camera_gps": false,
-        "evidence": "User confirmed this view was along the gondola ride. Approximate representative point on the Panoramic Mont-Blanc gondola corridor, not an exact cabin position."
+        "evidence": "User confirmed this view was along the gondola ride. Representative point on the Panoramic Mont-Blanc gondola corridor, not an exact cabin position."
       },
       "date_source": "EXIF DateTimeOriginal; not independently verified"
     },
     {
       "id": "img-6618",
-      "place": "Lac Blanc area · Chamonix (approx.)",
+      "place": "Lac Blanc area · Chamonix",
       "coords": [
         45.9848,
         6.902
@@ -1420,7 +1420,7 @@
         "confidence": "medium",
         "scope": "area",
         "camera_gps": false,
-        "evidence": "User confirmed the Lac Blanc side. Lake and Argentière glacier view are consistent with nearby Lacs des Chéserys along recorded Day 6. Approximate lake-area pin; specific lake unconfirmed."
+        "evidence": "User confirmed the Lac Blanc side. Lake and Argentière glacier view are consistent with nearby Lacs des Chéserys along recorded Day 6. Lake-area pin; specific lake unconfirmed."
       },
       "date_source": "EXIF DateTimeOriginal; not independently verified"
     },
@@ -1532,7 +1532,7 @@
     },
     {
       "id": "img-6924",
-      "place": "Felucca on the Nile · Luxor (approx.)",
+      "place": "Felucca on the Nile · Luxor",
       "coords": [
         25.7,
         32.634
