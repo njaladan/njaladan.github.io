@@ -525,10 +525,12 @@ const US_VISITS = {
 const ROUTE_MODES={hiking:{name:'Hike',color:'#859650'},walking:{name:'Walk',color:'#527b58'},running:{name:'Run',color:'#bd5574'},cycling:{name:'Bike',color:'#287f96'},Train:{name:'Train',color:'#8368a6'},Bus:{name:'Bus',color:'#b76c43'},Drive:{name:'Drive',color:'#b28c2c'},Ferry:{name:'Ferry',color:'#3269ac'},Flight:{name:'Flight',color:'#427ab2'}};
 
 const CONFIRMED_ROUTE_PLACES={
+ '300':[{name:'Piraeus',coords:[37.942569,23.642746]},{name:'Syros',coords:[37.440886,24.941164]}],
  '756':[{name:'Bern',coords:[46.948,7.4474]},{name:'Lucerne',coords:[47.0502,8.3093]},{name:'Chur',coords:[46.8508,9.532]}],
- '380':[{name:'Bologna',coords:[44.4949,11.3426]}],
  '578':[{name:'Myrdal',coords:[60.7351,7.1226]}],
- '352':[{name:'Reykjavík',coords:[64.1466,-21.9426]},{name:'Múlagljúfur Canyon',coords:[63.9935,-16.394]}]
+ '352':[{name:'Reykjavík',coords:[64.1466,-21.9426]},{name:'Múlagljúfur Canyon',coords:[63.9935,-16.394]},{name:'Landeyjahöfn',coords:[63.530904,-20.116991]}],
+ '380':[{name:'Bologna',coords:[44.4949,11.3426]},{name:'Minori',coords:[40.6483,14.6262]},{name:'Positano',coords:[40.628,14.4863]}],
+ '152':[{name:'Paine Grande',coords:[-51.072421,-73.093889]},{name:'Pudeto',coords:[-51.062769,-72.990295]}]
 };
 Object.entries(CONFIRMED_ROUTE_PLACES).forEach(([country,places])=>{
  COUNTRY_PLACES[country]||=[];

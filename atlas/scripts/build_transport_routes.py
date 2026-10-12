@@ -95,10 +95,19 @@ def main():
   trip={'id':slug,'name':name,'stops':[origin,dest],'countries':list(dict.fromkeys([STOPS[origin][0],STOPS[dest][0]])),'mode':mode,'operator':'Bernina Express' if origin=='Chur' and dest=='Tirano' else '', 'dates':[], 'coords':simplify(coords),'geometry_source':'BRouter rail · OpenStreetMap' if mode=='Train' else 'OSRM driving · OpenStreetMap'}
   routes.append(trip);print(name,mode,len(coords),'vertices',flush=True)
   (ROOT/'data/transport.json').write_text(json.dumps({'routes':routes},separators=(',',':'))+'\n')
- points=[[64.1466,-21.9426],[63.9886,-16.399]]
- coords=routed(points,'Drive',args.cache,'reykjavik-mulagljufur')
- routes=[trip for trip in routes if trip['id']!='reykjavik-mulagljufur']
- routes.append({'id':'reykjavik-mulagljufur','name':'Reykjavík → Múlagljúfur Canyon','stops':['Reykjavík','Múlagljúfur Canyon'],'countries':['352'],'mode':'Drive','operator':'','dates':[],'coords':simplify(coords),'geometry_source':'OSRM driving · OpenStreetMap'})
- (ROOT/'data/transport.json').write_text(json.dumps({'routes':routes},separators=(',',':'))+'\n')
- print('Saved',len(routes),'routes',flush=True)
+ activities=json.loads((ROOT/'data/activities.json').read_text())
+ if any(j['id']=='iceland-activities' for j in activities['journeys']):
+  from build_iceland_routes import build_routes
+  document=build_routes({'routes':routes},activities,args.cache)
+ else:
+  points=[[64.1466,-21.9426],[63.9886,-16.399]]
+  coords=routed(points,'Drive',args.cache,'reykjavik-mulagljufur')
+  routes=[trip for trip in routes if trip['id']!='reykjavik-mulagljufur']
+  routes.append({'id':'reykjavik-mulagljufur','name':'Reykjavík → Múlagljúfur Canyon','stops':['Reykjavík','Múlagljúfur Canyon'],'countries':['352'],'mode':'Drive','operator':'','dates':[],'coords':simplify(coords),'geometry_source':'OSRM driving · OpenStreetMap'})
+  document={'routes':routes}
+ if (ROOT/'data/ferries.json').exists():
+  from build_ferry_routes import merge_ferries
+  document=merge_ferries(document,json.loads((ROOT/'data/ferries.json').read_text()))
+ (ROOT/'data/transport.json').write_text(json.dumps(document,separators=(',',':'),ensure_ascii=False)+'\n')
+ print('Saved',len(document['routes']),'routes',flush=True)
 if __name__=='__main__':main()

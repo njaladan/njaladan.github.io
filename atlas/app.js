@@ -102,7 +102,7 @@
         if(segment.length<2)return;
         const outline=L.polyline(segment,{pane:'routes',color:'white',weight:6,opacity:.9,interactive:false}).addTo(routeLayers);
         const label=activityLabel(day,journey);
-        const line=L.polyline(segment,{pane:'routes',color,weight:3.5,opacity:1,className:'activity-route'}).bindTooltip(label).on('click',event=>{
+        const line=L.polyline(segment,{pane:'routes',color,weight:3.5,opacity:1,className:'activity-route'}).bindTooltip(escape(label)).on('click',event=>{
           activeDay=day.id;updateRouteStyles();activityPopup.setLatLng(event.latlng).setContent(activityContent(day,journey,index)).openOn(map);
         }).addTo(routeLayers);
         accessibleRoute(line,day,journey,index,segment);
