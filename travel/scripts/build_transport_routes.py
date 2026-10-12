@@ -8,7 +8,10 @@ STOPS={
  'Amsterdam':('528',[52.3791,4.9003]),'Haarlem':('528',[52.3879,4.6384]),'Utrecht':('528',[52.0894,5.1102]),'Keukenhof':('528',[52.2712,4.5463]),
  'Bern':('756',[46.948993,7.4390602]),'Lucerne':('756',[47.0502,8.3102]),'Chur':('756',[46.853,9.529]),'Tirano':('380',[46.2164,10.1678]),'Milan':('380',[45.4863,9.2045]),'Bologna':('380',[44.5061,11.3426]),'Florence':('380',[43.7765,11.2486]),'Rome':('380',[41.901,12.5016]),
  'Oslo':('578',[59.9109,10.7526]),'Bergen':('578',[60.3904,5.3335]),'Cairo':('818',[30.0444,31.2357]),'Luxor':('818',[25.6872,32.6396]),
- 'Tokyo':('392',[35.6812,139.7671]),'Odawara':('392',[35.2564,139.1551])}
+ 'Tokyo':('392',[35.6812,139.7671]),'Odawara':('392',[35.2564,139.1551]),
+ 'San Jose':('840',[37.3290,-121.9024]),'Seattle':('840',[47.5983,-122.3294]),
+ 'St Louis':('840',[38.6231542,-90.2038216]),'New Orleans':('840',[29.9465016,-90.0788318]),
+ 'Chicago':('840',[41.8786,-87.6405]),'NYC':('840',[40.7506,-73.9935])}
 LEGS=[
  ('Amsterdam','Bern','train','europe',[[50.943,6.958],[50.107,8.663],[47.5464543,7.5884019]]),
  ('Bern','Lucerne','train','europe',[]),('Lucerne','Chur','train','europe',[[47.173,8.517],[47.202,8.778],[47.046,9.443]]),
@@ -16,7 +19,11 @@ LEGS=[
  ('Tirano','Milan','train','europe',[[45.856,9.397]]),('Milan','Bologna','train','europe',[]),('Bologna','Florence','train','europe',[]),('Florence','Rome','train','europe',[]),
  ('Amsterdam','Haarlem','train','netherlands',[]),('Utrecht','Haarlem','train','netherlands',[]),('Haarlem','Keukenhof','drive',None,[]),
  ('Oslo','Bergen','train','norway',[]),
- ('Cairo','Luxor','drive',None,[]),('Tokyo','Odawara','train',None,[])]
+ ('Cairo','Luxor','drive',None,[]),('Tokyo','Odawara','train',None,[]),
+ ('San Jose','Seattle','train','amtrak',[[37.7946,-122.2717],[38.0187,-122.1334],[38.2490,-122.0393],[38.5424779,-121.7386404],[38.585893,-121.5011671],[40.5853101,-122.3939168],[41.2087,-122.2726],[42.2249,-121.7806],[45.5289,-122.6769]]),
+ ('St Louis','New Orleans','train','amtrak',[[37.7242592,-89.2162768],[35.1351,-90.058596],[32.300052,-90.191155]]),
+ ('Chicago','NYC','train','amtrak',[[41.6786,-86.2878],[41.5008,-81.6957],[42.9064,-78.7263],[43.0757,-76.1699],[42.6426,-73.7416]])]
+AMTRAK_ROUTES={('San Jose','Seattle'),('St Louis','New Orleans'),('Chicago','NYC')}
 def meters(a,b):
  lat1,lon1,lat2,lon2=map(math.radians,(*a,*b));dlat=lat2-lat1;dlon=lon2-lon1
  return 6371000*2*math.asin(min(1,math.sqrt(math.sin(dlat/2)**2+math.cos(lat1)*math.cos(lat2)*math.sin(dlon/2)**2)))
@@ -41,6 +48,12 @@ def routed(points,mode,cache,slug):
   if not tags or any('railway=' not in tag for tag in tags):raise ValueError('Train path leaves railway network')
  else:points=data['routes'][0]['geometry']['coordinates']
  coords=[[lat,lon] for lon,lat,*alt in points]
+ return coords
+def routed_train_stations(points,cache,slug):
+ coords=[]
+ for i in range(len(points)-1):
+  segment=routed(points[i:i+2],'Train',cache,f'{slug}-leg-{i+1}')
+  coords.extend(segment if not coords else segment[1:])
  return coords
 def simplify(points,tolerance=0.000025):
  # Retain every bend on roads/rails; only remove effectively collinear points.
@@ -90,10 +103,12 @@ def main():
   if slug in ids:continue
   points=[STOPS[origin][1],*via,STOPS[dest][1]];mode=mode.title()
   if origin=='Tirano':points[0]=[46.21586,10.16743]
-  coords=routed(points,mode,args.cache,slug)
+  coords=routed_train_stations(points,args.cache,slug) if (origin,dest) in AMTRAK_ROUTES else routed(points,mode,args.cache,slug)
   name='Tokyo ↔ Odawara · Round trip' if origin=='Tokyo' and dest=='Odawara' else origin+' → '+dest
   if origin=='Chur' and dest=='Tirano':name+=' · Bernina Express'
-  trip={'id':slug,'name':name,'stops':[origin,dest],'countries':list(dict.fromkeys([STOPS[origin][0],STOPS[dest][0]])),'mode':mode,'operator':'Bernina Express' if origin=='Chur' and dest=='Tirano' else '', 'dates':[], 'coords':simplify(coords),'geometry_source':'BRouter rail · OpenStreetMap' if mode=='Train' else 'OSRM driving · OpenStreetMap'}
+  operator='Amtrak' if (origin,dest) in AMTRAK_ROUTES else 'Bernina Express' if origin=='Chur' and dest=='Tirano' else ''
+  if operator=='Amtrak':name+=' · Amtrak'
+  trip={'id':slug,'name':name,'stops':[origin,dest],'countries':list(dict.fromkeys([STOPS[origin][0],STOPS[dest][0]])),'mode':mode,'operator':operator, 'dates':[], 'coords':simplify(coords),'geometry_source':'BRouter rail · OpenStreetMap' if mode=='Train' else 'OSRM driving · OpenStreetMap'}
   routes.append(trip);print(name,mode,len(coords),'vertices',flush=True)
   (ROOT/'data/transport.json').write_text(json.dumps({'routes':routes},separators=(',',':'))+'\n')
  activities=json.loads((ROOT/'data/activities.json').read_text())

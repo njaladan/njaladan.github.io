@@ -13,6 +13,46 @@ from build_transport_routes import ROOT, meters, routed, simplify
 TUNISIA_ITINERARY = 'https://www.kkday.com/en/product/806296'
 TRIPS = [
     {
+        'id': 'washington-dc-new-haven',
+        'name': 'Washington, DC → New Haven',
+        'countries': ['840'], 'dates': [],
+        'stops': ['Washington, DC', 'New Haven'],
+        'points': [[38.9072, -77.0369], [41.3083, -72.9279]],
+        'note': 'Estimated main-road route; not a GPS recording.',
+    },
+    {
+        'id': 'nyc-providence',
+        'name': 'NYC → Providence',
+        'countries': ['840'], 'dates': [],
+        'stops': ['NYC', 'Providence'],
+        'points': [[40.7128, -74.0060], [41.8240, -71.4128]],
+        'note': 'Estimated main-road route; not a GPS recording.',
+    },
+    {
+        'id': 'nyc-mt-marcy',
+        'name': 'NYC → Mount Marcy trailhead',
+        'countries': ['840'], 'dates': [],
+        'stops': ['NYC', 'Adirondack Loj (Mount Marcy trailhead)'],
+        'points': [[40.7128, -74.0060], [44.1827, -73.9654]],
+        'note': 'Estimated main-road route to Adirondack Loj, the Mount Marcy trailhead; not a GPS recording. The summit is reached on foot.',
+    },
+    {
+        'id': 'nyc-acadia',
+        'name': 'NYC → Acadia National Park',
+        'countries': ['840'], 'dates': [],
+        'stops': ['NYC', 'Hulls Cove Visitor Center'],
+        'points': [[40.7128, -74.0060], [44.3908, -68.2082]],
+        'note': 'Estimated main-road route to the Hulls Cove Visitor Center; not a GPS recording.',
+    },
+    {
+        'id': 'las-vegas-irvine',
+        'name': 'Las Vegas → Irvine',
+        'countries': ['840'], 'dates': [],
+        'stops': ['Las Vegas', 'Irvine'],
+        'points': [[36.1699, -115.1398], [33.6846, -117.8265]],
+        'note': 'Estimated main-road route; not a GPS recording.',
+    },
+    {
         'id': 'athens-meteora-road-trip',
         'name': 'Athens → Meteora',
         'countries': ['300'], 'dates': [],
