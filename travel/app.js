@@ -6,6 +6,7 @@
   const assetVersion = new URL(document.querySelector('script[src^="app.js"]').src).searchParams.get('v') || '1';
   const worldBounds = L.latLngBounds([[-58,-178],[80,178]]);
   const colors = ['#b7774a','#4f7e8a','#807398','#859650','#bd825e','#62739d','#a26780'];
+  const visitColors = {visited:'#c79572',home:'#829e94'};
   const countryLayers = new Map(), tracks = [];
   let currentCountry = null, currentState = null, stateLayer, activeDay = null, activeJourneys = [], journeys = [], transport = [], worldLayer, tinyLayer;
   const stateLayers=new Map(), cityMarkers=[];
@@ -20,6 +21,8 @@
   map.createPane('airports');map.getPane('airports').style.zIndex=430;
   map.createPane('cities');map.getPane('cities').style.zIndex=450;
   map.createPane('countries');map.getPane('countries').style.zIndex=350;
+  map.createPane('visitShading');map.getPane('visitShading').style.zIndex=355;
+  map.getPane('visitShading').style.pointerEvents='none';
   map.createPane('detail');map.getPane('detail').style.zIndex=370;
   map.getPane('detail').style.pointerEvents='none';
   const detailOptions={pane:'detail',minZoom:5,maxNativeZoom:16,maxZoom:17,noWrap:true};
@@ -59,6 +62,7 @@
   }
   function updateBasemap() {
     const zoom=map.getZoom();
+    map.getPane('visitShading').style.opacity=Math.max(0,Math.min(1,(5-zoom)/1.5));
     const detailOpacity=Math.max(0,Math.min(1,(zoom-5)/2));
     map.getPane('detail').style.opacity=detailOpacity;
     if(detailOpacity>0&&!map.hasLayer(detail))detail.addTo(map);
@@ -228,8 +232,9 @@
     journeys.forEach(journey=>(journey.days||[]).forEach(day=>{if(dayPoints(day).length&&L.latLngBounds(dayPoints(day)).intersects(bounds))types.add(day.type);}));
     if(flightsVisible&&flightLog.routes.some(connection=>connection.segments.some(segment=>L.latLngBounds(segment).intersects(bounds))))types.add('Flight');
     const modes=[...types].filter(type=>ROUTE_MODES[type]&&(map.getZoom()>=3.5||type==='Flight'));
-    $('#route-legend').innerHTML=modes.map(type=>`<span><i style="background:${ROUTE_MODES[type].color}"></i>${ROUTE_MODES[type].name}</span>`).join('');
-    $('#route-legend').hidden=!modes.length;
+    const visits=map.getZoom()<5?`<span><i style="background:${visitColors.visited}"></i>Visited</span><span><i style="background:${visitColors.home}"></i>Home</span>`:'';
+    $('#route-legend').innerHTML=visits+modes.map(type=>`<span><i style="background:${ROUTE_MODES[type].color}"></i>${ROUTE_MODES[type].name}</span>`).join('');
+    $('#route-legend').hidden=!visits&&!modes.length;
   }
   function setGeographyAccess() {
     document.querySelectorAll('.visited-country,.tiny-country').forEach(node=>node.setAttribute('tabindex',currentCountry?'-1':'0'));
@@ -349,6 +354,10 @@
     const features=topojson.feature(world,world.objects.countries).features.map(splitDateline).flatMap(scopeFrance);
     features.forEach(feature=>{feature.id=String(feature.id);});
     backgroundLabels.geography(features,'country');
+    L.geoJSON(features.filter(feature=>isVisitedShape(feature.id)),{
+      pane:'visitShading',interactive:false,
+      style:feature=>({stroke:false,fillColor:feature.id===HOME_COUNTRY?visitColors.home:visitColors.visited,fillOpacity:.8})
+    }).addTo(map);
     worldLayer=L.geoJSON(features,{
       pane:'countries',style:styleCountry,
       onEachFeature(feature,layer){
@@ -366,7 +375,7 @@
     }).addTo(map);
     tinyLayer=L.layerGroup();
     [{id:'156',coords:[22.32,114.17]},{id:'336',coords:[41.9029,12.4534]}].forEach(item=>{
-      const marker=L.marker(item.coords,{icon:L.divIcon({className:'tiny-country',html:'<i></i>',iconSize:[10,10],iconAnchor:[5,5]})}).bindTooltip(countryName(item.id)).on('click',()=>navigate(item.id));
+      const marker=L.marker(item.coords,{icon:L.divIcon({className:'tiny-country',html:`<i style="background:${visitColors.visited}"></i>`,iconSize:[10,10],iconAnchor:[5,5]})}).bindTooltip(countryName(item.id)).on('click',()=>navigate(item.id));
       accessibleCountry(marker,item.id,countryName(item.id));marker.addTo(tinyLayer);
     });
     tinyLayer.addTo(map);flightLayers.addTo(map);airportLayers.addTo(map);transportLayers.addTo(map);routeLayers.addTo(map);cityLayers.addTo(map);
