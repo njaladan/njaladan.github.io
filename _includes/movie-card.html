@@ -5,5 +5,4 @@
     {% if film.cover %}<img src="{{ film.cover | relative_url }}" alt="" width="300" height="450" loading="lazy" decoding="async">{% endif %}
   </div>
   <span class="card-title">{{ film.title | escape }}</span>
-  {% if include.date %}<span class="movie-viewing">Watched <time datetime="{{ include.date }}">{{ include.date | date: '%b %-d, %Y' }}</time>{% if include.rewatch %}<span class="rewatch-marker"> · Rewatch</span>{% endif %}</span>{% endif %}
 </article>

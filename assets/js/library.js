@@ -66,9 +66,8 @@
     nav.replaceChildren(links);
     nav.hidden = !visible.length;
     root.querySelector('[data-empty]').hidden = Boolean(visible.length);
-    const dated = visible.filter(card => card.dataset.section === 'dated').length;
     const resultCount = root.querySelector('[data-count]');
-    if (resultCount) resultCount.textContent = `${new Set(visible.map(card => card.dataset.filmId)).size} movies · ${dated} diary entries`;
+    if (resultCount) resultCount.textContent = `${new Set(visible.map(card => card.dataset.filmId)).size} movies`;
   }
   search.addEventListener('input', update);
   filter.addEventListener('change', update);

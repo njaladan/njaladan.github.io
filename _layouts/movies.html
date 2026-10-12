@@ -9,7 +9,7 @@ layout: default
       <label class="control">Show<select data-filter><option value="all">All movies</option><option value="dated">Diary</option><option value="earlier">Undated</option></select></label>
       <label class="control">Sort<select data-sort><option value="newest">Recently watched</option><option value="oldest">Earliest watched</option><option value="title">Title (A–Z)</option></select></label>
     </div>
-    <p class="result-count" data-count role="status" aria-live="polite">{{ site.data.movies.films | size }} movies · {{ site.data.movies.viewings | size }} diary entries</p>
+    <p class="result-count" data-count role="status" aria-live="polite">{{ site.data.movies.films | size }} movies</p>
   </div>
   <nav class="year-nav" data-year-nav aria-label="Viewing years">
     {% assign previous_year = '' %}{% for viewing in site.data.movies.viewings %}{% assign year = viewing.date | slice: 0, 4 %}{% if year != previous_year %}<a href="#y{{ year }}">{{ year }}</a>{% assign previous_year = year %}{% endif %}{% endfor %}
