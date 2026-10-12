@@ -1,4 +1,4 @@
-"""Save estimated Jordan/Tunisia driving paths along OpenStreetMap roads.
+"""Save estimated driving paths along OpenStreetMap roads.
 
 Trip order comes from travel records and the itinerary matching the booked
 Tunisia tour. These are reconstructions, not recorded GPS tracks. The routing
@@ -12,6 +12,14 @@ from build_transport_routes import ROOT, meters, routed, simplify
 
 TUNISIA_ITINERARY = 'https://www.kkday.com/en/product/806296'
 TRIPS = [
+    {
+        'id': 'athens-meteora-road-trip',
+        'name': 'Athens → Meteora',
+        'countries': ['300'], 'dates': [],
+        'stops': ['Athens', 'Meteora'],
+        'points': [[37.9838, 23.7275], [39.721, 21.628]],
+        'note': 'Estimated main-road route via A1, A3, and the Meteora–Kastraki road; not a GPS recording.',
+    },
     {
         'id': 'jordan-aqaba-wadi-rum',
         'name': 'Aqaba → Wadi Rum',
@@ -75,10 +83,11 @@ def main():
                 raise ValueError(f"Route misses {stop}")
         if meters(coords[0], points[0]) > meters(coords[-1], points[0]):
             coords.reverse()
+        note = trip.pop('note', None)
         trip.update({
             'mode': 'Drive', 'operator': trip.get('operator', ''),
             'approximate': True,
-            'note': 'Estimated road route; not a GPS recording. '
+            'note': note or 'Estimated road route; not a GPS recording. '
                     + ('Stop order inferred from travel records.' if trip['countries'] == ['400']
                        else 'Stops reconstructed from the booked tour and its published itinerary; actual order may differ.'),
             'geometry_source': 'OSRM driving · OpenStreetMap',

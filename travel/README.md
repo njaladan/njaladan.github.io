@@ -34,6 +34,8 @@ Confirmed ferry definitions live in the readable `data/ferries.json` and are mer
 
 Five driving paths reconstruct the August 2026 Jordan and Tunisia trips at the user's request. They use dashed Drive lines, with estimate/source notes retained in the data rather than the popups. They use road geometry rather than GPS recordings. Jordan's road order is Aqaba → Wadi Rum → Wadi Musa (Petra) → Wadi Mujib Adventure Center → Dead Sea → Amman, based on arrival, tour, hotel, and user-confirmed stop details for August 25–28. The routes follow OpenStreetMap roads and stop in Wadi Musa rather than tracing roads through the archaeological site. No Jerash or desert jeep excursions are added.
 
+The Athens → Meteora road trip follows OpenStreetMap's main-road route via the A1 and A3 highways and the Meteora–Kastraki road. It is an estimated route, not a GPS recording.
+
 Tunisia's August 30–31 tour uses the booked Tunis-airport pickup/return and a [published itinerary matching the booked tour title](https://www.kkday.com/en/product/806296). Day 1 runs through Kairouan, Matmata, and Tamezret to Ksar Ghilane; Day 2 returns through Tataouine, Chenini, Ksar Haddada, and El Jem. These intermediate stops and their order are itinerary-based estimates, not independently confirmed visits. Existing city markers are preserved. Rebuild just these routes with `python travel/scripts/import_estimated_drives.py CACHE_DIRECTORY`; rerunning replaces the same route IDs without duplicating them.
 
 Background outlines remain neutral at every zoom. Visited-place labels and routes become visible as the camera zooms in. Wheel, trackpad, and zoom buttons interpolate a fractional camera; touch pinch does not snap to fixed levels. Reduced-motion navigation fits the target immediately.
