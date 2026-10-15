@@ -120,6 +120,44 @@ class TravelPhotosTest(unittest.TestCase):
         self.assertEqual(page.evaluate("document.activeElement.textContent"), "View photo")
         self.assertFalse(any("-original." in url for url in self.requests))
 
+    def test_photo_collection_has_thumbnail_stack_and_keyboard_label(self):
+        photos = [{**photo, "coords": [48.8606, 2.3358]} for photo in self.photos]
+        page = self.page(photos=photos)
+        pin = page.locator(".photo-pin-stack")
+        self.assertEqual(pin.count(), 1)
+        self.assertEqual(pin.locator(".photo-pin-count").inner_text(), "5")
+        self.assertEqual(pin.locator("img").count(), 3)
+        self.assertEqual(pin.get_attribute("aria-label"), "Fixture 0 · 5 photos nearby")
+        self.assertFalse(page.locator(".photo-pin-label").is_visible())
+        pin.focus()
+        self.assertTrue(page.locator(".photo-pin-label").is_visible())
+        self.assertNotEqual(pin.locator(".photo-pin-front").evaluate("node => getComputedStyle(node).transform"), "none")
+        self.assertTrue(all("-thumbnail.webp" in url for url in self.requests if "/photos/" in url))
+        page.keyboard.press("Enter")
+        page.wait_for_selector(".photo-preview-meta")
+        page.get_by_role("button", name="View photo", exact=True).click()
+        self.assertEqual(page.locator(".photo-counter").inner_text(), "1 / 5")
+
+    def test_nearby_photo_pins_can_overlap_on_desktop_and_mobile(self):
+        # At zoom 6 these anchors are 40px apart: their 48px prints overlap by 8px.
+        photos = [{**photo, "coords": [48.8606, 2.3358 + index * 40 * 360 / (256 * 2**6)]}
+                  for index, photo in enumerate(self.photos[:2])]
+        for mobile in (False, True):
+            with self.subTest(mobile=mobile):
+                page = self.page(photos=photos, mobile=mobile)
+                page.evaluate("void ATLAS_MAP.setView([48.8606, 2.3358], 6, {animate:false})")
+                pins = page.locator(".photo-pin")
+                self.assertEqual(pins.count(), 2)
+                self.assertEqual(page.locator(".photo-pin-count").count(), 0)
+                first, second = [pins.nth(index).bounding_box() for index in range(2)]
+                self.assertGreater(first["x"] + first["width"], second["x"])
+                pins.first.focus()
+                self.assertGreater(int(pins.first.evaluate("node => getComputedStyle(node).zIndex")),
+                                   int(pins.last.evaluate("node => getComputedStyle(node).zIndex")))
+                page.keyboard.press("Enter")
+                page.wait_for_selector(".photo-preview-meta")
+                self.assertEqual(page.locator(".photo-preview-meta strong").inner_text(), "Fixture 0")
+
     def test_mobile_preview_viewer_and_resize_keep_location(self):
         page = self.page(photos=self.photos[:1], mobile=True)
         page.locator(".photo-pin").tap()
@@ -184,7 +222,8 @@ class TravelPhotosTest(unittest.TestCase):
         page.wait_for_function("location.hash === '#country=756'")
         page.locator('.visited-country[aria-label="Netherlands"]').focus()
         page.keyboard.press("Enter")
-        page.wait_for_function("location.hash === '#country=528'")
+        # The hash changes before its handler fits the map; wait for the destination too.
+        page.wait_for_function("location.hash === '#country=528' && ATLAS_MAP.getCenter().distanceTo([52.37, 4.90]) < 100000")
         focus = page.evaluate("[ATLAS_MAP.getCenter().lat, ATLAS_MAP.getCenter().lng]")
         page.evaluate("void ATLAS_MAP.panBy([100, 0], {animate:false})")
         page.locator('.visited-country[aria-label="Netherlands"]').focus()

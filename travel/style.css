@@ -101,12 +101,23 @@ h1 { font-weight: 600; }
 
 
 /* A small print over the map; larger images load only after selection. */
-.photo-pin { cursor: pointer; background: #fff; padding: 3px; border: 1px solid #fff; border-radius: 7px; box-shadow: 0 2px 9px #29362f30; }
+.photo-pin { cursor: pointer; border: 0; background: transparent; }
+.photo-pin-content { position: relative; display: block; width: 48px; height: 48px; }
+.photo-pin-print { position: absolute; inset: 0; display: block; padding: 3px; border: 1px solid #fff; border-radius: 7px; background: #fff; box-shadow: 0 2px 9px #29362f30; transition: transform .18s ease, box-shadow .18s ease; }
+.photo-pin-front { z-index: 3; }
+.photo-pin-back { pointer-events: none; }
+.photo-pin-back-1 { z-index: 2; transform: translate(5px, -4px) rotate(9deg); }
+.photo-pin-back-2 { z-index: 1; transform: translate(-5px, -7px) rotate(-10deg); }
 .photo-pin:after { content: ''; position: absolute; left: 19px; bottom: -7px; width: 9px; height: 9px; transform: rotate(45deg); background: #fff; border-radius: 0 0 2px 0; box-shadow: 2px 2px 3px #29362f12; }
 .photo-pin-image { display: block; width: 40px; height: 40px; border-radius: 4px; overflow: hidden; background: #eae7df; }
 .photo-pin-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.photo-pin:hover, .photo-pin:focus-visible { box-shadow: 0 3px 14px #29362f50; }
-.photo-pin-count { position: absolute; right: -6px; top: -6px; min-width: 21px; height: 21px; padding: 0 4px; display: grid; place-items: center; background: #45584e; color: #fff; border: 2px solid #fff; border-radius: 12px; font-size: 10px; font-weight: 600; }
+.photo-pin:hover .photo-pin-front, .photo-pin:focus-visible .photo-pin-front { transform: translateY(-3px); box-shadow: 0 5px 15px #29362f50; }
+.photo-pin-stack:hover .photo-pin-front, .photo-pin-stack:focus-visible .photo-pin-front { transform: translateY(-3px) rotate(-3deg); }
+.photo-pin-stack:hover .photo-pin-back-1, .photo-pin-stack:focus-visible .photo-pin-back-1 { transform: translate(7px, -5px) rotate(12deg); }
+.photo-pin-stack:hover .photo-pin-back-2, .photo-pin-stack:focus-visible .photo-pin-back-2 { transform: translate(-7px, -8px) rotate(-13deg); }
+.photo-pin-count { position: absolute; z-index: 4; right: -7px; top: -9px; min-width: 21px; height: 21px; padding: 0 4px; display: grid; place-items: center; background: #45584e; color: #fff; border: 2px solid #fff; border-radius: 12px; font-size: 10px; font-weight: 600; pointer-events: none; }
+.photo-pin-label { width: max-content; max-width: min(240px, calc(100vw - 40px)); padding: 6px 9px; border: 1px solid #e4e2da; border-radius: 5px; background: #faf8f3; color: #45534b; box-shadow: 0 2px 8px #29362f18; font-size: 11px; line-height: 1.4; white-space: normal; pointer-events: none; }
+.photo-pin-label:before { display: none; }
 .photo-pin-fallback { display: grid; place-items: center; font-size: 24px; color: #6c776c; }
 .photo-popup .leaflet-popup-content { margin: 5px; width: min(300px, 75vw) !important; }
 .photo-popup .leaflet-popup-content-wrapper { border-radius: 9px; padding: 0; }

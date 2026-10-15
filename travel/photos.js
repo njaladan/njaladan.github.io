@@ -109,11 +109,20 @@ function installAtlasPhotos(map, {focus, onLayout}) {
     }
   }
 
+  function thumbnailPrint(photo, className) {
+    const print = document.createElement('span'); print.className = `photo-pin-print ${className}`;
+    const wrapper = document.createElement('span'); wrapper.className = 'photo-pin-image';
+    const thumbnail = document.createElement('img'); thumbnail.src = asset(photo.variants.thumbnail.src); thumbnail.alt = ''; thumbnail.width = 40; thumbnail.height = 40; thumbnail.decoding = 'async';
+    thumbnail.addEventListener('error', () => { const fallback = document.createElement('span'); fallback.textContent = '▧'; thumbnail.replaceWith(fallback); wrapper.classList.add('photo-pin-fallback'); });
+    wrapper.append(thumbnail); print.append(wrapper);
+    return print;
+  }
+
   function layout() {
     const zoom = map.getZoom(), size = map.getSize();
     const groups = [], cells = new Map();
-    // Fixed screen-space spacing means more individual photos emerge as the camera zooms.
-    const spacing = zoom < 8 ? 76 : 64;
+    // Cluster only very close anchors: 48px prints can overlap instead of hiding nearby photos.
+    const spacing = zoom < 8 ? 38 : 32;
     photos.forEach(photo => {
       const point = map.latLngToContainerPoint(photo.coords);
       if (point.x < 30 || point.x > size.x - 30 || point.y < 80 || point.y > size.y - 45) return;
@@ -132,15 +141,24 @@ function installAtlasPhotos(map, {focus, onLayout}) {
     groups.forEach(group => {
       const key = group.items.map(photo => photo.id).join('|'); active.add(key);
       if (pins.has(key)) return;
-      const photo = group.items[0], wrapper = document.createElement('span'); wrapper.className = 'photo-pin-image';
-      const thumbnail = document.createElement('img'); thumbnail.src = asset(photo.variants.thumbnail.src); thumbnail.alt = ''; thumbnail.width = 44; thumbnail.height = 44; thumbnail.decoding = 'async';
-      thumbnail.addEventListener('error', () => { const fallback = document.createElement('span'); fallback.textContent = '▧'; thumbnail.replaceWith(fallback); wrapper.classList.add('photo-pin-fallback'); });
-      wrapper.append(thumbnail);
-      if (group.items.length > 1) { const badge = document.createElement('span'); badge.className = 'photo-pin-count'; badge.textContent = group.items.length; wrapper.append(badge); }
-      const marker = L.marker(photo.coords, {pane: 'photos', title: group.items.length > 1 ? `${group.items.length} photos near ${photo.place}` : `Photo at ${photo.place}`,
-        icon: L.divIcon({className: 'photo-pin', html: wrapper, iconSize: [48, 48], iconAnchor: [24, 56]}), riseOnHover: true}).addTo(layer);
+      const photo = group.items[0], collection = group.items.length > 1;
+      const wrapper = document.createElement('span'); wrapper.className = 'photo-pin-content';
+      // At most two extra thumbnails hint at the collection without loading full-size images.
+      group.items.slice(1, 3).reverse().forEach((item, index, items) => {
+        const print = thumbnailPrint(item, `photo-pin-back photo-pin-back-${items.length - index}`);
+        print.setAttribute('aria-hidden', 'true'); wrapper.append(print);
+      });
+      wrapper.append(thumbnailPrint(photo, 'photo-pin-front'));
+      if (collection) { const badge = document.createElement('span'); badge.className = 'photo-pin-count'; badge.textContent = group.items.length; wrapper.append(badge); }
+      const label = collection ? `${photo.place} · ${group.items.length} photos nearby` : `Photo at ${photo.place}`;
+      const marker = L.marker(photo.coords, {pane: 'photos', alt: label,
+        icon: L.divIcon({className: `photo-pin${collection ? ' photo-pin-stack' : ''}`, html: wrapper, iconSize: [48, 48], iconAnchor: [24, 56]}), riseOnHover: true}).addTo(layer);
+      const hint = document.createElement('span'); hint.textContent = label;
+      marker.bindTooltip(hint, {className: 'photo-pin-label', direction: 'bottom', offset: [0, 4]});
       marker.on('click', () => select(group.items));
-      const node = marker.getElement(); node.setAttribute('aria-haspopup', 'dialog');
+      const node = marker.getElement(); node.setAttribute('aria-haspopup', 'dialog'); node.setAttribute('aria-label', label);
+      node.addEventListener('focus', () => { marker.setZIndexOffset(1000); marker.openTooltip(); });
+      node.addEventListener('blur', () => { marker.setZIndexOffset(0); marker.closeTooltip(); });
       node.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.stopPropagation(); select(group.items); } });
       pins.set(key, marker);
     });
