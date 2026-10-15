@@ -171,9 +171,9 @@
       const color=ROUTE_MODES[day.type]?.color||colors[index%colors.length];
       daySegments(day).forEach(segment=>{
         if(segment.length<2)return;
-        const outline=L.polyline(segment,{pane:'routes',color:'white',weight:6,opacity:.9,interactive:false}).addTo(routeLayers);
+        const outline=L.polyline(segment,{pane:'routes',color:'white',weight:6,opacity:.9,interactive:false,className:'route-flow'}).addTo(routeLayers);
         const label=activityLabel(day,journey);
-        const line=L.polyline(segment,{pane:'routes',color,weight:3.5,opacity:1,className:'activity-route'}).bindTooltip(escape(label)).on('click',event=>{
+        const line=L.polyline(segment,{pane:'routes',color,weight:3.5,opacity:1,className:'activity-route route-flow'}).bindTooltip(escape(label)).on('click',event=>{
           activeDay=day.id;updateRouteStyles();activityPopup.setLatLng(event.latlng).setContent(activityContent(day,journey,index)).openOn(map);
         }).addTo(routeLayers);
         accessibleRoute(line,day,journey,index,segment);
@@ -226,8 +226,9 @@
     transport.forEach(trip=>{
       const content=`<div class="route-popup"><strong>${escape(trip.name)}</strong><p>${escape(trip.mode)}${trip.operator?' · '+escape(trip.operator):''}</p>${trip.stops.length>2?`<p>Via ${escape(trip.stops.slice(1,-1).join(', '))}</p>`:''}</div>`;
       const color=ROUTE_MODES[trip.mode]?.color||'#697c84';
-      L.polyline(trip.coords,{pane:'routes',color:'white',weight:6,opacity:.85,interactive:false}).addTo(transportLayers);
-      const line=L.polyline(trip.coords,{pane:'routes',color,weight:3.5,opacity:1,dashArray:trip.mode==='Gondola'?'7 5':trip.mode==='Bus'||trip.mode==='Drive'?null:trip.approximate?'5 5':trip.mode==='Ferry'?'8 6':null,className:'transport-route'}).bindTooltip(escape(trip.name)).bindPopup(content,{className:'activity-popup',maxWidth:270}).addTo(transportLayers);
+      const flow=trip.name.includes('↔')?'route-flow route-flow-both':'route-flow';
+      L.polyline(trip.coords,{pane:'routes',color:'white',weight:6,opacity:.85,interactive:false,className:flow}).addTo(transportLayers);
+      const line=L.polyline(trip.coords,{pane:'routes',color,weight:3.5,opacity:1,className:`transport-route ${flow}`}).bindTooltip(escape(trip.name)).bindPopup(content,{className:'activity-popup',maxWidth:270}).addTo(transportLayers);
       const node=line.getElement();node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',`${trip.mode}: ${trip.name}`);
       node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();line.openPopup(L.latLng(trip.coords[Math.floor(trip.coords.length/2)]));}});
     });
@@ -242,8 +243,11 @@
     flightLayers.clearLayers();airportLayers.clearLayers();
     flightLog.routes.forEach(connection=>{
       const label=connection.airports.join(' ↔ ');
-      const quiet={color:ROUTE_MODES.Flight.color,weight:1.5,opacity:.43,dashArray:'4 5'};
-      const line=L.polyline(connection.segments,{pane:'flights',...quiet,className:'flight-route'})
+      // Flight geometry follows sorted airport codes, not necessarily the flown direction.
+      const origins=new Set(connection.flights.map(index=>flightLog.flights[index].from));
+      const direction=origins.size>1?' route-flow-both':origins.has(connection.airports[0])?'':' route-flow-reverse';
+      const quiet={color:ROUTE_MODES.Flight.color,weight:1.5,opacity:.43};
+      const line=L.polyline(connection.segments,{pane:'flights',...quiet,className:`flight-route route-flow${direction}`})
         .bindTooltip(escape(label)).bindPopup(()=>flightContent(connection),{className:'activity-popup',maxWidth:300}).addTo(flightLayers);
       const highlight=()=>line.setStyle({weight:2.2,opacity:.8});
       const reset=()=>line.setStyle(quiet);

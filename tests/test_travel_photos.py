@@ -66,13 +66,15 @@ class TravelPhotosTest(unittest.TestCase):
             context.close()
         self.assertEqual(self.errors, [])
 
-    def page(self, photos=None, mobile=False, unavailable=False, animated=False, missing_assets=False):
+    def page(self, photos=None, mobile=False, unavailable=False, animated=False, missing_assets=False, flights=None):
         context = self.browser.new_context(viewport={"width": 390 if mobile else 1440, "height": 844 if mobile else 1000},
                                           is_mobile=mobile, has_touch=mobile, reduced_motion="no-preference" if animated else "reduce")
         self.contexts.append(context)
         context.route("https://**/*", lambda route: route.abort())  # The map still works without detail tiles.
         context.route("**/data/photos.json*", lambda route: route.fulfill(status=503) if unavailable else route.fulfill(json={"photos": self.photos if photos is None else photos}))
         context.route("**/travel/photos/**", lambda route: route.fulfill(status=503) if missing_assets else route.fulfill(path=self.assets / route.request.url.split("/travel/")[1]))
+        if flights is not None:
+            context.route("**/data/flights.json*", lambda route: route.fulfill(json=flights))
         page = context.new_page()
         page.on("pageerror", lambda error: self.errors.append(str(error)))
         page.on("request", lambda request: self.requests.append(request.url))
@@ -236,6 +238,57 @@ class TravelPhotosTest(unittest.TestCase):
         self.assertTrue(page.locator(".photo-original").get_attribute("href").endswith("-original.jpg"))
         page.get_by_role("button", name="Close photo").click()
         self.assertFalse(page.locator("#photo-viewer").evaluate("node => node.open"))
+
+    def test_dashes_follow_recorded_flight_direction_and_round_trips(self):
+        airports = {code: {"coords": coords, "name": code, "city": code} for code, coords in
+                    [("AAA", [0, 0]), ("BBB", [0, 20]), ("CCC", [20, 20]), ("DDD", [20, 0])]}
+        flights = [{"number": "Test", "from": origin, "to": destination, "duration_s": 3600}
+                   for origin, destination in [("AAA", "BBB"), ("CCC", "AAA"), ("AAA", "DDD"), ("DDD", "AAA")]]
+        routes = [{"airports": ["AAA", destination], "flights": records,
+                   "segments": [[airports["AAA"]["coords"], airports[destination]["coords"]]]}
+                  for destination, records in [("BBB", [0]), ("CCC", [1]), ("DDD", [2, 3])]]
+        page = self.page(photos=[], animated=True, flights={"airports": airports, "flights": flights, "routes": routes})
+        page.evaluate("void ATLAS_MAP.setView([46.5, 8.5], 6, {animate:false})")
+        for selector in [".activity-route", ".transport-route", ".flight-route", ".leaflet-routes-pane path"]:
+            self.assertGreater(page.locator(selector).count(), 0)
+            self.assertTrue(page.locator(selector).evaluate_all("nodes => nodes.every(node => getComputedStyle(node).strokeDasharray !== 'none' && node.getAnimations().length === 1)"))
+
+        def offsets(node, times):
+            return node.evaluate("""(node, times) => {
+                const animation = node.getAnimations()[0];
+                animation.pause();
+                return times.map(time => {
+                    animation.currentTime = time;
+                    return parseFloat(getComputedStyle(node).strokeDashoffset);
+                });
+            }""", times)
+
+        forward = page.locator('.flight-route[aria-label="AAA ↔ BBB"]')
+        reverse = page.locator('.flight-route[aria-label="AAA ↔ CCC"]')
+        both = page.locator('.flight-route[aria-label="AAA ↔ DDD"]')
+        start, end = offsets(forward, [0, 600])
+        self.assertLess(end, start)
+        start, end = offsets(reverse, [0, 600])
+        self.assertGreater(end, start)
+        start, middle, end = offsets(both, [0, 12000, 24000])
+        self.assertLess(middle, start)
+        self.assertGreater(end, middle)
+        trip = page.locator('.transport-route[aria-label="Train: Tokyo ↔ Odawara · Round trip"]')
+        start, middle, end = offsets(trip, [0, 12000, 24000])
+        self.assertLess(middle, start)
+        self.assertGreater(end, middle)
+        reverse.focus()
+        page.keyboard.press("Enter")
+        page.wait_for_selector(".flight-popup")
+        self.assertEqual(reverse.evaluate("node => getComputedStyle(node).strokeDasharray"), "4px, 5px")
+        self.assertEqual(reverse.evaluate("node => node.getAnimations().length"), 1)
+
+    def test_reduced_motion_keeps_dashed_routes_still_and_updates_live(self):
+        page = self.page(photos=[], animated=True)
+        page.emulate_media(reduced_motion="reduce")
+        self.assertTrue(page.locator(".route-flow").evaluate_all("nodes => nodes.every(node => getComputedStyle(node).strokeDasharray !== 'none' && node.getAnimations().length === 0)"))
+        page.emulate_media(reduced_motion="no-preference")
+        self.assertTrue(page.locator(".route-flow").evaluate_all("nodes => nodes.every(node => node.getAnimations().length === 1)"))
 
 
 if __name__ == "__main__":
