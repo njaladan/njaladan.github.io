@@ -226,9 +226,8 @@
     transport.forEach(trip=>{
       const content=`<div class="route-popup"><strong>${escape(trip.name)}</strong><p>${escape(trip.mode)}${trip.operator?' · '+escape(trip.operator):''}</p>${trip.stops.length>2?`<p>Via ${escape(trip.stops.slice(1,-1).join(', '))}</p>`:''}</div>`;
       const color=ROUTE_MODES[trip.mode]?.color||'#697c84';
-      const flow=trip.name.includes('↔')?'route-flow route-flow-both':'route-flow';
-      L.polyline(trip.coords,{pane:'routes',color:'white',weight:6,opacity:.85,interactive:false,className:flow}).addTo(transportLayers);
-      const line=L.polyline(trip.coords,{pane:'routes',color,weight:3.5,opacity:1,className:`transport-route ${flow}`}).bindTooltip(escape(trip.name)).bindPopup(content,{className:'activity-popup',maxWidth:270}).addTo(transportLayers);
+      L.polyline(trip.coords,{pane:'routes',color:'white',weight:6,opacity:.85,interactive:false,className:'route-flow'}).addTo(transportLayers);
+      const line=L.polyline(trip.coords,{pane:'routes',color,weight:3.5,opacity:1,className:'transport-route route-flow'}).bindTooltip(escape(trip.name)).bindPopup(content,{className:'activity-popup',maxWidth:270}).addTo(transportLayers);
       const node=line.getElement();node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',`${trip.mode}: ${trip.name}`);
       node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();line.openPopup(L.latLng(trip.coords[Math.floor(trip.coords.length/2)]));}});
     });
@@ -244,8 +243,9 @@
     flightLog.routes.forEach(connection=>{
       const label=connection.airports.join(' ↔ ');
       // Flight geometry follows sorted airport codes, not necessarily the flown direction.
-      const origins=new Set(connection.flights.map(index=>flightLog.flights[index].from));
-      const direction=origins.size>1?' route-flow-both':origins.has(connection.airports[0])?'':' route-flow-reverse';
+      // Use the first recorded flight to keep shared return connections flowing one way.
+      const flight=flightLog.flights[connection.flights[0]];
+      const direction=flight.from===connection.airports[0]?'':' route-flow-reverse';
       const quiet={color:ROUTE_MODES.Flight.color,weight:1.5,opacity:.43};
       const line=L.polyline(connection.segments,{pane:'flights',...quiet,className:`flight-route route-flow${direction}`})
         .bindTooltip(escape(label)).bindPopup(()=>flightContent(connection),{className:'activity-popup',maxWidth:300}).addTo(flightLayers);

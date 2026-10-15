@@ -285,7 +285,7 @@ class TravelPhotosTest(unittest.TestCase):
                    for origin, destination in [("AAA", "BBB"), ("CCC", "AAA"), ("AAA", "DDD"), ("DDD", "AAA")]]
         routes = [{"airports": ["AAA", destination], "flights": records,
                    "segments": [[airports["AAA"]["coords"], airports[destination]["coords"]]]}
-                  for destination, records in [("BBB", [0]), ("CCC", [1]), ("DDD", [2, 3])]]
+                  for destination, records in [("BBB", [0]), ("CCC", [1]), ("DDD", [3, 2])]]
         page = self.page(photos=[], animated=True, flights={"airports": airports, "flights": flights, "routes": routes})
         page.evaluate("void ATLAS_MAP.setView([46.5, 8.5], 6, {animate:false})")
         for selector in [".activity-route", ".transport-route", ".flight-route", ".leaflet-routes-pane path"]:
@@ -304,30 +304,30 @@ class TravelPhotosTest(unittest.TestCase):
 
         forward = page.locator('.flight-route[aria-label="AAA ↔ BBB"]')
         reverse = page.locator('.flight-route[aria-label="AAA ↔ CCC"]')
-        both = page.locator('.flight-route[aria-label="AAA ↔ DDD"]')
+        round_trip = page.locator('.flight-route[aria-label="AAA ↔ DDD"]')
         start, end = offsets(forward, [0, 600])
         self.assertLess(end, start)
         start, end = offsets(reverse, [0, 600])
         self.assertGreater(end, start)
-        start, middle, end = offsets(both, [0, 12000, 24000])
-        self.assertLess(middle, start)
-        self.assertGreater(end, middle)
         trip = page.locator('.transport-route[aria-label="Train: Tokyo ↔ Odawara · Round trip"]')
-        start, middle, end = offsets(trip, [0, 12000, 24000])
-        self.assertLess(middle, start)
-        self.assertGreater(end, middle)
+        for times in ([0, 300, 600], [12000, 12300, 12600]):
+            start, middle, end = offsets(round_trip, times)
+            self.assertGreater(middle, start)
+            self.assertGreater(end, middle)
+            start, middle, end = offsets(trip, times)
+            self.assertLess(middle, start)
+            self.assertLess(end, middle)
         reverse.focus()
         page.keyboard.press("Enter")
         page.wait_for_selector(".flight-popup")
         self.assertEqual(reverse.evaluate("node => getComputedStyle(node).strokeDasharray"), "4px, 5px")
         self.assertEqual(reverse.evaluate("node => node.getAnimations().length"), 1)
 
-    def test_reduced_motion_keeps_dashed_routes_still_and_updates_live(self):
+    def test_dashed_routes_keep_faster_animation_with_any_motion_preference(self):
         page = self.page(photos=[], animated=True)
-        page.emulate_media(reduced_motion="reduce")
-        self.assertTrue(page.locator(".route-flow").evaluate_all("nodes => nodes.every(node => getComputedStyle(node).strokeDasharray !== 'none' && node.getAnimations().length === 0)"))
-        page.emulate_media(reduced_motion="no-preference")
-        self.assertTrue(page.locator(".route-flow").evaluate_all("nodes => nodes.every(node => node.getAnimations().length === 1)"))
+        for preference in ("no-preference", "reduce", "no-preference"):
+            page.emulate_media(reduced_motion=preference)
+            self.assertTrue(page.locator(".route-flow").evaluate_all("nodes => nodes.every(node => getComputedStyle(node).strokeDasharray !== 'none' && node.getAnimations().length === 1 && node.getAnimations()[0].effect.getTiming().duration === 2000)"))
 
 
 if __name__ == "__main__":

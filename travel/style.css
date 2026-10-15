@@ -54,22 +54,13 @@ h1 { font-weight: 600; }
 .route-flow {
   --route-dash-period: 14px;
   stroke-dasharray: 8 6;
-  animation: route-flow 3s linear infinite;
+  animation: route-flow 2s linear infinite;
 }
 .flight-route { --route-dash-period: 9px; stroke-dasharray: 4 5; }
 .route-flow-reverse { animation-direction: reverse; }
-/* Shared return connections flow each way for twelve seconds at the same gentle speed. */
-.route-flow-both { animation-name: route-flow-both; animation-duration: 24s; }
 @keyframes route-flow {
   from { stroke-dashoffset: 0; }
   to { stroke-dashoffset: calc(-1 * var(--route-dash-period)); }
-}
-@keyframes route-flow-both {
-  0%, 100% { stroke-dashoffset: 0; }
-  50% { stroke-dashoffset: calc(-4 * var(--route-dash-period)); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .route-flow { animation: none; }
 }
 .flight-history { list-style: none; padding: 0; margin: 10px 0; max-height: 220px; overflow-y: auto; }
 .flight-history li { padding: 7px 0; border-top: 1px solid var(--line); }
