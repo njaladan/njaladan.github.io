@@ -160,9 +160,10 @@ class TravelPhotosTest(unittest.TestCase):
 
     def test_mobile_preview_viewer_and_resize_keep_location(self):
         page = self.page(photos=self.photos[:1], mobile=True)
+        zoom = page.evaluate("ATLAS_MAP.getZoom()")
         page.locator(".photo-pin").tap()
         page.wait_for_selector(".photo-preview-meta")
-        self.assertGreaterEqual(page.evaluate("ATLAS_MAP.getZoom()"), 15)
+        self.assertEqual(page.evaluate("ATLAS_MAP.getZoom()"), zoom)
         popup = page.locator(".photo-popup").bounding_box()
         self.assertGreaterEqual(popup["x"], 0)
         self.assertLessEqual(popup["x"] + popup["width"], 390)
@@ -254,11 +255,12 @@ class TravelPhotosTest(unittest.TestCase):
                 self.assertGreater(page.locator(".visited-country").count(), 0)
                 self.assertEqual(page.locator("#map-status").inner_text(), "Photos unavailable. Refresh to retry." if unavailable else "")
 
-    def test_animated_photo_selection_finishes_with_preview(self):
+    def test_single_photo_opens_preview_without_zoom_animation(self):
         page = self.page(photos=self.photos[:1], animated=True)
+        zoom = page.evaluate("ATLAS_MAP.getZoom()")
         page.locator(".photo-pin").click()
         page.wait_for_selector(".photo-preview-meta")
-        self.assertGreaterEqual(page.evaluate("ATLAS_MAP.getZoom()"), 15)
+        self.assertEqual(page.evaluate("ATLAS_MAP.getZoom()"), zoom)
         self.assertEqual(page.locator(".photo-preview-meta strong").inner_text(), "Fixture 0")
         page.get_by_role("button", name="World map", exact=True).click()
         page.wait_for_function("ATLAS_MAP.getZoom() < 4")

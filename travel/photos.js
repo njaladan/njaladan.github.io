@@ -98,8 +98,12 @@ function installAtlasPhotos(map, {focus, onLayout}) {
     view.focus({preventScroll: true});
   }
   function select(items) {
-    if (cancelFocus) cancelFocus();
+    if (cancelFocus) { cancelFocus(); cancelFocus = null; }
     map.closePopup();
+    if (items.length === 1) {
+      openPreview(items);
+      return;
+    }
     const bounds = L.latLngBounds(items.map(photo => photo.coords));
     const spread = bounds.getNorthEast().distanceTo(bounds.getSouthWest());
     if (items.length > 1 && spread > 60 && map.getZoom() < 16.5) {
