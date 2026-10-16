@@ -2017,6 +2017,62 @@
           "https://www.usgs.gov/media/images/trillium-lake-mount-hood-background"
         ]
       }
+    },
+    {
+      "id": "space-needle",
+      "place": "Space Needle · Seattle",
+      "coords": [
+        47.6205,
+        -122.3493
+      ],
+      "caption": "",
+      "width": 1183,
+      "height": 1578,
+      "sha256": "5448b317d946e2db501b0a3ce7a186c1e041e49ad0175d09a44f2d5c05abc051",
+      "original": {
+        "src": "photos/space-needle/5448b317d946e2db-original.jpg",
+        "bytes": 397442
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/space-needle/5c77570f79a9f7c0-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 2780
+        },
+        "small": {
+          "src": "photos/space-needle/5c77570f79a9f7c0-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 65940
+        },
+        "medium": {
+          "src": "photos/space-needle/5c77570f79a9f7c0-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 283074
+        },
+        "large": {
+          "src": "photos/space-needle/5c77570f79a9f7c0-large.webp",
+          "width": 1183,
+          "height": 1578,
+          "bytes": 463436
+        }
+      },
+      "country": "840",
+      "date": "2022-02-27",
+      "gallery": {
+        "subject": "Space Needle",
+        "location": "Seattle"
+      },
+      "source_filename": "IMG_4547.jpg",
+      "location_tag": {
+        "method": "user_confirmed_landmark",
+        "confidence": "high",
+        "scope": "landmark",
+        "evidence": "User requested the Space Needle; the tower is clearly visible in the photo. Coordinates mark the landmark rather than the exact street-level camera position. The file has no GPS metadata. Capture date is from EXIF DateTimeOriginal and is not displayed.",
+        "camera_gps": false
+      }
     }
   ],
   "gallery_order": [
