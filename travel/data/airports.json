@@ -8,7 +8,8 @@
       "coords": [
         31.722601,
         35.993198
-      ]
+      ],
+      "country": "400"
     },
     "AQJ": {
       "name": "King Hussein International Airport",
@@ -16,7 +17,8 @@
       "coords": [
         29.611601,
         35.018101
-      ]
+      ],
+      "country": "400"
     },
     "AVL": {
       "name": "Asheville Regional Airport",
@@ -24,7 +26,8 @@
       "coords": [
         35.435488,
         -82.541853
-      ]
+      ],
+      "country": "840"
     },
     "ATH": {
       "name": "Athens Eleftherios Venizelos International Airport",
@@ -32,7 +35,8 @@
       "coords": [
         37.936401,
         23.9445
-      ]
+      ],
+      "country": "300"
     },
     "BGR": {
       "name": "Bangor International Airport",
@@ -40,7 +44,8 @@
       "coords": [
         44.806364,
         -68.826668
-      ]
+      ],
+      "country": "840"
     },
     "BCN": {
       "name": "Josep Tarradellas Barcelona-El Prat Airport",
@@ -48,7 +53,8 @@
       "coords": [
         41.2971,
         2.07846
-      ]
+      ],
+      "country": "724"
     },
     "BGO": {
       "name": "Bergen Airport, Flesland",
@@ -56,7 +62,8 @@
       "coords": [
         60.2934,
         5.21814
-      ]
+      ],
+      "country": "578"
     },
     "BOS": {
       "name": "Boston Logan International Airport",
@@ -64,7 +71,8 @@
       "coords": [
         42.36197,
         -71.0079
-      ]
+      ],
+      "country": "840"
     },
     "BUF": {
       "name": "Buffalo Niagara International Airport",
@@ -72,7 +80,8 @@
       "coords": [
         42.940498,
         -78.732201
-      ]
+      ],
+      "country": "840"
     },
     "CAI": {
       "name": "Cairo International Airport",
@@ -80,7 +89,8 @@
       "coords": [
         30.111534,
         31.396694
-      ]
+      ],
+      "country": "818"
     },
     "MDW": {
       "name": "Chicago Midway International Airport",
@@ -88,7 +98,8 @@
       "coords": [
         41.785999,
         -87.752403
-      ]
+      ],
+      "country": "840"
     },
     "ORD": {
       "name": "Chicago O'Hare International Airport",
@@ -96,7 +107,8 @@
       "coords": [
         41.9786,
         -87.9048
-      ]
+      ],
+      "country": "840"
     },
     "DEL": {
       "name": "Indira Gandhi International Airport",
@@ -104,7 +116,8 @@
       "coords": [
         28.55563,
         77.09519
-      ]
+      ],
+      "country": "356"
     },
     "DEN": {
       "name": "Denver International Airport",
@@ -112,7 +125,8 @@
       "coords": [
         39.860027,
         -104.673792
-      ]
+      ],
+      "country": "840"
     },
     "DTW": {
       "name": "Detroit Metropolitan Wayne County Airport",
@@ -120,7 +134,8 @@
       "coords": [
         42.21377,
         -83.353786
-      ]
+      ],
+      "country": "840"
     },
     "FEZ": {
       "name": "Fes Saïss International Airport",
@@ -128,7 +143,8 @@
       "coords": [
         33.927299,
         -4.97796
-      ]
+      ],
+      "country": "504"
     },
     "FLL": {
       "name": "Fort Lauderdale Hollywood International Airport",
@@ -136,7 +152,8 @@
       "coords": [
         26.072599,
         -80.152702
-      ]
+      ],
+      "country": "840"
     },
     "GVA": {
       "name": "Geneva International Airport",
@@ -144,7 +161,8 @@
       "coords": [
         46.238098,
         6.10895
-      ]
+      ],
+      "country": "756"
     },
     "HKG": {
       "name": "Hong Kong International Airport",
@@ -152,7 +170,8 @@
       "coords": [
         22.31184,
         113.914862
-      ]
+      ],
+      "country": "344"
     },
     "IAH": {
       "name": "George Bush Intercontinental Airport",
@@ -160,7 +179,8 @@
       "coords": [
         29.9844,
         -95.3414
-      ]
+      ],
+      "country": "840"
     },
     "IST": {
       "name": "İstanbul Airport",
@@ -168,7 +188,8 @@
       "coords": [
         41.274874,
         28.732136
-      ]
+      ],
+      "country": "792"
     },
     "JDH": {
       "name": "Jodhpur Airport",
@@ -176,7 +197,8 @@
       "coords": [
         26.251101,
         73.048897
-      ]
+      ],
+      "country": "356"
     },
     "KEF": {
       "name": "Keflavik International Airport",
@@ -184,7 +206,8 @@
       "coords": [
         63.985001,
         -22.6056
-      ]
+      ],
+      "country": "352"
     },
     "LAS": {
       "name": "Harry Reid International Airport",
@@ -192,7 +215,8 @@
       "coords": [
         36.083361,
         -115.151817
-      ]
+      ],
+      "country": "840"
     },
     "LGW": {
       "name": "London Gatwick Airport",
@@ -200,7 +224,8 @@
       "coords": [
         51.148744,
         -0.185739
-      ]
+      ],
+      "country": "826"
     },
     "LHR": {
       "name": "London Heathrow Airport",
@@ -208,7 +233,8 @@
       "coords": [
         51.470748,
         -0.459909
-      ]
+      ],
+      "country": "826"
     },
     "LTN": {
       "name": "London Luton Airport",
@@ -216,7 +242,8 @@
       "coords": [
         51.874699,
         -0.368333
-      ]
+      ],
+      "country": "826"
     },
     "LAX": {
       "name": "Los Angeles International Airport",
@@ -224,7 +251,8 @@
       "coords": [
         33.942501,
         -118.407997
-      ]
+      ],
+      "country": "840"
     },
     "RAK": {
       "name": "Marrakesh Menara Airport",
@@ -232,7 +260,8 @@
       "coords": [
         31.604807,
         -8.035788
-      ]
+      ],
+      "country": "504"
     },
     "MEX": {
       "name": "Mexico City Benito Juárez International Airport",
@@ -240,7 +269,8 @@
       "coords": [
         19.435822,
         -99.07033
-      ]
+      ],
+      "country": "484"
     },
     "MIA": {
       "name": "Miami International Airport",
@@ -248,7 +278,8 @@
       "coords": [
         25.796011,
         -80.289751
-      ]
+      ],
+      "country": "840"
     },
     "MXP": {
       "name": "Milan Malpensa International Airport",
@@ -256,7 +287,8 @@
       "coords": [
         45.6306,
         8.72811
-      ]
+      ],
+      "country": "380"
     },
     "MSP": {
       "name": "Minneapolis–Saint Paul International Airport / Wold–Chamberlain Field",
@@ -264,7 +296,8 @@
       "coords": [
         44.880081,
         -93.221741
-      ]
+      ],
+      "country": "840"
     },
     "MTY": {
       "name": "Monterrey International Airport",
@@ -272,7 +305,8 @@
       "coords": [
         25.778521,
         -100.106989
-      ]
+      ],
+      "country": "484"
     },
     "YUL": {
       "name": "Montreal / Pierre Elliott Trudeau International Airport",
@@ -280,7 +314,8 @@
       "coords": [
         45.467837,
         -73.742294
-      ]
+      ],
+      "country": "124"
     },
     "BOM": {
       "name": "Chhatrapati Shivaji Maharaj International Airport",
@@ -288,7 +323,8 @@
       "coords": [
         19.088699,
         72.867897
-      ]
+      ],
+      "country": "356"
     },
     "NAP": {
       "name": "Naples International Airport",
@@ -296,7 +332,8 @@
       "coords": [
         40.886002,
         14.2908
-      ]
+      ],
+      "country": "380"
     },
     "BNA": {
       "name": "Nashville International Airport",
@@ -304,7 +341,8 @@
       "coords": [
         36.1245,
         -86.6782
-      ]
+      ],
+      "country": "840"
     },
     "MSY": {
       "name": "Louis Armstrong New Orleans International Airport",
@@ -312,7 +350,8 @@
       "coords": [
         29.993401,
         -90.264673
-      ]
+      ],
+      "country": "840"
     },
     "JFK": {
       "name": "John F. Kennedy International Airport",
@@ -320,7 +359,8 @@
       "coords": [
         40.639447,
         -73.779317
-      ]
+      ],
+      "country": "840"
     },
     "LGA": {
       "name": "LaGuardia Airport",
@@ -328,7 +368,8 @@
       "coords": [
         40.777199,
         -73.872597
-      ]
+      ],
+      "country": "840"
     },
     "EWR": {
       "name": "Newark Liberty International Airport",
@@ -336,7 +377,8 @@
       "coords": [
         40.6894,
         -74.170545
-      ]
+      ],
+      "country": "840"
     },
     "OAK": {
       "name": "Oakland San Francisco Bay Airport",
@@ -344,7 +386,8 @@
       "coords": [
         37.720085,
         -122.221184
-      ]
+      ],
+      "country": "840"
     },
     "MCO": {
       "name": "Orlando International Airport",
@@ -352,7 +395,8 @@
       "coords": [
         28.429399,
         -81.308998
-      ]
+      ],
+      "country": "840"
     },
     "OSL": {
       "name": "Oslo-Gardermoen International Airport",
@@ -360,7 +404,8 @@
       "coords": [
         60.193901,
         11.1004
-      ]
+      ],
+      "country": "578"
     },
     "PHX": {
       "name": "Phoenix Sky Harbor International Airport",
@@ -368,7 +413,8 @@
       "coords": [
         33.435302,
         -112.005905
-      ]
+      ],
+      "country": "840"
     },
     "PIT": {
       "name": "Pittsburgh International Airport",
@@ -376,7 +422,8 @@
       "coords": [
         40.491501,
         -80.232903
-      ]
+      ],
+      "country": "840"
     },
     "PRG": {
       "name": "Václav Havel Airport Prague",
@@ -384,7 +431,8 @@
       "coords": [
         50.100874,
         14.259911
-      ]
+      ],
+      "country": "203"
     },
     "PNT": {
       "name": "Lieutenant Julio Gallardo Airport",
@@ -392,7 +440,8 @@
       "coords": [
         -51.67067,
         -72.529078
-      ]
+      ],
+      "country": "152"
     },
     "CIA": {
       "name": "Ciampino–G. B. Pastine International Airport",
@@ -400,7 +449,8 @@
       "coords": [
         41.798769,
         12.595331
-      ]
+      ],
+      "country": "380"
     },
     "FCO": {
       "name": "Rome–Fiumicino Leonardo da Vinci International Airport",
@@ -408,7 +458,8 @@
       "coords": [
         41.804532,
         12.251998
-      ]
+      ],
+      "country": "380"
     },
     "SLC": {
       "name": "Salt Lake City International Airport",
@@ -416,7 +467,8 @@
       "coords": [
         40.78886,
         -111.979866
-      ]
+      ],
+      "country": "840"
     },
     "SFO": {
       "name": "San Francisco International Airport",
@@ -424,7 +476,8 @@
       "coords": [
         37.619806,
         -122.374821
-      ]
+      ],
+      "country": "840"
     },
     "SJC": {
       "name": "Mineta San Jose International Airport",
@@ -432,7 +485,8 @@
       "coords": [
         37.362452,
         -121.929188
-      ]
+      ],
+      "country": "840"
     },
     "SJU": {
       "name": "Luis Munoz Marin International Airport",
@@ -440,7 +494,8 @@
       "coords": [
         18.4394,
         -66.001801
-      ]
+      ],
+      "country": "630"
     },
     "SNA": {
       "name": "John Wayne Orange County International Airport",
@@ -448,7 +503,8 @@
       "coords": [
         33.675063,
         -117.869281
-      ]
+      ],
+      "country": "840"
     },
     "SCL": {
       "name": "Comodoro Arturo Merino Benítez International Airport",
@@ -456,7 +512,8 @@
       "coords": [
         -33.393002,
         -70.785797
-      ]
+      ],
+      "country": "152"
     },
     "SEA": {
       "name": "Seattle–Tacoma International Airport",
@@ -464,7 +521,8 @@
       "coords": [
         47.447943,
         -122.310276
-      ]
+      ],
+      "country": "840"
     },
     "STL": {
       "name": "St. Louis Lambert International Airport",
@@ -472,7 +530,8 @@
       "coords": [
         38.748697,
         -90.370003
-      ]
+      ],
+      "country": "840"
     },
     "HND": {
       "name": "Tokyo Haneda International Airport",
@@ -480,7 +539,8 @@
       "coords": [
         35.549678,
         139.786958
-      ]
+      ],
+      "country": "392"
     },
     "TUN": {
       "name": "Tunis Carthage International Airport",
@@ -488,7 +548,8 @@
       "coords": [
         36.851002,
         10.2272
-      ]
+      ],
+      "country": "788"
     },
     "VIE": {
       "name": "Vienna International Airport",
@@ -496,7 +557,8 @@
       "coords": [
         48.110298,
         16.5697
-      ]
+      ],
+      "country": "040"
     },
     "DCA": {
       "name": "Ronald Reagan Washington National Airport",
@@ -504,7 +566,8 @@
       "coords": [
         38.8521,
         -77.037697
-      ]
+      ],
+      "country": "840"
     }
   }
 }

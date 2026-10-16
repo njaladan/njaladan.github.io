@@ -355,6 +355,46 @@ class TravelPhotosTest(unittest.TestCase):
             page.emulate_media(reduced_motion=preference)
             self.assertTrue(page.locator(".route-flow").evaluate_all("nodes => nodes.every(node => getComputedStyle(node).strokeDasharray !== 'none' && node.getAnimations().length === 1 && node.getAnimations()[0].effect.getTiming().duration === 2000)"))
 
+    def test_world_country_hover_and_focus_highlight_only_connected_flights(self):
+        page = self.page(photos=[])
+        page.evaluate("void ATLAS_MAP.setView([35, 10], 2.5, {animate:false})")
+        norway = page.locator('.visited-country[aria-label="Norway"]')
+        connected = page.locator('.flight-route[aria-label="BGO ↔ LGW"]')
+        unrelated = page.locator('.flight-route[aria-label="HKG ↔ HND"]')
+        point = page.evaluate("""() => {
+            const point = ATLAS_MAP.latLngToContainerPoint([61.5, 8.5]);
+            const root = ATLAS_MAP.getContainer().getBoundingClientRect();
+            return {x: root.left + point.x, y: root.top + point.y};
+        }""")
+        page.mouse.move(point["x"], point["y"])
+        page.wait_for_function("document.querySelector('#map').classList.contains('country-preview')")
+        self.assertEqual(page.locator('.flight-route.country-preview-active').count(), 2)
+        self.assertEqual(connected.evaluate("node => getComputedStyle(node).stroke"), "rgb(199, 149, 114)")
+        self.assertEqual(unrelated.evaluate("node => getComputedStyle(node).opacity"), "0.25")
+        self.assertEqual(norway.evaluate("node => getComputedStyle(node).opacity"), "1")
+        self.assertEqual(page.locator('.visited-country[aria-label="Italy"]').evaluate("node => getComputedStyle(node).opacity"), "0.3")
+        self.assertEqual(page.locator('.leaflet-backgroundLabels-pane').evaluate("node => getComputedStyle(node).opacity"), "1")
+        page.mouse.move(0, 0)
+        self.assertFalse(page.locator('#map').evaluate("node => node.classList.contains('country-preview')"))
+        self.assertEqual(unrelated.evaluate("node => getComputedStyle(node).opacity"), "1")
+
+        norway.focus()
+        self.assertEqual(page.locator('.flight-route.country-preview-active').count(), 2)
+        page.locator('#back-world').focus()
+        self.assertEqual(page.locator('.country-preview-active').count(), 0)
+        page.locator('.visited-country[aria-label="United States"]').focus()
+        home = page.locator('.flight-route[aria-label="HKG ↔ JFK"]')
+        self.assertEqual(home.evaluate("node => getComputedStyle(node).stroke"), "rgb(130, 158, 148)")
+        page.locator('.tiny-country[aria-label="Hong Kong SAR"]').focus()
+        self.assertEqual(page.locator('.flight-route.country-preview-active').count(), 2)
+        self.assertEqual(unrelated.evaluate("node => getComputedStyle(node).stroke"), "rgb(199, 149, 114)")
+        self.assertEqual(page.locator(".country-shape:not(.visited-country).country-preview-active").count(), 0)
+        page.locator('.visited-country[aria-label="France"]').focus()
+        self.assertEqual(page.locator('.flight-route.country-preview-active').count(), 0)
+        page.evaluate("void ATLAS_MAP.setView([46.5, 2.5], 8, {animate:false})")
+        norway.focus()
+        self.assertFalse(page.locator('#map').evaluate("node => node.classList.contains('country-preview')"))
+
 
 if __name__ == "__main__":
     unittest.main()
