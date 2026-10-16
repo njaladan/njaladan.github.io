@@ -17,16 +17,7 @@ main { height: calc(100dvh - var(--site-header-height) - 42px); min-height: 380p
 .leaflet-control-attribution { font-size: 9px !important; background: #ffffffdb !important; color: #92999e; }
 .leaflet-control-attribution a { color: #7d878e; }
 .leaflet-tooltip { font-family: inherit; font-size: 11px; border: 1px solid var(--line); box-shadow: none; border-radius: 3px; }
-.country-shape, .visit-fill, .tiny-country { transition: opacity .15s, stroke .15s; }
-.flight-route { transition: opacity .15s; }
-.country-preview .country-shape, .country-preview .visit-fill, .country-preview .tiny-country { opacity: .3; }
-.country-preview .country-preview-active { opacity: 1; }
-.country-preview .country-shape.country-preview-active { stroke: var(--country-preview-color); stroke-width: 1.4; }
-.country-preview .flight-route { opacity: .25; }
-.country-preview .flight-route.country-preview-active { opacity: 1; stroke: var(--country-preview-color); stroke-opacity: .9; stroke-width: 2.2; }
-.country-preview .leaflet-states-pane, .country-preview .leaflet-routes-pane,
-.country-preview .leaflet-airports-pane, .country-preview .leaflet-cities-pane,
-.country-preview .leaflet-photos-pane, .country-preview .city-label { filter: opacity(.3); }
+.country-shape { transition: stroke .15s; }
 .visited-country, .tiny-country, .activity-route, .transport-route, .state-shape, .city-marker, .flight-route, .airport-marker { cursor: pointer; }
 .map-toolbar { position: absolute; z-index: 500; top: 18px; left: 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; max-width: calc(100% - 76px); }
 .map-toolbar button, h1 { margin: 0; min-height: 36px; padding: 8px 11px; background: #fffffff2; border: 1px solid var(--line); border-radius: 4px; box-shadow: none; font-size: 12px; font-weight: 500; }

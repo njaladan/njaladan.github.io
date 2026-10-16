@@ -159,7 +159,6 @@ function installAtlasPhotos(map, {focus, onLayout}) {
         icon: L.divIcon({className: `photo-pin${collection ? ' photo-pin-stack' : ''}`, html: wrapper, iconSize: [48, 48], iconAnchor: [24, 56]}), riseOnHover: true}).addTo(layer);
       marker.on('click', () => select(group.items));
       const node = marker.getElement(); node.setAttribute('aria-haspopup', 'dialog'); node.setAttribute('aria-label', label);
-      node.dataset.photoCountries = [...new Set(group.items.map(photo => photo.country).filter(Boolean))].join(' ');
       node.addEventListener('focus', () => marker.setZIndexOffset(1000));
       node.addEventListener('blur', () => marker.setZIndexOffset(0));
       node.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.stopPropagation(); select(group.items); } });

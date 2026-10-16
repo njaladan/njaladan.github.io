@@ -8,9 +8,6 @@
   const colors = ['#b7774a','#4f7e8a','#807398','#859650','#bd825e','#62739d','#a26780'];
   const visitColors = {visited:'#c79572',home:'#829e94'};
   const countryLayers = new Map(), tracks = [];
-  let hoveredCountry = null, focusedCountry = null, previewCountry = null;
-  let hoverCandidate = null, hoverTimer = null;
-  const canHover = matchMedia('(hover: hover)').matches;
   let currentCountry = null, currentState = null, stateLayer, activeDay = null, journeys = [], transport = [], worldLayer, tinyLayer;
   const stateLayers=new Map(), cityMarkers=[];
   const routeLayers = L.layerGroup(), transportLayers = L.layerGroup(), cityLayers = L.layerGroup();
@@ -95,48 +92,8 @@
     if(id==='010')return {opacity:0,fillOpacity:0};
     return {color:visited||home?'#b6bdc2':'#d9dde0',weight:visited||home?1:.7,opacity:1,fillColor:'#fafafa',fillOpacity:.95};
   }
-  function updateCountryPreview() {
-    const id=map.getZoom()<=4.5?(hoveredCountry||focusedCountry):null;
-    if(id===previewCountry)return;
-    previewCountry=id;
-    const root=map.getContainer();
-    root.classList.toggle('country-preview',Boolean(id));
-    if(id)root.style.setProperty('--country-preview-color',id===HOME_COUNTRY?visitColors.home:visitColors.visited);
-    else root.style.removeProperty('--country-preview-color');
-    root.querySelectorAll('[data-country],.flight-route').forEach(node=>{
-      const connected=node.dataset.country===id||node.dataset.countries?.split(' ').includes(id);
-      node.classList.toggle('country-preview-active',Boolean(id&&connected));
-    });
-  }
-  function clearCountryPreview() {
-    cancelCountryHover();
-    hoveredCountry=null;focusedCountry=null;updateCountryPreview();
-  }
-  function cancelCountryHover() {
-    clearTimeout(hoverTimer);hoverTimer=null;hoverCandidate=null;
-  }
-  function trackCountryHover(event) {
-    if(!canHover||event.pointerType==='touch'||event.buttons||map.getZoom()>4.5)return;
-    let id=null;
-    if(!event.target.closest('.leaflet-control,.leaflet-popup,.map-toolbar')) {
-      // Inspect the map beneath overlays instead of treating their DOM edges as country exits.
-      const elements=document.elementsFromPoint(event.clientX,event.clientY);
-      const photo=event.target.closest('.photo-pin')||elements.find(node=>node.matches('.photo-pin'));
-      const countries=(photo?.dataset.photoCountries||'').split(' ').filter(Boolean).map(canonical);
-      const country=elements.find(node=>node.matches('.visited-country,.tiny-country'));
-      id=countries.includes(hoveredCountry)?hoveredCountry:
-        countries.length===1&&allowed(countries[0])?countries[0]:country?.dataset.country||null;
-    }
-    if(id===hoverCandidate)return;
-    clearTimeout(hoverTimer);hoverTimer=null;hoverCandidate=id;
-    if(id===hoveredCountry)return;
-    hoverTimer=setTimeout(()=>{
-      hoverTimer=null;hoveredCountry=id;focusedCountry=null;updateCountryPreview();
-    },id?140:100);
-  }
   function updateBasemap() {
     const zoom=map.getZoom();
-    if(zoom>4.5)clearCountryPreview();
     map.getPane('visitShading').style.opacity=Math.max(0,Math.min(1,(5-zoom)/1.5));
     const detailOpacity=Math.max(0,Math.min(1,(zoom-5)/2));
     map.getPane('detail').style.opacity=detailOpacity;
@@ -158,7 +115,6 @@
     if(cityOpacity<.1)cityMarkers.forEach(({marker})=>marker.closeTooltip());
   }
   function navigate(id) {
-    clearCountryPreview();
     id=canonical(id);
     if(!allowed(id))return;
     const target=`#country=${id}`;
@@ -297,7 +253,6 @@
       const reset=()=>line.setStyle(quiet);
       line.on('mouseover popupopen',highlight).on('mouseout',()=>{if(!line.isPopupOpen())reset();}).on('popupclose',reset);
       const node=line.getElement();node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',label);
-      node.dataset.countries=[...new Set(connection.airports.map(code=>canonical(flightLog.airports[code].country)).filter(Boolean))].join(' ');
       node.addEventListener('focus',highlight);node.addEventListener('blur',()=>{if(!line.isPopupOpen())reset();});
       node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();const segment=connection.segments[0];line.openPopup(L.latLng(segment[Math.floor(segment.length/2)]));}});
     });
@@ -330,7 +285,6 @@
     fitView(countryBounds(id),12,animate);
   }
   function showWorld(animate=true) {
-    clearCountryPreview();
     atlasPhotos.cancel();
     smoothZoom.finish();map.closePopup();currentCountry=null;currentState=null;$('#back-us').hidden=true;stateLayer.setStyle(styleState);activeDay=null;updateRouteStyles();
     $('#map-status').textContent='';document.title='Travel — Ganesh';
@@ -373,13 +327,9 @@
     node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();activeDay=day.id;updateRouteStyles();activityPopup.setLatLng(segment[Math.floor(segment.length/2)]).setContent(activityContent(day,journey,index)).openOn(map);}});
   }
   function accessibleCountry(layer,id,label) {
-    id=canonical(id);
     layer.on('add',()=>{
       const node=layer.getElement();if(!node)return;
       node.setAttribute('role','button');node.setAttribute('tabindex','0');node.setAttribute('aria-label',label);
-      node.dataset.country=id;
-      node.addEventListener('focus',()=>{cancelCountryHover();hoveredCountry=null;focusedCountry=id;updateCountryPreview();});
-      node.addEventListener('blur',()=>{if(focusedCountry===id){focusedCountry=null;updateCountryPreview();}});
       node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();navigate(id);}});
     });
   }
@@ -435,8 +385,7 @@
     features.forEach(feature=>{feature.id=String(feature.id);});
     backgroundLabels.geography(features,'country');
     L.geoJSON(features.filter(feature=>isVisitedShape(feature.id)),{
-      pane:'visitShading',interactive:false,className:'visit-fill',
-      onEachFeature:(feature,layer)=>layer.on('add',()=>{layer.getElement().dataset.country=canonical(feature.id);}),
+      pane:'visitShading',interactive:false,
       style:feature=>({stroke:false,fillColor:feature.id===HOME_COUNTRY?visitColors.home:visitColors.visited,fillOpacity:.8})
     }).addTo(map);
     worldLayer=L.geoJSON(features,{
@@ -467,9 +416,6 @@
   $('#back-world').addEventListener('click',returnToWorld);
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!atlasPhotos.isOpen()&&currentCountry&&!map.isPopupOpen())location.hash=currentState?`country=${HOME_COUNTRY}`:'';});
   map.on('popupclose',event=>{if(event.popup===activityPopup){activeDay=null;updateRouteStyles();}});
-  map.on('movestart',clearCountryPreview);
-  map.getContainer().addEventListener('pointermove',trackCountryHover,true);
-  map.getContainer().addEventListener('pointerleave',()=>{cancelCountryHover();hoveredCountry=null;updateCountryPreview();});
   map.on('zoom',updateBasemap);
   map.on('moveend',()=>requestAnimationFrame(()=>{if(worldLayer)updateRouteLegend();declutterLabels();}));
   updateBasemap();
