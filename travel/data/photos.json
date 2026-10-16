@@ -86,48 +86,6 @@
       }
     },
     {
-      "id": "eiffel-tower",
-      "place": "Eiffel Tower",
-      "coords": [
-        48.8584,
-        2.2945
-      ],
-      "caption": "",
-      "width": 2048,
-      "height": 3090,
-      "sha256": "7bceb17711bbef46088badf53b619fcb1b40997e268a1773ac1b7bd5fe3d3cc5",
-      "original": {
-        "src": "photos/eiffel-tower/eiffel-tower-original.jpg",
-        "bytes": 1153708
-      },
-      "variants": {
-        "thumbnail": {
-          "src": "photos/eiffel-tower/eiffel-tower-thumbnail.webp",
-          "width": 128,
-          "height": 193,
-          "bytes": 4202
-        },
-        "small": {
-          "src": "photos/eiffel-tower/eiffel-tower-small.webp",
-          "width": 640,
-          "height": 966,
-          "bytes": 77196
-        },
-        "medium": {
-          "src": "photos/eiffel-tower/eiffel-tower-medium.webp",
-          "width": 1280,
-          "height": 1931,
-          "bytes": 338874
-        },
-        "large": {
-          "src": "photos/eiffel-tower/eiffel-tower-large.webp",
-          "width": 1920,
-          "height": 2897,
-          "bytes": 648790
-        }
-      }
-    },
-    {
       "id": "london-selfie",
       "place": "City of London",
       "coords": [
@@ -1800,5 +1758,15 @@
         ]
       }
     }
+  ],
+  "gallery_order": [
+    "img-7366",
+    "hong-kong-umbrella",
+    "iceland-aurora",
+    "pantheon-columns",
+    "w-trek-smile",
+    "iceland-sheep",
+    "keukenhof-shrubs",
+    "louvre-pyramid"
   ]
 }
