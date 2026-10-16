@@ -78,3 +78,7 @@ Two additional user-provided JPEGs appear on both the map and Photos gallery. Ne
 ## Additional Mount Hood photo
 
 `IMG_5831.jpg`, extracted from the user-provided ZIP, shows Mount Hood in Oregon. Its south-facing summit profile, snowfields, forested shoreline and lake match [USGS Mount Hood / Trillium Lake reference imagery](https://www.usgs.gov/media/images/mt-hood-and-trillium-lake), with an additional [USGS shoreline reference](https://www.usgs.gov/media/images/trillium-lake-mount-hood-background). Trillium Lake is a visual inference; the exact camera position is unconfirmed. The pin uses the existing Mount Hood landmark coordinates (45.3735, -121.6959), without claiming a summit visit. The file contains no GPS metadata. EXIF DateTimeOriginal records June 23, 2022; dates are not displayed on Photos cards.
+
+## Additional Space Needle photo
+
+`IMG_4547.jpg`, extracted from the uploaded ZIP, shows the Space Needle in Seattle as confirmed by the user and the visible tower. The pin marks the landmark (47.6205, -122.3493), not the exact street-level camera position. No GPS metadata is present. EXIF DateTimeOriginal records February 27, 2022; dates remain hidden throughout the photo UI. The original is preserved byte-for-byte.
