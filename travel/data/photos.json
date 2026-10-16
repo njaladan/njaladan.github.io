@@ -1757,6 +1757,58 @@
           "https://ulriken643.no/en/activities/oppstemten"
         ]
       }
+    },
+    {
+      "id": "acadia-granite-view",
+      "place": "Acadia National Park · Maine",
+      "coords": [
+        44.3386,
+        -68.2733
+      ],
+      "caption": "",
+      "width": 1183,
+      "height": 1578,
+      "sha256": "9a0b1e9e4f53da1df25388916da19be6ca26db32cf75072c03efe0488261d7e3",
+      "original": {
+        "src": "photos/acadia-granite-view/9a0b1e9e4f53da1d-original.jpg",
+        "bytes": 677978
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/acadia-granite-view/7c870a48e49b63b8-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 3630
+        },
+        "small": {
+          "src": "photos/acadia-granite-view/7c870a48e49b63b8-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 99376
+        },
+        "medium": {
+          "src": "photos/acadia-granite-view/7c870a48e49b63b8-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 448932
+        },
+        "large": {
+          "src": "photos/acadia-granite-view/7c870a48e49b63b8-large.webp",
+          "width": 1183,
+          "height": 1578,
+          "bytes": 716982
+        }
+      },
+      "country": "840",
+      "date": "2025-06-21",
+      "source_filename": "IMG_3826.jpg",
+      "location_tag": {
+        "method": "user_confirmed_park_and_existing_map_marker",
+        "confidence": "high",
+        "scope": "park_area",
+        "evidence": "User confirmed Acadia in Maine. The existing Acadia park marker is used as a representative park-area location, not an exact camera position. Date comes from EXIF DateTimeOriginal; the photo has no GPS metadata.",
+        "camera_gps": false
+      }
     }
   ],
   "gallery_order": [
