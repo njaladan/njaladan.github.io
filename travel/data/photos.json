@@ -43,7 +43,7 @@
       },
       "country": "250",
       "gallery": {
-        "subject": "Louvre Pyramid",
+        "subject": "Louvre",
         "location": "Paris"
       }
     },
@@ -227,7 +227,7 @@
         }
       },
       "gallery": {
-        "subject": "Keukenhof gardens",
+        "subject": "Keukenhof",
         "location": "Netherlands"
       }
     },
@@ -411,7 +411,7 @@
         }
       },
       "gallery": {
-        "subject": "Waterfall hike",
+        "subject": "Fimmvörðuháls",
         "location": "Iceland"
       }
     },
