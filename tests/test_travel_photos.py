@@ -355,6 +355,47 @@ class TravelPhotosTest(unittest.TestCase):
             page.emulate_media(reduced_motion=preference)
             self.assertTrue(page.locator(".route-flow").evaluate_all("nodes => nodes.every(node => getComputedStyle(node).strokeDasharray !== 'none' && node.getAnimations().length === 1 && node.getAnimations()[0].effect.getTiming().duration === 2000)"))
 
+    def test_country_preview_stays_visible_across_photo_and_airport_overlays(self):
+        photo = {**self.photos[0], "coords": [61.5, 8.5], "country": "578"}
+        page = self.page(photos=[photo])
+        page.evaluate("void ATLAS_MAP.setView([62, 9], 4.5, {animate:false})")
+        point = page.evaluate("""() => {
+            const p = ATLAS_MAP.latLngToContainerPoint([63.43, 10.4]);
+            const r = ATLAS_MAP.getContainer().getBoundingClientRect();
+            return {x:r.left+p.x, y:r.top+p.y};
+        }""")
+        self.assertFalse(page.evaluate("""point => {
+            const root = document.querySelector('#map');
+            root.dispatchEvent(new PointerEvent('pointermove', {clientX:point.x, clientY:point.y, pointerType:'mouse'}));
+            const immediate = root.classList.contains('country-preview');
+            root.dispatchEvent(new PointerEvent('pointerleave'));
+            return immediate;
+        }""", point))
+        page.wait_for_timeout(200)
+        self.assertFalse(page.locator('#map').evaluate("node => node.classList.contains('country-preview')"))
+        page.mouse.move(point["x"], point["y"])
+        page.wait_for_function("document.querySelector('#map').classList.contains('country-preview')")
+        page.evaluate("""() => {
+            window.previewClasses = [];
+            new MutationObserver(records => records.forEach(record => previewClasses.push(record.oldValue)))
+                .observe(document.querySelector('#map'), {attributes:true, attributeFilter:['class'], attributeOldValue:true});
+        }""")
+        pin = page.locator('.photo-pin').bounding_box()
+        airport = page.locator('.airport-marker[aria-label="Oslo · OSL"]').bounding_box()
+        for target in [pin, airport, pin]:
+            page.mouse.move(target["x"] + target["width"] / 2, target["y"] + target["height"] / 2)
+            page.wait_for_timeout(200)
+            self.assertTrue(page.locator('#map').evaluate("node => node.classList.contains('country-preview')"))
+            self.assertEqual(page.locator('.flight-route.country-preview-active').count(), 2)
+            page.mouse.move(point["x"], point["y"])
+            page.wait_for_timeout(200)
+        self.assertTrue(page.evaluate("previewClasses.every(value => value.includes('country-preview'))"))
+        page.locator('.photo-pin').click()
+        page.wait_for_selector('.photo-preview-meta')
+        self.assertEqual(page.evaluate("ATLAS_MAP.getZoom()"), 4.5)
+        page.mouse.move(0, 0)
+        page.wait_for_function("!document.querySelector('#map').classList.contains('country-preview')")
+
     def test_world_country_hover_and_focus_highlight_only_connected_flights(self):
         page = self.page(photos=[])
         page.evaluate("void ATLAS_MAP.setView([35, 10], 2.5, {animate:false})")

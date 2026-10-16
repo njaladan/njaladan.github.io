@@ -163,6 +163,7 @@ function installAtlasPhotos(map, {focus, onLayout}) {
       marker.bindTooltip(hint, {className: 'photo-pin-label', direction: 'bottom', offset: [0, 4]});
       marker.on('click', () => select(group.items));
       const node = marker.getElement(); node.setAttribute('aria-haspopup', 'dialog'); node.setAttribute('aria-label', label);
+      node.dataset.photoCountries = [...new Set(group.items.map(photo => photo.country).filter(Boolean))].join(' ');
       node.addEventListener('focus', () => { marker.setZIndexOffset(1000); marker.openTooltip(); });
       node.addEventListener('blur', () => { marker.setZIndexOffset(0); marker.closeTooltip(); });
       node.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.stopPropagation(); select(group.items); } });
