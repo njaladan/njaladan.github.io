@@ -17,15 +17,18 @@
       entries.forEach(photo => {
         const imagePath = asset(photo.variants.small?.src || photo.variants.medium?.src);
         if (!imagePath) return;
+        const subject = photo.gallery?.subject || photo.place;
+        const location = photo.gallery?.location || '';
+        const label = location ? `${subject} — ${location}` : subject;
         const link = document.createElement('a');
         link.className = 'photo-card';
         link.href = `/travel/?lat=${encodeURIComponent(photo.coords[0])}&lng=${encodeURIComponent(photo.coords[1])}&zoom=15`;
-        link.setAttribute('aria-label', `View ${photo.place} on the map`);
+        link.setAttribute('aria-label', `View ${label} on the map`);
         const figure = document.createElement('figure'); figure.style.margin = '0';
-        const image = document.createElement('img'); image.src = imagePath; image.alt = photo.caption || `Photo at ${photo.place}`; image.loading = 'lazy'; image.decoding = 'async';
+        const image = document.createElement('img'); image.src = imagePath; image.alt = photo.caption || label; image.loading = 'lazy'; image.decoding = 'async';
         const caption = document.createElement('figcaption');
-        const place = document.createElement('strong'); place.textContent = photo.place; caption.append(place);
-        if (photo.date) { const date = document.createElement('span'); date.textContent = new Date(`${photo.date}T12:00:00`).toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'}); caption.append(date); }
+        const heading = document.createElement('strong'); heading.textContent = subject; caption.append(heading);
+        if (location) { const place = document.createElement('span'); place.textContent = location; caption.append(place); }
         figure.append(image,caption); link.append(figure); gallery.append(link);
       });
     })

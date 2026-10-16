@@ -144,23 +144,26 @@ class TravelPhotosTest(unittest.TestCase):
         self.assertEqual(page.evaluate("document.activeElement.textContent"), "View photo")
         self.assertFalse(any("-original." in url for url in self.requests))
 
-    def test_photo_collection_has_thumbnail_stack_and_keyboard_label(self):
-        photos = [{**photo, "coords": [48.8606, 2.3358]} for photo in self.photos]
+    def test_photo_collection_has_accessible_label_without_hover_caption_or_dates(self):
+        photos = [{**photo, "coords": [48.8606, 2.3358], "date": "2025-06-21", "caption": "Collection photo"} for photo in self.photos]
         page = self.page(photos=photos)
         pin = page.locator(".photo-pin-stack")
         self.assertEqual(pin.count(), 1)
         self.assertEqual(pin.locator(".photo-pin-count").inner_text(), "5")
         self.assertEqual(pin.locator("img").count(), 3)
         self.assertEqual(pin.get_attribute("aria-label"), "Fixture 0 · 5 photos nearby")
-        self.assertFalse(page.locator(".photo-pin-label").is_visible())
+        pin.hover()
+        self.assertEqual(page.locator(".photo-pin-label").count(), 0)
         pin.focus()
-        self.assertTrue(page.locator(".photo-pin-label").is_visible())
+        self.assertEqual(page.locator(".photo-pin-label").count(), 0)
         self.assertNotEqual(pin.locator(".photo-pin-front").evaluate("node => getComputedStyle(node).transform"), "none")
         self.assertTrue(all("-thumbnail.webp" in url for url in self.requests if "/photos/" in url))
         page.keyboard.press("Enter")
         page.wait_for_selector(".photo-preview-meta")
+        self.assertEqual(page.locator(".photo-preview-meta p").inner_text(), "Collection photo")
         page.get_by_role("button", name="View photo", exact=True).click()
         self.assertEqual(page.locator(".photo-counter").inner_text(), "1 / 5")
+        self.assertEqual(page.locator(".photo-caption").inner_text(), "Collection photo")
 
     def test_nearby_photo_pins_can_overlap_on_desktop_and_mobile(self):
         # At zoom 6 these anchors are 40px apart: their 48px prints overlap by 8px.
