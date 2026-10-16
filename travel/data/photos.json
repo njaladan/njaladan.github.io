@@ -1688,6 +1688,117 @@
         "evidence": "Distinctive curved facade covered in silver hexagonal panels. Landmark-center pin."
       },
       "date_source": "EXIF DateTimeOriginal; not independently verified"
+    },
+    {
+      "id": "oslo-iron-roses",
+      "place": "Jernrosene · Oslo Cathedral",
+      "coords": [
+        59.91243,
+        10.74634
+      ],
+      "caption": "Iron roses at the Jernrosene memorial beside Oslo Cathedral.",
+      "width": 2380,
+      "height": 1578,
+      "sha256": "1ee3e0eeabb040d606735a52919c400a7a37b99ee364f54c29edcc3f0e0b5cf8",
+      "original": {
+        "src": "photos/oslo-iron-roses/1ee3e0eeabb040d6-original.jpg",
+        "bytes": 819066
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/oslo-iron-roses/84a9e764fe4928d6-thumbnail.webp",
+          "width": 128,
+          "height": 85,
+          "bytes": 6020
+        },
+        "small": {
+          "src": "photos/oslo-iron-roses/84a9e764fe4928d6-small.webp",
+          "width": 640,
+          "height": 424,
+          "bytes": 87284
+        },
+        "medium": {
+          "src": "photos/oslo-iron-roses/84a9e764fe4928d6-medium.webp",
+          "width": 1280,
+          "height": 849,
+          "bytes": 408742
+        },
+        "large": {
+          "src": "photos/oslo-iron-roses/84a9e764fe4928d6-large.jpg",
+          "width": 2380,
+          "height": 1578,
+          "bytes": 819022
+        }
+      },
+      "country": "578",
+      "source_filename": "000013190029.jpg",
+      "location_tag": {
+        "method": "user_context_and_landmark_reference",
+        "confidence": "high",
+        "scope": "landmark",
+        "evidence": "User confirmed an Oslo church. The forged metal roses match Jernrosene beside Oslo Cathedral; the memorial location is confirmed by its architects and the Church of Norway. Coordinates mark the memorial, not a GPS camera position. The film scan has no capture date.",
+        "camera_gps": false,
+        "sources": [
+          "https://mdh.no/project/the-rose-monument/",
+          "https://www.kirken.no/nb-NO/fellesrad/kirkeneioslo/menigheter/oslo-domkirken/Aktuelt/2019/2019-09-28%20innvielse%20jernrosene/",
+          "https://mapcarta.com/W810225567"
+        ]
+      }
+    },
+    {
+      "id": "ulriken-misty-steps",
+      "place": "Stone steps toward Ulriken · Bergen",
+      "coords": [
+        60.3697,
+        5.371
+      ],
+      "caption": "Stone steps through the mist on the way to Ulriken.",
+      "width": 2103,
+      "height": 1578,
+      "sha256": "e2e75c4f5f32b93511327d329936f9c4e40584da4f2fa68c06adf0013446a894",
+      "original": {
+        "src": "photos/ulriken-misty-steps/e2e75c4f5f32b935-original.jpg",
+        "bytes": 1056259
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/ulriken-misty-steps/60498a536a7d9537-thumbnail.webp",
+          "width": 128,
+          "height": 96,
+          "bytes": 3380
+        },
+        "small": {
+          "src": "photos/ulriken-misty-steps/60498a536a7d9537-small.webp",
+          "width": 640,
+          "height": 480,
+          "bytes": 97606
+        },
+        "medium": {
+          "src": "photos/ulriken-misty-steps/60498a536a7d9537-medium.webp",
+          "width": 1280,
+          "height": 960,
+          "bytes": 444090
+        },
+        "large": {
+          "src": "photos/ulriken-misty-steps/60498a536a7d9537-large.webp",
+          "width": 2103,
+          "height": 1578,
+          "bytes": 1227170
+        }
+      },
+      "country": "578",
+      "date": "2024-05-05",
+      "source_filename": "IMG_0900.jpg",
+      "location_tag": {
+        "method": "user_confirmed_trail_and_existing_recorded_route",
+        "confidence": "medium",
+        "scope": "trail_area",
+        "evidence": "User confirmed stone steps on the way to Ulriken. The forested stone staircase is consistent with the lower approach toward the Oppstemten route. A representative point on the lower approach of the existing Ulriken-to-Fløyen recording (activity 11337679924) is used; the exact staircase segment and camera position are unconfirmed. Date comes from EXIF DateTimeOriginal; there is no GPS metadata.",
+        "camera_gps": false,
+        "sources": [
+          "https://ulriken643.no/en/activities/oppstemten"
+        ]
+      }
     }
   ]
 }

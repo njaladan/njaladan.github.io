@@ -38,6 +38,8 @@ The October 2026 Drive ZIP adds 20 photos to the map and Photos gallery. Ninetee
 
 None of these 20 photos contains GPS metadata. Location tags use visual landmarks, existing TMB routes, and the user's confirmations of Montréal, Barcelona, the Mont Blanc gondola, the Lac Blanc area, an Egyptian felucca, and a large Paris garden south of the Seine. Original filenames, confidence, coordinate scope, and evidence are retained in `data/photos.json`; [PHOTO_LOCATION_MAPPING.md](PHOTO_LOCATION_MAPPING.md) and `data/photo-location-mapping.csv` provide the complete mapping. EXIF capture dates are used where available; the scanned garden JPEG has no date assigned.
 
+Two further JPEGs from the user's Archive.zip add Jernrosene (the Iron Roses memorial beside Oslo Cathedral) and misty stone steps toward Ulriken in Bergen. The memorial has a landmark pin; the steps use a representative point on the lower approach of the existing Ulriken-to-Fløyen route, with the exact camera position unconfirmed. The stair photo's EXIF date is 2024-05-05; the rose scan has no assigned date. Both appear on the map and Photos gallery, with originals and responsive derivatives preserved through the standard import pipeline.
+
 ## Imported activity data
 
 The Netherlands ride is from the user-provided `11393102827.gpx`: 11,214 GPS points, Amsterdam to Utrecht. The five named places are user-confirmed visits, with place-center markers; they are not linked by an invented travel route.

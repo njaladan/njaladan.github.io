@@ -58,3 +58,15 @@ Dates, when present, come from EXIF DateTimeOriginal and are not independently v
 - [Lacs des Chéserys reference and coordinates](https://commons.wikimedia.org/wiki/Category:Lacs_des_Ch%C3%A9serys)
 
 The CSV at `data/photo-location-mapping.csv` includes direct map links and the same evidence notes.
+
+## Norway photos from Archive.zip
+
+Two additional user-provided JPEGs appear on both the map and Photos gallery. Neither contains GPS metadata. Originals are preserved byte-for-byte.
+
+| Original filename | Tagged location | Latitude, longitude | Confidence |
+| --- | --- | --- | --- |
+| 000013190029.jpg | Jernrosene · Oslo Cathedral | 59.91243, 10.74634 | high |
+| IMG_0900.jpg | Stone steps toward Ulriken · Bergen | 60.3697, 5.3710 | medium |
+
+- **000013190029.jpg**: The user confirmed an Oslo church. The forged roses identify Jernrosene, the Iron Roses memorial beside Oslo Cathedral. The [architects' project page](https://mdh.no/project/the-rose-monument/) and [Church of Norway announcement](https://www.kirken.no/nb-NO/fellesrad/kirkeneioslo/menigheter/oslo-domkirken/Aktuelt/2019/2019-09-28%20innvielse%20jernrosene/) confirm the location. [Mapped memorial coordinates](https://mapcarta.com/W810225567) locate the artwork rather than the camera. The film scan contains no capture date; none is assigned.
+- **IMG_0900.jpg**: The user confirmed steps on the way to Ulriken. The forested stone staircase is consistent with the lower approach toward [Oppstemten](https://ulriken643.no/en/activities/oppstemten). Its pin represents the lower approach along the existing Ulriken-to-Fløyen recording (activity 11337679924); the exact staircase segment and camera position remain unconfirmed. The date, 2024-05-05, comes from EXIF DateTimeOriginal.
