@@ -41,9 +41,7 @@ function installAtlasPhotos(map, {focus, onLayout}) {
     node.src = asset(photo.variants[full ? 'medium' : 'small'].src);
   }
   function photoDetails(photo) {
-    const parts = [photo.caption];
-    if (photo.date) parts.push(new Date(`${photo.date}T12:00:00`).toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'}));
-    return parts.filter(Boolean).join(' · ');
+    return photo.caption || '';
   }
   function changeImage(delta = 0) {
     selectedIndex = (selectedIndex + delta + selection.length) % selection.length;
@@ -159,12 +157,10 @@ function installAtlasPhotos(map, {focus, onLayout}) {
       const label = collection ? `${photo.place} · ${group.items.length} photos nearby` : `Photo at ${photo.place}`;
       const marker = L.marker(position, {pane: 'photos', alt: label,
         icon: L.divIcon({className: `photo-pin${collection ? ' photo-pin-stack' : ''}`, html: wrapper, iconSize: [48, 48], iconAnchor: [24, 56]}), riseOnHover: true}).addTo(layer);
-      const hint = document.createElement('span'); hint.textContent = label;
-      marker.bindTooltip(hint, {className: 'photo-pin-label', direction: 'bottom', offset: [0, 4]});
       marker.on('click', () => select(group.items));
       const node = marker.getElement(); node.setAttribute('aria-haspopup', 'dialog'); node.setAttribute('aria-label', label);
-      node.addEventListener('focus', () => { marker.setZIndexOffset(1000); marker.openTooltip(); });
-      node.addEventListener('blur', () => { marker.setZIndexOffset(0); marker.closeTooltip(); });
+      node.addEventListener('focus', () => marker.setZIndexOffset(1000));
+      node.addEventListener('blur', () => marker.setZIndexOffset(0));
       node.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.stopPropagation(); select(group.items); } });
       pins.set(key, marker);
     });
