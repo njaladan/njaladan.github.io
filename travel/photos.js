@@ -144,8 +144,10 @@ function installAtlasPhotos(map, {focus, onLayout}) {
     const active = new Set();
     groups.forEach(group => {
       const key = group.items.map(photo => photo.id).join('|'); active.add(key);
-      if (pins.has(key)) return;
       const photo = group.items[0], collection = group.items.length > 1;
+      // Center stacks between their outermost photo anchors in the current projection.
+      const position = collection ? map.containerPointToLatLng(L.bounds(group.items.map(item => map.latLngToContainerPoint(item.coords))).getCenter()) : photo.coords;
+      if (pins.has(key)) { pins.get(key).setLatLng(position); return; }
       const wrapper = document.createElement('span'); wrapper.className = 'photo-pin-content';
       // At most two extra thumbnails hint at the collection without loading full-size images.
       group.items.slice(1, 3).reverse().forEach((item, index, items) => {
@@ -155,7 +157,7 @@ function installAtlasPhotos(map, {focus, onLayout}) {
       wrapper.append(thumbnailPrint(photo, 'photo-pin-front'));
       if (collection) { const badge = document.createElement('span'); badge.className = 'photo-pin-count'; badge.textContent = group.items.length; wrapper.append(badge); }
       const label = collection ? `${photo.place} · ${group.items.length} photos nearby` : `Photo at ${photo.place}`;
-      const marker = L.marker(photo.coords, {pane: 'photos', alt: label,
+      const marker = L.marker(position, {pane: 'photos', alt: label,
         icon: L.divIcon({className: `photo-pin${collection ? ' photo-pin-stack' : ''}`, html: wrapper, iconSize: [48, 48], iconAnchor: [24, 56]}), riseOnHover: true}).addTo(layer);
       const hint = document.createElement('span'); hint.textContent = label;
       marker.bindTooltip(hint, {className: 'photo-pin-label', direction: 'bottom', offset: [0, 4]});

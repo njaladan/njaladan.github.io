@@ -99,6 +99,30 @@ class TravelPhotosTest(unittest.TestCase):
         page.evaluate("void ATLAS_MAP.setView([0, 0], 13, {animate:false})")
         self.assertEqual(page.locator(".photo-pin").count(), 0)
 
+    def test_photo_stacks_use_midpoint_and_singletons_keep_their_locations(self):
+        degrees_per_pixel = 360 / (256 * 2**6)
+        photos = [{**photo, "coords": [48.8606, 2.3358 + offset * degrees_per_pixel]}
+                  for photo, offset in zip(self.photos, (0, 6, 30))]
+        center = [48.8606, 2.3358 + 15 * degrees_per_pixel]
+        for mobile in (False, True):
+            with self.subTest(mobile=mobile):
+                page = self.page(photos=photos, mobile=mobile)
+                page.evaluate("coords => { ATLAS_MAP.setView(coords, 6, {animate:false}); }", center)
+                root = page.locator("#map").bounding_box()
+                midpoint = root["x"] + root["width"] / 2
+                pin = page.locator(".photo-pin-stack")
+                self.assertEqual(pin.locator(".photo-pin-count").inner_text(), "3")
+                self.assertAlmostEqual(pin.bounding_box()["x"] + 24, midpoint, delta=1)
+                page.evaluate("void ATLAS_MAP.setZoom(7, {animate:false})")
+                self.assertEqual(pin.locator(".photo-pin-count").inner_text(), "2")
+                self.assertAlmostEqual(pin.bounding_box()["x"] + 24, midpoint - 24, delta=1)
+                page.evaluate("void ATLAS_MAP.setZoom(9, {animate:false})")
+                self.assertEqual(page.locator(".photo-pin-stack").count(), 0)
+                self.assertEqual(page.locator(".photo-pin").count(), 3)
+                for photo, offset in zip(photos, (-120, -72, 120)):
+                    single = page.locator(f'.photo-pin[aria-label="Photo at {photo["place"]}"]')
+                    self.assertAlmostEqual(single.bounding_box()["x"] + 24, midpoint + offset, delta=1)
+
     def test_group_zoom_then_colocated_photos_have_keyboard_paging(self):
         page = self.page()
         page.evaluate("void ATLAS_MAP.setView([48.8606, 2.3358], 6, {animate:false})")
