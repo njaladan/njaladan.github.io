@@ -74,3 +74,7 @@ Two additional user-provided JPEGs appear on both the map and Photos gallery. Ne
 ## Additional Acadia photo
 
 `IMG_3826.jpg`, extracted from the user-provided ZIP, is tagged **Acadia National Park · Maine** at the existing park marker (44.3386, -68.2733). The user confirmed Acadia; the pin represents the park area rather than an exact camera position. The image has no GPS metadata. Its capture date, June 21, 2025, comes from EXIF DateTimeOriginal. The original is preserved byte-for-byte with responsive display derivatives.
+
+## Additional Mount Hood photo
+
+`IMG_5831.jpg`, extracted from the user-provided ZIP, shows Mount Hood in Oregon. Its south-facing summit profile, snowfields, forested shoreline and lake match [USGS Mount Hood / Trillium Lake reference imagery](https://www.usgs.gov/media/images/mt-hood-and-trillium-lake), with an additional [USGS shoreline reference](https://www.usgs.gov/media/images/trillium-lake-mount-hood-background). Trillium Lake is a visual inference; the exact camera position is unconfirmed. The pin uses the existing Mount Hood landmark coordinates (45.3735, -121.6959), without claiming a summit visit. The file contains no GPS metadata. EXIF DateTimeOriginal records June 23, 2022; dates are not displayed on Photos cards.

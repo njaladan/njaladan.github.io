@@ -41,7 +41,11 @@
           "bytes": 506783
         }
       },
-      "country": "250"
+      "country": "250",
+      "gallery": {
+        "subject": "Louvre Pyramid",
+        "location": "Paris"
+      }
     },
     {
       "id": "pantheon-columns",
@@ -83,6 +87,10 @@
           "height": 2897,
           "bytes": 613024
         }
+      },
+      "gallery": {
+        "subject": "Panthéon columns",
+        "location": "Paris"
       }
     },
     {
@@ -125,6 +133,10 @@
           "height": 1273,
           "bytes": 296192
         }
+      },
+      "gallery": {
+        "subject": "City portrait",
+        "location": "London"
       }
     },
     {
@@ -167,6 +179,10 @@
           "height": 2896,
           "bytes": 1385362
         }
+      },
+      "gallery": {
+        "subject": "Church organ",
+        "location": "Haarlem"
       }
     },
     {
@@ -209,6 +225,10 @@
           "height": 2896,
           "bytes": 1473054
         }
+      },
+      "gallery": {
+        "subject": "Keukenhof gardens",
+        "location": "Netherlands"
       }
     },
     {
@@ -251,6 +271,10 @@
           "height": 1273,
           "bytes": 662712
         }
+      },
+      "gallery": {
+        "subject": "Lion Monument",
+        "location": "Lucerne"
       }
     },
     {
@@ -293,6 +317,10 @@
           "height": 1273,
           "bytes": 509552
         }
+      },
+      "gallery": {
+        "subject": "Milano Centrale",
+        "location": "Milan"
       }
     },
     {
@@ -335,6 +363,10 @@
           "height": 2048,
           "bytes": 766892
         }
+      },
+      "gallery": {
+        "subject": "Central Pier No. 10",
+        "location": "Hong Kong"
       }
     },
     {
@@ -377,6 +409,10 @@
           "height": 2560,
           "bytes": 1371254
         }
+      },
+      "gallery": {
+        "subject": "Waterfall hike",
+        "location": "Iceland"
       }
     },
     {
@@ -419,6 +455,10 @@
           "height": 2560,
           "bytes": 467592
         }
+      },
+      "gallery": {
+        "subject": "Northern lights",
+        "location": "Iceland"
       }
     },
     {
@@ -461,6 +501,10 @@
           "height": 2560,
           "bytes": 828172
         }
+      },
+      "gallery": {
+        "subject": "Waterfront",
+        "location": "Cinque Terre"
       }
     },
     {
@@ -503,6 +547,10 @@
           "height": 2560,
           "bytes": 895706
         }
+      },
+      "gallery": {
+        "subject": "W Trek",
+        "location": "Patagonia"
       }
     },
     {
@@ -545,6 +593,10 @@
           "height": 2560,
           "bytes": 581224
         }
+      },
+      "gallery": {
+        "subject": "Lac Blanc",
+        "location": "Chamonix"
       }
     },
     {
@@ -587,6 +639,10 @@
           "height": 2560,
           "bytes": 249988
         }
+      },
+      "gallery": {
+        "subject": "Wadi Rum",
+        "location": "Jordan"
       }
     },
     {
@@ -638,6 +694,10 @@
         "scope": "area",
         "camera_gps": false,
         "evidence": "User described a large garden south of the Seine; clipped tree alley is consistent with Luxembourg Gardens. Exact alley unconfirmed. Film-scan timestamp is not used as a capture date."
+      },
+      "gallery": {
+        "subject": "Jardin du Luxembourg",
+        "location": "Paris"
       }
     },
     {
@@ -691,7 +751,11 @@
         "camera_gps": false,
         "evidence": "Distinctive coffered vault, dome crossing, and Latin inscription identify the basilica. Landmark-center pin."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "St. Peter’s Basilica",
+        "location": "Vatican City"
+      }
     },
     {
       "id": "img-1482",
@@ -744,7 +808,11 @@
         "camera_gps": false,
         "evidence": "Colosseum interior brick-and-travertine arch, looking toward the yellow and orange buildings across Via Labicana. Reference views confirm the landmark; landmark-center pin."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Colosseum",
+        "location": "Rome"
+      }
     },
     {
       "id": "img-1540",
@@ -797,7 +865,11 @@
         "camera_gps": false,
         "evidence": "Distinctive Koutoubia minaret and adjacent ruins. Landmark-center pin."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Koutoubia Mosque",
+        "location": "Marrakech"
+      }
     },
     {
       "id": "img-1561",
@@ -850,7 +922,11 @@
         "camera_gps": false,
         "evidence": "Covered textile and souvenir souk; Marrakech inferred from the adjacent Koutoubia photo and same-day metadata. Exact souk lane unconfirmed."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Medina souks",
+        "location": "Marrakech"
+      }
     },
     {
       "id": "img-1658",
@@ -903,7 +979,11 @@
         "camera_gps": false,
         "evidence": "Gaudí’s undulating stone facade and wrought-iron balconies identify Casa Milà. Landmark-center pin."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Casa Milà",
+        "location": "Barcelona"
+      }
     },
     {
       "id": "img-1697",
@@ -956,7 +1036,11 @@
         "camera_gps": false,
         "evidence": "User confirmed Barcelona. Representative waterfront pin; exact harbor or breakwater unconfirmed."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Waterfront",
+        "location": "Barcelona"
+      }
     },
     {
       "id": "img-6377",
@@ -1009,7 +1093,11 @@
         "camera_gps": false,
         "evidence": "User confirmed Montréal. Modern twin deck and pier geometry identify the Samuel-De Champlain Bridge. Representative bridge pin; exact under-bridge viewpoint unconfirmed."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Samuel-De Champlain Bridge",
+        "location": "Montréal"
+      }
     },
     {
       "id": "img-6446",
@@ -1062,7 +1150,11 @@
         "camera_gps": false,
         "evidence": "User confirmed TMB. Suspension bridge over the glacial torrent matches the Bionnassay crossing on the recorded Day 1 trail; landmark coordinates from Refuges.info."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Bionnassay suspension bridge",
+        "location": "Tour du Mont Blanc"
+      }
     },
     {
       "id": "img-6452",
@@ -1115,7 +1207,11 @@
         "camera_gps": false,
         "evidence": "User confirmed TMB. Grassy ridge on the Day 1 Bionnassay–Col de Tricot section; photo follows the bridge image by 55 minutes. Representative trail-area pin, not an exact camera position."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Col de Tricot trail",
+        "location": "Tour du Mont Blanc"
+      }
     },
     {
       "id": "img-6511",
@@ -1168,7 +1264,11 @@
         "camera_gps": false,
         "evidence": "User confirmed TMB. Miage glacier, valley flats and red-roofed building are consistent with Val Veny/Lac Combal along the recorded Day 3 route. Representative valley pin."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Val Veny",
+        "location": "Tour du Mont Blanc"
+      }
     },
     {
       "id": "img-6517",
@@ -1221,7 +1321,11 @@
         "camera_gps": false,
         "evidence": "User confirmed TMB. Pyramid-shaped Mont Chétif and the Mont Blanc massif are consistent with the Courmayeur–Rifugio Bertone section of recorded Day 4. Representative viewpoint area."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Mont Chétif view",
+        "location": "Courmayeur"
+      }
     },
     {
       "id": "img-6566",
@@ -1274,7 +1378,11 @@
         "camera_gps": false,
         "evidence": "User confirmed Aiguille du Midi for the image looking down at the gray structure. Landmark-center pin."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Aiguille du Midi",
+        "location": "Chamonix"
+      }
     },
     {
       "id": "img-6567",
@@ -1327,7 +1435,11 @@
         "camera_gps": false,
         "evidence": "User confirmed this view was along the gondola ride. Representative point on the Panoramic Mont-Blanc gondola corridor, not an exact cabin position."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Mont Blanc gondola",
+        "location": "Mont Blanc massif"
+      }
     },
     {
       "id": "img-6618",
@@ -1380,7 +1492,11 @@
         "camera_gps": false,
         "evidence": "User confirmed the Lac Blanc side. Lake and Argentière glacier view are consistent with nearby Lacs des Chéserys along recorded Day 6. Lake-area pin; specific lake unconfirmed."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Lac Blanc area",
+        "location": "Chamonix"
+      }
     },
     {
       "id": "img-6663",
@@ -1433,7 +1549,11 @@
         "camera_gps": false,
         "evidence": "Distinctive conglomerate rock towers and monastery road network identify Meteora. Representative landmark-area pin."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Meteora",
+        "location": "Greece"
+      }
     },
     {
       "id": "img-6899",
@@ -1486,7 +1606,11 @@
         "camera_gps": false,
         "evidence": "Four decorated pillars and central descending passage match KV11 reference photography. Landmark pin in the Valley of the Kings; exact room position is not geotagged."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Tomb of Ramesses III",
+        "location": "Luxor"
+      }
     },
     {
       "id": "img-6924",
@@ -1539,7 +1663,11 @@
         "camera_gps": false,
         "evidence": "User confirmed a felucca in Egypt. Luxor inferred from the same-day Valley of the Kings photo, riverbanks and western hills. Representative river pin; exact boat position unconfirmed."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Felucca on the Nile",
+        "location": "Luxor"
+      }
     },
     {
       "id": "img-7116",
@@ -1592,7 +1720,11 @@
         "camera_gps": false,
         "evidence": "Distinctive Al-Khazneh rock-cut facade. Landmark-center pin."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "The Treasury",
+        "location": "Petra"
+      }
     },
     {
       "id": "img-7366",
@@ -1645,7 +1777,11 @@
         "camera_gps": false,
         "evidence": "Distinctive curved facade covered in silver hexagonal panels. Landmark-center pin."
       },
-      "date_source": "EXIF DateTimeOriginal; not independently verified"
+      "date_source": "EXIF DateTimeOriginal; not independently verified",
+      "gallery": {
+        "subject": "Museo Soumaya",
+        "location": "Mexico City"
+      }
     },
     {
       "id": "oslo-iron-roses",
@@ -1701,6 +1837,10 @@
           "https://www.kirken.no/nb-NO/fellesrad/kirkeneioslo/menigheter/oslo-domkirken/Aktuelt/2019/2019-09-28%20innvielse%20jernrosene/",
           "https://mapcarta.com/W810225567"
         ]
+      },
+      "gallery": {
+        "subject": "Iron roses",
+        "location": "Oslo"
       }
     },
     {
@@ -1756,6 +1896,10 @@
         "sources": [
           "https://ulriken643.no/en/activities/oppstemten"
         ]
+      },
+      "gallery": {
+        "subject": "Steps toward Ulriken",
+        "location": "Bergen"
       }
     },
     {
@@ -1808,6 +1952,70 @@
         "scope": "park_area",
         "evidence": "User confirmed Acadia in Maine. The existing Acadia park marker is used as a representative park-area location, not an exact camera position. Date comes from EXIF DateTimeOriginal; the photo has no GPS metadata.",
         "camera_gps": false
+      },
+      "gallery": {
+        "subject": "Acadia National Park",
+        "location": "Maine"
+      }
+    },
+    {
+      "id": "mount-hood-lake",
+      "place": "Mount Hood · Oregon",
+      "coords": [
+        45.3735,
+        -121.6959
+      ],
+      "caption": "",
+      "width": 1183,
+      "height": 1578,
+      "sha256": "7df527bda5b1a915141b434bfc0ad6f5538be1d4bf3c2e4658d130be0d401263",
+      "original": {
+        "src": "photos/mount-hood-lake/7df527bda5b1a915-original.jpg",
+        "bytes": 276068
+      },
+      "variants": {
+        "thumbnail": {
+          "src": "photos/mount-hood-lake/dc14a663132fa777-thumbnail.webp",
+          "width": 96,
+          "height": 128,
+          "bytes": 1666
+        },
+        "small": {
+          "src": "photos/mount-hood-lake/dc14a663132fa777-small.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 40778
+        },
+        "medium": {
+          "src": "photos/mount-hood-lake/dc14a663132fa777-medium.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 186524
+        },
+        "large": {
+          "src": "photos/mount-hood-lake/dc14a663132fa777-large.webp",
+          "width": 1183,
+          "height": 1578,
+          "bytes": 297194
+        }
+      },
+      "country": "840",
+      "date": "2022-06-23",
+      "gallery": {
+        "subject": "Mount Hood",
+        "location": "Oregon"
+      },
+      "source_filename": "IMG_5831.jpg",
+      "location_tag": {
+        "method": "user_context_and_usgs_reference_comparison",
+        "confidence": "high",
+        "scope": "landmark",
+        "evidence": "The south-facing summit profile, snowfields and forested lake setting match USGS reference photos of Mount Hood viewed from Trillium Lake. Trillium Lake is inferred from the visual comparison; the exact camera location is unconfirmed. Coordinates use the existing Mount Hood landmark marker, not a recorded camera or summit-visit position. Capture date comes from EXIF DateTimeOriginal; no GPS metadata is present.",
+        "camera_gps": false,
+        "sources": [
+          "https://www.usgs.gov/media/images/mt-hood-and-trillium-lake",
+          "https://www.usgs.gov/media/images/trillium-lake-mount-hood-background"
+        ]
       }
     }
   ],
