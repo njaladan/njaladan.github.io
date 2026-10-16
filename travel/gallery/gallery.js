@@ -6,8 +6,10 @@
   const asset = src => typeof src === 'string' && /^photos\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpg|png)$/.test(src) ? `/travel/${src}` : '';
   fetch(`/travel/data/photos.json?v=${assetVersion}`)
     .then(response => { if (!response.ok) throw new Error('Photo list unavailable'); return response.json(); })
-    .then(({photos = []}) => {
-      const entries = photos.filter(valid).sort((a,b) => (b.date || '').localeCompare(a.date || '') || a.id.localeCompare(b.id));
+    .then(({photos = [], gallery_order = []}) => {
+      const order = new Map(gallery_order.map((id, index) => [id, index]));
+      const entries = photos.filter(valid).sort((a,b) => (order.get(a.id) ?? order.size) - (order.get(b.id) ?? order.size) ||
+        (b.date || '').localeCompare(a.date || '') || a.id.localeCompare(b.id));
       if (!entries.length) {
         gallery.innerHTML = '<p class="gallery-empty">No geotagged photos are available yet.</p>';
         return;

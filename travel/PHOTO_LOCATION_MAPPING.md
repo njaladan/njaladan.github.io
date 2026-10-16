@@ -70,3 +70,7 @@ Two additional user-provided JPEGs appear on both the map and Photos gallery. Ne
 
 - **000013190029.jpg**: The user confirmed an Oslo church. The forged roses identify Jernrosene, the Iron Roses memorial beside Oslo Cathedral. The [architects' project page](https://mdh.no/project/the-rose-monument/) and [Church of Norway announcement](https://www.kirken.no/nb-NO/fellesrad/kirkeneioslo/menigheter/oslo-domkirken/Aktuelt/2019/2019-09-28%20innvielse%20jernrosene/) confirm the location. [Mapped memorial coordinates](https://mapcarta.com/W810225567) locate the artwork rather than the camera. The film scan contains no capture date; none is assigned.
 - **IMG_0900.jpg**: The user confirmed steps on the way to Ulriken. The forested stone staircase is consistent with the lower approach toward [Oppstemten](https://ulriken643.no/en/activities/oppstemten). Its pin represents the lower approach along the existing Ulriken-to-Fløyen recording (activity 11337679924); the exact staircase segment and camera position remain unconfirmed. The date, 2024-05-05, comes from EXIF DateTimeOriginal.
+
+## Additional Acadia photo
+
+`IMG_3826.jpg`, extracted from the user-provided ZIP, is tagged **Acadia National Park · Maine** at the existing park marker (44.3386, -68.2733). The user confirmed Acadia; the pin represents the park area rather than an exact camera position. The image has no GPS metadata. Its capture date, June 21, 2025, comes from EXIF DateTimeOriginal. The original is preserved byte-for-byte with responsive display derivatives.
