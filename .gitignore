@@ -1,0 +1,9 @@
+_site
+.DS_Store
+.bundle
+*.swp
+.sass-cache
+*~
+.jekyll-cache
+__pycache__/
+*.pyc

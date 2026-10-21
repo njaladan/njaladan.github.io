@@ -1,0 +1,23 @@
+{% assign current_nav = '' %}
+{% if page.url == '/' %}{% assign current_nav = 'about' %}
+{% elsif page.url == '/reading' or page.tags contains 'Books' %}{% assign current_nav = 'reading' %}
+{% elsif page.url == '/movies' %}{% assign current_nav = 'movies' %}
+{% elsif page.url == '/travel/' %}{% assign current_nav = 'travel' %}
+{% elsif page.url == '/photos/' %}{% assign current_nav = 'photos' %}
+{% elsif page.url == '/athletics/' %}{% assign current_nav = 'athletics' %}
+{% endif %}
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="{{ '/' | relative_url }}" aria-label="Home"><img src="{{ '/assets/images/logo.png' | relative_url }}" alt="" width="36" height="36"></a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="{{ '/' | relative_url }}" {% if current_nav == 'about' %}aria-current="page"{% endif %}>About{% if current_nav == 'about' %}<span class="nav-underline"></span>{% endif %}</a>
+      <a href="{{ '/reading' | relative_url }}" {% if current_nav == 'reading' %}aria-current="page"{% endif %}>Reading{% if current_nav == 'reading' %}<span class="nav-underline"></span>{% endif %}</a>
+      <a href="{{ '/movies' | relative_url }}" {% if current_nav == 'movies' %}aria-current="page"{% endif %}>Movies{% if current_nav == 'movies' %}<span class="nav-underline"></span>{% endif %}</a>
+      <a href="{{ '/travel/' | relative_url }}" {% if current_nav == 'travel' %}aria-current="page"{% endif %}>Travel{% if current_nav == 'travel' %}<span class="nav-underline"></span>{% endif %}</a>
+      <a href="{{ '/photos/' | relative_url }}" {% if current_nav == 'photos' %}aria-current="page"{% endif %}>Photos{% if current_nav == 'photos' %}<span class="nav-underline"></span>{% endif %}</a>
+      <a href="{{ '/athletics/' | relative_url }}" {% if current_nav == 'athletics' %}aria-current="page"{% endif %}>Athletics{% if current_nav == 'athletics' %}<span class="nav-underline"></span>{% endif %}</a>
+    </nav>
+  </div>
+</header>
+<script defer src="{{ '/assets/js/hello.js' | relative_url }}"></script>

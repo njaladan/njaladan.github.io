@@ -1,0 +1,42 @@
+  <main id="main" aria-label="Travel atlas">
+    <div id="map" aria-label="Map of visited countries" data-asset-base="{{ '/travel/' | relative_url }}"></div>
+    <div class="map-toolbar">
+      <button id="trip-itineraries-button" type="button" aria-controls="trip-itinerary" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5h10M7 10h10M7 15h10M3 5h.1M3 10h.1M3 15h.1"/></svg>Itineraries</button>
+    </div>
+    <button id="map-settings-button" class="map-settings-button" type="button" aria-label="Map settings" aria-haspopup="dialog" aria-controls="map-settings" title="Map settings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 3-.6 2.1-1.6.9-2.1-.5-2.5 4.3L4.2 11v2l-1.5 1.2 2.5 4.3 2.1-.5 1.6.9.6 2.1h5l.6-2.1 1.6-.9 2.1.5 2.5-4.3-1.5-1.2v-2l1.5-1.2-2.5-4.3-2.1.5-1.6-.9-.6-2.1z"/><circle cx="12" cy="12" r="3"/></svg>
+    </button>
+    <div id="route-legend" hidden aria-label="Map key"></div>
+    <p id="map-status" role="status">Loading map…</p>
+    <dialog id="trip-itinerary" class="trip-itinerary" aria-labelledby="trip-itinerary-title">
+      <div class="trip-itinerary-header">
+        <button type="button" class="trip-itinerary-back" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 4-6 6 6 6M4 10h13"/></svg>All itineraries</button>
+        <button type="button" class="trip-itinerary-close" aria-label="Close itinerary">×</button>
+      </div>
+      <h2 id="trip-itinerary-title">Itineraries</h2>
+      <div class="trip-itinerary-content"></div>
+    </dialog>
+  </main>
+  <dialog id="map-settings" class="map-settings" aria-labelledby="map-settings-title" aria-describedby="map-settings-description">
+    <form method="dialog" class="map-settings-header">
+      <h2 id="map-settings-title">Map settings</h2>
+      <button type="submit" aria-label="Close map settings" autofocus>×</button>
+    </form>
+    <p id="map-settings-description">Choose the projection, what appears on the map and how distances are shown.</p>
+    <fieldset class="map-view">
+      <legend>Projection</legend>
+      <div class="distance-options">
+        <label><input type="radio" name="map-view" value="globe" checked><span>Globe <small>3D</small></span></label>
+        <label><input type="radio" name="map-view" value="flat"><span>Mercator <small>2D</small></span></label>
+      </div>
+      <small class="map-view-note" hidden>This browser can't show the globe.</small>
+    </fieldset>
+    <label class="photo-visibility"><span>Show photos<small>Display photo pins on the map.</small></span><input id="show-photos" type="checkbox" checked></label>
+    <fieldset>
+      <legend>Distance unit</legend>
+      <div class="distance-options">
+        <label><input type="radio" name="distance-unit" value="km" checked><span>Kilometers <small>km</small></span></label>
+        <label><input type="radio" name="distance-unit" value="mi"><span>Miles <small>mi</small></span></label>
+      </div>
+    </fieldset>
+  </dialog>

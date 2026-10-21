@@ -1,0 +1,54 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>CodeQueue</title>
+  <meta name="description">
+  <meta name="author" content="Nagaganesh Jaladanki">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/semantic-ui-css@2.4.1/semantic.min.css">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui-css@2.4.1/semantic.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase.js"></script>
+</head>
+
+<body>
+  <canvas id="c"></canvas>
+
+    <div id="app">
+      <div class="ui attached menu desktop only">
+        <div class="ui container">
+          <a class="item" href="http://nagaganesh.com/codequeue/">
+            <i class="home icon"></i> Home
+          </a>
+          <a class="item" onclick="runBubbles()">
+            <i class="bell icon"></i> Bubbles
+          </a>
+          <a class="item" href="http://nagaganesh.com/codequeue/about.html">
+            <i class="help icon"></i> About
+          </a>
+          <a class="right item" href="https://slack.com/oauth/authorize?scope=identity.basic&client_id=44822465026.560232063239">
+            <i class="user icon"></i> Sign in with Slack
+          </a>
+        </div>
+      </div>
+      <h1 class="ui center aligned header">What is CodeQueue?</h1>
+      <div class="ui container">
+        <div class="ui center aligned grid">
+          <div class="ten wide column">
+            <p>CodeQueue is a queueing application for large groups. You can use it to take turns
+              to speak, hold your place in line, or schedule shifts of any sort. Originally developed
+              for <a href="http://codebase.berkeley.edu">CodeBase</a> at UC Berkeley.</p>
+              <p>Bubbles courtesy of Alex Taietti's <a href="https://codepen.io/AlexTaietti/pen/yMZPZj">pen</a>!</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script src="stuff.js"></script>
+
+</body>
+</html>

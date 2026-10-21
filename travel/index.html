@@ -1,0 +1,23 @@
+---
+layout: null
+title: Travel
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f9fa">
+  <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
+  <title>Travel — Ganesh</title>
+  <meta name="description" content="Places I've visited, with photos, journeys and recorded activity routes.">
+  <link rel="icon" href="{{ '/assets/images/logo.png' | relative_url }}">
+  {% include travel-app-head.html %}
+</head>
+<body>
+  {% include site-header.html %}
+  {% include travel-map-ui.html %}
+  {% include travel-photo-viewer.html %}
+  {% include site-footer.html %}
+</body>
+</html>
