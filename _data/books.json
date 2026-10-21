@@ -1,0 +1,531 @@
+[
+  {
+    "id": "2026-03-08-the-anthropocene-reviewed",
+    "title": "The Anthropocene Reviewed",
+    "date": "2026-03-08",
+    "author": "John Green",
+    "cover": "/assets/images/books/2026-03-08-the-anthropocene-reviewed.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/11426520-M.jpg"
+  },
+  {
+    "id": "2026-01-19-perfume",
+    "title": "Perfume",
+    "date": "2026-01-19",
+    "author": "Patrick Süskind",
+    "cover": "/assets/images/books/2026-01-19-perfume.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/11796284-M.jpg"
+  },
+  {
+    "id": "2025-12-31-the-stranger",
+    "title": "The Stranger",
+    "date": "2025-12-31",
+    "author": "Albert Camus",
+    "cover": "/assets/images/books/2025-12-31-the-stranger.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/15070895-M.jpg"
+  },
+  {
+    "id": "2025-12-08-waiting-for-godot",
+    "title": "Waiting for Godot",
+    "date": "2025-12-08",
+    "author": "Samuel Beckett",
+    "cover": "/assets/images/books/2025-12-08-waiting-for-godot.webp",
+    "art_source": "https://covers.openlibrary.org/b/isbn/9780802130341-M.jpg?default=false"
+  },
+  {
+    "id": "2024-12-07-project-hail-mary",
+    "title": "Project Hail Mary",
+    "date": "2024-12-07",
+    "author": "Andy Weir",
+    "cover": "/assets/images/books/2024-12-07-project-hail-mary.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/11200092-M.jpg"
+  },
+  {
+    "id": "2024-12-06-im-glad-my-mom-died",
+    "title": "I'm Glad My Mom Died",
+    "date": "2024-12-06",
+    "author": "Jennette McCurdy",
+    "cover": "/assets/images/books/2024-12-06-im-glad-my-mom-died.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/12855985-M.jpg"
+  },
+  {
+    "id": "2024-04-12-becoming-trader-joe",
+    "title": "Becoming Trader Joe",
+    "date": "2024-04-12",
+    "author": "Joe Coulombe",
+    "cover": "/assets/images/books/2024-04-12-becoming-trader-joe.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/11280943-M.jpg"
+  },
+  {
+    "id": "2024-02-15-the-paper-menagerie",
+    "title": "The Paper Menagerie",
+    "date": "2024-02-15",
+    "author": "Ken Liu",
+    "cover": "/assets/images/books/2024-02-15-the-paper-menagerie.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/8529206-M.jpg"
+  },
+  {
+    "id": "2023-09-15-stories-of-your-life",
+    "title": "Stories of Your Life and Others",
+    "date": "2023-09-15",
+    "author": "Ted Chiang",
+    "cover": "/assets/images/books/2023-09-15-stories-of-your-life.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/524046-M.jpg"
+  },
+  {
+    "id": "2023-07-09-no-longer-human",
+    "title": "No Longer Human",
+    "date": "2023-07-09",
+    "author": "Osamu Dazai",
+    "cover": "/assets/images/books/2023-07-09-no-longer-human.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/14611513-M.jpg?default=false"
+  },
+  {
+    "id": "2023-06-06-pachinko",
+    "title": "Pachinko",
+    "date": "2023-06-06",
+    "author": "Min Jin Lee",
+    "cover": "/assets/images/books/2023-06-06-pachinko.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/8044605-M.jpg"
+  },
+  {
+    "id": "2022-09-10-macbeth",
+    "title": "Macbeth",
+    "date": "2022-09-10",
+    "author": "William Shakespeare",
+    "cover": "/assets/images/books/2022-09-10-macbeth.webp",
+    "art_source": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781451694727/macbeth-9781451694727_lg.jpg"
+  },
+  {
+    "id": "2021-12-15-the-world-for-sale",
+    "title": "The World For Sale",
+    "date": "2021-12-15",
+    "author": "Javier Blas, Jack Farchy",
+    "cover": "/assets/images/books/2021-12-15-the-world-for-sale.webp",
+    "art_source": "https://cdn.penguin.co.uk/dam-assets/books/9781847942678/9781847942678-jacket-large.jpg"
+  },
+  {
+    "id": "2021-10-18-kafka-on-the-shore",
+    "title": "Kafka on the Shore",
+    "date": "2021-10-18",
+    "author": "Haruki Murakami",
+    "cover": "/assets/images/books/2021-10-18-kafka-on-the-shore.webp",
+    "art_source": "https://covers.openlibrary.org/b/isbn/9781400079278-M.jpg?default=false"
+  },
+  {
+    "id": "2021-10-10-the-metamorphosis",
+    "title": "The Metamorphosis",
+    "date": "2021-10-10",
+    "author": "Franz Kafka",
+    "cover": "/assets/images/books/2021-10-10-the-metamorphosis.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/6889547-M.jpg"
+  },
+  {
+    "id": "2021-10-01-an-economist-gets-lunch",
+    "title": "An Economist Gets Lunch",
+    "date": "2021-10-01",
+    "author": "Tyler Cowen",
+    "cover": "/assets/images/books/2021-10-01-an-economist-gets-lunch.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/9740029-M.jpg"
+  },
+  {
+    "id": "2021-09-12-the-new-rules-of-coffee",
+    "title": "The New Rules of Coffee",
+    "date": "2021-09-12",
+    "author": "Jordan Michelman, Zachary Carlsen",
+    "cover": "/assets/images/books/2021-09-12-the-new-rules-of-coffee.webp",
+    "art_source": "https://images4.penguinrandomhouse.com/cover/9780399581625"
+  },
+  {
+    "id": "2021-04-15-exhalations",
+    "title": "Exhalations",
+    "date": "2021-04-15",
+    "author": "Ted Chiang",
+    "cover": "/assets/images/books/2021-04-15-exhalations.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/8793546-M.jpg"
+  },
+  {
+    "id": "2021-03-05-the-white-tiger",
+    "title": "The White Tiger",
+    "date": "2021-03-05",
+    "author": "Aravind Adiga",
+    "cover": "/assets/images/books/2021-03-05-the-white-tiger.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/2787359-M.jpg"
+  },
+  {
+    "id": "2021-02-14-the-bell-jar",
+    "title": "The Bell Jar",
+    "date": "2021-02-14",
+    "author": "Sylvia Plath",
+    "cover": "/assets/images/books/2021-02-14-the-bell-jar.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/8477115-M.jpg"
+  },
+  {
+    "id": "2020-12-31-a-promised-land",
+    "title": "A Promised Land",
+    "date": "2020-12-31",
+    "author": "Barack Obama",
+    "cover": "/assets/images/books/2020-12-31-a-promised-land.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/10449357-M.jpg"
+  },
+  {
+    "id": "2020-12-23-an-elegant-puzzle",
+    "title": "An Elegant Puzzle: Systems of Engineering Management",
+    "date": "2020-12-23",
+    "author": "Will Larson",
+    "cover": "/assets/images/books/2020-12-23-an-elegant-puzzle.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/9260083-M.jpg"
+  },
+  {
+    "id": "2020-10-31-human-diversity",
+    "title": "Human Diversity",
+    "date": "2020-10-31",
+    "author": "Charles Murray",
+    "cover": "/assets/images/books/2020-10-31-human-diversity.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/9287031-M.jpg"
+  },
+  {
+    "id": "2020-10-20-selfish-reasons-to-have-kids",
+    "title": "Selfish Reasons to Have More Kids",
+    "date": "2020-10-20",
+    "author": "Bryan Caplan",
+    "cover": "/assets/images/books/2020-10-20-selfish-reasons-to-have-kids.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/9550372-M.jpg"
+  },
+  {
+    "id": "2020-10-12-salt-fat-acid-heat",
+    "title": "Salt, Fat, Acid, Heat",
+    "date": "2020-10-12",
+    "author": "Samin Nosrat",
+    "cover": "/assets/images/books/2020-10-12-salt-fat-acid-heat.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/8315567-M.jpg"
+  },
+  {
+    "id": "2020-07-25-seveneves",
+    "title": "Seveneves",
+    "date": "2020-07-25",
+    "author": "Neal Stephenson",
+    "cover": "/assets/images/books/2020-07-25-seveneves.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/9295719-M.jpg"
+  },
+  {
+    "id": "2020-07-02-raise-a-genius",
+    "title": "Raise a Genius!",
+    "date": "2020-07-02",
+    "author": "László Polgár",
+    "cover": "/assets/images/books/2020-07-02-raise-a-genius.webp",
+    "art_source": "https://cdn.antikvarium.hu/foto/nagy/45130154.jpg",
+    "cover_edition": "Original Hungarian edition (Nevelj zsenit!, 1989)"
+  },
+  {
+    "id": "2020-06-14-monetizing-innovation",
+    "title": "Monetizing Innovation",
+    "date": "2020-06-14",
+    "author": "Madhavan Ramanujam, Georg Tacke",
+    "cover": "/assets/images/books/2020-06-14-monetizing-innovation.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/13744862-M.jpg"
+  },
+  {
+    "id": "2020-06-06-tribe",
+    "title": "Tribe",
+    "date": "2020-06-06",
+    "author": "Sebastian Junger",
+    "cover": "/assets/images/books/2020-06-06-tribe.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/8246303-M.jpg"
+  },
+  {
+    "id": "2020-05-26-cat-s-cradle",
+    "title": "Cat's Cradle",
+    "date": "2020-05-26",
+    "author": "Kurt Vonnegut",
+    "cover": "/assets/images/books/2020-05-26-cat-s-cradle.webp",
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780385333481"
+  },
+  {
+    "id": "2020-03-31-station-eleven",
+    "title": "Station Eleven",
+    "date": "2020-03-31",
+    "author": "Emily St. John Mandel",
+    "cover": "/assets/images/books/2020-03-31-station-eleven.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/7369961-M.jpg"
+  },
+  {
+    "id": "2020-01-20-rivals-unto-death",
+    "title": "Rivals Unto Death",
+    "date": "2020-01-20",
+    "author": "Rick Beyer",
+    "cover": "/assets/images/books/2020-01-20-rivals-unto-death.webp",
+    "art_source": "https://www.hachettebookgroup.com/wp-content/uploads/2017/06/9780316504973.jpg"
+  },
+  {
+    "id": "2019-12-16-zero-to-one",
+    "title": "Zero To One",
+    "date": "2019-12-16",
+    "author": "Peter Thiel, Blake Masters",
+    "cover": "/assets/images/books/2019-12-16-zero-to-one.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/9002334-M.jpg?default=false"
+  },
+  {
+    "id": "2019-10-26-how-to-change-your-mind",
+    "title": "How To Change Your Mind",
+    "date": "2019-10-26",
+    "author": "Michael Pollan",
+    "cover": "/assets/images/books/2019-10-26-how-to-change-your-mind.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/8805168-M.jpg"
+  },
+  {
+    "id": "2019-07-14-the-rosie-project",
+    "title": "The Rosie Project",
+    "date": "2019-07-14",
+    "author": "Graeme Simsion",
+    "cover": "/assets/images/books/2019-07-14-the-rosie-project.webp",
+    "art_source": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781476729091/the-rosie-project-9781476729091_lg.jpg"
+  },
+  {
+    "id": "2019-07-14-the-rosie-effect",
+    "title": "The Rosie Effect",
+    "date": "2019-07-14",
+    "author": "Graeme Simsion",
+    "cover": "/assets/images/books/2019-07-14-the-rosie-effect.webp",
+    "art_source": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781476767321/the-rosie-effect-9781476767321_lg.jpg"
+  },
+  {
+    "id": "2019-05-19-the-alchemist",
+    "title": "The Alchemist",
+    "date": "2019-05-19",
+    "author": "Paulo Coelho",
+    "cover": "/assets/images/books/2019-05-19-the-alchemist.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/11556106-M.jpg"
+  },
+  {
+    "id": "2019-03-16-the-wandering-earth",
+    "title": "The Wandering Earth",
+    "date": "2019-03-16",
+    "author": "Cixin Liu",
+    "cover": "/assets/images/books/2019-03-16-the-wandering-earth.webp",
+    "art_source": "https://mpd-biblio-covers.imgix.net/9781250796844.jpg"
+  },
+  {
+    "id": "2019-02-17-the-power-of-habit",
+    "title": "The Power of Habit",
+    "date": "2019-02-17",
+    "author": "Charles Duhigg",
+    "cover": "/assets/images/books/2019-02-17-the-power-of-habit.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/9078085-M.jpg"
+  },
+  {
+    "id": "2019-02-06-world-war-z",
+    "title": "World War Z",
+    "date": "2019-02-06",
+    "author": "Max Brooks",
+    "cover": "/assets/images/books/2019-02-06-world-war-z.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/168106-M.jpg"
+  },
+  {
+    "id": "2019-01-18-life-3-0",
+    "title": "Life 3.0",
+    "date": "2019-01-18",
+    "author": "Max Tegmark",
+    "cover": "/assets/images/books/2019-01-18-life-3-0.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/10239283-M.jpg"
+  },
+  {
+    "id": "2019-01-12-100-years-of-solitude",
+    "title": "100 Years of Solitude",
+    "date": "2019-01-12",
+    "author": "Gabriel García Márquez",
+    "cover": "/assets/images/books/2019-01-12-100-years-of-solitude.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/15185412-M.jpg"
+  },
+  {
+    "id": "2018-12-22-artemis",
+    "title": "Artemis",
+    "date": "2018-12-22",
+    "author": "Andy Weir",
+    "cover": "/assets/images/books/2018-12-22-artemis.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/8235551-M.jpg"
+  },
+  {
+    "id": "2018-11-06-i-robot",
+    "title": "I, Robot",
+    "date": "2018-11-06",
+    "author": "Isaac Asimov",
+    "cover": "/assets/images/books/2018-11-06-i-robot.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/12385229-M.jpg"
+  },
+  {
+    "id": "2018-11-04-the-andromeda-strain",
+    "title": "The Andromeda Strain",
+    "date": "2018-11-04",
+    "author": "Michael Crichton",
+    "cover": "/assets/images/books/2018-11-04-the-andromeda-strain.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/9330577-M.jpg"
+  },
+  {
+    "id": "2018-10-03-20-000-leagues-under-the-sea",
+    "title": "20,000 Leagues Under the Sea",
+    "date": "2018-10-03",
+    "author": "Jules Verne",
+    "cover": "/assets/images/books/2018-10-03-20-000-leagues-under-the-sea.webp",
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780593081518"
+  },
+  {
+    "id": "2018-08-15-death-s-end",
+    "title": "Death's End",
+    "date": "2018-08-15",
+    "author": "Cixin Liu",
+    "cover": "/assets/images/books/2018-08-15-death-s-end.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/7893958-M.jpg?default=false"
+  },
+  {
+    "id": "2018-08-12-the-dark-forest",
+    "title": "The Dark Forest",
+    "date": "2018-08-12",
+    "author": "Cixin Liu",
+    "cover": "/assets/images/books/2018-08-12-the-dark-forest.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/10526598-M.jpg?default=false"
+  },
+  {
+    "id": "2018-08-06-the-three-body-problem",
+    "title": "The Three Body Problem",
+    "date": "2018-08-06",
+    "author": "Cixin Liu",
+    "cover": "/assets/images/books/2018-08-06-the-three-body-problem.webp",
+    "art_source": "https://mpd-biblio-covers.imgix.net/9780765382030.jpg"
+  },
+  {
+    "id": "2018-07-28-hamlet",
+    "title": "Hamlet",
+    "date": "2018-07-28",
+    "author": "William Shakespeare",
+    "cover": "/assets/images/books/2018-07-28-hamlet.webp",
+    "art_source": "https://d28hgpri8am2if.cloudfront.net/book_images/cvr9780743477123_9780743477123_lg.jpg"
+  },
+  {
+    "id": "2018-07-26-origin",
+    "title": "Origin",
+    "date": "2018-07-26",
+    "author": "Dan Brown",
+    "cover": "/assets/images/books/2018-07-26-origin.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/11013590-M.jpg"
+  },
+  {
+    "id": "2018-07-21-outliers",
+    "title": "Outliers",
+    "date": "2018-07-21",
+    "author": "Malcolm Gladwell",
+    "cover": "/assets/images/books/2018-07-21-outliers.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/10021591-M.jpg"
+  },
+  {
+    "id": "2018-07-19-second-foundation",
+    "title": "Second Foundation",
+    "date": "2018-07-19",
+    "author": "Isaac Asimov",
+    "cover": "/assets/images/books/2018-07-19-second-foundation.webp",
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780553382594"
+  },
+  {
+    "id": "2018-07-17-foundation-and-empire",
+    "title": "Foundation and Empire",
+    "date": "2018-07-17",
+    "author": "Isaac Asimov",
+    "cover": "/assets/images/books/2018-07-17-foundation-and-empire.webp",
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780553382587"
+  },
+  {
+    "id": "2018-07-12-high-output-management",
+    "title": "High Output Management",
+    "date": "2018-07-12",
+    "author": "Andrew S. Grove",
+    "cover": "/assets/images/books/2018-07-12-high-output-management.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/421244-M.jpg"
+  },
+  {
+    "id": "2018-07-10-foundation",
+    "title": "Foundation",
+    "date": "2018-07-10",
+    "author": "Isaac Asimov",
+    "cover": "/assets/images/books/2018-07-10-foundation.webp",
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780553382570"
+  },
+  {
+    "id": "2018-07-03-the-big-short",
+    "title": "The Big Short",
+    "date": "2018-07-03",
+    "author": "Michael Lewis",
+    "cover": "/assets/images/books/2018-07-03-the-big-short.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/6386926-M.jpg"
+  },
+  {
+    "id": "2018-06-26-the-importance-of-being-earnest",
+    "title": "The Importance of Being Earnest",
+    "date": "2018-06-26",
+    "author": "Oscar Wilde",
+    "cover": "/assets/images/books/2018-06-26-the-importance-of-being-earnest.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/1260453-M.jpg"
+  },
+  {
+    "id": "2018-06-26-phantom-of-the-opera",
+    "title": "Phantom of the Opera",
+    "date": "2018-06-26",
+    "author": "Gaston Leroux",
+    "cover": "/assets/images/books/2018-06-26-phantom-of-the-opera.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/10912611-M.jpg"
+  },
+  {
+    "id": "2018-06-19-journey-to-the-center-of-the-earth",
+    "title": "Journey to the Center of the Earth",
+    "date": "2018-06-19",
+    "author": "Jules Verne",
+    "cover": "/assets/images/books/2018-06-19-journey-to-the-center-of-the-earth.webp",
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780451532152"
+  },
+  {
+    "id": "2018-06-15-freakonomics",
+    "title": "Freakonomics",
+    "date": "2018-06-15",
+    "author": "Steven D. Levitt, Stephen J. Dubner",
+    "cover": "/assets/images/books/2018-06-15-freakonomics.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/11172914-M.jpg"
+  },
+  {
+    "id": "2018-06-10-7-habits-of-highly-effective-people",
+    "title": "7 Habits of Highly Effective People",
+    "date": "2018-06-10",
+    "author": "Stephen R. Covey",
+    "cover": "/assets/images/books/2018-06-10-7-habits-of-highly-effective-people.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/10079937-M.jpg"
+  },
+  {
+    "id": "2018-06-02-lolita",
+    "title": "Lolita",
+    "date": "2018-06-02",
+    "author": "Vladimir Nabokov",
+    "cover": "/assets/images/books/2018-06-02-lolita.webp",
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780679723165"
+  },
+  {
+    "id": "2018-05-30-dune",
+    "title": "Dune",
+    "date": "2018-05-30",
+    "author": "Frank Herbert",
+    "cover": "/assets/images/books/2018-05-30-dune.webp",
+    "art_source": "https://images.penguinrandomhouse.com/cover/9780593099322"
+  },
+  {
+    "id": "2018-05-22-the-attention-merchants",
+    "title": "The Attention Merchants",
+    "date": "2018-05-22",
+    "author": "Tim Wu",
+    "cover": "/assets/images/books/2018-05-22-the-attention-merchants.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/8868199-M.jpg"
+  },
+  {
+    "id": "2018-05-16-the-design-of-everyday-things",
+    "title": "The Design of Everyday Things",
+    "date": "2018-05-16",
+    "author": "Don Norman",
+    "cover": "/assets/images/books/2018-05-16-the-design-of-everyday-things.webp",
+    "art_source": "https://covers.openlibrary.org/b/isbn/9780465050659-M.jpg?default=false"
+  }
+]
