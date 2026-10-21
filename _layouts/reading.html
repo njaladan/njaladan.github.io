@@ -29,10 +29,11 @@ layout: default
       {% endif %}
       <article class="library-card" data-title="{{ book.title | escape }}" data-author="{{ metadata.author | escape }}" data-date="{{ book.date | date: '%Y-%m-%d' }}" data-section="dated" data-notes="{{ has_notes }}">
         {% if has_notes %}<a class="card-link" data-review href="{{ book.url | relative_url }}" aria-label="Read notes on {{ book.title | escape }}">{% else %}<div class="card-link">{% endif %}
-          <div class="cover{% if has_notes %} cover-with-notes{% endif %}">
+          <div class="cover book-cover{% if has_notes %} cover-with-notes{% endif %}"{% if metadata.pages or metadata.cover_ratio %} style="{% if metadata.pages %}--pages: {{ metadata.pages }};{% endif %}{% if metadata.cover_ratio %} --ar: {{ metadata.cover_ratio }};{% endif %}"{% endif %}>
             <div class="cover-fallback" aria-hidden="true"><span>{{ book.title | escape }}</span><small>{{ metadata.author | default: 'Reading' | escape }}</small></div>
             {% if metadata.cover %}<img src="{{ metadata.cover | relative_url }}" alt="" width="300" height="450" loading="lazy" decoding="async">{% endif %}
             {% if has_notes %}<span class="note-corner" aria-hidden="true"></span>{% endif %}
+            <span class="book-edges" aria-hidden="true"><i class="edge-spine"></i><i class="edge-pages"></i><i class="edge-top"></i><i class="edge-bottom"></i></span>
           </div>
           <span class="card-title">{{ book.title | escape }}</span>
           {% if metadata.author %}<span class="card-meta">{{ metadata.author | escape }}</span>{% endif %}
@@ -47,5 +48,5 @@ layout: default
 </div>
 <dialog id="review-dialog" aria-labelledby="review-title">
   <button class="dialog-close" type="button" aria-label="Close review" autofocus>×</button>
-  <div class="dialog-inner"><p class="eyebrow">Reading notes</p><h2 id="review-title" class="dialog-title"></h2><p class="dialog-meta" id="review-meta"></p><div id="review-body"></div></div>
+  <div class="dialog-inner"><h2 id="review-title" class="dialog-title"></h2><p class="dialog-meta" id="review-meta"></p><div id="review-body"></div></div>
 </dialog>

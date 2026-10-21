@@ -1,10 +1,12 @@
 (() => {
   const gallery = document.querySelector('#photo-gallery');
   const base = gallery.dataset.travelBase;
+  const version = document.querySelector('meta[name="asset-version"]')?.content;
+  const stamped = url => version ? `${url}?v=${version}` : url;
   const valid = photo => photo && Array.isArray(photo.coords) && photo.coords.length === 2 && photo.coords.every(Number.isFinite) &&
     Math.abs(photo.coords[0]) <= 90 && Math.abs(photo.coords[1]) <= 180 && photo.variants && typeof photo.place === 'string';
-  const asset = src => typeof src === 'string' && /^photos\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpg|png)$/.test(src) ? `${base}${src}` : '';
-  fetch(`${base}data/photos.json`)
+  const asset = src => typeof src === 'string' && /^photos\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpg|png)$/.test(src) ? stamped(`${base}${src}`) : '';
+  fetch(stamped(`${base}data/photos.json`))
     .then(response => { if (!response.ok) throw new Error('Photo list unavailable'); return response.json(); })
     .then(({photos = [], gallery_order = []}) => {
       const order = new Map(gallery_order.map((id, index) => [id, index]));

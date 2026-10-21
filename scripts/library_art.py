@@ -71,9 +71,16 @@ BOOK_ALIASES = {'100 Years of Solitude': 'One Hundred Years of Solitude',
                 'Phantom of the Opera': 'The Phantom of the Opera'}
 
 
+def cover_ratio(item):
+    # Width over height of the saved cover; the reading shelf shapes each 3D book to it.
+    with Image.open(ROOT / item['cover'].lstrip('/')) as image:
+        item['cover_ratio'] = round(image.width / image.height, 3)
+    return item
+
+
 def book(item):
     if item.get('cover') and (ROOT / item['cover'].lstrip('/')).exists():
-        return item
+        return cover_ratio(item)
     title = BOOK_ALIASES.get(item['title'], item['title']).split(':')[0]
     expected_author = item.get('author', '').split(',')[0]
     if not expected_author:
@@ -96,6 +103,7 @@ def book(item):
         except Exception:
             continue
         item.update(cover=path, art_source=f"https://covers.openlibrary.org/b/id/{doc['cover_i']}-M.jpg")
+        cover_ratio(item)
         break
     return item
 

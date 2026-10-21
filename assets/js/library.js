@@ -137,6 +137,43 @@
         event.clientY < bounds.top || event.clientY > bounds.bottom)) closeReview();
     });
   }
+  // Covers turn to face the pointer; a book's spine takes the colour of its cover's left edge.
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const spineColor = cover => {
+      const img = cover.querySelector('img');
+      if (cover.style.getPropertyValue('--spine') || !img || img.hidden || !img.naturalWidth) return;
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = canvas.height = 1;
+        const context = canvas.getContext('2d', { willReadFrequently: true });
+        context.drawImage(img, 0, 0, Math.max(1, img.naturalWidth * 0.04), img.naturalHeight, 0, 0, 1, 1);
+        const [r, g, b] = context.getImageData(0, 0, 1, 1).data;
+        cover.style.setProperty('--spine', `rgb(${r} ${g} ${b})`);
+      } catch {}
+    };
+    root.addEventListener('pointermove', event => {
+      if (event.pointerType !== 'mouse') return;
+      const cover = event.target.closest('.card-link')?.querySelector('.cover');
+      if (!cover) return;
+      if (!cover.classList.contains('tilting')) {
+        if (cover.classList.contains('book-cover')) spineColor(cover);
+        requestAnimationFrame(() => cover.classList.add('tilting'));
+      }
+      const bounds = cover.getBoundingClientRect();
+      const x = Math.min(Math.max((event.clientX - bounds.left) / bounds.width, 0), 1) - 0.5;
+      const y = Math.min(Math.max((event.clientY - bounds.top) / bounds.height, 0), 1) - 0.5;
+      cover.style.setProperty('--ry', `${(x * 36).toFixed(1)}deg`);
+      cover.style.setProperty('--rx', `${(-y * 24).toFixed(1)}deg`);
+    });
+    root.addEventListener('pointerout', event => {
+      const link = event.target.closest('.card-link');
+      if (!link || link.contains(event.relatedTarget)) return;
+      const cover = link.querySelector('.cover');
+      cover.classList.remove('tilting');
+      cover.style.removeProperty('--rx');
+      cover.style.removeProperty('--ry');
+    });
+  }
   // A failed artwork request still leaves a readable, locally styled title cover.
   root.querySelectorAll('.cover img').forEach(img => {
     const failed = () => { img.hidden = true; };

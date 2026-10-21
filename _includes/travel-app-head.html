@@ -1,22 +1,21 @@
-{% assign travel_asset_version = site.time | date: '%s' %}
   <link rel="stylesheet" href="{{ '/travel/vendor/leaflet.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/travel/style.css' | relative_url }}?v={{ travel_asset_version }}">
-  <link rel="stylesheet" href="{{ '/travel/map-ui.css' | relative_url }}?v={{ travel_asset_version }}">
-  <link rel="stylesheet" href="{{ '/travel/itineraries.css' | relative_url }}?v={{ travel_asset_version }}">
+  <link rel="stylesheet" href="{{ '/travel/style.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/travel/map-ui.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/travel/itineraries.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/header.css' | relative_url }}">
   <script defer src="{{ '/travel/vendor/topojson.min.js' | relative_url }}"></script>
   <script defer src="{{ '/travel/vendor/leaflet.js' | relative_url }}"></script>
-  <script defer src="{{ '/travel/data.js' | relative_url }}?v={{ travel_asset_version }}"></script>
-  <script defer src="{{ '/travel/runtime.js' | relative_url }}?v={{ travel_asset_version }}"></script>
-  <script defer src="{{ '/travel/smooth-zoom.js' | relative_url }}?v={{ travel_asset_version }}"></script>
-  <script defer src="{{ '/travel/basemap-labels.js' | relative_url }}?v={{ travel_asset_version }}"></script>
-  <script defer src="{{ '/travel/route-cards.js' | relative_url }}?v={{ travel_asset_version }}"></script>
-  <script defer src="{{ '/travel/itineraries.js' | relative_url }}?v={{ travel_asset_version }}"></script>
-  <script defer src="{{ '/travel/photo-zoom.js' | relative_url }}?v={{ travel_asset_version }}"></script>
-  <script defer src="{{ '/travel/photos.js' | relative_url }}?v={{ travel_asset_version }}"></script>
+  <script defer src="{{ '/travel/data.js' | relative_url }}"></script>
+  <script defer src="{{ '/travel/runtime.js' | relative_url }}"></script>
+  <script defer src="{{ '/travel/smooth-zoom.js' | relative_url }}"></script>
+  <script defer src="{{ '/travel/basemap-labels.js' | relative_url }}"></script>
+  <script defer src="{{ '/travel/route-cards.js' | relative_url }}"></script>
+  <script defer src="{{ '/travel/itineraries.js' | relative_url }}"></script>
+  <script defer src="{{ '/travel/photo-zoom.js' | relative_url }}"></script>
+  <script defer src="{{ '/travel/photos.js' | relative_url }}"></script>
   <link rel="stylesheet" href="{{ '/travel/vendor/maplibre-gl.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/travel/renderers/globe.css' | relative_url }}?v={{ travel_asset_version }}">
+  <link rel="stylesheet" href="{{ '/travel/renderers/globe.css' | relative_url }}">
   <script defer src="{{ '/travel/vendor/maplibre-gl.js' | relative_url }}"></script>
-  <script defer src="{{ '/travel/renderers/globe-flights.js' | relative_url }}?v={{ travel_asset_version }}"></script>
-  <script defer src="{{ '/travel/renderers/globe.js' | relative_url }}?v={{ travel_asset_version }}"></script>
-  <script defer src="{{ '/travel/app.js' | relative_url }}?v={{ travel_asset_version }}"></script>
+  <script defer src="{{ '/travel/renderers/globe-flights.js' | relative_url }}"></script>
+  <script defer src="{{ '/travel/renderers/globe.js' | relative_url }}"></script>
+  <script defer src="{{ '/travel/app.js' | relative_url }}"></script>
