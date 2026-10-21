@@ -1,0 +1,16 @@
+---
+layout: post
+title:  "Rivals Unto Death"
+tags: [ Books ]
+link: true
+---
+
+I've thought the story of Alexander Hamilton and Aaron Burr has been interesting ever since I started listening to the soundtrack of the musical by Lin-Manuel Miranda. I've tried reading other literature about Hamilton, such as Ron Chernow's huge biographical tome, but it didn't fit my short attention span. *Rivals Unto Death*, written by Rick Beyer likely in the wake of the musical's success, is a short and informative trek into the entangled lives of Hamilton and Burr. 
+
+Something creative about this book is that although the biographies are told in regular chronological order, the chapter titles start at 10 and decrement, almost like they are ticking down the seconds until the fateful duel. The dates in each chapter also begin with the number of years left until the actual duel, which I thought was another interesting way of increasing the tension.
+
+Beyer does a good job of doing a character study on both subjects, and it seems mostly unbiased to me. He sums it up best at the end, when he mentions that Hamilton saw politics as a calling, throwing himself completely at it, whereas Burr mostly saw it as a career that he simply worked in. It's interesting to see a more comprehensive view of the the characters that are so easy to vilify or love based off of their portrayal in other works, especially with regard to Burr's positive and Hamilton's negative attributes. 
+
+Given that a huge amount of the book takes place in New York, there are some connections to the present day that Beyer notes that are incredibly interesting. For instance, the Manhattan Company was a company founded by Burr that he pretended would deliver clean drinking water to the people in the city, a response to the cholera outbreaks from the contaminated drinking water. However, his actual intentions were to create a bank to sponsor his deep debt—by masquerading as a water company (and with a secretly placed clause in the bill), he was able to get a charter from New York City to launch. The Manhattan Company is the precursor to today's JPMorgan Chase, and for over 100 years after its founding, the bank would have an annual meeting with the water committee, who assured that no requests for water service had been denied. Other companies also have their roots with Burr and Hamilton. Specifically, the Bank of New York that Hamilton started became BNY Mellon (look at the letters and find the connection!) and The New York Evening Post became The New York Post. 
+
+Another exciting connection with the world of modern day politics is how Beyer paints every election and political decision these characters went through as monumental, with the common people freaking out about everything. Regarding a Jefferson presidency, a quote from the *Connecticut Courant* stood out to me, "Murder, robbery, rape, adultery, and incest will all be openly taught and practiced". It seems a lot like what people make of politics today! Although we like to imagine that the past was a much different time in politics, I think it's possible that it's always been the same.
