@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf8f3">
+  <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
+  <link rel="icon" href="{{ '/assets/images/logo.png' | relative_url }}">
+  {% seo %}
+  <link rel="stylesheet" href="{{ '/assets/css/library.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/header.css' | relative_url }}">
+  {% if page.photos %}
+  <link rel="stylesheet" href="{{ '/travel/gallery/gallery.css' | relative_url }}">
+  <script defer src="{{ '/travel/gallery/gallery.js' | relative_url }}"></script>
+  {% endif %}
+  {% if page.library %}<script defer src="{{ '/assets/js/library.js' | relative_url }}"></script>{% endif %}
+  {% if page.athletics %}
+  <link rel="stylesheet" href="{{ '/assets/css/athletics.css' | relative_url }}">
+  <script defer src="{{ '/athletics/shapes.js' | relative_url }}"></script>
+  <script defer src="{{ '/assets/js/athletics.js' | relative_url }}"></script>
+  {% endif %}
+  {% if page.portrait %}<script defer src="{{ '/assets/js/portrait.js' | relative_url }}"></script>{% endif %}
+</head>
+<body>
+  {% include site-header.html %}
+  <div class="site-shell">
+    <main id="main"{% if page.photos %} class="gallery-main"{% endif %}>{{ content }}</main>
+    {% include site-footer.html %}
+  </div>
+</body>
+</html>

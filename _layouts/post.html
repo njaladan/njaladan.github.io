@@ -1,0 +1,9 @@
+---
+layout: default
+---
+<header class="article-header">
+  <a class="back-link" href="{{ '/reading' | relative_url }}">← Back to the library</a>
+  <h1>{{ page.title | escape }}</h1>
+  <p class="article-date"><time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%B %-d, %Y' }}</time></p>
+</header>
+<article class="article-body">{{ content }}</article>

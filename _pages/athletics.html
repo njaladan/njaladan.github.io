@@ -1,0 +1,28 @@
+---
+layout: default
+title: Athletics
+description: "Rides, runs, walks, hikes, and snow days, drawn as shapes."
+permalink: /athletics/
+athletics: true
+---
+<h1>Athletics</h1>
+<div class="shape-toolbar">
+  <div class="shape-chips" role="group" aria-label="Sport" id="shape-sports"></div>
+  <div class="shape-view" role="group" aria-label="View"><button type="button" data-view="grid" aria-pressed="true">Grid</button><button type="button" data-view="stack" aria-pressed="false">Stack</button></div>
+</div>
+<div class="shape-chips shape-years" role="group" aria-label="Year" id="shape-years"></div>
+<p class="shape-count" id="shape-count" aria-live="polite"></p>
+<div class="shape-grid" id="shape-grid"></div>
+<div class="shape-stack" id="shape-stack" hidden><canvas id="shape-canvas" role="img" aria-label="All selected routes stacked on top of each other"></canvas></div>
+<noscript><p>Enable JavaScript to see the shapes.</p></noscript>
+
+<dialog class="shape-viewer" id="shape-viewer" aria-labelledby="shape-title">
+  <button type="button" class="shape-close" id="shape-close" aria-label="Close">×</button>
+  <div class="shape-viewer-inner">
+    <div class="shape-big"><svg id="shape-svg" viewBox="-40 -40 1080 1080" aria-hidden="true"></svg></div>
+    <div class="shape-facts">
+      <h2 id="shape-title"></h2>
+      <p id="shape-date"></p>
+    </div>
+  </div>
+</dialog>
