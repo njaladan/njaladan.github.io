@@ -32,6 +32,7 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run format:check
+      - run: pipx run --spec ruff==0.16.9 ruff check
       - id: pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5

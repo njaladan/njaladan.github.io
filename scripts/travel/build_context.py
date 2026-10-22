@@ -8,7 +8,7 @@ from pathlib import Path
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('source', type=Path)
-    parser.add_argument('--output', type=Path, default=Path(__file__).parents[1] / 'data/context.json')
+    parser.add_argument('--output', type=Path, default=Path(__file__).resolve().parents[2] / 'assets/travel/data/context.json')
     args = parser.parse_args()
     features = json.loads((args.source / 'ne_50m_populated_places.geojson').read_text())['features']
     cities = []
