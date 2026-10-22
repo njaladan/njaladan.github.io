@@ -1,32 +1,145 @@
-export function installBasemapLabels(map) {
-  const L = map.atlasRenderer || window.L;
-  map.createPane('backgroundLabels');
-  map.getPane('backgroundLabels').style.zIndex = 390;
-  map.getPane('backgroundLabels').style.pointerEvents = 'none';
-  const labels = [];
-  // Hidden labels still participate in collision placement, but need no DOM
-  // position writes on each fractional zoom. Let exit fades finish first.
-  const LabelMarker = L.Marker.extend({
+import { largestRing } from './ui/geo.js';
+import {
+  collides,
+  compareLabels,
+  fitsFeature,
+  inZoomBand,
+  insideView,
+  labelRect
+} from './ui/label-layout.js';
+
+// Background country, state and city names under the atlas's own markers,
+// placed each frame by priority so they never overlap.
+
+const LABEL_PANE_Z_INDEX = 390;
+// Hidden labels keep updating positions until their fade-out ends (ms).
+const LABEL_FADE_MS = 180;
+// Features drawn as separate overseas parts that get no label of their own.
+const UNLABELLED_FEATURES = ['010', '250-overseas'];
+
+/**
+ * @typedef {import('./ui/label-layout.js').LabelKind} LabelKind
+ * @typedef {import('./ui/label-layout.js').Rect} Rect
+ * @typedef {{marker: any, name: string, kind: LabelKind, rank: number, bounds: any,
+ *   extent: number, visible?: boolean, size?: {width: number, height: number}}} Label
+ */
+
+/**
+ * A marker class whose hidden labels still take part in collision placement,
+ * but need no DOM position writes on each fractional zoom. Exit fades finish first.
+ * @param {any} L
+ */
+function labelMarkerClass(L) {
+  return L.Marker.extend({
     update() {
-      if (this.layoutVisible || performance.now() < (this.fadeUntil || 0))
+      if (this.layoutVisible || performance.now() < (this.fadeUntil || 0)) {
         L.Marker.prototype.update.call(this);
+      }
       return this;
     },
     setLayoutVisible(visible) {
       if (visible === Boolean(this.layoutVisible)) return;
-      if (!visible) this.fadeUntil = performance.now() + 180;
+      if (!visible) this.fadeUntil = performance.now() + LABEL_FADE_MS;
       this.layoutVisible = visible;
       if (visible) this.update();
       this.getElement().classList.toggle('label-visible', visible);
     }
   });
+}
+
+/**
+ * Whether a label can show in this view, before checking collisions.
+ * @param {any} map
+ * @param {Label} label
+ * @param {{zoom: number, bounds: any, visitedNames: Set<string>}} view
+ * @param {boolean} retained
+ */
+function eligible(map, label, { zoom, bounds, visitedNames }, retained) {
+  const coords = label.marker.getLatLng();
+  if (!bounds.contains(coords)) return false;
+  if (map.isLocationVisible && !map.isLocationVisible(coords)) return false;
+  // Visited places carry the atlas's own, more prominent labels.
+  if (visitedNames.has(label.name.toLocaleLowerCase())) return false;
+  return inZoomBand(label, zoom, retained);
+}
+
+/**
+ * The label's screen rectangle if it fits in view and inside its feature.
+ * @param {any} map
+ * @param {Label} label
+ * @param {{root: DOMRect, size: {x: number, y: number}}} view
+ * @param {boolean} retained
+ * @returns {Rect | null}
+ */
+function placement(map, label, { root, size }, retained) {
+  const rect = labelRect(map.latLngToContainerPoint(label.marker.getLatLng()), label.size, root);
+  if (label.bounds) {
+    const southWest = map.latLngToContainerPoint(label.bounds.getSouthWest());
+    const northEast = map.latLngToContainerPoint(label.bounds.getNorthEast());
+    const span = { x: northEast.x - southWest.x, y: northEast.y - southWest.y };
+    if (!fitsFeature(rect, span, retained)) return null;
+  }
+  return insideView(rect, root, size) ? rect : null;
+}
+
+/**
+ * Shows the labels that fit, in priority order, around already occupied space.
+ * @param {any} map
+ * @param {Label[]} labels
+ * @param {Rect[]} occupied rectangles to avoid; placed labels are added
+ * @param {Set<string>} visitedNames lower-cased names the atlas labels itself
+ */
+function layoutLabels(map, labels, occupied, visitedNames) {
+  const view = {
+    zoom: map.getZoom(),
+    bounds: map.getBounds(),
+    root: map.getContainer().getBoundingClientRect(),
+    size: map.getSize(),
+    visitedNames
+  };
+  labels.forEach(label => {
+    if (!label.size) {
+      const node = label.marker.getElement().firstChild;
+      label.size = { width: node.offsetWidth, height: node.offsetHeight };
+    }
+  });
+  [...labels].sort(compareLabels).forEach(label => {
+    const retained = Boolean(label.visible);
+    const rect = eligible(map, label, view, retained)
+      ? placement(map, label, view, retained)
+      : null;
+    const show = Boolean(rect) && !collides(rect, occupied, retained);
+    if (show) occupied.push(rect);
+    label.visible = show;
+    label.marker.setLayoutVisible(show);
+  });
+}
+
+/**
+ * Adds the basemap label layer.
+ * @param {any} map Leaflet map or the globe renderer
+ */
+export function installBasemapLabels(map) {
+  const L = map.atlasRenderer || window.L;
+  map.createPane('backgroundLabels');
+  const pane = map.getPane('backgroundLabels');
+  pane.style.zIndex = LABEL_PANE_Z_INDEX;
+  pane.style.pointerEvents = 'none';
+  /** @type {Label[]} */
+  const labels = [];
+  const LabelMarker = labelMarkerClass(L);
   map.on('resize', () =>
     labels.forEach(label => {
       delete label.size;
     })
   );
 
-  function add(name, coords, kind, rank = 0, bounds = null) {
+  /**
+   * @param {string} name
+   * @param {any} coords
+   * @param {{kind: LabelKind, rank?: number, bounds?: any}} options
+   */
+  function add(name, coords, { kind, rank = 0, bounds = null }) {
     const marker = new LabelMarker(coords, {
       pane: 'backgroundLabels',
       interactive: false,
@@ -42,117 +155,25 @@ export function installBasemapLabels(map) {
     labels.push({ marker, name, kind, rank, bounds, extent });
   }
 
+  /**
+   * Labels each feature at the centre of its largest polygon.
+   * @param {any[]} features GeoJSON features
+   * @param {LabelKind} kind
+   */
   function geography(features, kind) {
     features.forEach(feature => {
-      if (['010', '250-overseas'].includes(feature.id)) return;
-      const polygons =
-        feature.geometry.type === 'Polygon'
-          ? [feature.geometry.coordinates]
-          : feature.geometry.coordinates;
-      const area = ring =>
-        Math.abs(
-          ring.reduce((sum, point, i) => {
-            const next = ring[(i + 1) % ring.length];
-            return sum + point[0] * next[1] - next[0] * point[1];
-          }, 0)
-        );
-      const ring = polygons.map(polygon => polygon[0]).sort((a, b) => area(b) - area(a))[0];
+      if (UNLABELLED_FEATURES.includes(feature.id)) return;
+      const ring = largestRing(feature.geometry);
       if (!ring?.length) return;
       const bounds = L.latLngBounds(ring.map(([lon, lat]) => [lat, lon]));
-      add(feature.properties.name, bounds.getCenter(), kind, 0, bounds);
-    });
-  }
-
-  function layout(occupied, visitedNames) {
-    const zoom = map.getZoom(),
-      bounds = map.getBounds(),
-      root = map.getContainer().getBoundingClientRect();
-    const size = map.getSize();
-    labels.forEach(label => {
-      if (!label.size) {
-        const node = label.marker.getElement().firstChild;
-        label.size = { width: node.offsetWidth, height: node.offsetHeight };
-      }
-    });
-    const ordered = [...labels].sort((a, b) => {
-      if (a.kind !== b.kind)
-        return a.kind === 'country' ? -1 : b.kind === 'country' ? 1 : a.kind === 'state' ? -1 : 1;
-      if (a.bounds && b.bounds) return b.extent - a.extent;
-      return a.rank - b.rank || Number(Boolean(b.visible)) - Number(Boolean(a.visible));
-    });
-    ordered.forEach(item => {
-      const { marker, name, kind, rank, bounds: featureBounds } = item;
-      const retained = Boolean(item.visible),
-        slack = retained ? 0.15 : -0.1;
-      const show = visible => {
-        item.visible = visible;
-        marker.setLayoutVisible(visible);
-      };
-      if (
-        !bounds.contains(marker.getLatLng()) ||
-        (map.isLocationVisible && !map.isLocationVisible(marker.getLatLng())) ||
-        visitedNames.has(name.toLocaleLowerCase())
-      ) {
-        show(false);
-        return;
-      }
-      if (
-        (kind === 'country' && zoom > 7 + slack) ||
-        (kind === 'state' && (zoom < 4.5 - slack || zoom > 8 + slack)) ||
-        (kind === 'city' && zoom < 5 + rank * 0.6 - slack)
-      ) {
-        show(false);
-        return;
-      }
-      const point = map.latLngToContainerPoint(marker.getLatLng());
-      const rect = {
-        left: root.left + point.x - item.size.width / 2,
-        right: root.left + point.x + item.size.width / 2,
-        top: root.top + point.y - item.size.height / 2,
-        bottom: root.top + point.y + item.size.height / 2,
-        ...item.size
-      };
-      if (featureBounds) {
-        const left = map.latLngToContainerPoint(featureBounds.getSouthWest());
-        const right = map.latLngToContainerPoint(featureBounds.getNorthEast());
-        if (
-          Math.abs(right.x - left.x) < rect.width + (retained ? 10 : 18) ||
-          Math.abs(right.y - left.y) < rect.height + (retained ? 6 : 10)
-        ) {
-          show(false);
-          return;
-        }
-      }
-      if (
-        rect.left < root.left + 8 ||
-        rect.right > root.left + size.x - 8 ||
-        rect.top < root.top + 8 ||
-        rect.bottom > root.top + size.y - 30
-      ) {
-        show(false);
-        return;
-      }
-      const gap = retained ? 4 : 8;
-      if (
-        occupied.some(
-          other =>
-            rect.left < other.right + gap &&
-            rect.right + gap > other.left &&
-            rect.top < other.bottom + gap &&
-            rect.bottom + gap > other.top
-        )
-      ) {
-        show(false);
-        return;
-      }
-      occupied.push(rect);
-      show(true);
+      add(feature.properties.name, bounds.getCenter(), { kind, bounds });
     });
   }
 
   return {
     geography,
-    cities: cities => cities.forEach(city => add(city.name, city.coords, 'city', city.rank)),
-    layout
+    cities: cities =>
+      cities.forEach(city => add(city.name, city.coords, { kind: 'city', rank: city.rank })),
+    layout: (occupied, visitedNames) => layoutLabels(map, labels, occupied, visitedNames)
   };
 }
