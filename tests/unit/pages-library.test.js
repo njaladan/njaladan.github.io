@@ -10,7 +10,10 @@ import {
 } from '../../assets/js/library/shelf.js';
 import {
   clampSpread,
+  edgeOf,
   folioText,
+  heldAngles,
+  holdFor,
   leafPages,
   pageCountFor,
   spreadLayout,
@@ -123,4 +126,18 @@ test('page curl starts flat and ends fully turned', () => {
   assert.equal(edges.length, STRIPS + 1);
   assert.equal(edges[0], 0);
   assert.equal(edges.at(-1), 101);
+});
+
+test('a held page keeps its free edge under the finger', () => {
+  assert.equal(edgeOf(heldAngles(0, true)), 1);
+  assert.equal(edgeOf(heldAngles(1, true)), -1);
+  assert.equal(edgeOf(heldAngles(0, false)), -1);
+  assert.equal(edgeOf(heldAngles(1, false)), 1);
+  for (const turned of [true, false]) {
+    for (const edge of [-0.8, -0.2, 0, 0.3, 0.9]) {
+      assert.ok(Math.abs(edgeOf(heldAngles(holdFor(edge, turned), turned)) - edge) < 1e-4);
+    }
+  }
+  const angles = heldAngles(0.5, true);
+  assert.ok(angles.at(-1) < angles[0], 'the free edge leads');
 });

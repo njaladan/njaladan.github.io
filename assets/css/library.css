@@ -1119,6 +1119,27 @@ body:has(dialog[open]) {
 .leaf.turned {
   transform: perspective(2400px) rotateY(-180deg);
 }
+.leaf.peeling {
+  transform: none;
+}
+.peel,
+.peel-under,
+.peel-flap,
+.peel-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.peel {
+  filter: drop-shadow(-3px 3px 7px #0000004d);
+}
+.peel-flap {
+  transform-origin: 0 0;
+}
+.peel-flap > .leaf-face {
+  -webkit-backface-visibility: visible;
+  backface-visibility: visible;
+}
 .leaf-face {
   position: absolute;
   inset: 0;
@@ -1140,6 +1161,16 @@ body:has(dialog[open]) {
   transform: perspective(2400px);
 }
 .leaf.curling > .leaf-face {
+  visibility: hidden;
+}
+/* Safari ignores backface-visibility when it paints without 3D compositing (as iOS does once
+   the layers get too large), so faces turned away from the reader are hidden outright too. */
+.leaf.turned:not(.swinging) > .leaf-front,
+.leaf:not(.turned, .swinging) > .leaf-back,
+.curl-strip.flipped > .curl-front,
+.curl-strip:not(.flipped) > .curl-back,
+.book-board.flipped > .board-front,
+.book-board:not(.flipped) > .board-inside {
   visibility: hidden;
 }
 .curl,
@@ -1281,7 +1312,10 @@ body:has(dialog[open]) {
   text-align: center;
 }
 .open-book {
-  touch-action: pan-y;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 .book-dialog.is-open .leaf {
   cursor: pointer;
