@@ -3,14 +3,16 @@
 
 import argparse
 import csv
-from datetime import datetime, timedelta, timezone
 import gzip
 import json
 import math
-from pathlib import Path
 import xml.etree.ElementTree as ET
+from datetime import UTC, datetime, timedelta
+from pathlib import Path
 
-from import_gpx import distance, read_gpx
+from scripts.common.geo import distance_m
+from scripts.common.paths import TRAVEL_DATA
+from scripts.travel.import_gpx import read_gpx
 
 COUNTRIES = {
     "United Kingdom": ("826", "united-kingdom"),
@@ -87,7 +89,7 @@ def read_fit(path, activity_start, elapsed_s):
                 and timestamp
                 and previous_time
                 and (timestamp - previous_time).total_seconds() > 120
-                and distance(points[-1], point) > 200
+                and distance_m(points[-1], point) > 200
             ):
                 if len(points) >= 2:
                     segments.append(points)
@@ -146,7 +148,7 @@ def import_selection(export, review, output, replace=False):
         if row["Filename"] != entry["Filename"]:
             raise ValueError(f"Export filename changed for activity {activity_id}")
         path = export / row["Filename"]
-        activity_start = datetime.strptime(row["Activity Date"], "%b %d, %Y, %I:%M:%S %p").replace(tzinfo=timezone.utc)
+        activity_start = datetime.strptime(row["Activity Date"], "%b %d, %Y, %I:%M:%S %p").replace(tzinfo=UTC)
         if ".gpx" in path.suffixes:
             day = read_gpx(path)
         elif ".fit" in path.suffixes:
@@ -210,9 +212,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("export", type=Path)
     parser.add_argument("review", type=Path, help="User-reviewed activity manifest")
-    parser.add_argument(
-        "--output", type=Path, default=Path(__file__).resolve().parents[2] / "assets/data/travel/activities.json"
-    )
+    parser.add_argument("--output", type=Path, default=TRAVEL_DATA / "activities.json")
     parser.add_argument(
         "--replace",
         action="store_true",

@@ -11,13 +11,15 @@ import argparse
 import hashlib
 import json
 import math
-from pathlib import Path
 import time
 import urllib.error
 import urllib.request
+from itertools import pairwise
+from pathlib import Path
 
-from import_gpx import distance
-from import_strava import simplify
+from scripts.common.geo import distance_m
+from scripts.common.paths import TRAVEL_DATA
+from scripts.travel.import_strava import simplify
 
 PROFILES = {"walking": "pedestrian", "hiking": "pedestrian", "running": "pedestrian", "cycling": "bicycle"}
 SPACING_M = {"pedestrian": 12, "bicycle": 20}
@@ -29,7 +31,7 @@ MIN_RUN = 4
 
 
 def length(points):
-    return sum(distance(a, b) for a, b in zip(points, points[1:]))
+    return sum(distance_m(a, b) for a, b in pairwise(points))
 
 
 def tidy(points, spacing):
@@ -38,17 +40,17 @@ def tidy(points, spacing):
         return points
     thinned = [points[0]]
     for point in points[1:-1]:
-        if distance(thinned[-1], point) >= spacing:
+        if distance_m(thinned[-1], point) >= spacing:
             thinned.append(point)
-    if len(thinned) > 1 and distance(thinned[-1], points[-1]) < spacing:
+    if len(thinned) > 1 and distance_m(thinned[-1], points[-1]) < spacing:
         thinned.pop()
     thinned.append(points[-1])
     kept = [thinned[0]]
-    for a, b, c in zip(thinned, thinned[1:], thinned[2:]):
+    for a, b, c in zip(thinned, thinned[1:], thinned[2:], strict=False):
         # An isolated jump out and straight back; judged against original neighbours so
         # genuine out-and-back walks are not eaten one point at a time.
-        near = min(distance(a, b), distance(b, c))
-        if 25 < near and max(distance(a, b), distance(b, c)) < 150 and distance(a, c) < near / 2:
+        near = min(distance_m(a, b), distance_m(b, c))
+        if 25 < near and max(distance_m(a, b), distance_m(b, c)) < 150 and distance_m(a, c) < near / 2:
             continue
         kept.append(b)
     kept.append(thinned[-1])
@@ -118,7 +120,7 @@ def chaikin(points, rounds=2):
         if len(points) < 3:
             break
         rounded = [points[0]]
-        for a, b in zip(points, points[1:]):
+        for a, b in pairwise(points):
             rounded += [
                 [a[0] * 0.75 + b[0] * 0.25, a[1] * 0.75 + b[1] * 0.25],
                 [a[0] * 0.25 + b[0] * 0.75, a[1] * 0.25 + b[1] * 0.75],
@@ -156,7 +158,7 @@ def match_chunk(points, profile, cache):
         return [(False, points)]
     types = [point["type"] for point in data["matched_points"]]
     links = []
-    for (i, a, start), (j, b, end) in zip(anchors, anchors[1:]):
+    for (i, a, start), (j, b, end) in pairwise(anchors):
         between = [*shape[math.floor(a) + 1 : math.ceil(b)], end] if b >= a else [end]
         # Never bridge fixes the matcher could not place, and snap only when the mapped path is
         # about as long as the walk: far longer is a detour, far shorter skips an excursion.
@@ -206,9 +208,7 @@ def match_segment(points, profile, cache):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("cache", type=Path, help="Directory for cached Valhalla responses")
-    parser.add_argument(
-        "--data", type=Path, default=Path(__file__).resolve().parents[2] / "assets/data/travel/activities.json"
-    )
+    parser.add_argument("--data", type=Path, default=TRAVEL_DATA / "activities.json")
     parser.add_argument("--force", action="store_true", help="Rematch tracks that were already matched")
     args = parser.parse_args()
     args.cache.mkdir(parents=True, exist_ok=True)
