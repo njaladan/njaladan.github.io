@@ -1291,7 +1291,10 @@ body:has(dialog[open]) {
   text-align: center;
 }
 .open-book {
-  touch-action: pan-y;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 .book-dialog.is-open .leaf {
   cursor: pointer;

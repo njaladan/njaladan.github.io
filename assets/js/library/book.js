@@ -7,6 +7,8 @@ import {
   STRIPS,
   clampSpread,
   folioText,
+  heldAngles,
+  holdFor,
   leafPages,
   pageCountFor,
   spreadLayout,
@@ -31,6 +33,11 @@ const Z_LEAF_BASE = 100;
 // A horizontal drag past this many pixels is a swipe; a press that moves less is a tap.
 const SWIPE_PX = 40;
 const TAP_PX = 8;
+// Letting go of a dragged page faster than this (pixels per millisecond) flicks it over or back,
+// however far it got.
+const FLICK_SPEED = 0.3;
+// Resting longer than this before letting go cancels a flick.
+const FLICK_WINDOW_MS = 100;
 // On a phone, taps in this share of the screen's width from the left go back.
 const BACK_ZONE = 0.3;
 const FALLBACK_ASPECT = '.6667';
@@ -214,15 +221,14 @@ function cutStrips(leaf) {
 }
 
 /**
- * Poses each strip for time `t`; each is rotated relative to its parent strip.
+ * Poses each strip at its absolute angle; each is rotated relative to its parent strip.
  * @param {HTMLElement[]} strips
- * @param {number} t
- * @param {boolean} turned
+ * @param {number[]} angles Degrees, from the spine outward.
  */
-function poseStrips(strips, t, turned) {
+function poseStrips(strips, angles) {
   let previous = 0;
   strips.forEach((piece, index) => {
-    const angle = stripAngle(t, index, turned);
+    const angle = angles[index];
     piece.style.transform = `rotateY(${angle - previous}deg)`;
     piece.style.setProperty('--shade', stripShade(angle));
     piece.classList.toggle('flipped', angle < -90);
@@ -233,33 +239,67 @@ function poseStrips(strips, t, turned) {
 // A turning page bends instead of swinging stiff: it is cut into strips, each hinged to the last,
 // and a curl runs across them. The free edge lifts first and leads, then trails and settles last.
 /**
+ * Cuts `leaf` into strips ready to curl; turns wait until it is settled.
  * @param {HTMLElement} leaf
- * @param {boolean} turned
  */
-function curl(leaf, turned) {
+function liftLeaf(leaf) {
   const { stack, strips } = cutStrips(leaf);
   leaf.append(stack);
   leaf.classList.add('curling');
   leaf.style.zIndex = String(Z_CURLING);
-  const start = performance.now();
+  /** @type {(value?: unknown) => void} */
+  let release;
   const done = new Promise(resolve => {
+    release = resolve;
+  });
+  curls.add(done);
+  done.then(() => curls.delete(done));
+  return {
+    /** @param {number[]} angles */
+    pose: angles => poseStrips(strips, angles),
+    settle() {
+      stack.remove();
+      leaf.classList.remove('curling');
+      release();
+    }
+  };
+}
+
+/**
+ * Runs a lifted leaf's curl from `from` to `to` (a whole turn takes CURL_MS), then settles it.
+ * @param {ReturnType<typeof liftLeaf>} lifted
+ * @param {(t: number) => number[]} anglesAt Strip angles at each point of the turn.
+ * @param {{ from: number, to: number }} run
+ */
+function runCurl(lifted, anglesAt, { from, to }) {
+  const start = performance.now();
+  const duration = CURL_MS * Math.abs(to - from);
+  return new Promise(resolve => {
     /** @param {number} now */
     const frame = now => {
-      const t = Math.min(1, (now - start) / CURL_MS);
-      poseStrips(strips, t, turned);
-      if (t < 1) {
+      const k = duration > 0 ? Math.min(1, (now - start) / duration) : 1;
+      lifted.pose(anglesAt(from + (to - from) * k));
+      if (k < 1) {
         requestAnimationFrame(frame);
         return;
       }
-      stack.remove();
-      leaf.classList.remove('curling');
+      lifted.settle();
       resolve(undefined);
     };
     requestAnimationFrame(frame);
   });
-  curls.add(done);
-  return done.then(() => curls.delete(done));
 }
+
+/**
+ * @param {HTMLElement} leaf
+ * @param {boolean} turned
+ */
+const curl = (leaf, turned) =>
+  runCurl(
+    liftLeaf(leaf),
+    t => Array.from({ length: STRIPS }, (_, index) => stripAngle(t, index, turned)),
+    { from: 0, to: 1 }
+  );
 
 /**
  * Turns to spread `target`, curling each leaf that changes side.
@@ -505,30 +545,129 @@ function preloadLargeCover(event) {
   }
 }
 
-// A swipe turns the page; a tap on the left of the book goes back and anywhere else goes on.
+/**
+ * Picks up the leaf that turns toward `forward`, when the book is at rest and has a page that way.
+ * @param {boolean} forward
+ */
+function grabLeaf(forward) {
+  if (state.busy || curls.size || !ui.dialog.classList.contains('is-open') || reducedMotion()) {
+    return null;
+  }
+  const target = state.spread + (forward ? 1 : -1);
+  if (target !== clampSpread(target, state.lastSpread)) return null;
+  const leaf = /** @type {HTMLElement | undefined} */ (
+    ui.leaves.children[state.spread + state.lead - (forward ? 0 : 1)]
+  );
+  if (!leaf) return null;
+  const width = leaf.offsetWidth;
+  const spine = ui.book.getBoundingClientRect().left + ui.book.offsetWidth / 2;
+  return {
+    lifted: liftLeaf(leaf),
+    forward,
+    target,
+    width,
+    spine,
+    hold: 0,
+    edge: 0,
+    speed: 0
+  };
+}
+
+/**
+ * Moves a held page so its free edge sits under the pointer.
+ * @param {NonNullable<ReturnType<typeof grabLeaf>>} drag
+ * @param {PointerEvent} event
+ * @param {{ lastX: number, at: number }} press
+ */
+function holdAt(drag, event, press) {
+  const elapsed = event.timeStamp - press.at;
+  if (elapsed > 0) {
+    drag.speed = ((drag.forward ? -1 : 1) * (event.clientX - press.lastX)) / elapsed;
+  }
+  press.at = event.timeStamp;
+  press.lastX = event.clientX;
+  drag.edge = (event.clientX - drag.spine) / drag.width;
+  drag.hold = holdFor(drag.edge, drag.forward);
+  drag.lifted.pose(heldAngles(drag.hold, drag.forward));
+}
+
+/**
+ * Lets go of a held page: a flick sends it its way; otherwise it goes over once its edge is past
+ * the middle of what can be seen (a phone shows only the right-hand page, a spread both).
+ * @param {NonNullable<ReturnType<typeof grabLeaf>>} drag
+ * @param {boolean} paused The pointer rested before letting go, which cancels a flick.
+ */
+function letGoOf(drag, paused) {
+  const speed = paused ? 0 : drag.speed;
+  const middle = ui.single.matches ? 0.5 : 0;
+  const past = drag.forward ? drag.edge < middle : drag.edge > middle;
+  const over = speed > FLICK_SPEED || (speed > -FLICK_SPEED && past);
+  const anglesAt = (/** @type {number} */ hold) => heldAngles(hold, drag.forward);
+  runCurl(drag.lifted, anglesAt, { from: drag.hold, to: over ? 1 : 0 }).then(() =>
+    show(over ? drag.target : state.spread, false)
+  );
+}
+
+/**
+ * A swipe turns the page (when it could not be picked up); a tap on the left of the book goes
+ * back and anywhere else goes on.
+ * @param {PointerEvent} event
+ * @param {{ x: number, y: number }} start
+ */
+function tapOrSwipe(event, start) {
+  const dx = event.clientX - start.x;
+  const dy = event.clientY - start.y;
+  if (Math.abs(dx) > SWIPE_PX && Math.abs(dx) > Math.abs(dy)) {
+    turn(dx < 0 ? 1 : -1);
+    return;
+  }
+  if (Math.hypot(dx, dy) > TAP_PX) return;
+  const { book } = ui;
+  const back = ui.single.matches
+    ? event.clientX < innerWidth * BACK_ZONE
+    : event.clientX < book.getBoundingClientRect().left + book.offsetWidth / 2;
+  turn(back ? -1 : 1);
+}
+
+// A page dragged sideways is picked up and follows the pointer, bending as it goes.
 function installGestures() {
-  const { book, single } = ui;
-  /** @type {{ x: number, y: number } | null} */
+  const { book } = ui;
+  /** @type {{ x: number, y: number, lastX: number, at: number, tried: boolean } | null} */
   let press = null;
+  /** @type {ReturnType<typeof grabLeaf>} */
+  let drag = null;
   book.addEventListener('pointerdown', event => {
-    press = { x: event.clientX, y: event.clientY };
+    if (drag) return;
+    const { clientX: x, clientY: y, timeStamp: at } = event;
+    press = { x, y, lastX: x, at, tried: false };
   });
-  book.addEventListener('pointerup', event => {
-    const start = press;
-    press = null;
-    if (!start || /** @type {Element} */ (event.target).closest('a')) return;
-    const dx = event.clientX - start.x;
-    const dy = event.clientY - start.y;
-    if (Math.abs(dx) > SWIPE_PX && Math.abs(dx) > Math.abs(dy)) {
-      turn(dx < 0 ? 1 : -1);
-      return;
+  book.addEventListener('pointermove', event => {
+    if (!press) return;
+    const dx = event.clientX - press.x;
+    const sideways = Math.abs(dx) > TAP_PX && Math.abs(dx) > Math.abs(event.clientY - press.y);
+    if (!drag && !press.tried && sideways) {
+      press.tried = true;
+      drag = grabLeaf(dx < 0);
+      if (drag) book.setPointerCapture(event.pointerId);
     }
-    if (Math.hypot(dx, dy) > TAP_PX) return;
-    const back = single.matches
-      ? event.clientX < innerWidth * BACK_ZONE
-      : event.clientX < book.getBoundingClientRect().left + book.offsetWidth / 2;
-    turn(back ? -1 : 1);
+    if (drag) holdAt(drag, event, press);
   });
+  /** @param {PointerEvent} event */
+  const letGo = event => {
+    const [start, held] = [press, drag];
+    press = drag = null;
+    if (held) {
+      letGoOf(held, event.timeStamp - start.at > FLICK_WINDOW_MS);
+    } else if (
+      start &&
+      event.type === 'pointerup' &&
+      !(/** @type {Element} */ (event.target).closest('a'))
+    ) {
+      tapOrSwipe(event, start);
+    }
+  };
+  book.addEventListener('pointerup', letGo);
+  book.addEventListener('pointercancel', letGo);
 }
 
 /** Re-lays the pages at the new size, keeping the reader's place. */
