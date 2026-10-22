@@ -1,10 +1,8 @@
 ---
-published: false
 layout: post
 title:  "Etherball"
-author: john
 tags: [ Projects ]
-image: assets/images/etherball.gif
+image: assets/images/projects/etherball.gif
 link: https://lottery.now.sh/
 ---
 

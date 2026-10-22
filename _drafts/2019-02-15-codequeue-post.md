@@ -1,10 +1,8 @@
 ---
-published: false
 layout: post
 title:  "CodeQueue"
-author: john
 tags: [ Projects ]
-image: assets/images/codequeue.png
+image: assets/images/projects/codequeue.png
 link: https://nagaganesh.com/codequeue/
 ---
 

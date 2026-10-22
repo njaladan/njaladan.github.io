@@ -1,10 +1,8 @@
 ---
-published: false
 layout: post
 title:  "NESmerize"
-author: john
 tags: [ Projects ]
-image: assets/images/dk.png
+image: assets/images/projects/dk.png
 link: https://github.com/njaladan/NESmerize
 ---
 
