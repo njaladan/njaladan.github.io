@@ -37,7 +37,8 @@ a:focus-visible,
 }
 /* clip, unlike hidden, cannot be scrolled by focus or scrollIntoView, so the map never shifts. */
 main {
-  height: calc(100dvh - var(--site-header-height) - 42px);
+  /* Some mobile browsers under-report dvh; the measured innerHeight (set in travel.html) wins when larger. */
+  height: calc(max(100dvh, var(--viewport-height, 0px)) - var(--site-header-height) - 42px);
   min-height: 380px;
   position: relative;
   overflow: hidden;

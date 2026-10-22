@@ -20,6 +20,14 @@ scripts:
 modules:
   - /assets/js/travel/app.js
 ---
+  <script>
+    (function () {
+      var root = document.documentElement;
+      function sync() { root.style.setProperty('--viewport-height', window.innerHeight + 'px'); }
+      sync();
+      window.addEventListener('resize', sync);
+    })();
+  </script>
   <main id="main" aria-label="Travel atlas">
     <div id="map" aria-label="Map of visited countries" data-asset-base="{{ '/assets/' | relative_url }}"></div>
     <div class="map-toolbar">
