@@ -132,3 +132,17 @@ node --check assets/js/library.js
 ```
 
 See `travel/README.md` for the existing map’s data and import workflows.
+
+## JavaScript style
+
+Site JavaScript is formatted with Prettier and linted with ESLint; CI runs both.
+Vendored libraries, `athletics/shapes.js` and `codequeue/` are excluded.
+
+```sh
+npm install
+npm run format   # rewrite files
+npm run lint
+```
+
+The scripts share top-level functions and constants through ordered `<script defer>`
+tags; add any new cross-file global to `shared` in `eslint.config.js`.
