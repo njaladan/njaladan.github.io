@@ -105,7 +105,10 @@ function installAtlasPhotos(map, { focus, onLayout }) {
 
   function asset(src) {
     // Photo files must come from the atlas, never arbitrary URLs from data.
-    if (typeof src !== 'string' || !/^photos\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpg|png)$/.test(src))
+    if (
+      typeof src !== 'string' ||
+      !/^images\/travel\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpg|png)$/.test(src)
+    )
       return '';
     return travelAsset(src);
   }

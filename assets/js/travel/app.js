@@ -1639,7 +1639,7 @@
   });
   // Optional files fall back to their empty value; any other failure stops the map.
   const loadJSON = (file, fallback) => {
-    const request = fetch(travelAsset(`data/${file}`)).then(response => {
+    const request = fetch(travelAsset(`data/travel/${file}`)).then(response => {
       if (!response.ok) throw Error(`${file} unavailable`);
       return response.json();
     });

@@ -4,16 +4,16 @@ const globals = require('globals');
 // The site's scripts are plain browser scripts loaded in order with <script defer>,
 // so files share top-level declarations instead of importing them.
 const shared = {
-  // assets/travel/data.js
+  // assets/js/travel/data.js
   COUNTRY_PLACES: 'readonly',
   HOME_COUNTRY: 'readonly',
   ROUTE_MODES: 'readonly',
   US_VISITS: 'readonly',
   VISITED_COUNTRIES: 'readonly',
-  // assets/travel/runtime.js
+  // assets/js/travel/runtime.js
   escapeHtml: 'readonly',
   travelAsset: 'readonly',
-  // assets/travel/*.js installers
+  // assets/js/travel/*.js installers
   createGlobeFlights: 'readonly',
   installAtlasPhotos: 'readonly',
   installBasemapLabels: 'readonly',
@@ -21,7 +21,7 @@ const shared = {
   installRouteCards: 'readonly',
   installSmoothZoom: 'readonly',
   installTripItineraries: 'readonly',
-  // assets/travel/vendor
+  // assets/vendor
   L: 'readonly',
   maplibregl: 'readonly',
   topojson: 'readonly'
@@ -33,7 +33,7 @@ module.exports = [
       '_site/',
       'node_modules/',
       'vendor/',
-      'assets/travel/vendor/',
+      'assets/vendor/',
       'assets/data/',
       'assets/codequeue/'
     ]

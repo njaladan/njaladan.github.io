@@ -1,25 +1,80 @@
 ---
-layout: null
+layout: default
 title: Travel
+description: "Places I've visited, with photos, journeys and recorded activity routes."
 permalink: /travel/
 redirect_from: /atlas/
+full_screen: true
+theme_color: "#f8f9fa"
+styles:
+  - /assets/vendor/leaflet.css
+  - /assets/css/travel/map.css
+  - /assets/css/travel/map-ui.css
+  - /assets/css/travel/itineraries.css
+  - /assets/vendor/maplibre-gl.css
+  - /assets/css/travel/globe.css
+scripts:
+  - /assets/vendor/topojson.min.js
+  - /assets/vendor/leaflet.js
+  - /assets/js/travel/data.js
+  - /assets/js/travel/runtime.js
+  - /assets/js/travel/smooth-zoom.js
+  - /assets/js/travel/basemap-labels.js
+  - /assets/js/travel/route-cards.js
+  - /assets/js/travel/itineraries.js
+  - /assets/js/travel/photo-zoom.js
+  - /assets/js/travel/photos.js
+  - /assets/vendor/maplibre-gl.js
+  - /assets/js/travel/globe-flights.js
+  - /assets/js/travel/globe.js
+  - /assets/js/travel/app.js
 ---
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f8f9fa">
-  <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
-  <title>Travel — Ganesh</title>
-  <meta name="description" content="Places I've visited, with photos, journeys and recorded activity routes.">
-  <link rel="icon" href="{{ '/assets/images/logo.png' | relative_url }}">
-  {% include travel-app-head.html %}
-</head>
-<body>
-  {% include site-header.html %}
-  {% include travel-map-ui.html %}
-  {% include travel-photo-viewer.html %}
-  {% include site-footer.html %}
-</body>
-</html>
+  <main id="main" aria-label="Travel atlas">
+    <div id="map" aria-label="Map of visited countries" data-asset-base="{{ '/assets/' | relative_url }}"></div>
+    <div class="map-toolbar">
+      <button id="trip-itineraries-button" type="button" aria-controls="trip-itinerary" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5h10M7 10h10M7 15h10M3 5h.1M3 10h.1M3 15h.1"/></svg>Itineraries</button>
+    </div>
+    <button id="map-settings-button" class="map-settings-button" type="button" aria-label="Map settings" aria-haspopup="dialog" aria-controls="map-settings" title="Map settings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 3-.6 2.1-1.6.9-2.1-.5-2.5 4.3L4.2 11v2l-1.5 1.2 2.5 4.3 2.1-.5 1.6.9.6 2.1h5l.6-2.1 1.6-.9 2.1.5 2.5-4.3-1.5-1.2v-2l1.5-1.2-2.5-4.3-2.1.5-1.6-.9-.6-2.1z"/><circle cx="12" cy="12" r="3"/></svg>
+    </button>
+    <div id="route-legend" hidden aria-label="Map key"></div>
+    <p id="map-status" role="status">Loading map…</p>
+    <dialog id="trip-itinerary" class="trip-itinerary" aria-labelledby="trip-itinerary-title">
+      <div class="trip-itinerary-header">
+        <button type="button" class="trip-itinerary-back" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 4-6 6 6 6M4 10h13"/></svg>All itineraries</button>
+        <button type="button" class="trip-itinerary-close" aria-label="Close itinerary">×</button>
+      </div>
+      <h2 id="trip-itinerary-title">Itineraries</h2>
+      <div class="trip-itinerary-content"></div>
+    </dialog>
+  </main>
+  <dialog id="map-settings" class="map-settings" aria-labelledby="map-settings-title" aria-describedby="map-settings-description">
+    <form method="dialog" class="map-settings-header">
+      <h2 id="map-settings-title">Map settings</h2>
+      <button type="submit" aria-label="Close map settings" autofocus>×</button>
+    </form>
+    <p id="map-settings-description">Choose the projection, what appears on the map and how distances are shown.</p>
+    <fieldset class="map-view">
+      <legend>Projection</legend>
+      <div class="distance-options">
+        <label><input type="radio" name="map-view" value="globe" checked><span>Globe <small>3D</small></span></label>
+        <label><input type="radio" name="map-view" value="flat"><span>Mercator <small>2D</small></span></label>
+      </div>
+      <small class="map-view-note" hidden>This browser can't show the globe.</small>
+    </fieldset>
+    <label class="photo-visibility"><span>Show photos<small>Display photo pins on the map.</small></span><input id="show-photos" type="checkbox" checked></label>
+    <fieldset>
+      <legend>Distance unit</legend>
+      <div class="distance-options">
+        <label><input type="radio" name="distance-unit" value="km" checked><span>Kilometers <small>km</small></span></label>
+        <label><input type="radio" name="distance-unit" value="mi"><span>Miles <small>mi</small></span></label>
+      </div>
+    </fieldset>
+  </dialog>
+  <div id="photo-backdrop" aria-hidden="true" hidden></div>
+  <dialog id="photo-viewer" aria-labelledby="photo-title">
+    <div class="photo-viewer-header"><div><h2 id="photo-title"></h2><p class="photo-caption" hidden></p></div><div class="photo-window-actions"><button class="photo-shrink" aria-label="Return to smaller photo" hidden>↙</button><button class="photo-close" aria-label="Close photo">×</button></div></div>
+    <div class="photo-stage" role="button" tabindex="0" aria-label="Expand photo"><span class="photo-image"><span class="photo-pixels"><img alt="" draggable="false"></span><span class="photo-image-status" role="status"></span></span></div>
+    <div class="photo-viewer-footer"><div class="photo-navigation"><button class="photo-previous" aria-label="Previous photo">←</button><span class="photo-counter" aria-live="polite"></span><button class="photo-next" aria-label="Next photo">→</button></div><button class="photo-expand">View photo</button><div class="photo-zoom-controls" role="group" aria-label="Photo zoom" hidden><button class="photo-zoom-out" aria-label="Zoom out">−</button><button class="photo-zoom-reset" aria-label="Reset photo zoom" title="Fit photo">100%</button><button class="photo-zoom-in" aria-label="Zoom in">+</button></div></div>
+    <span id="photo-zoom-help" class="photo-zoom-help" hidden>Scroll or pinch to zoom. Drag to move. Use +, −, or 0 to change or reset zoom; arrow keys move the enlarged photo.</span>
+  </dialog>

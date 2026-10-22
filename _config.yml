@@ -22,7 +22,6 @@ exclude:
   - AGENTS.md
   - README.md
   - LICENSE.txt
-  - docs/
   - scripts/
   - node_modules/
   - Gemfile

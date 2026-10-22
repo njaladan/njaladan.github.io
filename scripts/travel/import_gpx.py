@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Import actual GPX tracks into assets/travel/data/activities.json. No external dependencies."""
+"""Import actual GPX tracks into assets/data/travel/activities.json. No external dependencies."""
 import argparse
 from datetime import datetime
 import gzip
@@ -83,7 +83,7 @@ def main():
     parser.add_argument('--journey', required=True)
     parser.add_argument('--name', required=True)
     parser.add_argument('--countries', required=True, help='Comma-separated ISO numeric country IDs, e.g. 250,380,756')
-    parser.add_argument('--output', type=Path, default=Path(__file__).resolve().parents[2]/'assets/travel/data/activities.json')
+    parser.add_argument('--output', type=Path, default=Path(__file__).resolve().parents[2]/'assets/data/travel/activities.json')
     args = parser.parse_args()
     imported = [read_gpx(path) for path in args.files]
     if args.journey == 'tmb':

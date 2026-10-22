@@ -3,22 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#faf8f3">
+  <meta name="theme-color" content="{{ page.theme_color | default: '#faf8f3' }}">
   <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
   <link rel="icon" href="{{ '/assets/images/logo.png' | relative_url }}">
   {% seo %}
-  <link rel="stylesheet" href="{{ '/assets/css/library.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/header.css' | relative_url }}">
+  {% unless page.full_screen %}<link rel="stylesheet" href="{{ '/assets/css/library.css' | relative_url }}">
+  {% endunless %}
   {% for href in page.styles %}<link rel="stylesheet" href="{{ href | relative_url }}">
   {% endfor %}
+  <link rel="stylesheet" href="{{ '/assets/css/header.css' | relative_url }}">
   {% for src in page.scripts %}<script defer src="{{ src | relative_url }}"></script>
   {% endfor %}
 </head>
 <body>
   {% include site-header.html %}
+  {% if page.full_screen %}
+  {{ content }}
+  {% include site-footer.html %}
+  {% else %}
   <div class="site-shell">
     <main id="main"{% if page.main_class %} class="{{ page.main_class }}"{% endif %}>{{ content }}</main>
     {% include site-footer.html %}
   </div>
+  {% endif %}
 </body>
 </html>

@@ -1,6 +1,7 @@
 (() => {
   const gallery = document.querySelector('#photo-gallery');
-  const base = gallery.dataset.travelBase;
+  const base = gallery.dataset.assetBase;
+  const mapUrl = gallery.dataset.mapUrl;
   const version = document.querySelector('meta[name="asset-version"]')?.content;
   const stamped = url => (version ? `${url}?v=${version}` : url);
   const valid = photo =>
@@ -13,10 +14,10 @@
     photo.variants &&
     typeof photo.place === 'string';
   const asset = src =>
-    typeof src === 'string' && /^photos\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpg|png)$/.test(src)
+    typeof src === 'string' && /^images\/travel\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpg|png)$/.test(src)
       ? stamped(`${base}${src}`)
       : '';
-  fetch(stamped(`${base}data/photos.json`))
+  fetch(stamped(`${base}data/travel/photos.json`))
     .then(response => {
       if (!response.ok) throw new Error('Photo list unavailable');
       return response.json();
@@ -43,7 +44,7 @@
         const label = location ? `${subject} — ${location}` : subject;
         const link = document.createElement('a');
         link.className = 'photo-card';
-        link.href = `${base}?lat=${encodeURIComponent(photo.coords[0])}&lng=${encodeURIComponent(photo.coords[1])}&zoom=15`;
+        link.href = `${mapUrl}?lat=${encodeURIComponent(photo.coords[0])}&lng=${encodeURIComponent(photo.coords[1])}&zoom=15`;
         link.setAttribute('aria-label', `View ${label} on the map`);
         const figure = document.createElement('figure');
         figure.style.margin = '0';
