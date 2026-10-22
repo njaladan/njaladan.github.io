@@ -1,6 +1,9 @@
+import { travelAsset } from './runtime.js';
+import { installPhotoZoom } from './photo-zoom.js';
+
 /* Photo assets are fetched only for visible pins or an explicitly opened image. */
-'use strict';
-function installAtlasPhotos(map, { focus, onLayout }) {
+('use strict');
+export function installAtlasPhotos(map, { focus, onLayout }) {
   const L = map.atlasRenderer || window.L;
   const dialog = document.querySelector('#photo-viewer');
   const backdrop = document.querySelector('#photo-backdrop');

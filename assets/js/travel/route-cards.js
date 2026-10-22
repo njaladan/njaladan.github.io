@@ -1,6 +1,9 @@
+import { escapeHtml } from '../lib/html.js';
+import { travelAsset } from './runtime.js';
+
 // Route cards: one popup layout shared by activities, transport, flights and
 // airports, plus the route badges and geometry helpers the map uses for them.
-function installRouteCards(L = window.L) {
+export function installRouteCards(L = window.L) {
   const ICONS = {
     hiking: '<path d="M1.5 13 6 5.5l2.6 4L10.6 7l3.9 6z" fill="currentColor"/>',
     walking:

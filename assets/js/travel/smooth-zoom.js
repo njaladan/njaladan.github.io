@@ -2,7 +2,7 @@
 // anchor under the pointer and interpolate the camera once per animation frame.
 // Leaflet's _move hooks scale its tiles and vector renderer during the gesture;
 // _moveEnd then refreshes tile levels and reprojects vector geometry once.
-function installSmoothZoom(map, reduceMotion) {
+export function installSmoothZoom(map, reduceMotion) {
   if (map.installSmoothZoom) return map.installSmoothZoom(reduceMotion);
   const element = map.getContainer();
   let frame = null,

@@ -1,5 +1,5 @@
 // User-confirmed places. Hong Kong SAR is scoped to its own geometry; the US is home.
-const VISITED_COUNTRIES = {
+export const VISITED_COUNTRIES = {
   '124': { name: 'Canada' },
   '152': { name: 'Chile' },
   '156': { name: 'Hong Kong SAR', geometry: '344' },
@@ -24,10 +24,10 @@ const VISITED_COUNTRIES = {
   '336': { name: 'Vatican City' },
   '040': { name: 'Austria' }
 };
-const HOME_COUNTRY = '840';
+export const HOME_COUNTRY = '840';
 
 // City-level locations from travel records and user confirmation. No addresses or booking identifiers.
-const COUNTRY_PLACES = {
+export const COUNTRY_PLACES = {
   '124': [{ name: 'Montréal', coords: [45.5019, -73.5674] }],
   '152': [
     { name: 'Puerto Natales', coords: [-51.7309, -72.4977] },
@@ -148,7 +148,7 @@ const COUNTRY_PLACES = {
 };
 
 // State visits supplied by Ganesh. Coordinates are place centers, not a route.
-const US_VISITS = {
+export const US_VISITS = {
   '06': {
     name: 'California',
     cities: [
@@ -264,7 +264,7 @@ const US_VISITS = {
 };
 
 // Route colors are shared by recorded GPS tracks and confirmed transport legs.
-const ROUTE_MODES = {
+export const ROUTE_MODES = {
   hiking: { name: 'Hike', color: '#859650' },
   walking: { name: 'Walk', color: '#527b58' },
   running: { name: 'Run', color: '#bd5574' },

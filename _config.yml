@@ -29,6 +29,12 @@ exclude:
   - package.json
   - package-lock.json
   - eslint.config.js
+  - jsconfig.json
+  - playwright.config.js
+  - tests/
+  - types/
+  - test-results/
+  - playwright-report/
   - pyproject.toml
   - requirements.txt
 
