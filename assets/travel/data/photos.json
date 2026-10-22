@@ -597,7 +597,7 @@
       }
     },
     {
-      "id": "img-0964",
+      "id": "jardin-du-luxembourg-paris",
       "place": "Jardin du Luxembourg — Paris",
       "coords": [
         48.8462,
@@ -609,25 +609,25 @@
       "sha256": "51f06d528b65b91a5cd43738b13ebca6838ff24de2a7604afbaf966e6eca8aba",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-0964/edb3e464c54bbdde-thumbnail.webp",
+          "src": "photos/jardin-du-luxembourg-paris/edb3e464c54bbdde-thumbnail.webp",
           "width": 76,
           "height": 128,
           "bytes": 2814
         },
         "small": {
-          "src": "photos/img-0964/edb3e464c54bbdde-small.webp",
+          "src": "photos/jardin-du-luxembourg-paris/edb3e464c54bbdde-small.webp",
           "width": 378,
           "height": 640,
           "bytes": 67616
         },
         "medium": {
-          "src": "photos/img-0964/edb3e464c54bbdde-medium.webp",
+          "src": "photos/jardin-du-luxembourg-paris/edb3e464c54bbdde-medium.webp",
           "width": 757,
           "height": 1280,
           "bytes": 313354
         },
         "large": {
-          "src": "photos/img-0964/edb3e464c54bbdde-large.webp",
+          "src": "photos/jardin-du-luxembourg-paris/edb3e464c54bbdde-large.webp",
           "width": 1419,
           "height": 2400,
           "bytes": 948206
@@ -648,7 +648,7 @@
       }
     },
     {
-      "id": "img-1406",
+      "id": "st-peters-basilica-vatican-city",
       "place": "St. Peter’s Basilica — Vatican City",
       "coords": [
         41.9022,
@@ -660,25 +660,25 @@
       "sha256": "1b0a45bcaf15012a881dae91cc466ea754f9fbcb4e0178b580df65c2f3792e66",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-1406/4e7b26ca164334a1-thumbnail.webp",
+          "src": "photos/st-peters-basilica-vatican-city/4e7b26ca164334a1-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 5770
         },
         "small": {
-          "src": "photos/img-1406/4e7b26ca164334a1-small.webp",
+          "src": "photos/st-peters-basilica-vatican-city/4e7b26ca164334a1-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 148880
         },
         "medium": {
-          "src": "photos/img-1406/4e7b26ca164334a1-medium.webp",
+          "src": "photos/st-peters-basilica-vatican-city/4e7b26ca164334a1-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 593964
         },
         "large": {
-          "src": "photos/img-1406/4e7b26ca164334a1-large.webp",
+          "src": "photos/st-peters-basilica-vatican-city/4e7b26ca164334a1-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1784862
@@ -701,7 +701,7 @@
       }
     },
     {
-      "id": "img-1482",
+      "id": "colosseum-rome",
       "place": "Colosseum — Rome",
       "coords": [
         41.8902,
@@ -713,25 +713,25 @@
       "sha256": "e466455cb85d6f393f0020aa841cc62c9c789dd334d1cfc72cc24124f609da65",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-1482/d4de8885745b8b11-thumbnail.webp",
+          "src": "photos/colosseum-rome/d4de8885745b8b11-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 2412
         },
         "small": {
-          "src": "photos/img-1482/d4de8885745b8b11-small.webp",
+          "src": "photos/colosseum-rome/d4de8885745b8b11-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 60200
         },
         "medium": {
-          "src": "photos/img-1482/d4de8885745b8b11-medium.webp",
+          "src": "photos/colosseum-rome/d4de8885745b8b11-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 291960
         },
         "large": {
-          "src": "photos/img-1482/d4de8885745b8b11-large.webp",
+          "src": "photos/colosseum-rome/d4de8885745b8b11-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1054216
@@ -754,7 +754,7 @@
       }
     },
     {
-      "id": "img-1540",
+      "id": "koutoubia-mosque-marrakech",
       "place": "Koutoubia Mosque — Marrakech",
       "coords": [
         31.6242,
@@ -766,25 +766,25 @@
       "sha256": "cb65206c690bbfddebc71020adb03457024919e21c227c1d1316f4228c9bf431",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-1540/7fa14cde7af1960f-thumbnail.webp",
+          "src": "photos/koutoubia-mosque-marrakech/7fa14cde7af1960f-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 3118
         },
         "small": {
-          "src": "photos/img-1540/7fa14cde7af1960f-small.webp",
+          "src": "photos/koutoubia-mosque-marrakech/7fa14cde7af1960f-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 73820
         },
         "medium": {
-          "src": "photos/img-1540/7fa14cde7af1960f-medium.webp",
+          "src": "photos/koutoubia-mosque-marrakech/7fa14cde7af1960f-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 314762
         },
         "large": {
-          "src": "photos/img-1540/7fa14cde7af1960f-large.webp",
+          "src": "photos/koutoubia-mosque-marrakech/7fa14cde7af1960f-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 987070
@@ -807,7 +807,7 @@
       }
     },
     {
-      "id": "img-1561",
+      "id": "medina-souks-marrakech",
       "place": "Medina souks — Marrakech",
       "coords": [
         31.629,
@@ -819,25 +819,25 @@
       "sha256": "ff1e0bef1e33bb51b6f0d0564002fd988be208ad09399f12585c277a000a6159",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-1561/c93df593e702db81-thumbnail.webp",
+          "src": "photos/medina-souks-marrakech/c93df593e702db81-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 5784
         },
         "small": {
-          "src": "photos/img-1561/c93df593e702db81-small.webp",
+          "src": "photos/medina-souks-marrakech/c93df593e702db81-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 123222
         },
         "medium": {
-          "src": "photos/img-1561/c93df593e702db81-medium.webp",
+          "src": "photos/medina-souks-marrakech/c93df593e702db81-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 538656
         },
         "large": {
-          "src": "photos/img-1561/c93df593e702db81-large.webp",
+          "src": "photos/medina-souks-marrakech/c93df593e702db81-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1861392
@@ -860,7 +860,7 @@
       }
     },
     {
-      "id": "img-1658",
+      "id": "casa-mila-barcelona",
       "place": "Casa Milà — Barcelona",
       "coords": [
         41.3954,
@@ -872,25 +872,25 @@
       "sha256": "a21cb0da60fac002f5b4879df81019d76a93b1c1ffc888a938b8ff7dd87e220a",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-1658/ac689836fb23d667-thumbnail.webp",
+          "src": "photos/casa-mila-barcelona/ac689836fb23d667-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 6006
         },
         "small": {
-          "src": "photos/img-1658/ac689836fb23d667-small.webp",
+          "src": "photos/casa-mila-barcelona/ac689836fb23d667-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 132464
         },
         "medium": {
-          "src": "photos/img-1658/ac689836fb23d667-medium.webp",
+          "src": "photos/casa-mila-barcelona/ac689836fb23d667-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 544780
         },
         "large": {
-          "src": "photos/img-1658/ac689836fb23d667-large.webp",
+          "src": "photos/casa-mila-barcelona/ac689836fb23d667-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1708492
@@ -913,7 +913,7 @@
       }
     },
     {
-      "id": "img-1697",
+      "id": "waterfront-barcelona",
       "place": "Waterfront — Barcelona",
       "coords": [
         41.385,
@@ -925,25 +925,25 @@
       "sha256": "feda11ffb2ebef193c2913f2b6f3f8a4ae06b63e5f452a749ea6eaac23927962",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-1697/71a275b6f6e8f0d3-thumbnail.webp",
+          "src": "photos/waterfront-barcelona/71a275b6f6e8f0d3-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 3690
         },
         "small": {
-          "src": "photos/img-1697/71a275b6f6e8f0d3-small.webp",
+          "src": "photos/waterfront-barcelona/71a275b6f6e8f0d3-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 80192
         },
         "medium": {
-          "src": "photos/img-1697/71a275b6f6e8f0d3-medium.webp",
+          "src": "photos/waterfront-barcelona/71a275b6f6e8f0d3-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 369314
         },
         "large": {
-          "src": "photos/img-1697/71a275b6f6e8f0d3-large.webp",
+          "src": "photos/waterfront-barcelona/71a275b6f6e8f0d3-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1313266
@@ -966,7 +966,7 @@
       }
     },
     {
-      "id": "img-6377",
+      "id": "samuel-de-champlain-bridge-montreal",
       "place": "Samuel-De Champlain Bridge — Montréal",
       "coords": [
         45.4696,
@@ -978,25 +978,25 @@
       "sha256": "7511bc81fef4edfb949dce9c9bfc96f66dd1129d701ce0803c9fefe17bd5de8d",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6377/2939dd35d2a9e4bc-thumbnail.webp",
+          "src": "photos/samuel-de-champlain-bridge-montreal/2939dd35d2a9e4bc-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 3700
         },
         "small": {
-          "src": "photos/img-6377/2939dd35d2a9e4bc-small.webp",
+          "src": "photos/samuel-de-champlain-bridge-montreal/2939dd35d2a9e4bc-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 59306
         },
         "medium": {
-          "src": "photos/img-6377/2939dd35d2a9e4bc-medium.webp",
+          "src": "photos/samuel-de-champlain-bridge-montreal/2939dd35d2a9e4bc-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 241548
         },
         "large": {
-          "src": "photos/img-6377/2939dd35d2a9e4bc-large.webp",
+          "src": "photos/samuel-de-champlain-bridge-montreal/2939dd35d2a9e4bc-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1010076
@@ -1022,7 +1022,7 @@
       }
     },
     {
-      "id": "img-6446",
+      "id": "bionnassay-suspension-bridge-tour-du-mont-blanc",
       "place": "Bionnassay suspension bridge — Tour du Mont Blanc",
       "coords": [
         45.86284,
@@ -1034,25 +1034,25 @@
       "sha256": "a052ea6e45b4b4c838f4aa5c137b05d9c164a7524d0b37ac25d6ef913f3c62cc",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6446/527a28f9bc40fa0f-thumbnail.webp",
+          "src": "photos/bionnassay-suspension-bridge-tour-du-mont-blanc/527a28f9bc40fa0f-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 5658
         },
         "small": {
-          "src": "photos/img-6446/527a28f9bc40fa0f-small.webp",
+          "src": "photos/bionnassay-suspension-bridge-tour-du-mont-blanc/527a28f9bc40fa0f-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 164562
         },
         "medium": {
-          "src": "photos/img-6446/527a28f9bc40fa0f-medium.webp",
+          "src": "photos/bionnassay-suspension-bridge-tour-du-mont-blanc/527a28f9bc40fa0f-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 730168
         },
         "large": {
-          "src": "photos/img-6446/527a28f9bc40fa0f-large.webp",
+          "src": "photos/bionnassay-suspension-bridge-tour-du-mont-blanc/527a28f9bc40fa0f-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 2436836
@@ -1078,7 +1078,7 @@
       }
     },
     {
-      "id": "img-6452",
+      "id": "col-de-tricot-trail-tour-du-mont-blanc",
       "place": "Col de Tricot trail — Tour du Mont Blanc",
       "coords": [
         45.85,
@@ -1090,25 +1090,25 @@
       "sha256": "9832dc3f65f6ae073bff3d343073cf3480cc859abf199b2874b15d305d2de90c",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6452/1cee06f5a0998cf2-thumbnail.webp",
+          "src": "photos/col-de-tricot-trail-tour-du-mont-blanc/1cee06f5a0998cf2-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 2904
         },
         "small": {
-          "src": "photos/img-6452/1cee06f5a0998cf2-small.webp",
+          "src": "photos/col-de-tricot-trail-tour-du-mont-blanc/1cee06f5a0998cf2-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 82346
         },
         "medium": {
-          "src": "photos/img-6452/1cee06f5a0998cf2-medium.webp",
+          "src": "photos/col-de-tricot-trail-tour-du-mont-blanc/1cee06f5a0998cf2-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 388538
         },
         "large": {
-          "src": "photos/img-6452/1cee06f5a0998cf2-large.webp",
+          "src": "photos/col-de-tricot-trail-tour-du-mont-blanc/1cee06f5a0998cf2-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1411352
@@ -1131,7 +1131,7 @@
       }
     },
     {
-      "id": "img-6511",
+      "id": "val-veny-tour-du-mont-blanc",
       "place": "Val Veny — Tour du Mont Blanc",
       "coords": [
         45.774,
@@ -1143,25 +1143,25 @@
       "sha256": "11333592c07365d62d3d002de33458f6904b875a17ab2df3c00331a225f6d5ae",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6511/7944d27717e6ea0f-thumbnail.webp",
+          "src": "photos/val-veny-tour-du-mont-blanc/7944d27717e6ea0f-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 4088
         },
         "small": {
-          "src": "photos/img-6511/7944d27717e6ea0f-small.webp",
+          "src": "photos/val-veny-tour-du-mont-blanc/7944d27717e6ea0f-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 98450
         },
         "medium": {
-          "src": "photos/img-6511/7944d27717e6ea0f-medium.webp",
+          "src": "photos/val-veny-tour-du-mont-blanc/7944d27717e6ea0f-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 452416
         },
         "large": {
-          "src": "photos/img-6511/7944d27717e6ea0f-large.webp",
+          "src": "photos/val-veny-tour-du-mont-blanc/7944d27717e6ea0f-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1609158
@@ -1184,7 +1184,7 @@
       }
     },
     {
-      "id": "img-6517",
+      "id": "mont-chetif-view-courmayeur",
       "place": "Mont Chétif view — Courmayeur",
       "coords": [
         45.814,
@@ -1196,25 +1196,25 @@
       "sha256": "f39e8d04c97648b6f75f9f7dbd9edb3d70e079dfea74d0c9a3be01ec86fb07a9",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6517/9349067b9f32ae58-thumbnail.webp",
+          "src": "photos/mont-chetif-view-courmayeur/9349067b9f32ae58-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 4040
         },
         "small": {
-          "src": "photos/img-6517/9349067b9f32ae58-small.webp",
+          "src": "photos/mont-chetif-view-courmayeur/9349067b9f32ae58-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 98282
         },
         "medium": {
-          "src": "photos/img-6517/9349067b9f32ae58-medium.webp",
+          "src": "photos/mont-chetif-view-courmayeur/9349067b9f32ae58-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 448328
         },
         "large": {
-          "src": "photos/img-6517/9349067b9f32ae58-large.webp",
+          "src": "photos/mont-chetif-view-courmayeur/9349067b9f32ae58-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1693940
@@ -1237,7 +1237,7 @@
       }
     },
     {
-      "id": "img-6566",
+      "id": "aiguille-du-midi-chamonix",
       "place": "Aiguille du Midi — Chamonix",
       "coords": [
         45.8786,
@@ -1249,25 +1249,25 @@
       "sha256": "e3dde12804a47dd1ffe731bd62af9098c71ee41745673c303ea02f2d782e7e95",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6566/61ba9d9abbd2a11c-thumbnail.webp",
+          "src": "photos/aiguille-du-midi-chamonix/61ba9d9abbd2a11c-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 3538
         },
         "small": {
-          "src": "photos/img-6566/61ba9d9abbd2a11c-small.webp",
+          "src": "photos/aiguille-du-midi-chamonix/61ba9d9abbd2a11c-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 71550
         },
         "medium": {
-          "src": "photos/img-6566/61ba9d9abbd2a11c-medium.webp",
+          "src": "photos/aiguille-du-midi-chamonix/61ba9d9abbd2a11c-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 326976
         },
         "large": {
-          "src": "photos/img-6566/61ba9d9abbd2a11c-large.webp",
+          "src": "photos/aiguille-du-midi-chamonix/61ba9d9abbd2a11c-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1103950
@@ -1290,7 +1290,7 @@
       }
     },
     {
-      "id": "img-6567",
+      "id": "mont-blanc-gondola-mont-blanc-massif",
       "place": "Mont Blanc gondola — Mont Blanc massif",
       "coords": [
         45.8625,
@@ -1302,25 +1302,25 @@
       "sha256": "4b50f03fa95a3a96466deed1924356455b79e71b42d30cc0aed8cf3483afc292",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6567/fe43c8c9154fd3d3-thumbnail.webp",
+          "src": "photos/mont-blanc-gondola-mont-blanc-massif/fe43c8c9154fd3d3-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 2024
         },
         "small": {
-          "src": "photos/img-6567/fe43c8c9154fd3d3-small.webp",
+          "src": "photos/mont-blanc-gondola-mont-blanc-massif/fe43c8c9154fd3d3-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 38806
         },
         "medium": {
-          "src": "photos/img-6567/fe43c8c9154fd3d3-medium.webp",
+          "src": "photos/mont-blanc-gondola-mont-blanc-massif/fe43c8c9154fd3d3-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 181148
         },
         "large": {
-          "src": "photos/img-6567/fe43c8c9154fd3d3-large.webp",
+          "src": "photos/mont-blanc-gondola-mont-blanc-massif/fe43c8c9154fd3d3-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 611878
@@ -1343,7 +1343,7 @@
       }
     },
     {
-      "id": "img-6618",
+      "id": "lac-blanc-area-chamonix",
       "place": "Lac Blanc area — Chamonix",
       "coords": [
         45.9848,
@@ -1355,25 +1355,25 @@
       "sha256": "274904182ea79307a5493ca8b63304901e12d9bb9a3082d0bde47a01b6c83903",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6618/a572b4042ad8ae84-thumbnail.webp",
+          "src": "photos/lac-blanc-area-chamonix/a572b4042ad8ae84-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 4278
         },
         "small": {
-          "src": "photos/img-6618/a572b4042ad8ae84-small.webp",
+          "src": "photos/lac-blanc-area-chamonix/a572b4042ad8ae84-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 102316
         },
         "medium": {
-          "src": "photos/img-6618/a572b4042ad8ae84-medium.webp",
+          "src": "photos/lac-blanc-area-chamonix/a572b4042ad8ae84-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 465406
         },
         "large": {
-          "src": "photos/img-6618/a572b4042ad8ae84-large.webp",
+          "src": "photos/lac-blanc-area-chamonix/a572b4042ad8ae84-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1638512
@@ -1399,7 +1399,7 @@
       }
     },
     {
-      "id": "img-6663",
+      "id": "meteora-greece",
       "place": "Meteora — Greece",
       "coords": [
         39.7217,
@@ -1411,25 +1411,25 @@
       "sha256": "f70f7f6a238eb4c166822534862975f5e2619af32104ed313599cf66cfd8ccff",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6663/9293fd591e454474-thumbnail.webp",
+          "src": "photos/meteora-greece/9293fd591e454474-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 3764
         },
         "small": {
-          "src": "photos/img-6663/9293fd591e454474-small.webp",
+          "src": "photos/meteora-greece/9293fd591e454474-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 94062
         },
         "medium": {
-          "src": "photos/img-6663/9293fd591e454474-medium.webp",
+          "src": "photos/meteora-greece/9293fd591e454474-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 427302
         },
         "large": {
-          "src": "photos/img-6663/9293fd591e454474-large.webp",
+          "src": "photos/meteora-greece/9293fd591e454474-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1570828
@@ -1452,7 +1452,7 @@
       }
     },
     {
-      "id": "img-6899",
+      "id": "tomb-of-ramesses-iii-luxor",
       "place": "Tomb of Ramesses III — Luxor",
       "coords": [
         25.7402,
@@ -1464,25 +1464,25 @@
       "sha256": "203ef19b8ba0ec5430e7d186c780dbcebd22eadaf6be00756cf0e0487f35d5ed",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6899/40beb0bc789e2c48-thumbnail.webp",
+          "src": "photos/tomb-of-ramesses-iii-luxor/40beb0bc789e2c48-thumbnail.webp",
           "width": 128,
           "height": 96,
           "bytes": 3536
         },
         "small": {
-          "src": "photos/img-6899/40beb0bc789e2c48-small.webp",
+          "src": "photos/tomb-of-ramesses-iii-luxor/40beb0bc789e2c48-small.webp",
           "width": 640,
           "height": 480,
           "bytes": 76112
         },
         "medium": {
-          "src": "photos/img-6899/40beb0bc789e2c48-medium.webp",
+          "src": "photos/tomb-of-ramesses-iii-luxor/40beb0bc789e2c48-medium.webp",
           "width": 1280,
           "height": 960,
           "bytes": 368328
         },
         "large": {
-          "src": "photos/img-6899/40beb0bc789e2c48-large.webp",
+          "src": "photos/tomb-of-ramesses-iii-luxor/40beb0bc789e2c48-large.webp",
           "width": 2400,
           "height": 1800,
           "bytes": 1383900
@@ -1508,7 +1508,7 @@
       }
     },
     {
-      "id": "img-6924",
+      "id": "felucca-on-the-nile-luxor",
       "place": "Felucca on the Nile — Luxor",
       "coords": [
         25.7,
@@ -1520,25 +1520,25 @@
       "sha256": "a853752103cf63fba430d4a4b2b7828d9b77906cbdb924f1e8d6b60967f12296",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6924/8f2612714f37ad7e-thumbnail.webp",
+          "src": "photos/felucca-on-the-nile-luxor/8f2612714f37ad7e-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 1584
         },
         "small": {
-          "src": "photos/img-6924/8f2612714f37ad7e-small.webp",
+          "src": "photos/felucca-on-the-nile-luxor/8f2612714f37ad7e-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 30052
         },
         "medium": {
-          "src": "photos/img-6924/8f2612714f37ad7e-medium.webp",
+          "src": "photos/felucca-on-the-nile-luxor/8f2612714f37ad7e-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 129576
         },
         "large": {
-          "src": "photos/img-6924/8f2612714f37ad7e-large.webp",
+          "src": "photos/felucca-on-the-nile-luxor/8f2612714f37ad7e-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 555420
@@ -1561,7 +1561,7 @@
       }
     },
     {
-      "id": "img-7116",
+      "id": "the-treasury-petra",
       "place": "The Treasury — Petra",
       "coords": [
         30.3285,
@@ -1573,25 +1573,25 @@
       "sha256": "65293990d24ef9863d58972fa086d277244c7d6149a7d8d85dcd6ba991f67514",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-7116/aa82a8230bcb98aa-thumbnail.webp",
+          "src": "photos/the-treasury-petra/aa82a8230bcb98aa-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 4248
         },
         "small": {
-          "src": "photos/img-7116/aa82a8230bcb98aa-small.webp",
+          "src": "photos/the-treasury-petra/aa82a8230bcb98aa-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 106012
         },
         "medium": {
-          "src": "photos/img-7116/aa82a8230bcb98aa-medium.webp",
+          "src": "photos/the-treasury-petra/aa82a8230bcb98aa-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 481888
         },
         "large": {
-          "src": "photos/img-7116/aa82a8230bcb98aa-large.webp",
+          "src": "photos/the-treasury-petra/aa82a8230bcb98aa-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1594094
@@ -1614,7 +1614,7 @@
       }
     },
     {
-      "id": "img-7366",
+      "id": "museo-soumaya-mexico-city",
       "place": "Museo Soumaya — Mexico City",
       "coords": [
         19.4409,
@@ -1626,25 +1626,25 @@
       "sha256": "8e776a83398f59123863dbc9ec989dd947f6766d5320bd6a2e18bccefee5da1c",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-7366/a0ce4c82c60d1543-thumbnail.webp",
+          "src": "photos/museo-soumaya-mexico-city/a0ce4c82c60d1543-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 3936
         },
         "small": {
-          "src": "photos/img-7366/a0ce4c82c60d1543-small.webp",
+          "src": "photos/museo-soumaya-mexico-city/a0ce4c82c60d1543-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 88704
         },
         "medium": {
-          "src": "photos/img-7366/a0ce4c82c60d1543-medium.webp",
+          "src": "photos/museo-soumaya-mexico-city/a0ce4c82c60d1543-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 307470
         },
         "large": {
-          "src": "photos/img-7366/a0ce4c82c60d1543-large.webp",
+          "src": "photos/museo-soumaya-mexico-city/a0ce4c82c60d1543-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 911966
@@ -2236,7 +2236,7 @@
     }
   ],
   "gallery_order": [
-    "img-7366",
+    "museo-soumaya-mexico-city",
     "hong-kong-umbrella",
     "iceland-aurora",
     "pantheon-columns",
