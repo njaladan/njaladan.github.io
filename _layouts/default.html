@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="{{ '/assets/css/header.css' | relative_url }}">
   {% for src in page.scripts %}<script defer src="{{ src | relative_url }}"></script>
   {% endfor %}
+  {% for src in page.modules %}<script type="module" src="{{ src | relative_url }}"></script>
+  {% endfor %}
 </head>
 <body>
   {% include site-header.html %}

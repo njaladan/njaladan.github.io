@@ -32,6 +32,8 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run format:check
+      - run: npm run typecheck
+      - run: npm test
       - run: pipx run --spec ruff==0.16.9 ruff check
       - id: pages
         if: github.event_name != 'pull_request'
@@ -39,6 +41,10 @@ jobs:
       - run: bundle exec jekyll build
         env:
           JEKYLL_ENV: production
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+        env:
+          CI: true
       - if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
 

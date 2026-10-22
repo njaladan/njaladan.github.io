@@ -1,6 +1,6 @@
 /* Fullscreen photo gestures; paints at most once per input frame. */
 'use strict';
-function installPhotoZoom(viewport, pixels, image, { canInteract, onScale }) {
+export function installPhotoZoom(viewport, pixels, image, { canInteract, onScale }) {
   const pointers = new Map();
   const controls = document.querySelector('.photo-zoom-controls');
   const out = controls.querySelector('.photo-zoom-out');

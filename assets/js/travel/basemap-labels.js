@@ -1,4 +1,4 @@
-function installBasemapLabels(map) {
+export function installBasemapLabels(map) {
   const L = map.atlasRenderer || window.L;
   map.createPane('backgroundLabels');
   map.getPane('backgroundLabels').style.zIndex = 390;

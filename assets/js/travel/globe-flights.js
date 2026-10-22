@@ -1,6 +1,6 @@
 // Elevated great-circle ribbons use MapLibre's globe projection and depth buffer.
 // Heights are illustrative, not recorded aircraft altitudes.
-function createGlobeFlights(log, { onSelect, onHover }) {
+export function createGlobeFlights(log, { onSelect, onHover }) {
   const radius = 6371008.8,
     programs = new Map();
   const routes = log.routes
