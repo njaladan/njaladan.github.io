@@ -223,8 +223,12 @@
     const STRIPS = 10;
     const ease = t => (t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2);
     const curl = (leaf, turned) => {
-      const width = leaf.offsetWidth;
-      const strip = width / STRIPS;
+      // Slices must line up with the settled page to the subpixel, or the text jumps when the curl hands back.
+      const width = parseFloat(getComputedStyle(leaf).width);
+      const edges = Array.from({ length: STRIPS + 1 }, (_, index) =>
+        Math.round((index * width) / STRIPS)
+      );
+      const overlap = 2;
       const [front, back] = leaf.children;
       const slice = (face, offset, side) => {
         const holder = document.createElement('div');
@@ -245,13 +249,15 @@
       const strips = [];
       let parent = stack;
       for (let index = 0; index < STRIPS; index++) {
+        const [start, end] = [edges[index], edges[index + 1]];
         const piece = document.createElement('div');
         piece.className = 'curl-strip';
-        Object.assign(piece.style, { left: index ? `${strip}px` : '0', width: `${strip + 2}px` });
-        piece.append(
-          slice(front, index * strip, 'front'),
-          slice(back, width - (index + 1) * strip, 'back')
-        );
+        // Strips overlap slightly to hide seams; the back face mirrors across the wider strip, so it shifts too.
+        Object.assign(piece.style, {
+          left: `${index ? start - edges[index - 1] : 0}px`,
+          width: `${end - start + overlap}px`
+        });
+        piece.append(slice(front, start, 'front'), slice(back, width - end - overlap, 'back'));
         parent.append(piece);
         parent = piece;
         strips.push(piece);
