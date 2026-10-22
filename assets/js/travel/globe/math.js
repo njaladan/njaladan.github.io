@@ -15,15 +15,6 @@ const LIGHT_DISTANCE = 1.15;
  */
 
 /**
- * Clamps `value` to the range [min, max].
- * @param {number} value
- * @param {number} min
- * @param {number} max
- * @returns {number}
- */
-export const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
-
-/**
  * MapLibre lights the atmosphere from a fixed screen direction unless the
  * light is anchored to the map. Point that light at the date's subsolar point
  * so the bright limb turns with the Earth and follows the real sun.

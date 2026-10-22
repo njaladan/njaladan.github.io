@@ -1,5 +1,6 @@
 // Athletics: every GPS activity drawn as a shape, shuffled, with sport/year filters,
 // a viewer that draws one shape in, and a canvas "stack" of every selected shape.
+import { stampedUrl } from './lib/assets.js';
 import { $$ } from './lib/dom.js';
 import {
   SPORTS,
@@ -27,8 +28,23 @@ const STACK_FALLBACK_WIDTH = 720;
 // Higher pixel ratios cost memory on phones without looking any sharper.
 const MAX_PIXEL_RATIO = 2;
 
+/**
+ * Fetches the shapes written by scripts/athletics/build_athletics_shapes.py.
+ * @returns {Promise<Array<{ date: string, sport: string, segs: number[][] }>>}
+ */
+async function loadShapes() {
+  const url = document.getElementById('shape-grid')?.dataset.shapesUrl;
+  if (!url) return [];
+  try {
+    const response = await fetch(stampedUrl(url, location.href));
+    return response.ok ? await response.json() : [];
+  } catch {
+    return [];
+  }
+}
+
 /** @type {Shape[]} */
-const all = prepareShapes(window.SHAPES || []);
+const all = prepareShapes(await loadShapes());
 /** @type {{ sport: string, year: 'all' | number, view: string }} */
 const state = { sport: 'all', year: 'all', view: 'grid' };
 /** Shapes currently shown, and the one open in the viewer. @type {Shape[]} */

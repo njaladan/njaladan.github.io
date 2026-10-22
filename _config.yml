@@ -3,7 +3,7 @@ name: "Ganesh"
 title: "Ganesh"
 url: "https://nagaganesh.com"
 description: "Reading, movies, and travel."
-logo: 'assets/images/logo.png'
+logo: 'assets/images/site/logo.png'
 include: ["_pages"]
 permalink: /:title/
 email: ganesh.jaladanki@gmail.com

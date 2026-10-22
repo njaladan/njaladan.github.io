@@ -4,7 +4,6 @@ title: Athletics
 description: "Rides, runs, walks, hikes, and snow days, drawn as shapes."
 permalink: /athletics/
 styles: [/assets/css/athletics.css]
-scripts: [/assets/data/athletics-shapes.js]
 modules: [/assets/js/athletics.js]
 ---
 <h1>Athletics</h1>
@@ -14,7 +13,7 @@ modules: [/assets/js/athletics.js]
 </div>
 <div class="shape-chips shape-years" role="group" aria-label="Year" id="shape-years"></div>
 <p class="shape-count" id="shape-count" aria-live="polite"></p>
-<div class="shape-grid" id="shape-grid"></div>
+<div class="shape-grid" id="shape-grid" data-shapes-url="{{ '/assets/data/athletics/shapes.json' | relative_url }}"></div>
 <div class="shape-stack" id="shape-stack" hidden><canvas id="shape-canvas" role="img" aria-label="All selected routes stacked on top of each other"></canvas></div>
 <noscript><p>Enable JavaScript to see the shapes.</p></noscript>
 
