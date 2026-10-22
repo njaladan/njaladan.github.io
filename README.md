@@ -5,48 +5,77 @@ Pages from `master` by `.github/workflows/pages.yml`.
 
 ```sh
 bundle install && npm install
+python -m pip install --group dev   # ruff; needs pip 25.1+
 npm run serve    # http://localhost:4000
-npm run check    # what CI runs: ESLint, Prettier, Ruff and a Jekyll build
+npm run check    # what CI runs: ESLint, Prettier, tsc, tests, Ruff and a Jekyll build
 ```
 
 ## Layout
 
 ```
-_pages/    Site pages; book notes are posts in _posts/
-_data/     books.json and movies.json
-assets/    css/, js/, images/, data/ and vendor/, with travel/ subfolders for the map
-scripts/   Python importers for the data, by section
+_pages/           Site pages, one file per URL
+_posts/           Book notes, one file per book (shown on /reading)
+_drafts/          Unpublished posts; preview with `jekyll serve --drafts`
+_layouts/         default (page frame), post, reading, movies, redirect
+_includes/        Header, footer and the movie card
+_plugins/         cache_bust.rb: version-stamps asset URLs on every build
+_data/            books.json and movies.json, read by Liquid at build time
+archive/          The retired CodeQueue app, still served at /codequeue/
+assets/
+  css/            base.css on every page, plus one stylesheet per page or feature
+  js/             One entry module per page; lib/ holds helpers they share
+    travel/       The travel map: app.js wires map/, globe/, photos/,
+                  itineraries/ and routes/; shared/ is used by more than one
+  data/           JSON fetched by the browser at runtime (travel/, athletics/)
+  images/         site/, projects/, books/, movies/ and travel/
+  vendor/         Third-party libraries; versions in vendor/README.md
+scripts/          Python importers that write _data/ and assets/data/
+  common/         Paths and geometry shared by the importers
+tests/            Node tests, mirroring assets/js/ one file per module
+types/            Type declarations for the vendored globals
 ```
 
-Pages use the `default` layout and list their own `styles` and `scripts` in front
-matter; `full_screen: true` drops the page frame for the travel map. Moved URLs use
-`redirect_from:`. The archived CodeQueue app is still served at `/codequeue/` but not
-linked.
+Data lives in two places on purpose: `_data/` is rendered into the HTML when Jekyll
+builds, and `assets/data/` is downloaded by the page's JavaScript.
+
+## Pages
+
+Pages use the `default` layout and list their own `styles` and `modules` (ES modules)
+in front matter; `scripts` loads classic scripts such as the vendored libraries.
+`full_screen: true` drops the page frame and `base.css` for the travel map. Moved URLs
+use `redirect_from:`.
+
+Modules import each other with relative paths. `_plugins/cache_bust.rb` adds the
+build's version to every asset URL and writes an import map so imported modules get it
+too; scripts that build URLs at runtime use `stampedUrl()` from `assets/js/lib/assets.js`.
 
 ## Updating data
 
-Install dependencies with `pip install -r requirements.txt`. Source exports stay
-outside the repository.
+Install the importers' dependencies with `python -m pip install --group scripts` and
+run them as modules from the repository root. Source exports stay outside the
+repository.
 
 ```sh
 # Movies (Letterboxd export) and library artwork
-python scripts/library/import_movies.py diary.csv watched.csv
-python scripts/library/library_art.py
+python -m scripts.library.import_movies diary.csv watched.csv
+python -m scripts.library.library_art
 
 # Athletics shapes (Strava export)
-python scripts/athletics/summarize_strava.py activities/ SUMMARY.json
-python scripts/athletics/build_athletics_shapes.py activities/ SUMMARY.json
+python -m scripts.athletics.summarize_strava activities/ SUMMARY.json
+python -m scripts.athletics.build_athletics_shapes activities/ SUMMARY.json
 
 # Travel map
-python scripts/travel/import_photo.py photo.jpg --place "Louvre · Paris" --lat 48.86 --lon 2.34
-python scripts/travel/import_strava.py export/ REVIEW.json
-python scripts/travel/import_gpx.py track.gpx --journey trip --name "Ride" --countries 528
-python scripts/travel/match_activities.py cache/
-python scripts/travel/import_flights.py flights.csv
+python -m scripts.travel.import_photo photo.jpg --place "Louvre · Paris" --lat 48.86 --lon 2.34
+python -m scripts.travel.import_strava export/ REVIEW.json
+python -m scripts.travel.import_gpx track.gpx --journey trip --name "Ride" --countries 528
+python -m scripts.travel.match_activities cache/
+python -m scripts.travel.import_flights flights.csv
 ```
 
 Importers write compact JSON; run `npm run format` afterwards, since CI checks that
-data files are pretty-printed. Production builds minify HTML, CSS, JS and JSON with `jekyll-minifier`.
+data files are pretty-printed (`assets/data/athletics/` is exempt because of its size).
+Production builds minify HTML, JS and JSON with `jekyll-minifier`.
 
-Scripts share globals through ordered `<script defer>` tags; add new cross-file
-globals to `shared` in `eslint.config.js`.
+## License
+
+Code is MIT-licensed; the writing, photos and data are not. See [LICENSE](LICENSE).
