@@ -27,7 +27,8 @@
     "pages": 123,
     "cover": "/assets/images/books/2025-12-31-the-stranger.webp",
     "art_source": "https://covers.openlibrary.org/b/id/15070895-M.jpg",
-    "cover_ratio": 0.619
+    "cover_ratio": 0.618,
+    "cover_large": "/assets/images/books/large/2025-12-31-the-stranger.webp"
   },
   {
     "id": "2025-12-08-waiting-for-godot",
@@ -57,7 +58,8 @@
     "pages": 320,
     "cover": "/assets/images/books/2024-12-06-im-glad-my-mom-died.webp",
     "art_source": "https://covers.openlibrary.org/b/id/12855985-M.jpg",
-    "cover_ratio": 0.659
+    "cover_ratio": 0.659,
+    "cover_large": "/assets/images/books/large/2024-12-06-im-glad-my-mom-died.webp"
   },
   {
     "id": "2024-04-12-becoming-trader-joe",
@@ -97,7 +99,8 @@
     "pages": 177,
     "cover": "/assets/images/books/2023-07-09-no-longer-human.webp",
     "art_source": "https://covers.openlibrary.org/b/id/14611513-M.jpg?default=false",
-    "cover_ratio": 0.641
+    "cover_ratio": 0.64,
+    "cover_large": "/assets/images/books/large/2023-07-09-no-longer-human.webp"
   },
   {
     "id": "2023-06-06-pachinko",
@@ -107,7 +110,8 @@
     "pages": 490,
     "cover": "/assets/images/books/2023-06-06-pachinko.webp",
     "art_source": "https://covers.openlibrary.org/b/id/8044605-M.jpg",
-    "cover_ratio": 0.667
+    "cover_ratio": 0.659,
+    "cover_large": "/assets/images/books/large/2023-06-06-pachinko.webp"
   },
   {
     "id": "2022-09-10-macbeth",
@@ -117,7 +121,8 @@
     "pages": 272,
     "cover": "/assets/images/books/2022-09-10-macbeth.webp",
     "art_source": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781451694727/macbeth-9781451694727_lg.jpg",
-    "cover_ratio": 0.652
+    "cover_ratio": 0.653,
+    "cover_large": "/assets/images/books/large/2022-09-10-macbeth.webp"
   },
   {
     "id": "2021-12-15-the-world-for-sale",
@@ -127,7 +132,8 @@
     "pages": 416,
     "cover": "/assets/images/books/2021-12-15-the-world-for-sale.webp",
     "art_source": "https://cdn.penguin.co.uk/dam-assets/books/9781847942678/9781847942678-jacket-large.jpg",
-    "cover_ratio": 0.651
+    "cover_ratio": 0.652,
+    "cover_large": "/assets/images/books/large/2021-12-15-the-world-for-sale.webp"
   },
   {
     "id": "2021-10-18-kafka-on-the-shore",
@@ -157,7 +163,8 @@
     "pages": 304,
     "cover": "/assets/images/books/2021-10-01-an-economist-gets-lunch.webp",
     "art_source": "https://covers.openlibrary.org/b/id/9740029-M.jpg",
-    "cover_ratio": 0.645
+    "cover_ratio": 0.644,
+    "cover_large": "/assets/images/books/large/2021-10-01-an-economist-gets-lunch.webp"
   },
   {
     "id": "2021-09-12-the-new-rules-of-coffee",
@@ -167,7 +174,8 @@
     "pages": 160,
     "cover": "/assets/images/books/2021-09-12-the-new-rules-of-coffee.webp",
     "art_source": "https://images4.penguinrandomhouse.com/cover/9780399581625",
-    "cover_ratio": 0.704
+    "cover_ratio": 0.705,
+    "cover_large": "/assets/images/books/large/2021-09-12-the-new-rules-of-coffee.webp"
   },
   {
     "id": "2021-04-15-exhalations",
@@ -187,7 +195,8 @@
     "pages": 276,
     "cover": "/assets/images/books/2021-03-05-the-white-tiger.webp",
     "art_source": "https://covers.openlibrary.org/b/id/2787359-M.jpg",
-    "cover_ratio": 0.655
+    "cover_ratio": 0.65,
+    "cover_large": "/assets/images/books/large/2021-03-05-the-white-tiger.webp"
   },
   {
     "id": "2021-02-14-the-bell-jar",
@@ -207,7 +216,8 @@
     "pages": 768,
     "cover": "/assets/images/books/2020-12-31-a-promised-land.webp",
     "art_source": "https://covers.openlibrary.org/b/id/10449357-M.jpg",
-    "cover_ratio": 0.659
+    "cover_ratio": 0.658,
+    "cover_large": "/assets/images/books/large/2020-12-31-a-promised-land.webp"
   },
   {
     "id": "2020-12-23-an-elegant-puzzle",
@@ -217,7 +227,8 @@
     "pages": 288,
     "cover": "/assets/images/books/2020-12-23-an-elegant-puzzle.webp",
     "art_source": "https://covers.openlibrary.org/b/id/9260083-M.jpg",
-    "cover_ratio": 0.677
+    "cover_ratio": 0.676,
+    "cover_large": "/assets/images/books/large/2020-12-23-an-elegant-puzzle.webp"
   },
   {
     "id": "2020-10-31-human-diversity",
@@ -227,7 +238,8 @@
     "pages": 528,
     "cover": "/assets/images/books/2020-10-31-human-diversity.webp",
     "art_source": "https://covers.openlibrary.org/b/id/9287031-M.jpg",
-    "cover_ratio": 0.664
+    "cover_ratio": 0.662,
+    "cover_large": "/assets/images/books/large/2020-10-31-human-diversity.webp"
   },
   {
     "id": "2020-10-20-selfish-reasons-to-have-kids",
@@ -237,7 +249,8 @@
     "pages": 240,
     "cover": "/assets/images/books/2020-10-20-selfish-reasons-to-have-kids.webp",
     "art_source": "https://covers.openlibrary.org/b/id/9550372-M.jpg",
-    "cover_ratio": 0.659
+    "cover_ratio": 0.658,
+    "cover_large": "/assets/images/books/large/2020-10-20-selfish-reasons-to-have-kids.webp"
   },
   {
     "id": "2020-10-12-salt-fat-acid-heat",
@@ -247,7 +260,8 @@
     "pages": 480,
     "cover": "/assets/images/books/2020-10-12-salt-fat-acid-heat.webp",
     "art_source": "https://covers.openlibrary.org/b/id/8315567-M.jpg",
-    "cover_ratio": 0.796
+    "cover_ratio": 0.8,
+    "cover_large": "/assets/images/books/large/2020-10-12-salt-fat-acid-heat.webp"
   },
   {
     "id": "2020-07-25-seveneves",
@@ -278,7 +292,8 @@
     "pages": 256,
     "cover": "/assets/images/books/2020-06-14-monetizing-innovation.webp",
     "art_source": "https://covers.openlibrary.org/b/id/13744862-M.jpg",
-    "cover_ratio": 0.664
+    "cover_ratio": 0.663,
+    "cover_large": "/assets/images/books/large/2020-06-14-monetizing-innovation.webp"
   },
   {
     "id": "2020-06-06-tribe",
@@ -288,7 +303,8 @@
     "pages": 168,
     "cover": "/assets/images/books/2020-06-06-tribe.webp",
     "art_source": "https://covers.openlibrary.org/b/id/8246303-M.jpg",
-    "cover_ratio": 0.677
+    "cover_ratio": 0.666,
+    "cover_large": "/assets/images/books/large/2020-06-06-tribe.webp"
   },
   {
     "id": "2020-05-26-cat-s-cradle",
@@ -298,7 +314,8 @@
     "pages": 304,
     "cover": "/assets/images/books/2020-05-26-cat-s-cradle.webp",
     "art_source": "https://images.penguinrandomhouse.com/cover/9780385333481",
-    "cover_ratio": 0.656
+    "cover_ratio": 0.655,
+    "cover_large": "/assets/images/books/large/2020-05-26-cat-s-cradle.webp"
   },
   {
     "id": "2020-03-31-station-eleven",
@@ -318,7 +335,8 @@
     "pages": 288,
     "cover": "/assets/images/books/2020-01-20-rivals-unto-death.webp",
     "art_source": "https://www.hachettebookgroup.com/wp-content/uploads/2017/06/9780316504973.jpg",
-    "cover_ratio": 0.775
+    "cover_ratio": 0.776,
+    "cover_large": "/assets/images/books/large/2020-01-20-rivals-unto-death.webp"
   },
   {
     "id": "2019-12-16-zero-to-one",
@@ -338,7 +356,8 @@
     "pages": 480,
     "cover": "/assets/images/books/2019-10-26-how-to-change-your-mind.webp",
     "art_source": "https://covers.openlibrary.org/b/id/8805168-M.jpg",
-    "cover_ratio": 0.652
+    "cover_ratio": 0.652,
+    "cover_large": "/assets/images/books/large/2019-10-26-how-to-change-your-mind.webp"
   },
   {
     "id": "2019-07-14-the-rosie-project",
@@ -348,7 +367,8 @@
     "pages": 295,
     "cover": "/assets/images/books/2019-07-14-the-rosie-project.webp",
     "art_source": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781476729091/the-rosie-project-9781476729091_lg.jpg",
-    "cover_ratio": 0.642
+    "cover_ratio": 0.643,
+    "cover_large": "/assets/images/books/large/2019-07-14-the-rosie-project.webp"
   },
   {
     "id": "2019-07-14-the-rosie-effect",
@@ -358,7 +378,8 @@
     "pages": 368,
     "cover": "/assets/images/books/2019-07-14-the-rosie-effect.webp",
     "art_source": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781476767321/the-rosie-effect-9781476767321_lg.jpg",
-    "cover_ratio": 0.63
+    "cover_ratio": 0.63,
+    "cover_large": "/assets/images/books/large/2019-07-14-the-rosie-effect.webp"
   },
   {
     "id": "2019-05-19-the-alchemist",
@@ -368,7 +389,8 @@
     "pages": 197,
     "cover": "/assets/images/books/2019-05-19-the-alchemist.webp",
     "art_source": "https://covers.openlibrary.org/b/id/11556106-M.jpg",
-    "cover_ratio": 0.664
+    "cover_ratio": 0.662,
+    "cover_large": "/assets/images/books/large/2019-05-19-the-alchemist.webp"
   },
   {
     "id": "2019-03-16-the-wandering-earth",
@@ -378,7 +400,8 @@
     "pages": 432,
     "cover": "/assets/images/books/2019-03-16-the-wandering-earth.webp",
     "art_source": "https://mpd-biblio-covers.imgix.net/9781250796844.jpg",
-    "cover_ratio": 0.662
+    "cover_ratio": 0.662,
+    "cover_large": "/assets/images/books/large/2019-03-16-the-wandering-earth.webp"
   },
   {
     "id": "2019-02-17-the-power-of-habit",
@@ -398,7 +421,8 @@
     "pages": 342,
     "cover": "/assets/images/books/2019-02-06-world-war-z.webp",
     "art_source": "https://covers.openlibrary.org/b/id/168106-M.jpg",
-    "cover_ratio": 0.667
+    "cover_ratio": 0.667,
+    "cover_large": "/assets/images/books/large/2019-02-06-world-war-z.webp"
   },
   {
     "id": "2019-01-18-life-3-0",
@@ -408,7 +432,8 @@
     "pages": 364,
     "cover": "/assets/images/books/2019-01-18-life-3-0.webp",
     "art_source": "https://covers.openlibrary.org/b/id/10239283-M.jpg",
-    "cover_ratio": 0.664
+    "cover_ratio": 0.662,
+    "cover_large": "/assets/images/books/large/2019-01-18-life-3-0.webp"
   },
   {
     "id": "2019-01-12-100-years-of-solitude",
@@ -418,7 +443,8 @@
     "pages": 417,
     "cover": "/assets/images/books/2019-01-12-100-years-of-solitude.webp",
     "art_source": "https://covers.openlibrary.org/b/id/15185412-M.jpg",
-    "cover_ratio": 0.573
+    "cover_ratio": 0.572,
+    "cover_large": "/assets/images/books/large/2019-01-12-100-years-of-solitude.webp"
   },
   {
     "id": "2018-12-22-artemis",
@@ -458,7 +484,8 @@
     "pages": 394,
     "cover": "/assets/images/books/2018-10-03-20-000-leagues-under-the-sea.webp",
     "art_source": "https://images.penguinrandomhouse.com/cover/9780593081518",
-    "cover_ratio": 0.649
+    "cover_ratio": 0.649,
+    "cover_large": "/assets/images/books/large/2018-10-03-20-000-leagues-under-the-sea.webp"
   },
   {
     "id": "2018-08-15-death-s-end",
@@ -478,7 +505,8 @@
     "pages": 512,
     "cover": "/assets/images/books/2018-08-12-the-dark-forest.webp",
     "art_source": "https://covers.openlibrary.org/b/id/10526598-M.jpg?default=false",
-    "cover_ratio": 0.634
+    "cover_ratio": 0.633,
+    "cover_large": "/assets/images/books/large/2018-08-12-the-dark-forest.webp"
   },
   {
     "id": "2018-08-06-the-three-body-problem",
@@ -488,7 +516,8 @@
     "pages": 400,
     "cover": "/assets/images/books/2018-08-06-the-three-body-problem.webp",
     "art_source": "https://mpd-biblio-covers.imgix.net/9780765382030.jpg",
-    "cover_ratio": 0.662
+    "cover_ratio": 0.662,
+    "cover_large": "/assets/images/books/large/2018-08-06-the-three-body-problem.webp"
   },
   {
     "id": "2018-07-28-hamlet",
@@ -498,7 +527,8 @@
     "pages": 342,
     "cover": "/assets/images/books/2018-07-28-hamlet.webp",
     "art_source": "https://d28hgpri8am2if.cloudfront.net/book_images/cvr9780743477123_9780743477123_lg.jpg",
-    "cover_ratio": 0.62
+    "cover_ratio": 0.621,
+    "cover_large": "/assets/images/books/large/2018-07-28-hamlet.webp"
   },
   {
     "id": "2018-07-26-origin",
@@ -518,7 +548,8 @@
     "pages": 309,
     "cover": "/assets/images/books/2018-07-21-outliers.webp",
     "art_source": "https://covers.openlibrary.org/b/id/10021591-M.jpg",
-    "cover_ratio": 0.667
+    "cover_ratio": 0.666,
+    "cover_large": "/assets/images/books/large/2018-07-21-outliers.webp"
   },
   {
     "id": "2018-07-19-second-foundation",
@@ -528,7 +559,8 @@
     "pages": 256,
     "cover": "/assets/images/books/2018-07-19-second-foundation.webp",
     "art_source": "https://images.penguinrandomhouse.com/cover/9780553382594",
-    "cover_ratio": 0.668
+    "cover_ratio": 0.67,
+    "cover_large": "/assets/images/books/large/2018-07-19-second-foundation.webp"
   },
   {
     "id": "2018-07-17-foundation-and-empire",
@@ -538,7 +570,8 @@
     "pages": 282,
     "cover": "/assets/images/books/2018-07-17-foundation-and-empire.webp",
     "art_source": "https://images.penguinrandomhouse.com/cover/9780553382587",
-    "cover_ratio": 0.667
+    "cover_ratio": 0.667,
+    "cover_large": "/assets/images/books/large/2018-07-17-foundation-and-empire.webp"
   },
   {
     "id": "2018-07-12-high-output-management",
@@ -558,7 +591,8 @@
     "pages": 255,
     "cover": "/assets/images/books/2018-07-10-foundation.webp",
     "art_source": "https://images.penguinrandomhouse.com/cover/9780553382570",
-    "cover_ratio": 0.667
+    "cover_ratio": 0.666,
+    "cover_large": "/assets/images/books/large/2018-07-10-foundation.webp"
   },
   {
     "id": "2018-07-03-the-big-short",
@@ -568,7 +602,8 @@
     "pages": 266,
     "cover": "/assets/images/books/2018-07-03-the-big-short.webp",
     "art_source": "https://covers.openlibrary.org/b/id/6386926-M.jpg",
-    "cover_ratio": 0.664
+    "cover_ratio": 0.664,
+    "cover_large": "/assets/images/books/large/2018-07-03-the-big-short.webp"
   },
   {
     "id": "2018-06-26-the-importance-of-being-earnest",
@@ -598,7 +633,8 @@
     "pages": 240,
     "cover": "/assets/images/books/2018-06-19-journey-to-the-center-of-the-earth.webp",
     "art_source": "https://images.penguinrandomhouse.com/cover/9780451532152",
-    "cover_ratio": 0.609
+    "cover_ratio": 0.61,
+    "cover_large": "/assets/images/books/large/2018-06-19-journey-to-the-center-of-the-earth.webp"
   },
   {
     "id": "2018-06-15-freakonomics",
@@ -628,7 +664,8 @@
     "pages": 317,
     "cover": "/assets/images/books/2018-06-02-lolita.webp",
     "art_source": "https://images.penguinrandomhouse.com/cover/9780679723165",
-    "cover_ratio": 0.649
+    "cover_ratio": 0.648,
+    "cover_large": "/assets/images/books/large/2018-06-02-lolita.webp"
   },
   {
     "id": "2018-05-30-dune",
@@ -638,7 +675,8 @@
     "pages": 617,
     "cover": "/assets/images/books/2018-05-30-dune.webp",
     "art_source": "https://images.penguinrandomhouse.com/cover/9780593099322",
-    "cover_ratio": 0.662
+    "cover_ratio": 0.662,
+    "cover_large": "/assets/images/books/large/2018-05-30-dune.webp"
   },
   {
     "id": "2018-05-22-the-attention-merchants",
@@ -648,7 +686,8 @@
     "pages": 416,
     "cover": "/assets/images/books/2018-05-22-the-attention-merchants.webp",
     "art_source": "https://covers.openlibrary.org/b/id/8868199-M.jpg",
-    "cover_ratio": 0.65
+    "cover_ratio": 0.648,
+    "cover_large": "/assets/images/books/large/2018-05-22-the-attention-merchants.webp"
   },
   {
     "id": "2018-05-16-the-design-of-everyday-things",
@@ -658,6 +697,7 @@
     "pages": 368,
     "cover": "/assets/images/books/2018-05-16-the-design-of-everyday-things.webp",
     "art_source": "https://covers.openlibrary.org/b/isbn/9780465050659-M.jpg?default=false",
-    "cover_ratio": 0.645
+    "cover_ratio": 0.667,
+    "cover_large": "/assets/images/books/large/2018-05-16-the-design-of-everyday-things.webp"
   }
 ]

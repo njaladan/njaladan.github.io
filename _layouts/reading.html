@@ -27,7 +27,7 @@ layout: default
         <section class="library-group" id="y{{ year }}"><div class="group-heading"><h2>{{ year }}</h2></div><div class="shelf">
         {% assign previous_year = year %}
       {% endif %}
-      <article class="library-card" data-title="{{ book.title | escape }}" data-author="{{ metadata.author | escape }}" data-date="{{ book.date | date: '%Y-%m-%d' }}" data-section="dated" data-notes="{{ has_notes }}">
+      <article class="library-card" data-title="{{ book.title | escape }}" data-author="{{ metadata.author | escape }}" data-date="{{ book.date | date: '%Y-%m-%d' }}" data-section="dated" data-notes="{{ has_notes }}"{% if metadata.cover_large %} data-cover-large="{{ metadata.cover_large | relative_url }}"{% endif %}>
         {% if has_notes %}<a class="card-link" data-review href="{{ book.url | relative_url }}" aria-label="Read notes on {{ book.title | escape }}">{% else %}<div class="card-link">{% endif %}
           <div class="cover book-cover{% if has_notes %} cover-with-notes{% endif %}"{% if metadata.pages or metadata.cover_ratio %} style="{% if metadata.pages %}--pages: {{ metadata.pages }};{% endif %}{% if metadata.cover_ratio %} --ar: {{ metadata.cover_ratio }};{% endif %}"{% endif %}>
             <div class="cover-fallback" aria-hidden="true"><span>{{ book.title | escape }}</span><small>{{ metadata.author | default: 'Reading' | escape }}</small></div>
