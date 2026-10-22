@@ -1,6 +1,7 @@
 # Configuration for the data scripts in scripts/; the site is built with Jekyll.
 [tool.ruff]
 target-version = "py312"
+line-length = 120
 include = ["scripts/**/*.py"]
 
 [tool.ruff.lint]

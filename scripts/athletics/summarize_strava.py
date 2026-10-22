@@ -6,6 +6,7 @@ Distance counts only actively tracked movement. FIT files use the watch's own se
 distance and timer. GPS-only files skip jumps across pauses (a train or car ride with
 recording stopped), steps faster than the sport allows, and lift rides on snowboard days.
 """
+
 import gzip, json, math, sys, re
 from datetime import datetime, timezone
 from multiprocessing import Pool
@@ -14,15 +15,32 @@ import xml.etree.ElementTree as ET
 
 import fitdecode
 
-FIT_SPORTS = {"running": "running", "cycling": "cycling", "walking": "walking", "hiking": "hiking",
-              "training": "workout", "fitness_equipment": "workout", "swimming": "swimming",
-              "alpine_skiing": "skiing", "snowboarding": "snowboarding", "rowing": "rowing"}
+FIT_SPORTS = {
+    "running": "running",
+    "cycling": "cycling",
+    "walking": "walking",
+    "hiking": "hiking",
+    "training": "workout",
+    "fitness_equipment": "workout",
+    "swimming": "swimming",
+    "alpine_skiing": "skiing",
+    "snowboarding": "snowboarding",
+    "rowing": "rowing",
+}
 
 MAX_GAP_S = 120
 # Speeds above these (metres per second) are GPS glitches, not movement. They sit well
 # above real top speeds because one-second GPS points jitter.
-MAX_SPEED = {"running": 12, "walking": 7, "hiking": 7, "cycling": 30, "snowboarding": 40,
-             "ice_skating": 15, "kayaking": 8, "swimming": 5}
+MAX_SPEED = {
+    "running": 12,
+    "walking": 7,
+    "hiking": 7,
+    "cycling": 30,
+    "snowboarding": 40,
+    "ice_skating": 15,
+    "kayaking": 8,
+    "swimming": 5,
+}
 ALIASES = {"Snowboard": "snowboarding", "IceSkate": "ice_skating", "ebikeride": "cycling"}
 
 
@@ -50,11 +68,20 @@ def parse_gpx(data):
             hr = cad = None
             for el in p.iter():
                 tag = el.tag.split("}")[-1]
-                if tag == "hr" and el.text: hr = float(el.text)
-                elif tag == "cad" and el.text: cad = float(el.text)
-            pts.append((float(p.get("lat")), float(p.get("lon")),
-                        datetime.fromisoformat(t.replace("Z", "+00:00")) if t else None,
-                        float(ele) if ele else None, hr, cad))
+                if tag == "hr" and el.text:
+                    hr = float(el.text)
+                elif tag == "cad" and el.text:
+                    cad = float(el.text)
+            pts.append(
+                (
+                    float(p.get("lat")),
+                    float(p.get("lon")),
+                    datetime.fromisoformat(t.replace("Z", "+00:00")) if t else None,
+                    float(ele) if ele else None,
+                    hr,
+                    cad,
+                )
+            )
     return name, kind, pts
 
 
@@ -63,13 +90,17 @@ def parse_fit(data):
     session = {}
     with fitdecode.FitReader(data, error_handling=fitdecode.ErrorHandling.IGNORE) as fit:
         for frame in fit:
-            if not isinstance(frame, fitdecode.FitDataMessage): continue
+            if not isinstance(frame, fitdecode.FitDataMessage):
+                continue
             if frame.name == "session":
-                session = {"distance": frame.get_value("total_distance", fallback=None),
-                           "timer": frame.get_value("total_timer_time", fallback=None)}
+                session = {
+                    "distance": frame.get_value("total_distance", fallback=None),
+                    "timer": frame.get_value("total_timer_time", fallback=None),
+                }
             if frame.name in ("sport", "session") and not kind:
                 v = frame.get_value("sport", fallback=None)
-                if v: kind = FIT_SPORTS.get(str(v), str(v))
+                if v:
+                    kind = FIT_SPORTS.get(str(v), str(v))
             if frame.name == "record":
                 lat = frame.get_value("position_lat", fallback=None)
                 lon = frame.get_value("position_long", fallback=None)
@@ -78,7 +109,7 @@ def parse_fit(data):
                 hr = frame.get_value("heart_rate", fallback=None)
                 cad = frame.get_value("cadence", fallback=None)
                 if lat is not None and lon is not None:
-                    lat, lon = lat * 180 / 2 ** 31, lon * 180 / 2 ** 31
+                    lat, lon = lat * 180 / 2**31, lon * 180 / 2**31
                     pts.append((lat, lon, t, ele, hr, cad))
                 elif t is not None:
                     pts.append((None, None, t, ele, hr, cad))
@@ -108,10 +139,13 @@ def summarize(path):
         # A step is on a lift if the track climbs more than 3 m over the next 30 seconds.
         j = 0
         for i, p in enumerate(geo):
-            if p[2] is None or p[3] is None: continue
+            if p[2] is None or p[3] is None:
+                continue
             j = max(j, i)
-            while j < len(geo) - 1 and (geo[j][2] is None or (geo[j][2] - p[2]).total_seconds() < 30): j += 1
-            if geo[j][3] is not None and geo[j][3] - p[3] > 3: uphill.add(i + 1)
+            while j < len(geo) - 1 and (geo[j][2] is None or (geo[j][2] - p[2]).total_seconds() < 30):
+                j += 1
+            if geo[j][3] is not None and geo[j][3] - p[3] > 3:
+                uphill.add(i + 1)
     for idx, p in enumerate(geo):
         if prev is not None:
             d = hav(prev, p)
@@ -122,26 +156,38 @@ def summarize(path):
                 skipped += d
             else:
                 dist += d
-                if dt and dt <= 30 and d / dt > 0.5: moving += dt
-                if p[3] is not None and prev[3] is not None and p[3] > prev[3]: gain += p[3] - prev[3]
+                if dt and dt <= 30 and d / dt > 0.5:
+                    moving += dt
+                if p[3] is not None and prev[3] is not None and p[3] > prev[3]:
+                    gain += p[3] - prev[3]
         prev = p
     gps_distance = dist
     if session.get("distance"):
         dist = float(session["distance"])
-        if session.get("timer"): moving = float(session["timer"])
+        if session.get("timer"):
+            moving = float(session["timer"])
     hrs = [p[4] for p in pts if p[4]]
     cads = [p[5] for p in pts if p[5]]
     start = min(times) if times else None
-    if start and start.tzinfo is None: start = start.replace(tzinfo=timezone.utc)
+    if start and start.tzinfo is None:
+        start = start.replace(tzinfo=timezone.utc)
     lon0 = geo[0][1] if geo else None
     return {
-        "id": stem, "file": path.name, "name": name, "type": ALIASES.get(kind, kind) or "unknown",
+        "id": stem,
+        "file": path.name,
+        "name": name,
+        "type": ALIASES.get(kind, kind) or "unknown",
         "start_utc": start.isoformat() if start else None,
         "approx_local_hour": round(((start.hour + start.minute / 60 + (lon0 or 0) / 15) % 24), 2) if start else None,
-        "distance_m": round(dist, 1), "skipped_m": round(skipped, 1), "gps_distance_m": round(gps_distance, 1), "source": "watch" if session.get("distance") else "gps", "moving_s": round(moving),
+        "distance_m": round(dist, 1),
+        "skipped_m": round(skipped, 1),
+        "gps_distance_m": round(gps_distance, 1),
+        "source": "watch" if session.get("distance") else "gps",
+        "moving_s": round(moving),
         "elapsed_s": round((max(times) - min(times)).total_seconds()) if len(times) > 1 else 0,
         "elev_gain_m": round(gain, 1),
-        "hr_avg": round(sum(hrs) / len(hrs), 1) if hrs else None, "hr_max": max(hrs) if hrs else None,
+        "hr_avg": round(sum(hrs) / len(hrs), 1) if hrs else None,
+        "hr_max": max(hrs) if hrs else None,
         "cad_avg": round(sum(cads) / len(cads), 1) if cads else None,
         "start_area": [round(geo[0][0], 2), round(geo[0][1], 2)] if geo else None,
         "points": len(pts),
