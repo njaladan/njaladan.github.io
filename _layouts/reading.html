@@ -46,7 +46,15 @@ layout: default
   <p class="empty-state" data-empty hidden>No books found. Try another search.</p>
   <p class="art-credit">Cover artwork from publishers, booksellers, and <a href="https://openlibrary.org/">Open Library</a>.</p>
 </div>
-<dialog id="review-dialog" aria-labelledby="review-title">
+<dialog id="review-dialog" class="book-dialog" aria-labelledby="review-title">
   <button class="dialog-close" type="button" aria-label="Close review" autofocus>×</button>
-  <div class="dialog-inner"><h2 id="review-title" class="dialog-title"></h2><p class="dialog-meta" id="review-meta"></p><div id="review-body"></div></div>
+  <div class="open-book">
+    <div class="book-back" aria-hidden="true"></div>
+    <div class="book-page"><div class="page-scroll" tabindex="-1"><div id="review-body"></div></div></div>
+    <div class="book-board">
+      <div class="board-front" aria-hidden="true"></div>
+      <i class="board-edge edge-fore" aria-hidden="true"></i><i class="board-edge edge-head" aria-hidden="true"></i><i class="board-edge edge-tail" aria-hidden="true"></i>
+      <div class="board-inside"><h2 id="review-title"></h2><p class="board-author" id="review-author"></p><p class="board-meta" id="review-meta"></p></div>
+    </div>
+  </div>
 </dialog>
