@@ -1,6 +1,7 @@
 // Pure motion curves for the globe's idle spin. Each curve maps elapsed
 // seconds to westward degrees turned, so easing is curve(t * T) / curve(T).
-import { clamp, longitudeDelta } from './math.js';
+import { clamp } from '../../lib/math.js';
+import { longitudeDelta } from './math.js';
 
 /** Idle drift, in degrees per second. */
 export const IDLE_SPEED = 12;
