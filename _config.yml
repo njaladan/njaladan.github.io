@@ -1,0 +1,21 @@
+# Site
+name: "Ganesh"
+title: "Ganesh"
+url: "https://nagaganesh.com"
+description: "Reading, movies, and travel."
+logo: 'assets/images/logo.png'
+favicon: 'assets/images/logo.png'
+include: ["_pages"]
+permalink: /:title/
+email: ganesh.jaladanki@gmail.com
+
+# Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Other
+markdown: kramdown
+
+exclude: [AGENTS.md, node_modules, package.json, package-lock.json, eslint.config.js, .prettierrc.json, .prettierignore, LICENSE.txt, README.md, Gemfile, Gemfile.lock, scripts, "travel/scripts", "travel/README.md"]
