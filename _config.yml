@@ -40,3 +40,9 @@ exclude:
 
 redirect_from:
   json: false
+
+# The minifier's CSS compressor mangles custom properties inside calc()/max(),
+# e.g. var(--viewport-height) becomes var( -  - viewport - height), which drops
+# whole declarations. Leave CSS unminified; it is served gzipped anyway.
+jekyll-minifier:
+  compress_css: false
