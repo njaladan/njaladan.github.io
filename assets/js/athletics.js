@@ -1,88 +1,93 @@
 // Athletics: every GPS activity drawn as a shape, shuffled, with sport/year filters,
 // a viewer that draws one shape in, and a canvas "stack" of every selected shape.
-const SPORTS = {
-  run: { label: 'Running', name: 'Run', color: '#c4466e' },
-  ride: { label: 'Cycling', name: 'Ride', color: '#1c80b0' },
-  foot: { label: 'Hiking & walking', name: 'Walk or hike', color: '#7a9a22' },
-  snow: { label: 'Snowboarding', name: 'Snowboard', color: '#6a5fb0' },
-  other: { label: 'Other', name: 'Other', color: '#77756f' }
-};
-const all = (window.SHAPES || []).map(s => ({ ...s, year: +s.date.slice(0, 4) }));
-for (let i = all.length - 1; i > 0; i--) {
-  const j = Math.floor(Math.random() * (i + 1));
-  [all[i], all[j]] = [all[j], all[i]];
-}
-const state = { sport: 'all', year: 'all', view: 'grid' };
-let list = [],
-  current = -1;
-const $ = id => document.getElementById(id);
-const fmtDate = (iso, opts = { month: 'long', day: 'numeric', year: 'numeric' }) =>
-  new Date(iso + 'T12:00:00').toLocaleDateString('en-US', opts);
-const points = seg => {
-  let s = '';
-  for (let i = 0; i < seg.length; i += 2) s += seg[i] + ',' + seg[i + 1] + ' ';
-  return s;
-};
-const lines = s =>
-  s.segs
-    .map(seg => `<polyline points="${points(seg)}" stroke="${SPORTS[s.sport].color}"/>`)
-    .join('');
+import { $$ } from './lib/dom.js';
+import {
+  SPORTS,
+  chipButton,
+  drawSchedule,
+  filterShapes,
+  formatDate,
+  prepareShapes,
+  shapeCell,
+  shapeEnds,
+  shapeLines,
+  shapeYears,
+  sportColor,
+  stackAlpha
+} from './athletics/shapes.js';
 
-function chips(el, keys, label, swatch, key) {
-  el.innerHTML = keys
-    .map(
-      k =>
-        `<button type="button" aria-pressed="${k === 'all'}">${swatch && k !== 'all' ? `<span class="shape-swatch" style="background:${SPORTS[k].color}"></span>` : ''}${label(k)}</button>`
-    )
-    .join('');
-  el.querySelectorAll('button').forEach((b, i) =>
+/** @typedef {import('./athletics/shapes.js').Shape} Shape */
+
+const DRAW_MS = 1600;
+const RESIZE_DEBOUNCE_MS = 150;
+// Shapes are drawn in a 0–1000 box; the stack adds a 40-unit margin on every side.
+const STACK_MARGIN = 40;
+const STACK_SIZE = 1000 + 2 * STACK_MARGIN;
+const STACK_FALLBACK_WIDTH = 720;
+// Higher pixel ratios cost memory on phones without looking any sharper.
+const MAX_PIXEL_RATIO = 2;
+
+/** @type {Shape[]} */
+const all = prepareShapes(window.SHAPES || []);
+/** @type {{ sport: string, year: 'all' | number, view: string }} */
+const state = { sport: 'all', year: 'all', view: 'grid' };
+/** Shapes currently shown, and the one open in the viewer. @type {Shape[]} */
+let list = [];
+let current = -1;
+
+/**
+ * @typedef {object} Elements
+ * @property {HTMLElement} sports
+ * @property {HTMLElement} years
+ * @property {HTMLElement} count
+ * @property {HTMLElement} grid
+ * @property {HTMLElement} stack
+ * @property {HTMLCanvasElement} canvas
+ * @property {HTMLDialogElement} viewer
+ * @property {SVGSVGElement} big The viewer's drawing.
+ * @property {HTMLElement} title
+ * @property {HTMLElement} date
+ * @property {HTMLElement} close
+ */
+
+/** @type {Elements} */
+let ui;
+
+/** @param {string} id */
+const byId = id => document.getElementById(id);
+
+/**
+ * Marks `pressed` as the one pressed button among `buttons`.
+ * @param {Element[]} buttons
+ * @param {Element} pressed
+ */
+const press = (buttons, pressed) =>
+  buttons.forEach(button => button.setAttribute('aria-pressed', String(button === pressed)));
+
+/**
+ * Fills `el` with one chip per key; picking a chip sets `state[key]` and re-renders.
+ * @param {HTMLElement} el
+ * @param {{ keys: Array<string | number>, label: (key: any) => string, swatch: boolean, key: 'sport' | 'year' }} options
+ */
+function chips(el, { keys, label, swatch, key }) {
+  el.innerHTML = keys.map(k => chipButton({ key: k, text: String(label(k)), swatch })).join('');
+  const buttons = $$('button', el);
+  buttons.forEach((b, i) =>
     b.addEventListener('click', () => {
-      state[key] = keys[i];
-      el.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+      state[key] = /** @type {any} */ (keys[i]);
+      press(buttons, b);
       render();
     })
   );
 }
-chips(
-  $('shape-sports'),
-  ['all', 'run', 'ride', 'foot', 'snow'],
-  k => (k === 'all' ? 'Everything' : SPORTS[k].label),
-  true,
-  'sport'
-);
-chips(
-  $('shape-years'),
-  ['all', ...[...new Set(all.map(s => s.year))].sort()],
-  k => (k === 'all' ? 'All years' : k),
-  false,
-  'year'
-);
-document.querySelectorAll('.shape-view button').forEach(b =>
-  b.addEventListener('click', () => {
-    state.view = b.dataset.view;
-    document
-      .querySelectorAll('.shape-view button')
-      .forEach(x => x.setAttribute('aria-pressed', x === b));
-    render();
-  })
-);
 
 function render() {
-  list = all.filter(
-    s =>
-      (state.sport === 'all' || s.sport === state.sport) &&
-      (state.year === 'all' || s.year === state.year)
-  );
-  $('shape-count').textContent = `${list.length.toLocaleString()} shapes`;
-  $('shape-grid').hidden = state.view !== 'grid';
-  $('shape-stack').hidden = state.view !== 'stack';
+  list = filterShapes(all, state);
+  ui.count.textContent = `${list.length.toLocaleString()} shapes`;
+  ui.grid.hidden = state.view !== 'grid';
+  ui.stack.hidden = state.view !== 'stack';
   if (state.view === 'grid') {
-    $('shape-grid').innerHTML = list
-      .map(
-        (s, n) =>
-          `<button type="button" class="shape-cell" data-n="${n}" aria-label="${SPORTS[s.sport].name}, ${fmtDate(s.date)}"><svg viewBox="-60 -60 1120 1120" aria-hidden="true">${lines(s)}</svg></button>`
-      )
-      .join('');
+    ui.grid.innerHTML = list.map(shapeCell).join('');
   } else {
     drawStack();
   }
@@ -90,21 +95,23 @@ function render() {
 
 // A canvas keeps the stack light on phones; a thousand blended SVG paths can exhaust memory on iOS.
 function drawStack() {
-  const canvas = $('shape-canvas');
-  const css = canvas.getBoundingClientRect().width || 720;
-  const px = Math.round(css * Math.min(window.devicePixelRatio || 1, 2));
+  const { canvas } = ui;
+  const ratio = Math.min(window.devicePixelRatio || 1, MAX_PIXEL_RATIO);
+  const css = canvas.getBoundingClientRect().width || STACK_FALLBACK_WIDTH;
+  const px = Math.round(css * ratio);
   canvas.width = canvas.height = px;
   const ctx = canvas.getContext('2d');
-  const scale = px / 1080;
-  ctx.setTransform(scale, 0, 0, scale, 40 * scale, 40 * scale);
+  const scale = px / STACK_SIZE;
+  ctx.setTransform(scale, 0, 0, scale, STACK_MARGIN * scale, STACK_MARGIN * scale);
   ctx.fillStyle = '#fff';
-  ctx.fillRect(-40, -40, 1080, 1080);
+  ctx.fillRect(-STACK_MARGIN, -STACK_MARGIN, STACK_SIZE, STACK_SIZE);
   ctx.globalCompositeOperation = 'multiply';
-  ctx.globalAlpha = Math.max(0.05, Math.min(0.6, 3.5 / Math.sqrt(list.length || 1)));
-  ctx.lineWidth = ((2 / scale) * Math.min(window.devicePixelRatio || 1, 2)) / 2;
+  ctx.globalAlpha = stackAlpha(list.length);
+  // One CSS pixel wide at any canvas size.
+  ctx.lineWidth = ((2 / scale) * ratio) / 2;
   ctx.lineJoin = ctx.lineCap = 'round';
   for (const s of list) {
-    ctx.strokeStyle = SPORTS[s.sport].color;
+    ctx.strokeStyle = sportColor(s.sport);
     ctx.beginPath();
     for (const seg of s.segs) {
       ctx.moveTo(seg[0], seg[1]);
@@ -113,60 +120,109 @@ function drawStack() {
     ctx.stroke();
   }
 }
-let resize;
-window.addEventListener('resize', () => {
-  clearTimeout(resize);
-  resize = setTimeout(() => state.view === 'stack' && drawStack(), 150);
-});
 
-// Viewer
-const viewer = $('shape-viewer'),
-  big = $('shape-svg');
+/**
+ * Opens shape `n` of the list in the viewer, wrapping at either end.
+ * @param {number} n
+ */
 function open(n) {
   current = (n + list.length) % list.length;
   const s = list[current];
-  $('shape-title').textContent = SPORTS[s.sport].name;
-  $('shape-date').textContent = fmtDate(s.date);
-  const first = s.segs[0],
-    last = s.segs[s.segs.length - 1];
-  big.innerHTML =
-    lines(s) +
-    `<circle cx="${first[0]}" cy="${first[1]}" r="16" fill="#faf8f3" stroke="#272724" stroke-width="5"/>` +
-    `<circle class="shape-end" cx="${last[last.length - 2]}" cy="${last[last.length - 1]}" r="14" fill="#272724" opacity="0"/>`;
-  if (!viewer.open) viewer.showModal();
+  ui.title.textContent = SPORTS[s.sport].name;
+  ui.date.textContent = formatDate(s.date);
+  ui.big.innerHTML = shapeLines(s) + shapeEnds(s);
+  if (!ui.viewer.open) ui.viewer.showModal();
   draw();
 }
+
+// Draws the route in at one speed across all its segments, then shows where it ended.
 function draw() {
-  const polys = [...big.querySelectorAll('polyline')];
+  const polys = [...ui.big.querySelectorAll('polyline')];
   const lengths = polys.map(p => p.getTotalLength());
-  const total = lengths.reduce((a, b) => a + b, 0) || 1;
-  const duration = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1600;
-  let start = 0;
+  const duration = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : DRAW_MS;
+  const schedule = drawSchedule(lengths, duration);
   polys.forEach((p, i) => {
     p.style.transition = 'none';
-    p.style.strokeDasharray = lengths[i];
-    p.style.strokeDashoffset = lengths[i];
+    p.style.strokeDasharray = String(lengths[i]);
+    p.style.strokeDashoffset = String(lengths[i]);
+    // Commit the hidden state before transitioning out of it.
     p.getBoundingClientRect();
-    const share = (lengths[i] / total) * duration;
-    p.style.transition = `stroke-dashoffset ${share}ms linear ${start}ms`;
-    p.style.strokeDashoffset = 0;
-    start += share;
+    p.style.transition = `stroke-dashoffset ${schedule[i].share}ms linear ${schedule[i].delay}ms`;
+    p.style.strokeDashoffset = '0';
   });
-  const end = big.querySelector('.shape-end');
+  const end = ui.big.querySelector('.shape-end');
+  if (!(end instanceof SVGElement)) return;
   end.style.transition = `opacity .3s ${duration}ms`;
-  requestAnimationFrame(() => end.setAttribute('opacity', 1));
+  requestAnimationFrame(() => end.setAttribute('opacity', '1'));
 }
-$('shape-grid').addEventListener('click', e => {
-  const b = e.target.closest('.shape-cell');
-  if (b) open(+b.dataset.n);
-});
-$('shape-close').addEventListener('click', () => viewer.close());
-viewer.addEventListener('click', e => {
-  if (e.target === viewer) viewer.close();
-});
-document.addEventListener('keydown', e => {
-  if (!viewer.open) return;
-  if (e.key === 'ArrowRight') open(current + 1);
-  if (e.key === 'ArrowLeft') open(current - 1);
-});
-render();
+
+function installControls() {
+  chips(ui.sports, {
+    keys: ['all', 'run', 'ride', 'foot', 'snow'],
+    label: k => (k === 'all' ? 'Everything' : SPORTS[k].label),
+    swatch: true,
+    key: 'sport'
+  });
+  chips(ui.years, {
+    keys: ['all', ...shapeYears(all)],
+    label: k => (k === 'all' ? 'All years' : k),
+    swatch: false,
+    key: 'year'
+  });
+  const views = $$('.shape-view button');
+  views.forEach(b =>
+    b.addEventListener('click', () => {
+      state.view = b.dataset.view;
+      press(views, b);
+      render();
+    })
+  );
+  /** @type {ReturnType<typeof setTimeout> | undefined} */
+  let resize;
+  window.addEventListener('resize', () => {
+    clearTimeout(resize);
+    resize = setTimeout(() => {
+      if (state.view === 'stack') drawStack();
+    }, RESIZE_DEBOUNCE_MS);
+  });
+}
+
+function installViewer() {
+  const { grid, viewer } = ui;
+  grid.addEventListener('click', e => {
+    const b = /** @type {Element} */ (e.target).closest('.shape-cell');
+    if (b instanceof HTMLElement) open(Number(b.dataset.n));
+  });
+  ui.close.addEventListener('click', () => viewer.close());
+  viewer.addEventListener('click', e => {
+    if (e.target === viewer) viewer.close();
+  });
+  document.addEventListener('keydown', e => {
+    if (!viewer.open) return;
+    if (e.key === 'ArrowRight') open(current + 1);
+    if (e.key === 'ArrowLeft') open(current - 1);
+  });
+}
+
+function init() {
+  const elements = {
+    sports: byId('shape-sports'),
+    years: byId('shape-years'),
+    count: byId('shape-count'),
+    grid: byId('shape-grid'),
+    stack: byId('shape-stack'),
+    canvas: byId('shape-canvas'),
+    viewer: byId('shape-viewer'),
+    big: byId('shape-svg'),
+    title: byId('shape-title'),
+    date: byId('shape-date'),
+    close: byId('shape-close')
+  };
+  if (!Object.values(elements).every(Boolean)) return;
+  ui = /** @type {Elements} */ (/** @type {unknown} */ (elements));
+  installControls();
+  installViewer();
+  render();
+}
+
+init();

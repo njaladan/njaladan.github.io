@@ -1,8 +1,25 @@
-const gallery = document.querySelector('#photo-gallery');
-const base = gallery.dataset.assetBase;
-const mapUrl = gallery.dataset.mapUrl;
-const version = document.querySelector('meta[name="asset-version"]')?.content;
-const stamped = url => (version ? `${url}?v=${version}` : url);
+// Photos page: a gallery of geotagged travel photos, each linking to its spot on the map.
+import { $ } from './lib/dom.js';
+import { stampedUrl } from './lib/assets.js';
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+const MAP_ZOOM = 15;
+
+/**
+ * @typedef {object} Photo
+ * @property {string} id
+ * @property {[number, number]} coords Latitude, longitude.
+ * @property {string} place
+ * @property {string} [date]
+ * @property {string} [caption]
+ * @property {{ small?: { src: string }, medium?: { src: string } }} variants
+ * @property {{ subject?: string, location?: string }} [gallery]
+ */
+
+/**
+ * @param {any} photo
+ * @returns {photo is Photo}
+ */
 const valid = photo =>
   photo &&
   Array.isArray(photo.coords) &&
@@ -12,75 +29,130 @@ const valid = photo =>
   Math.abs(photo.coords[1]) <= 180 &&
   photo.variants &&
   typeof photo.place === 'string';
-const asset = src =>
+
+/**
+ * Stamped URL for a travel image path, or '' for anything that isn't one.
+ * @param {string} base
+ * @param {unknown} src
+ */
+const asset = (base, src) =>
   typeof src === 'string' && /^images\/travel\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpg|png)$/.test(src)
-    ? stamped(`${base}${src}`)
+    ? stampedUrl(src, base)
     : '';
-fetch(stamped(`${base}data/travel/photos.json`))
-  .then(response => {
+
+/**
+ * Curated order first, then newest, then by id.
+ * @param {Photo[]} photos
+ * @param {string[]} galleryOrder
+ */
+function ordered(photos, galleryOrder) {
+  const order = new Map(galleryOrder.map((id, index) => [id, index]));
+  return photos
+    .filter(valid)
+    .sort(
+      (a, b) =>
+        (order.get(a.id) ?? order.size) - (order.get(b.id) ?? order.size) ||
+        (b.date || '').localeCompare(a.date || '') ||
+        a.id.localeCompare(b.id)
+    );
+}
+
+/** @param {HTMLElement} gallery @param {string} text */
+function showMessage(gallery, text) {
+  const message = document.createElement('p');
+  message.className = 'gallery-empty';
+  message.textContent = text;
+  gallery.replaceChildren(message);
+}
+
+/** A small up-right arrow marking the card as a link to the map. */
+function mapArrow() {
+  const icon = document.createElementNS(SVG_NS, 'svg');
+  icon.classList.add('photo-map-arrow');
+  icon.setAttribute('aria-hidden', 'true');
+  icon.setAttribute('viewBox', '0 0 12 12');
+  const path = document.createElementNS(SVG_NS, 'path');
+  path.setAttribute('d', 'M3 9 9 3M3 3h6v6');
+  icon.append(path);
+  return icon;
+}
+
+/**
+ * @param {string} className
+ * @param {string} text
+ */
+function span(className, text) {
+  const element = document.createElement('span');
+  element.className = className;
+  element.textContent = text;
+  return element;
+}
+
+/**
+ * @param {Photo} photo
+ * @param {string} subject
+ * @param {string} location
+ */
+function caption(photo, subject, location) {
+  const figcaption = document.createElement('figcaption');
+  const heading = document.createElement('strong');
+  heading.className = 'photo-subject';
+  heading.textContent = subject;
+  figcaption.append(heading);
+  if (location) figcaption.append(span('photo-location', location));
+  if (photo.caption) figcaption.append(span('photo-note', photo.caption));
+  heading.append(mapArrow());
+  return figcaption;
+}
+
+/**
+ * A gallery card linking to the photo's spot on the map.
+ * @param {Photo} photo
+ * @param {string} imagePath
+ * @param {string} mapUrl
+ */
+function photoCard(photo, imagePath, mapUrl) {
+  const subject = photo.gallery?.subject || photo.place;
+  const location = photo.gallery?.location || '';
+  const label = location ? `${subject} — ${location}` : subject;
+  const link = document.createElement('a');
+  link.className = 'photo-card';
+  link.href = `${mapUrl}?lat=${encodeURIComponent(photo.coords[0])}&lng=${encodeURIComponent(photo.coords[1])}&zoom=${MAP_ZOOM}`;
+  link.setAttribute('aria-label', `View ${label} on the map`);
+  const figure = document.createElement('figure');
+  figure.style.margin = '0';
+  const image = document.createElement('img');
+  image.src = imagePath;
+  image.alt = photo.caption || label;
+  image.loading = 'lazy';
+  image.decoding = 'async';
+  figure.append(image, caption(photo, subject, location));
+  link.append(figure);
+  return link;
+}
+
+async function init() {
+  const gallery = $('#photo-gallery');
+  if (!gallery) return;
+  const base = gallery.dataset.assetBase;
+  const mapUrl = gallery.dataset.mapUrl;
+  try {
+    const response = await fetch(stampedUrl('data/travel/photos.json', base));
     if (!response.ok) throw new Error('Photo list unavailable');
-    return response.json();
-  })
-  .then(({ photos = [], gallery_order = [] }) => {
-    const order = new Map(gallery_order.map((id, index) => [id, index]));
-    const entries = photos
-      .filter(valid)
-      .sort(
-        (a, b) =>
-          (order.get(a.id) ?? order.size) - (order.get(b.id) ?? order.size) ||
-          (b.date || '').localeCompare(a.date || '') ||
-          a.id.localeCompare(b.id)
-      );
+    const { photos = [], gallery_order = [] } = await response.json();
+    const entries = ordered(photos, gallery_order);
     if (!entries.length) {
-      gallery.innerHTML = '<p class="gallery-empty">No geotagged photos are available yet.</p>';
+      showMessage(gallery, 'No geotagged photos are available yet.');
       return;
     }
-    entries.forEach(photo => {
-      const imagePath = asset(photo.variants.small?.src || photo.variants.medium?.src);
-      if (!imagePath) return;
-      const subject = photo.gallery?.subject || photo.place;
-      const location = photo.gallery?.location || '';
-      const label = location ? `${subject} — ${location}` : subject;
-      const link = document.createElement('a');
-      link.className = 'photo-card';
-      link.href = `${mapUrl}?lat=${encodeURIComponent(photo.coords[0])}&lng=${encodeURIComponent(photo.coords[1])}&zoom=15`;
-      link.setAttribute('aria-label', `View ${label} on the map`);
-      const figure = document.createElement('figure');
-      figure.style.margin = '0';
-      const image = document.createElement('img');
-      image.src = imagePath;
-      image.alt = photo.caption || label;
-      image.loading = 'lazy';
-      image.decoding = 'async';
-      const caption = document.createElement('figcaption');
-      const heading = document.createElement('strong');
-      heading.className = 'photo-subject';
-      heading.textContent = subject;
-      caption.append(heading);
-      if (location) {
-        const place = document.createElement('span');
-        place.className = 'photo-location';
-        place.textContent = location;
-        caption.append(place);
-      }
-      if (photo.caption) {
-        const note = document.createElement('span');
-        note.className = 'photo-note';
-        note.textContent = photo.caption;
-        caption.append(note);
-      }
-      const mapIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      mapIcon.classList.add('photo-map-arrow');
-      mapIcon.setAttribute('aria-hidden', 'true');
-      mapIcon.setAttribute('viewBox', '0 0 12 12');
-      mapIcon.innerHTML = '<path d="M3 9 9 3M3 3h6v6"/>';
-      heading.append(mapIcon);
-      figure.append(image, caption);
-      link.append(figure);
-      gallery.append(link);
-    });
-  })
-  .catch(() => {
-    gallery.innerHTML =
-      '<p class="gallery-empty">Photos could not be loaded. Refresh to try again.</p>';
-  });
+    for (const photo of entries) {
+      const imagePath = asset(base, photo.variants.small?.src || photo.variants.medium?.src);
+      if (imagePath) gallery.append(photoCard(photo, imagePath, mapUrl));
+    }
+  } catch (error) {
+    console.error(error);
+    showMessage(gallery, 'Photos could not be loaded. Refresh to try again.');
+  }
+}
+
+init();
