@@ -1,12 +1,51 @@
 /* Only renderer mechanics live here. All travel UI uses the shared styles. */
-#map.atlas-globe { background: #faf8f3; }
-.atlas-overlay-root { position: absolute; inset: 0; transform: none !important; pointer-events: none; z-index: 2; }
-.atlas-overlay-root > .leaflet-pane { position: absolute; inset: 0; pointer-events: none !important; }
-.atlas-vector-pane { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.atlas-overlay-root .leaflet-marker-icon, .atlas-overlay-root .leaflet-interactive { pointer-events: auto; }
-.atlas-globe .maplibregl-popup { z-index: 700; }
-.atlas-globe .maplibregl-popup-content { padding: 0; background: none; box-shadow: none; }
-.atlas-globe .leaflet-popup-content { min-width: 220px; }
-.atlas-globe .maplibregl-popup-tip { border-top-color: #faf8f3; border-bottom-color: #faf8f3; }
-.atlas-globe .maplibregl-ctrl-attrib { font-size: 9px; background: #ffffffdb; color: #92999e; }
-.atlas-globe .maplibregl-ctrl-attrib a { color: #7d878e; }
+#map.atlas-globe {
+  background: #faf8f3;
+}
+.atlas-overlay-root {
+  position: absolute;
+  inset: 0;
+  transform: none !important;
+  pointer-events: none;
+  z-index: 2;
+}
+.atlas-overlay-root > .leaflet-pane {
+  position: absolute;
+  inset: 0;
+  pointer-events: none !important;
+}
+.atlas-vector-pane {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.atlas-overlay-root .leaflet-marker-icon,
+.atlas-overlay-root .leaflet-interactive {
+  pointer-events: auto;
+}
+.atlas-globe .maplibregl-popup {
+  z-index: 700;
+}
+.atlas-globe .maplibregl-popup-content {
+  padding: 0;
+  background: none;
+  box-shadow: none;
+}
+.atlas-globe .leaflet-popup-content {
+  min-width: 220px;
+}
+.atlas-globe .maplibregl-popup-tip {
+  border-top-color: #faf8f3;
+  border-bottom-color: #faf8f3;
+}
+.atlas-globe .maplibregl-ctrl-attrib {
+  font-size: 9px;
+  background: #ffffffdb;
+  color: #92999e;
+}
+.atlas-globe .maplibregl-ctrl-attrib a {
+  color: #7d878e;
+}
