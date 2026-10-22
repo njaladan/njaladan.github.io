@@ -7,7 +7,7 @@
   <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
   <link rel="icon" href="{{ '/assets/images/logo.png' | relative_url }}">
   {% seo %}
-  {% unless page.full_screen %}<link rel="stylesheet" href="{{ '/assets/css/library.css' | relative_url }}">
+  {% unless page.full_screen %}<link rel="stylesheet" href="{{ '/assets/css/base.css' | relative_url }}">
   {% endunless %}
   {% for href in page.styles %}<link rel="stylesheet" href="{{ href | relative_url }}">
   {% endfor %}
