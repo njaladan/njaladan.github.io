@@ -186,7 +186,7 @@ def match_segment(points, profile, cache):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('cache', type=Path, help='Directory for cached Valhalla responses')
-    parser.add_argument('--data', type=Path, default=Path(__file__).parents[1]/'data/activities.json')
+    parser.add_argument('--data', type=Path, default=Path(__file__).resolve().parents[2]/'assets/travel/data/activities.json')
     parser.add_argument('--force', action='store_true', help='Rematch tracks that were already matched')
     args = parser.parse_args()
     args.cache.mkdir(parents=True, exist_ok=True)

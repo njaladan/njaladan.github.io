@@ -14,7 +14,7 @@ import urllib.request
 from pathlib import Path
 from PIL import Image
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 HEADERS = {'User-Agent': 'GaneshPersonalLibrary/1.0 (personal reading and movie archive)'}
 
 

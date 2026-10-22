@@ -7,7 +7,7 @@ import math
 from pathlib import Path
 import re
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2] / 'assets' / 'travel'
 
 
 def airport_code(label):

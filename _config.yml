@@ -4,7 +4,6 @@ title: "Ganesh"
 url: "https://nagaganesh.com"
 description: "Reading, movies, and travel."
 logo: 'assets/images/logo.png'
-favicon: 'assets/images/logo.png'
 include: ["_pages"]
 permalink: /:title/
 email: ganesh.jaladanki@gmail.com
@@ -14,8 +13,25 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-redirect-from
 
 # Other
 markdown: kramdown
 
-exclude: [AGENTS.md, .git-blame-ignore-revs, node_modules, package.json, package-lock.json, eslint.config.js, .prettierrc.json, .prettierignore, LICENSE.txt, README.md, Gemfile, Gemfile.lock, scripts, "travel/scripts", "travel/README.md"]
+exclude:
+  - AGENTS.md
+  - README.md
+  - LICENSE.txt
+  - docs/
+  - scripts/
+  - node_modules/
+  - Gemfile
+  - Gemfile.lock
+  - package.json
+  - package-lock.json
+  - eslint.config.js
+  - pyproject.toml
+  - requirements.txt
+
+redirect_from:
+  json: false
