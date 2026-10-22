@@ -1,417 +1,408 @@
 {
- "trips": [
-  {
-   "id": "tmb",
-   "fit": "activities",
-   "title": "Tour du Mont Blanc",
-   "note": "Day 6 has two recordings: a trail run and a walk.",
-   "days": [
+  "trips": [
     {
-     "date": "2026-08-13",
-     "title": "Les Houches → Les Contamines",
-     "legs": [
-      {
-       "route": "geneva-leshouches"
-      },
-      {
-       "route": "les-houches-bellevue-gondola"
-      },
-      {
-       "activity": "19727589696",
-       "name": "Bellevue → Les Contamines"
-      }
-     ]
+      "id": "tmb",
+      "fit": "activities",
+      "title": "Tour du Mont Blanc",
+      "note": "Day 6 has two recordings: a trail run and a walk.",
+      "days": [
+        {
+          "date": "2026-08-13",
+          "title": "Les Houches → Les Contamines",
+          "legs": [
+            {
+              "route": "geneva-leshouches"
+            },
+            {
+              "route": "les-houches-bellevue-gondola"
+            },
+            {
+              "activity": "19727589696",
+              "name": "Bellevue → Les Contamines"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "title": "Les Contamines → Bourg-Saint-Maurice",
+          "legs": [
+            {
+              "activity": "19741275168",
+              "name": "Les Contamines → Les Mottets"
+            },
+            {
+              "route": "tmb-chapieux-bourg-bus"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-15",
+          "title": "Bourg-Saint-Maurice → Val Veny",
+          "legs": [
+            {
+              "route": "tmb-bourg-chapieux-bus"
+            },
+            {
+              "activity": "19756109637",
+              "name": "La Ville des Glaciers → Val Veny"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-16",
+          "title": "Courmayeur → Ferret → Orsières",
+          "legs": [
+            {
+              "route": "tmb-day4-courmayeur-bus"
+            },
+            {
+              "activity": "19770669684",
+              "name": "Courmayeur → Ferret"
+            },
+            {
+              "route": "ferret-orsieres"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-17",
+          "title": "Champex-Lac → Trient → Chamonix",
+          "legs": [
+            {
+              "route": "orsieres-champex"
+            },
+            {
+              "activity": "19779875383",
+              "name": "Champex-Lac → Trient"
+            },
+            {
+              "route": "trient-finhaut"
+            },
+            {
+              "route": "finhaut-chamonix"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-18",
+          "title": "Chamonix · Skyway, Mer de Glace and Lac Blanc",
+          "legs": [
+            {
+              "route": "chamonix-courmayeur-gondola"
+            },
+            {
+              "route": "chamonix-montenvers-train"
+            },
+            {
+              "route": "montenvers-mer-de-glace-gondola"
+            },
+            {
+              "route": "chamonix-planpraz-gondola"
+            },
+            {
+              "route": "planpraz-brevent-gondola"
+            },
+            {
+              "activity": "19797394801",
+              "name": "Trail run: Brévent → La Flégère"
+            },
+            {
+              "route": "flegere-index-gondola"
+            },
+            {
+              "activity": "19797394588",
+              "name": "Walk: Index → Lac Blanc → Tré-le-Champ"
+            }
+          ]
+        }
+      ]
     },
     {
-     "date": "2026-08-14",
-     "title": "Les Contamines → Bourg-Saint-Maurice",
-     "legs": [
-      {
-       "activity": "19741275168",
-       "name": "Les Contamines → Les Mottets"
-      },
-      {
-       "route": "tmb-chapieux-bourg-bus"
-      }
-     ]
+      "id": "w-trek",
+      "fit": "activities",
+      "title": "W Trek",
+      "days": [
+        {
+          "title": "New York → Santiago → Puerto Natales → Torres del Paine",
+          "legs": [
+            {
+              "flight": ["JFK", "SCL"]
+            },
+            {
+              "flight": ["SCL", "PNT"]
+            },
+            {
+              "route": "natales-laguna"
+            }
+          ]
+        },
+        {
+          "title": "Hike to Los Cuernos",
+          "legs": [
+            {
+              "activity": "17737832069",
+              "name": "Hike to Los Cuernos"
+            }
+          ]
+        },
+        {
+          "title": "Los Cuernos → Paine Grande",
+          "legs": [
+            {
+              "activity": "17760095662",
+              "name": "Hike to Paine Grande"
+            }
+          ]
+        },
+        {
+          "title": "Paine Grande → Pudeto → Puerto Natales",
+          "legs": [
+            {
+              "activity": "17760098626",
+              "name": "Hike from Paine Grande"
+            },
+            {
+              "route": "paine-grande-pudeto"
+            },
+            {
+              "route": "pudeto-natales"
+            }
+          ]
+        }
+      ]
     },
     {
-     "date": "2026-08-15",
-     "title": "Bourg-Saint-Maurice → Val Veny",
-     "legs": [
-      {
-       "route": "tmb-bourg-chapieux-bus"
-      },
-      {
-       "activity": "19756109637",
-       "name": "La Ville des Glaciers → Val Veny"
-      }
-     ]
+      "id": "jordan",
+      "title": "Jordan road trip",
+      "days": [
+        {
+          "title": "Aqaba → Wadi Rum",
+          "legs": [
+            {
+              "route": "jordan-aqaba-wadi-rum"
+            },
+            {
+              "route": "jordan-wadi-rum-1917-train",
+              "name": "Hejaz Railway 1917 train"
+            }
+          ]
+        },
+        {
+          "title": "Wadi Rum → Petra",
+          "legs": [
+            {
+              "route": "jordan-wadi-rum-petra"
+            }
+          ]
+        },
+        {
+          "title": "Petra → Wadi Mujib → Dead Sea → Amman",
+          "legs": [
+            {
+              "route": "jordan-petra-amman",
+              "name": "Petra → Wadi Mujib → Dead Sea → Amman"
+            }
+          ]
+        },
+        {
+          "title": "Amman",
+          "places": [
+            {
+              "name": "Amman",
+              "coords": [31.9539, 35.9106]
+            }
+          ],
+          "legs": []
+        }
+      ]
     },
     {
-     "date": "2026-08-16",
-     "title": "Courmayeur → Ferret → Orsières",
-     "legs": [
-      {
-       "route": "tmb-day4-courmayeur-bus"
-      },
-      {
-       "activity": "19770669684",
-       "name": "Courmayeur → Ferret"
-      },
-      {
-       "route": "ferret-orsieres"
-      }
-     ]
+      "id": "iceland",
+      "title": "Iceland road trip",
+      "days": [
+        {
+          "title": "Keflavík → Hvolsvöllur",
+          "legs": [
+            {
+              "route": "iceland-drive-kef-fagradalsfjall"
+            },
+            {
+              "activity": "16007840862",
+              "name": "Fagradalsfjall"
+            },
+            {
+              "route": "iceland-drive-fagradalsfjall-glymur"
+            },
+            {
+              "activity": "16010599630",
+              "name": "Glymur"
+            },
+            {
+              "route": "iceland-drive-glymur-thingvellir"
+            },
+            {
+              "activity": "16013322986",
+              "name": "Þingvellir"
+            },
+            {
+              "route": "iceland-drive-thingvellir-kerid"
+            },
+            {
+              "activity": "16013018406",
+              "name": "Kerið crater"
+            },
+            {
+              "route": "iceland-drive-kerid-hvolsvollur"
+            }
+          ]
+        },
+        {
+          "title": "Skógafoss → Vík → Fjaðrárgljúfur",
+          "legs": [
+            {
+              "route": "iceland-drive-hvolsvollur-skogafoss"
+            },
+            {
+              "activity": "16020388694",
+              "name": "Skógafoss"
+            },
+            {
+              "route": "iceland-drive-skogafoss-reynisfjara"
+            },
+            {
+              "activity": "16021723026",
+              "name": "Reynisfjara, Vík"
+            },
+            {
+              "route": "iceland-drive-reynisfjara-fjadrargljufur"
+            },
+            {
+              "activity": "16022452871",
+              "name": "Fjaðrárgljúfur"
+            }
+          ]
+        },
+        {
+          "title": "Skaftafell → Falljökull → Múlagljúfur → Heimaey",
+          "legs": [
+            {
+              "route": "iceland-drive-fjadrargljufur-skaftafell"
+            },
+            {
+              "activity": "16023245494",
+              "name": "Skaftafell"
+            },
+            {
+              "route": "iceland-drive-skaftafell-falljokull"
+            },
+            {
+              "activity": "16034787340",
+              "name": "Falljökull"
+            },
+            {
+              "route": "iceland-drive-falljokull-mulagljufur"
+            },
+            {
+              "activity": "16029608499",
+              "name": "Múlagljúfur Canyon"
+            },
+            {
+              "route": "iceland-drive-mulagljufur-landeyjahofn"
+            },
+            {
+              "route": "landeyjahofn-heimaey"
+            }
+          ]
+        },
+        {
+          "title": "Heimaey → Keflavík",
+          "legs": [
+            {
+              "activity": "16038479160",
+              "name": "Heimaey"
+            },
+            {
+              "route": "landeyjahofn-heimaey"
+            },
+            {
+              "route": "iceland-drive-landeyjahofn-kef"
+            }
+          ]
+        }
+      ]
     },
     {
-     "date": "2026-08-17",
-     "title": "Champex-Lac → Trient → Chamonix",
-     "legs": [
-      {
-       "route": "orsieres-champex"
-      },
-      {
-       "activity": "19779875383",
-       "name": "Champex-Lac → Trient"
-      },
-      {
-       "route": "trient-finhaut"
-      },
-      {
-       "route": "finhaut-chamonix"
-      }
-     ]
-    },
-    {
-     "date": "2026-08-18",
-     "title": "Chamonix · Skyway, Mer de Glace and Lac Blanc",
-     "legs": [
-      {
-       "route": "chamonix-courmayeur-gondola"
-      },
-      {
-       "route": "chamonix-montenvers-train"
-      },
-      {
-       "route": "montenvers-mer-de-glace-gondola"
-      },
-      {
-       "route": "chamonix-planpraz-gondola"
-      },
-      {
-       "route": "planpraz-brevent-gondola"
-      },
-      {
-       "activity": "19797394801",
-       "name": "Trail run: Brévent → La Flégère"
-      },
-      {
-       "route": "flegere-index-gondola"
-      },
-      {
-       "activity": "19797394588",
-       "name": "Walk: Index → Lac Blanc → Tré-le-Champ"
-      }
-     ]
+      "id": "san-jose-seattle",
+      "title": "West Coast road trip",
+      "days": [
+        {
+          "title": "San Jose → Red Bluff",
+          "legs": [
+            {
+              "route": "san-jose-seattle-drive-san-jose-napa"
+            },
+            {
+              "route": "san-jose-seattle-drive-napa-davis"
+            },
+            {
+              "route": "san-jose-seattle-drive-davis-red-bluff"
+            }
+          ]
+        },
+        {
+          "title": "Red Bluff → Ashland",
+          "legs": [
+            {
+              "route": "san-jose-seattle-drive-red-bluff-lassen"
+            },
+            {
+              "route": "san-jose-seattle-drive-lassen-redding"
+            },
+            {
+              "route": "san-jose-seattle-drive-redding-mount-shasta"
+            },
+            {
+              "route": "san-jose-seattle-drive-mount-shasta-ashland"
+            }
+          ]
+        },
+        {
+          "title": "Ashland → Bend",
+          "legs": [
+            {
+              "route": "san-jose-seattle-drive-ashland-crater-lake"
+            },
+            {
+              "route": "san-jose-seattle-drive-crater-lake-bend"
+            }
+          ]
+        },
+        {
+          "title": "Bend → Portland",
+          "legs": [
+            {
+              "route": "san-jose-seattle-drive-bend-mount-hood"
+            },
+            {
+              "route": "san-jose-seattle-drive-mount-hood-portland"
+            }
+          ]
+        },
+        {
+          "title": "Portland → Seattle",
+          "legs": [
+            {
+              "route": "san-jose-seattle-drive-portland-cannon-beach"
+            },
+            {
+              "route": "san-jose-seattle-drive-cannon-beach-mount-rainier"
+            },
+            {
+              "route": "san-jose-seattle-drive-mount-rainier-seattle"
+            }
+          ]
+        }
+      ]
     }
-   ]
-  },
-  {
-   "id": "w-trek",
-   "fit": "activities",
-   "title": "W Trek",
-   "days": [
-    {
-     "title": "New York → Santiago → Puerto Natales → Torres del Paine",
-     "legs": [
-      {
-       "flight": [
-        "JFK",
-        "SCL"
-       ]
-      },
-      {
-       "flight": [
-        "SCL",
-        "PNT"
-       ]
-      },
-      {
-       "route": "natales-laguna"
-      }
-     ]
-    },
-    {
-     "title": "Hike to Los Cuernos",
-     "legs": [
-      {
-       "activity": "17737832069",
-       "name": "Hike to Los Cuernos"
-      }
-     ]
-    },
-    {
-     "title": "Los Cuernos → Paine Grande",
-     "legs": [
-      {
-       "activity": "17760095662",
-       "name": "Hike to Paine Grande"
-      }
-     ]
-    },
-    {
-     "title": "Paine Grande → Pudeto → Puerto Natales",
-     "legs": [
-      {
-       "activity": "17760098626",
-       "name": "Hike from Paine Grande"
-      },
-      {
-       "route": "paine-grande-pudeto"
-      },
-      {
-       "route": "pudeto-natales"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "jordan",
-   "title": "Jordan road trip",
-   "days": [
-    {
-     "title": "Aqaba → Wadi Rum",
-     "legs": [
-      {
-       "route": "jordan-aqaba-wadi-rum"
-      },
-      {
-       "route": "jordan-wadi-rum-1917-train",
-       "name": "Hejaz Railway 1917 train"
-      }
-     ]
-    },
-    {
-     "title": "Wadi Rum → Petra",
-     "legs": [
-      {
-       "route": "jordan-wadi-rum-petra"
-      }
-     ]
-    },
-    {
-     "title": "Petra → Wadi Mujib → Dead Sea → Amman",
-     "legs": [
-      {
-       "route": "jordan-petra-amman",
-       "name": "Petra → Wadi Mujib → Dead Sea → Amman"
-      }
-     ]
-    },
-    {
-     "title": "Amman",
-     "places": [
-      {
-       "name": "Amman",
-       "coords": [
-        31.9539,
-        35.9106
-       ]
-      }
-     ],
-     "legs": []
-    }
-   ]
-  },
-  {
-   "id": "iceland",
-   "title": "Iceland road trip",
-   "days": [
-    {
-     "title": "Keflavík → Hvolsvöllur",
-     "legs": [
-      {
-       "route": "iceland-drive-kef-fagradalsfjall"
-      },
-      {
-       "activity": "16007840862",
-       "name": "Fagradalsfjall"
-      },
-      {
-       "route": "iceland-drive-fagradalsfjall-glymur"
-      },
-      {
-       "activity": "16010599630",
-       "name": "Glymur"
-      },
-      {
-       "route": "iceland-drive-glymur-thingvellir"
-      },
-      {
-       "activity": "16013322986",
-       "name": "Þingvellir"
-      },
-      {
-       "route": "iceland-drive-thingvellir-kerid"
-      },
-      {
-       "activity": "16013018406",
-       "name": "Kerið crater"
-      },
-      {
-       "route": "iceland-drive-kerid-hvolsvollur"
-      }
-     ]
-    },
-    {
-     "title": "Skógafoss → Vík → Fjaðrárgljúfur",
-     "legs": [
-      {
-       "route": "iceland-drive-hvolsvollur-skogafoss"
-      },
-      {
-       "activity": "16020388694",
-       "name": "Skógafoss"
-      },
-      {
-       "route": "iceland-drive-skogafoss-reynisfjara"
-      },
-      {
-       "activity": "16021723026",
-       "name": "Reynisfjara, Vík"
-      },
-      {
-       "route": "iceland-drive-reynisfjara-fjadrargljufur"
-      },
-      {
-       "activity": "16022452871",
-       "name": "Fjaðrárgljúfur"
-      }
-     ]
-    },
-    {
-     "title": "Skaftafell → Falljökull → Múlagljúfur → Heimaey",
-     "legs": [
-      {
-       "route": "iceland-drive-fjadrargljufur-skaftafell"
-      },
-      {
-       "activity": "16023245494",
-       "name": "Skaftafell"
-      },
-      {
-       "route": "iceland-drive-skaftafell-falljokull"
-      },
-      {
-       "activity": "16034787340",
-       "name": "Falljökull"
-      },
-      {
-       "route": "iceland-drive-falljokull-mulagljufur"
-      },
-      {
-       "activity": "16029608499",
-       "name": "Múlagljúfur Canyon"
-      },
-      {
-       "route": "iceland-drive-mulagljufur-landeyjahofn"
-      },
-      {
-       "route": "landeyjahofn-heimaey"
-      }
-     ]
-    },
-    {
-     "title": "Heimaey → Keflavík",
-     "legs": [
-      {
-       "activity": "16038479160",
-       "name": "Heimaey"
-      },
-      {
-       "route": "landeyjahofn-heimaey"
-      },
-      {
-       "route": "iceland-drive-landeyjahofn-kef"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "san-jose-seattle",
-   "title": "West Coast road trip",
-   "days": [
-    {
-     "title": "San Jose → Red Bluff",
-     "legs": [
-      {
-       "route": "san-jose-seattle-drive-san-jose-napa"
-      },
-      {
-       "route": "san-jose-seattle-drive-napa-davis"
-      },
-      {
-       "route": "san-jose-seattle-drive-davis-red-bluff"
-      }
-     ]
-    },
-    {
-     "title": "Red Bluff → Ashland",
-     "legs": [
-      {
-       "route": "san-jose-seattle-drive-red-bluff-lassen"
-      },
-      {
-       "route": "san-jose-seattle-drive-lassen-redding"
-      },
-      {
-       "route": "san-jose-seattle-drive-redding-mount-shasta"
-      },
-      {
-       "route": "san-jose-seattle-drive-mount-shasta-ashland"
-      }
-     ]
-    },
-    {
-     "title": "Ashland → Bend",
-     "legs": [
-      {
-       "route": "san-jose-seattle-drive-ashland-crater-lake"
-      },
-      {
-       "route": "san-jose-seattle-drive-crater-lake-bend"
-      }
-     ]
-    },
-    {
-     "title": "Bend → Portland",
-     "legs": [
-      {
-       "route": "san-jose-seattle-drive-bend-mount-hood"
-      },
-      {
-       "route": "san-jose-seattle-drive-mount-hood-portland"
-      }
-     ]
-    },
-    {
-     "title": "Portland → Seattle",
-     "legs": [
-      {
-       "route": "san-jose-seattle-drive-portland-cannon-beach"
-      },
-      {
-       "route": "san-jose-seattle-drive-cannon-beach-mount-rainier"
-      },
-      {
-       "route": "san-jose-seattle-drive-mount-rainier-seattle"
-      }
-     ]
-    }
-   ]
-  }
- ]
+  ]
 }
