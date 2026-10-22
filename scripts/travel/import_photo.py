@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Add a geotagged photo and immutable, responsive image derivatives to the atlas."""
+
 import argparse
 import hashlib
 import io
@@ -12,7 +13,7 @@ from pathlib import Path
 from PIL import Image, ImageCms, ImageOps
 
 # Photo paths in the manifest are relative to assets/, where the site resolves them.
-ROOT = Path(__file__).resolve().parents[2] / 'assets'
+ROOT = Path(__file__).resolve().parents[2] / "assets"
 VARIANTS = {"thumbnail": (128, 86), "small": (640, 90), "medium": (1280, 93), "large": (2400, 94)}
 PIPELINE_VERSION = "2"
 
@@ -37,7 +38,7 @@ def jpeg_without_metadata(content):
             return bytes(output)
         if offset + 2 > len(content):
             break
-        length = int.from_bytes(content[offset:offset + 2], "big")
+        length = int.from_bytes(content[offset : offset + 2], "big")
         if length < 2 or offset + length > len(content):
             break
         end = offset + length
@@ -67,6 +68,7 @@ def import_photo(source, *, place, lat, lon, photo_id=None, country=None, captio
     original = source.read_bytes()
     if source.suffix.lower() in {".heic", ".heif"}:
         from pillow_heif import register_heif_opener
+
         register_heif_opener()
     digest = hashlib.sha256(original).hexdigest()
     photo_id = photo_id or (re.sub(r"[^a-z0-9]+", "-", place.lower()).strip("-") or "photo") + "-" + digest[:8]
@@ -85,7 +87,9 @@ def import_photo(source, *, place, lat, lon, photo_id=None, country=None, captio
         if raw.format == "JPEG" and raw.mode == "RGB" and raw.getexif().get(274, 1) == 1 and not profile:
             passthrough = jpeg_without_metadata(original)
         if profile:
-            image = ImageCms.profileToProfile(image, ImageCms.ImageCmsProfile(io.BytesIO(profile)), ImageCms.createProfile("sRGB"), outputMode="RGB")
+            image = ImageCms.profileToProfile(
+                image, ImageCms.ImageCmsProfile(io.BytesIO(profile)), ImageCms.createProfile("sRGB"), outputMode="RGB"
+            )
         else:
             image = image.convert("RGB")
         width, height = image.size
@@ -102,9 +106,22 @@ def import_photo(source, *, place, lat, lon, photo_id=None, country=None, captio
                 content, suffix = passthrough, ".jpg"
             path = directory / f"{fingerprint}-{name}{suffix}"
             atomic_bytes(path, content)
-            variants[name] = {"src": path.relative_to(root).as_posix(), "width": resized.width, "height": resized.height, "bytes": path.stat().st_size}
-    record = {"id": photo_id, "place": place.strip(), "coords": [lat, lon], "caption": caption.strip(), "width": width, "height": height,
-              "sha256": digest, "variants": variants}
+            variants[name] = {
+                "src": path.relative_to(root).as_posix(),
+                "width": resized.width,
+                "height": resized.height,
+                "bytes": path.stat().st_size,
+            }
+    record = {
+        "id": photo_id,
+        "place": place.strip(),
+        "coords": [lat, lon],
+        "caption": caption.strip(),
+        "width": width,
+        "height": height,
+        "sha256": digest,
+        "variants": variants,
+    }
     if country:
         record["country"] = str(country)
     if date:
