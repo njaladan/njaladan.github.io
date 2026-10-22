@@ -9,22 +9,15 @@
   {% seo %}
   <link rel="stylesheet" href="{{ '/assets/css/library.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/header.css' | relative_url }}">
-  {% if page.photos %}
-  <link rel="stylesheet" href="{{ '/travel/gallery/gallery.css' | relative_url }}">
-  <script defer src="{{ '/travel/gallery/gallery.js' | relative_url }}"></script>
-  {% endif %}
-  {% if page.library %}<script defer src="{{ '/assets/js/library.js' | relative_url }}"></script>{% endif %}
-  {% if page.athletics %}
-  <link rel="stylesheet" href="{{ '/assets/css/athletics.css' | relative_url }}">
-  <script defer src="{{ '/athletics/shapes.js' | relative_url }}"></script>
-  <script defer src="{{ '/assets/js/athletics.js' | relative_url }}"></script>
-  {% endif %}
-  {% if page.portrait %}<script defer src="{{ '/assets/js/portrait.js' | relative_url }}"></script>{% endif %}
+  {% for href in page.styles %}<link rel="stylesheet" href="{{ href | relative_url }}">
+  {% endfor %}
+  {% for src in page.scripts %}<script defer src="{{ src | relative_url }}"></script>
+  {% endfor %}
 </head>
 <body>
   {% include site-header.html %}
   <div class="site-shell">
-    <main id="main"{% if page.photos %} class="gallery-main"{% endif %}>{{ content }}</main>
+    <main id="main"{% if page.main_class %} class="{{ page.main_class }}"{% endif %}>{{ content }}</main>
     {% include site-footer.html %}
   </div>
 </body>

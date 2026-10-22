@@ -1,9 +1,10 @@
 # Travel
 
-The travel atlas lives at `/travel/`; the shared photo gallery lives at `/photos/`.
-`/travel/gallery/` redirects to the gallery, whose CSS and JavaScript still live
-in `travel/gallery/`. Build or serve from the repository root with Jekyll so the
-shared site header renders.
+The travel atlas is served at `/travel/` from `_pages/travel.html`; the photo
+gallery at `/photos/` (`assets/js/photos.js`) reads the same photo manifest.
+The atlas's code, styles, data and photos live in `assets/travel/`, and paths below
+are relative to it unless they start with `_` or `scripts/`. Build or serve from the
+repository root with Jekyll so the shared site header renders.
 
 ## Globe and flat views
 
@@ -54,8 +55,8 @@ routes share the original map's directional dash animation.
   routes on the map; selecting a day zooms to it. Each day shows photos taken
   that day (dated photos) or along its routes (undated). Route cards in a trip
   only name their day and link to the panel, which handles all navigation.
-  `scripts/build_tmb_routes.py`, `scripts/build_iceland_routes.py` and
-  `scripts/import_estimated_drives.py` regenerate the trip transfers.
+  `scripts/travel/build_tmb_routes.py`, `scripts/travel/build_iceland_routes.py` and
+  `scripts/travel/import_estimated_drives.py` regenerate the trip transfers.
 - `data/world.json`, `data/us-states.json`, and `data/context.json` provide local
   country/state outlines and high-level Natural Earth city labels. Esri Light
   Gray tiles provide street detail when online; the overview and overlays work
@@ -97,8 +98,8 @@ email links out of the manifest.
 ## Photos
 
 ```sh
-python -m pip install -r travel/scripts/requirements-photos.txt
-python travel/scripts/import_photo.py /path/to/photo.jpg \
+python -m pip install -r requirements.txt
+python scripts/travel/import_photo.py /path/to/photo.jpg \
   --id louvre-pyramid --place "Louvre · Paris" \
   --lat 48.8606 --lon 2.3358 --country 250 --caption "The Louvre Pyramid"
 ```
@@ -107,7 +108,7 @@ Set coordinates explicitly. Optional `--date YYYY-MM-DD` records a confirmed dat
 never invent one. Reusing an ID replaces that photo without duplicating it.
 The importer creates oriented, sRGB display derivatives without metadata or upscaling;
 it does not store the source file, so keep originals outside the repo. HEIC input needs
-`pillow-heif` from the requirements file.
+`pillow-heif` from `requirements.txt`.
 
 Set each photo's `gallery.subject` and `gallery.location` in sentence case with
 proper names capitalized. These fields supply the names on both the map and gallery;
@@ -120,15 +121,15 @@ location evidence in the manifest rather than maintaining separate mapping repor
 ## Activities and routes
 
 ```sh
-python travel/scripts/import_strava.py EXPORT_DIRECTORY REVIEW.json
-python travel/scripts/import_gpx.py TRACK.gpx --journey netherlands \
+python scripts/travel/import_strava.py EXPORT_DIRECTORY REVIEW.json
+python scripts/travel/import_gpx.py TRACK.gpx --journey netherlands \
   --name "Amsterdam ride" --countries 528
-python travel/scripts/match_activities.py CACHE_DIRECTORY
-python travel/scripts/import_flights.py PATH_TO_FLIGHTS.csv
-python travel/scripts/build_transport_routes.py CACHE_DIRECTORY
-python travel/scripts/build_iceland_routes.py CACHE_DIRECTORY
-python travel/scripts/import_estimated_drives.py CACHE_DIRECTORY
-python travel/scripts/build_context.py SOURCE_DIRECTORY
+python scripts/travel/match_activities.py CACHE_DIRECTORY
+python scripts/travel/import_flights.py PATH_TO_FLIGHTS.csv
+python scripts/travel/build_transport_routes.py CACHE_DIRECTORY
+python scripts/travel/build_iceland_routes.py CACHE_DIRECTORY
+python scripts/travel/import_estimated_drives.py CACHE_DIRECTORY
+python scripts/travel/build_context.py SOURCE_DIRECTORY
 ```
 
 The Strava review manifest selects activities by `Activity ID`, `Filename`, and
@@ -150,9 +151,3 @@ replaces its own route IDs. Context rebuilding expects
 `ne_50m_populated_places.geojson` in the source directory.
 
 Asset and map JSON URLs reuse the build timestamp, so there are no versions to bump.
-
-## Validation
-
-```sh
-bundle exec jekyll build
-```
