@@ -8,6 +8,8 @@ import json
 from datetime import date
 from pathlib import Path
 
+from scripts.common.paths import DATA
+
 
 def film_key(row):
     return (row["Name"].strip().casefold(), row["Year"].strip())
@@ -46,7 +48,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("diary", type=Path)
     parser.add_argument("watched", type=Path)
-    parser.add_argument("--output", type=Path, default=Path("_data/movies.json"))
+    parser.add_argument("--output", type=Path, default=DATA / "movies.json")
     args = parser.parse_args()
 
     def read(path):

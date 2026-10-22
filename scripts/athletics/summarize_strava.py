@@ -1,19 +1,24 @@
 """Summarize a Strava export's GPX/FIT files into one JSON row per activity.
 
-    python scripts/athletics/summarize_strava.py STRAVA_ACTIVITIES_DIR SUMMARY.json
+    python -m scripts.athletics.summarize_strava STRAVA_ACTIVITIES_DIR SUMMARY.json
 
 Distance counts only actively tracked movement. FIT files use the watch's own session
 distance and timer. GPS-only files skip jumps across pauses (a train or car ride with
 recording stopped), steps faster than the sport allows, and lift rides on snowboard days.
 """
 
-import gzip, json, math, sys, re
-from datetime import datetime, timezone
+import gzip
+import json
+import re
+import sys
+import xml.etree.ElementTree as ET
+from datetime import UTC, datetime
 from multiprocessing import Pool
 from pathlib import Path
-import xml.etree.ElementTree as ET
 
 import fitdecode
+
+from scripts.common.geo import distance_m
 
 FIT_SPORTS = {
     "running": "running",
@@ -42,12 +47,6 @@ MAX_SPEED = {
     "swimming": 5,
 }
 ALIASES = {"Snowboard": "snowboarding", "IceSkate": "ice_skating", "ebikeride": "cycling"}
-
-
-def hav(a, b):
-    lat1, lon1, lat2, lon2 = map(math.radians, (a[0], a[1], b[0], b[1]))
-    h = math.sin((lat2 - lat1) / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin((lon2 - lon1) / 2) ** 2
-    return 2 * 6371008.8 * math.asin(math.sqrt(h))
 
 
 def open_bytes(path):
@@ -148,7 +147,7 @@ def summarize(path):
                 uphill.add(i + 1)
     for idx, p in enumerate(geo):
         if prev is not None:
-            d = hav(prev, p)
+            d = distance_m(prev, p)
             dt = (p[2] - prev[2]).total_seconds() if p[2] and prev[2] else None
             # Count only actively tracked movement: no jumps across pauses (trains, cars,
             # lifts with recording stopped) and nothing faster than the sport allows.
@@ -170,7 +169,7 @@ def summarize(path):
     cads = [p[5] for p in pts if p[5]]
     start = min(times) if times else None
     if start and start.tzinfo is None:
-        start = start.replace(tzinfo=timezone.utc)
+        start = start.replace(tzinfo=UTC)
     lon0 = geo[0][1] if geo else None
     return {
         "id": stem,
