@@ -1,0 +1,395 @@
+/* A small print over the map; larger images load only after selection. */
+.photo-pin {
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+}
+.photo-pin-content {
+  position: relative;
+  display: block;
+  width: 48px;
+  height: 48px;
+}
+.photo-pin-pressed .photo-pin-print {
+  scale: 0.94;
+}
+.photo-pin-print {
+  position: absolute;
+  inset: 0;
+  z-index: var(--photo-depth, 1);
+  display: block;
+  padding: 3px;
+  border: 1px solid #fff;
+  border-radius: 7px;
+  background: #fff;
+  box-shadow: 0 2px 9px #29362f30;
+  scale: 1;
+  transition:
+    transform 0.18s ease,
+    scale 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.18s ease;
+}
+.photo-pin-back {
+  pointer-events: none;
+}
+.photo-pin-back-1 {
+  transform: translate(5px, -4px) rotate(9deg);
+}
+.photo-pin-back-2 {
+  transform: translate(-5px, -7px) rotate(-10deg);
+}
+.photo-pin-content:after {
+  content: '';
+  position: absolute;
+  left: 19px;
+  bottom: -7px;
+  width: 9px;
+  height: 9px;
+  transform: rotate(45deg);
+  background: #fff;
+  border-radius: 0 0 2px 0;
+  box-shadow: 2px 2px 3px #29362f12;
+}
+.photo-pin:hover .photo-pin-print,
+.photo-pin:focus-visible .photo-pin-print {
+  z-index: calc(var(--photo-depth, 1) + 10000);
+}
+.photo-print-travelling {
+  z-index: var(--photo-travel-depth, var(--photo-depth, 1)) !important;
+  scale: 1 !important;
+  transition: none;
+  will-change: transform;
+}
+.photo-pin-count,
+.photo-pin-content:after {
+  transition: opacity 0.16s ease;
+}
+.photo-pin-count {
+  z-index: 100000 !important;
+}
+.photo-pin-assembling .photo-pin-count,
+.photo-pin-assembling .photo-pin-content:after {
+  opacity: 0;
+}
+.photo-pin-image {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #eae7df;
+}
+.photo-pin-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 0.22s ease;
+}
+.photo-pin-image img.photo-thumbnail-loading {
+  opacity: 0;
+}
+.photo-pin:hover .photo-pin-front,
+.photo-pin:focus-visible .photo-pin-front {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px #29362f50;
+}
+.photo-pin-stack:hover .photo-pin-front,
+.photo-pin-stack:focus-visible .photo-pin-front {
+  transform: translateY(-3px) rotate(-3deg);
+}
+.photo-pin-stack:hover .photo-pin-back-1,
+.photo-pin-stack:focus-visible .photo-pin-back-1 {
+  transform: translate(7px, -5px) rotate(12deg);
+}
+.photo-pin-stack:hover .photo-pin-back-2,
+.photo-pin-stack:focus-visible .photo-pin-back-2 {
+  transform: translate(-7px, -8px) rotate(-13deg);
+}
+.photo-pin-count {
+  position: absolute;
+  z-index: 4;
+  right: -7px;
+  top: -9px;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 4px;
+  display: grid;
+  place-items: center;
+  background: #45584e;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  pointer-events: none;
+}
+.photo-pin-fallback {
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  color: #6c776c;
+}
+/* One photo frame changes size; the selected map print is its return point. */
+.photo-pin-selected {
+  pointer-events: none;
+}
+.photo-pin-selected .photo-pin-content {
+  visibility: hidden;
+}
+#photo-viewer {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 1px solid #dedbd2;
+  border-radius: 10px;
+  background: #faf8f3;
+  color: #343c42;
+  box-shadow: 0 12px 45px #29362f30;
+  overflow: hidden;
+  z-index: 1100;
+}
+#photo-viewer[open] {
+  display: flex;
+  flex-direction: column;
+}
+#photo-viewer[data-state='full'] {
+  border: 0;
+  border-radius: 0;
+}
+#photo-viewer::backdrop {
+  background: transparent;
+}
+#photo-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  background: #1f2926b8;
+  opacity: 0;
+  pointer-events: none;
+}
+.photo-fullscreen {
+  overflow: hidden;
+}
+.photo-viewer-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  min-height: 0;
+  overflow: hidden;
+}
+.photo-viewer-header > div:first-child {
+  min-width: 0;
+}
+.photo-viewer-header h2 {
+  margin: 0;
+  font:
+    19px/1.2 Georgia,
+    'Times New Roman',
+    serif;
+  overflow-wrap: anywhere;
+}
+.photo-caption {
+  margin: 5px 0 0;
+  max-height: 84px;
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #77756f;
+  overflow-wrap: anywhere;
+}
+.photo-window-actions {
+  display: flex;
+  gap: 6px;
+}
+.photo-close,
+.photo-shrink,
+.photo-navigation button {
+  background: transparent;
+  border: 1px solid #dedbd2;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  font-size: 23px;
+  line-height: 1;
+}
+.photo-close:hover,
+.photo-shrink:hover,
+.photo-navigation button:hover {
+  background: #efede6;
+}
+.photo-stage {
+  position: relative;
+  display: block;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  padding: 8px;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  background: #faf8f3;
+}
+.photo-image {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #ece9e1;
+}
+.photo-pixels {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: #ece9e1 center / contain no-repeat;
+  transform-origin: 0 0;
+}
+.photo-stage[role='button'] {
+  cursor: pointer;
+}
+.photo-stage[role='group'] {
+  cursor: default;
+}
+.photo-image.photo-zoomable {
+  touch-action: none;
+  user-select: none;
+}
+.photo-zoomed {
+  cursor: grab;
+}
+.photo-zoomed.photo-dragging {
+  cursor: grabbing;
+}
+.photo-zoomable .photo-pixels {
+  will-change: transform;
+}
+.photo-stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  -webkit-user-drag: none;
+}
+.photo-image-status {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90%;
+  padding: 7px 10px;
+  margin: 0;
+  border-radius: 4px;
+  background: #faf8f3ef;
+  font-size: 12px;
+  text-align: center;
+}
+.photo-image-status:empty {
+  display: none;
+}
+.photo-viewer-footer {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 0;
+  padding: 10px 12px;
+  font-size: 11px;
+  overflow: hidden;
+}
+.photo-navigation {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.photo-navigation:has(button[hidden]) {
+  display: none;
+}
+.photo-navigation button {
+  font-size: 18px;
+}
+.photo-expand {
+  padding: 7px 11px;
+  min-height: 36px;
+  border: 1px solid #dedbd2;
+  border-radius: 5px;
+  background: #f1efe8;
+  font-size: 12px;
+}
+.photo-zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.photo-zoom-controls button {
+  min-width: 36px;
+  height: 36px;
+  border: 1px solid #dedbd2;
+  border-radius: 5px;
+  background: transparent;
+  font-size: 18px;
+}
+.photo-zoom-controls button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.photo-zoom-controls .photo-zoom-reset {
+  min-width: 58px;
+  font-size: 12px;
+}
+.photo-zoom-help {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.photo-resizing {
+  will-change: left, top, width, height;
+}
+.photo-collapsing .photo-image-status {
+  visibility: hidden;
+}
+#photo-viewer[data-state='full'] .photo-viewer-header {
+  padding: 16px 20px;
+}
+#photo-viewer[data-state='full'] .photo-viewer-footer {
+  padding: 10px 20px;
+}
+@media (max-width: 700px) {
+  .photo-close,
+  .photo-shrink,
+  .photo-navigation button {
+    width: 44px;
+    height: 44px;
+  }
+  .photo-expand {
+    min-height: 44px;
+  }
+  .photo-zoom-controls button {
+    min-width: 44px;
+    height: 44px;
+  }
+  #photo-viewer[data-state='full'] .photo-viewer-header {
+    padding: 12px;
+    padding-top: max(12px, env(safe-area-inset-top));
+  }
+  #photo-viewer[data-state='full'] .photo-viewer-footer {
+    padding: 10px 12px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+  }
+}

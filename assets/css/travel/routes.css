@@ -1,0 +1,438 @@
+/* Route cards: dark header in the site's ink, paper body, one layout for every route type. */
+.route-card-popup .leaflet-popup-content-wrapper,
+.route-card-popup .leaflet-popup-tip {
+  background: #faf8f3;
+  color: #272724;
+}
+.route-card-popup .leaflet-popup-content-wrapper {
+  padding: 0;
+  border-radius: 3px;
+  box-shadow:
+    0 8px 26px #23232014,
+    0 0 0 1px #0000001a;
+}
+.route-card-popup .leaflet-popup-content {
+  width: 300px !important;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.route-card-popup a.leaflet-popup-close-button {
+  top: 4px;
+  right: 4px;
+  color: #faf8f3cc !important;
+}
+.route-card {
+  padding-bottom: 14px;
+  animation: card-in 0.18s ease-out;
+}
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 34px 9px 10px;
+  border-radius: 3px 3px 0 0;
+  background: #272724;
+  color: #faf8f3;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.card-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 3px;
+  background: var(--mode);
+  color: #fff;
+}
+.card-icon svg {
+  width: 14px;
+  height: 14px;
+}
+.card-context {
+  margin-left: auto;
+  font-weight: 500;
+  opacity: 0.85;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-title {
+  margin: 0;
+  padding: 14px 14px 0;
+  font-size: 22px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
+}
+.route-card p.card-quote {
+  margin: 6px 14px 0;
+  font:
+    italic 14px/1.4 Georgia,
+    'Times New Roman',
+    serif;
+  color: #4a4843;
+}
+.route-card p.card-sub {
+  margin: 6px 14px 0;
+  color: #77756f;
+  font-weight: 500;
+}
+.route-card p.card-note {
+  margin: 4px 14px 0;
+  color: #77756f;
+  font-size: 11px;
+}
+.bus-card {
+  max-height: min(640px, calc(100dvh - 180px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.card-services {
+  margin: 14px 14px 0;
+  border-top: 1px solid #dcd7cb;
+}
+.card-service {
+  padding-top: 12px;
+}
+.card-service + .card-service {
+  margin-top: 12px;
+  border-top: 1px dashed #dcd7cb;
+}
+.card-service-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.card-service h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 650;
+}
+.route-card p.card-service-operator {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: #77756f;
+}
+.card-service-duration {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+.card-stops {
+  display: flex;
+  list-style: none;
+  margin: 10px 14px 0;
+  padding: 0;
+}
+.card-stops li {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 64px;
+}
+.card-stops li span {
+  position: absolute;
+  left: -40%;
+  right: -40%;
+  top: calc(50% + 9px);
+  text-align: center;
+  font-size: 10px;
+  line-height: 1.2;
+}
+.card-stops li:nth-child(even) span {
+  top: auto;
+  bottom: calc(50% + 9px);
+}
+.card-stops li::before {
+  content: '';
+  position: absolute;
+  top: calc(50% - 2px);
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--mode);
+}
+.card-stops li:first-child::before {
+  left: 50%;
+}
+.card-stops li:last-child::before {
+  right: 50%;
+}
+.card-stops li::after {
+  content: '';
+  position: absolute;
+  top: calc(50% - 6px);
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  box-sizing: border-box;
+  border: 3px solid var(--mode);
+  border-radius: 50%;
+  background: #faf8f3;
+}
+.card-stops-long li:not(:first-child):not(:last-child) span {
+  display: none;
+}
+.card-stops-long li span {
+  top: calc(50% + 9px) !important;
+  bottom: auto !important;
+}
+.card-stops-long li:first-child span {
+  left: 0;
+  right: auto;
+  text-align: left;
+}
+.card-stops-long li:last-child span {
+  left: auto;
+  right: 0;
+  text-align: right;
+}
+.card-stops-long li {
+  height: 44px;
+}
+.card-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+  padding: 12px 14px 0;
+  border-top: 1px solid #dcd7cb;
+}
+.card-stats b {
+  display: block;
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.card-stats small {
+  display: block;
+  margin-top: 6px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #77756f;
+}
+.card-rows {
+  list-style: none;
+  margin: 14px 14px 0;
+  padding: 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+.card-rows li {
+  border-top: 1px solid #dcd7cb;
+}
+.card-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) auto;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 0;
+}
+button.card-row {
+  grid-template-columns: 38px minmax(0, 1fr) auto 12px;
+  align-items: center;
+  min-height: 44px;
+  margin: 0;
+  padding: 10px 8px;
+  border: 0;
+  border-radius: 4px;
+  background: #fffaf3;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+button.card-row:hover {
+  background: #efe8dc;
+}
+button.card-row:focus-visible {
+  outline-offset: -2px;
+}
+button.card-row span:first-child {
+  font-weight: 600;
+  color: #a34f3a;
+}
+.card-row-chevron {
+  width: 12px;
+  height: 16px;
+  fill: none;
+  stroke: #a34f3a;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.route-card p.card-rows-label {
+  width: auto;
+  margin: 14px 14px 0;
+}
+.card-rows-label + .card-rows {
+  margin-top: 5px;
+}
+.card-rows span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.card-label {
+  width: 100%;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #77756f;
+}
+.card-photos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 14px 0;
+}
+.card-print {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  overflow: hidden;
+  background: #e8e2d7;
+  cursor: pointer;
+}
+.card-print img {
+  display: block;
+  width: 58px;
+  height: 44px;
+  object-fit: cover;
+  transition: opacity 0.15s;
+}
+.card-print:hover img {
+  opacity: 0.85;
+}
+.card-more {
+  font-size: 11px;
+  color: #77756f;
+}
+.card-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 14px 0;
+}
+.card-nav button {
+  margin: 0;
+  padding: 6px 10px;
+  border: 1px solid #dcd7cb;
+  border-radius: 2px;
+  background: transparent;
+  color: #272724;
+  font-size: 11px;
+  font-weight: 600;
+}
+.card-nav button:hover:not(:disabled) {
+  background: #efebe2;
+}
+.card-nav button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Clickable routes: wide invisible hit lines, hover emphasis, badges, first-visit hint. */
+.route-hit {
+  cursor: pointer;
+}
+.leaflet-routes-pane path {
+  transition:
+    opacity 0.2s ease,
+    stroke-width 0.2s ease;
+}
+.route-hovering .leaflet-routes-pane path:not(.route-hot):not(.route-hit) {
+  opacity: 0.22;
+}
+.leaflet-routes-pane path.route-hot {
+  stroke-width: 10px;
+}
+.leaflet-routes-pane path.route-hot.activity-route,
+.leaflet-routes-pane path.route-hot.transport-route {
+  stroke-width: 6px;
+}
+.route-badge span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  box-sizing: border-box;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--mode);
+  color: #fff;
+  box-shadow: 0 1px 5px #23323d4d;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    opacity 0.2s ease;
+}
+.route-badge svg {
+  width: 13px;
+  height: 13px;
+}
+.route-badge.route-hot span {
+  transform: scale(1.2);
+}
+.route-hovering .route-badge:not(.route-hot) span {
+  opacity: 0.35;
+}
+#route-hint {
+  position: absolute;
+  z-index: 460;
+  left: 23px;
+  bottom: 60px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-radius: 15px;
+  background: #272724;
+  color: #faf8f3;
+  font-size: 11.5px;
+  box-shadow: 0 3px 12px #23323d33;
+  pointer-events: none;
+}
+.hint-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e2b36b;
+  animation: hint-pulse 1.6s ease-out infinite;
+}
+@keyframes hint-pulse {
+  0% {
+    box-shadow: 0 0 0 0 #e2b36baa;
+  }
+  100% {
+    box-shadow: 0 0 0 9px #e2b36b00;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .route-card,
+  .hint-dot {
+    animation: none;
+  }
+}

@@ -1,7 +1,7 @@
 // A Leaflet-shaped map backed by MapLibre. Layers keep Leaflet's lifecycle
 // (onAdd, update, onRemove); the map re-projects them on each camera frame
 // and mirrors panes, polygons and tiles into the MapLibre style.
-import { createGlobeFlights } from '../globe-flights.js';
+import { createGlobeFlights } from './flights.js';
 import { camera, homeView } from './camera.js';
 import { sunLight } from './math.js';
 import { startSpin, stopSpin } from './spin.js';
