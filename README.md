@@ -45,5 +45,8 @@ python scripts/travel/match_activities.py cache/
 python scripts/travel/import_flights.py flights.csv
 ```
 
+Importers write compact JSON; run `npm run format` afterwards, since CI checks that
+data files are pretty-printed. Production builds minify them (`_plugins/minify_json.rb`).
+
 Scripts share globals through ordered `<script defer>` tags; add new cross-file
 globals to `shared` in `eslint.config.js`.
