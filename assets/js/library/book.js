@@ -3,6 +3,7 @@
 // out as pages to turn.
 import { $ } from '../lib/dom.js';
 import { reducedMotion, spineColor, untilt } from './covers.js';
+import { peel, polygon, reachable } from './peel.js';
 import {
   STRIPS,
   clampSpread,
@@ -236,6 +237,18 @@ function poseStrips(strips, angles) {
   });
 }
 
+/** Holds off other turns until the returned function is called. */
+function holdTurns() {
+  /** @type {() => void} */
+  let release;
+  const done = new Promise(resolve => {
+    release = () => resolve(undefined);
+  });
+  curls.add(done);
+  done.then(() => curls.delete(done));
+  return release;
+}
+
 // A turning page bends instead of swinging stiff: it is cut into strips, each hinged to the last,
 // and a curl runs across them. The free edge lifts first and leads, then trails and settles last.
 /**
@@ -247,13 +260,7 @@ function liftLeaf(leaf) {
   leaf.append(stack);
   leaf.classList.add('curling');
   leaf.style.zIndex = String(Z_CURLING);
-  /** @type {(value?: unknown) => void} */
-  let release;
-  const done = new Promise(resolve => {
-    release = resolve;
-  });
-  curls.add(done);
-  done.then(() => curls.delete(done));
+  const release = holdTurns();
   return {
     /** @param {number[]} angles */
     pose: angles => poseStrips(strips, angles),
@@ -546,10 +553,10 @@ function preloadLargeCover(event) {
 }
 
 /**
- * Picks up the leaf that turns toward `forward`, when the book is at rest and has a page that way.
+ * The leaf that turns toward `forward`, when the book is at rest and has a page that way.
  * @param {boolean} forward
  */
-function grabLeaf(forward) {
+function leafToTurn(forward) {
   if (state.busy || curls.size || !ui.dialog.classList.contains('is-open') || reducedMotion()) {
     return null;
   }
@@ -558,54 +565,145 @@ function grabLeaf(forward) {
   const leaf = /** @type {HTMLElement | undefined} */ (
     ui.leaves.children[state.spread + state.lead - (forward ? 0 : 1)]
   );
-  if (!leaf) return null;
+  return leaf ? { leaf, target } : null;
+}
+
+/**
+ * Whether a page let go of turns over: a flick sends it its way, and otherwise it goes once it
+ * is past halfway.
+ * @param {number} speed Toward turning over, in pixels per millisecond.
+ * @param {boolean} past
+ */
+const goesOver = (speed, past) => speed > FLICK_SPEED || (speed > -FLICK_SPEED && past);
+
+/**
+ * @typedef {object} Held A page picked up by the pointer.
+ * @property {(at: { x: number, dx: number, dy: number }) => void} move
+ * @property {(speed: number) => void} letGo `speed` is the pointer's, rightward, in px/ms.
+ */
+
+/**
+ * On a spread, picks up a page to bend about the spine, its free edge under the pointer.
+ * @param {boolean} forward
+ * @returns {Held | null}
+ */
+function grabLeaf(forward) {
+  const found = leafToTurn(forward);
+  if (!found) return null;
+  const { leaf, target } = found;
   const width = leaf.offsetWidth;
   const spine = ui.book.getBoundingClientRect().left + ui.book.offsetWidth / 2;
+  const lifted = liftLeaf(leaf);
+  let [hold, edge] = [0, forward ? 1 : -1];
   return {
-    lifted: liftLeaf(leaf),
-    forward,
-    target,
-    width,
-    spine,
-    hold: 0,
-    edge: 0,
-    speed: 0
+    move({ x }) {
+      edge = (x - spine) / width;
+      hold = holdFor(edge, forward);
+      lifted.pose(heldAngles(hold, forward));
+    },
+    letGo(speed) {
+      const over = goesOver(forward ? -speed : speed, forward ? edge < 0 : edge > 0);
+      const anglesAt = (/** @type {number} */ t) => heldAngles(t, forward);
+      runCurl(lifted, anglesAt, { from: hold, to: over ? 1 : 0 }).then(() =>
+        show(over ? target : state.spread, false)
+      );
+    }
   };
 }
 
 /**
- * Moves a held page so its free edge sits under the pointer.
- * @param {NonNullable<ReturnType<typeof grabLeaf>>} drag
- * @param {PointerEvent} event
- * @param {{ lastX: number, at: number }} press
+ * The folded-over corner of a peeling page: the page's own face, seen from behind, and the
+ * shadow it casts on the page beneath.
+ * @param {HTMLElement} leaf
+ * @param {HTMLElement} front
  */
-function holdAt(drag, event, press) {
-  const elapsed = event.timeStamp - press.at;
-  if (elapsed > 0) {
-    drag.speed = ((drag.forward ? -1 : 1) * (event.clientX - press.lastX)) / elapsed;
-  }
-  press.at = event.timeStamp;
-  press.lastX = event.clientX;
-  drag.edge = (event.clientX - drag.spine) / drag.width;
-  drag.hold = holdFor(drag.edge, drag.forward);
-  drag.lifted.pose(heldAngles(drag.hold, drag.forward));
+function buildFlap(leaf, front) {
+  const face = /** @type {HTMLElement} */ (front.cloneNode(true));
+  face.className = 'leaf-face';
+  const sheen = document.createElement('div');
+  sheen.className = 'peel-sheen';
+  const flap = document.createElement('div');
+  flap.className = 'peel-flap';
+  flap.append(face, sheen);
+  const lifted = document.createElement('div');
+  lifted.className = 'peel';
+  lifted.append(flap);
+  const under = document.createElement('div');
+  under.className = 'peel-under';
+  leaf.append(under, lifted);
+  return { flap, sheen, lifted, under };
 }
 
 /**
- * Lets go of a held page: a flick sends it its way; otherwise it goes over once its edge is past
- * the middle of what can be seen (a phone shows only the right-hand page, a spread both).
- * @param {NonNullable<ReturnType<typeof grabLeaf>>} drag
- * @param {boolean} paused The pointer rested before letting go, which cancels a flick.
+ * On a phone, picks up a page by the corner nearest the pointer and folds it over toward the
+ * pointer, along whatever slant the pointer pulls it. Taking it by the middle of its edge pulls
+ * the corner straight across.
+ * @param {boolean} forward
+ * @param {{ y: number }} press
+ * @returns {Held | null}
  */
-function letGoOf(drag, paused) {
-  const speed = paused ? 0 : drag.speed;
-  const middle = ui.single.matches ? 0.5 : 0;
-  const past = drag.forward ? drag.edge < middle : drag.edge > middle;
-  const over = speed > FLICK_SPEED || (speed > -FLICK_SPEED && past);
-  const anglesAt = (/** @type {number} */ hold) => heldAngles(hold, drag.forward);
-  runCurl(drag.lifted, anglesAt, { from: drag.hold, to: over ? 1 : 0 }).then(() =>
-    show(over ? drag.target : state.spread, false)
-  );
+function grabCorner(forward, press) {
+  const found = leafToTurn(forward);
+  if (!found) return null;
+  const { leaf, target } = found;
+  const [width, height] = [leaf.offsetWidth, leaf.offsetHeight];
+  const top = ui.book.getBoundingClientRect().top;
+  const corner = { x: width, y: press.y - top < height / 2 ? 0 : height };
+  // Turned over, the corner lies flat beyond the spine; a page coming back starts from there.
+  const away = { x: -width, y: corner.y };
+  const front = /** @type {HTMLElement} */ ($('.leaf-front', leaf));
+  const parts = buildFlap(leaf, front);
+  leaf.classList.remove('turned');
+  leaf.classList.add('peeling');
+  leaf.style.zIndex = String(Z_CURLING);
+  const release = holdTurns();
+  let lift = forward ? corner : away;
+  /** @param {{ x: number, y: number }} point */
+  const liftTo = point => {
+    lift = reachable(point, corner, height);
+    const shape = peel(width, height, corner, lift);
+    front.style.clipPath = shape ? polygon(shape.flat) : '';
+    parts.lifted.hidden = parts.under.hidden = !shape;
+    if (!shape) return;
+    const { angle, fold } = shape;
+    parts.flap.style.clipPath = parts.under.style.clipPath = polygon(shape.lifted);
+    parts.flap.style.transform = shape.reflect;
+    parts.under.style.background = `linear-gradient(${angle}deg, #0000004d ${fold}px, #0000 ${fold + 36}px)`;
+    parts.sheen.style.background = `linear-gradient(${angle}deg, #00000024 ${fold}px, #ffffff33 ${fold + 18}px, #0000 ${fold + 80}px), #f6f1e6db`;
+  };
+  liftTo(lift);
+  return {
+    // A page coming back is drawn in from beyond the spine, twice as fast as the pointer moves.
+    move: ({ dx, dy }) =>
+      liftTo(
+        forward ? { x: corner.x + dx, y: corner.y + dy } : { x: away.x + 2 * dx, y: away.y + dy }
+      ),
+    letGo(speed) {
+      const over = goesOver(forward ? -speed : speed, forward ? lift.x < width / 2 : lift.x > 0);
+      const to = over === forward ? away : corner;
+      const from = lift;
+      const duration =
+        CURL_MS * Math.min(1, Math.hypot(to.x - from.x, to.y - from.y) / (2 * width));
+      const start = performance.now();
+      /** @param {number} now */
+      const frame = now => {
+        const k = duration > 0 ? Math.min(1, (now - start) / duration) : 1;
+        const eased = 1 - (1 - k) ** 3;
+        liftTo({ x: from.x + (to.x - from.x) * eased, y: from.y + (to.y - from.y) * eased });
+        if (k < 1) {
+          requestAnimationFrame(frame);
+          return;
+        }
+        parts.lifted.remove();
+        parts.under.remove();
+        front.style.clipPath = '';
+        leaf.classList.remove('peeling');
+        release();
+        show(over ? target : state.spread, false);
+      };
+      requestAnimationFrame(frame);
+    }
+  };
 }
 
 /**
@@ -629,35 +727,42 @@ function tapOrSwipe(event, start) {
   turn(back ? -1 : 1);
 }
 
-// A page dragged sideways is picked up and follows the pointer, bending as it goes.
+// A page dragged sideways is picked up and follows the pointer: on a phone it peels from the
+// corner, on a spread it bends about the spine.
 function installGestures() {
   const { book } = ui;
-  /** @type {{ x: number, y: number, lastX: number, at: number, tried: boolean } | null} */
+  /** @type {{ x: number, y: number, lastX: number, at: number, speed: number, tried: boolean } | null} */
   let press = null;
-  /** @type {ReturnType<typeof grabLeaf>} */
+  /** @type {Held | null} */
   let drag = null;
   book.addEventListener('pointerdown', event => {
     if (drag) return;
     const { clientX: x, clientY: y, timeStamp: at } = event;
-    press = { x, y, lastX: x, at, tried: false };
+    press = { x, y, lastX: x, at, speed: 0, tried: false };
   });
   book.addEventListener('pointermove', event => {
     if (!press) return;
     const dx = event.clientX - press.x;
-    const sideways = Math.abs(dx) > TAP_PX && Math.abs(dx) > Math.abs(event.clientY - press.y);
-    if (!drag && !press.tried && sideways) {
+    const dy = event.clientY - press.y;
+    if (!drag && !press.tried && Math.abs(dx) > TAP_PX && Math.abs(dx) > Math.abs(dy)) {
       press.tried = true;
-      drag = grabLeaf(dx < 0);
+      drag = ui.single.matches ? grabCorner(dx < 0, press) : grabLeaf(dx < 0);
       if (drag) book.setPointerCapture(event.pointerId);
     }
-    if (drag) holdAt(drag, event, press);
+    if (!drag) return;
+    const elapsed = event.timeStamp - press.at;
+    if (elapsed > 0) press.speed = (event.clientX - press.lastX) / elapsed;
+    press.at = event.timeStamp;
+    press.lastX = event.clientX;
+    drag.move({ x: event.clientX, dx, dy });
   });
   /** @param {PointerEvent} event */
   const letGo = event => {
     const [start, held] = [press, drag];
     press = drag = null;
     if (held) {
-      letGoOf(held, event.timeStamp - start.at > FLICK_WINDOW_MS);
+      // Resting before letting go cancels a flick.
+      held.letGo(event.timeStamp - start.at > FLICK_WINDOW_MS ? 0 : start.speed);
     } else if (
       start &&
       event.type === 'pointerup' &&

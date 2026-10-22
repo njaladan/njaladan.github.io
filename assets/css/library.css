@@ -1119,6 +1119,27 @@ body:has(dialog[open]) {
 .leaf.turned {
   transform: perspective(2400px) rotateY(-180deg);
 }
+.leaf.peeling {
+  transform: none;
+}
+.peel,
+.peel-under,
+.peel-flap,
+.peel-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.peel {
+  filter: drop-shadow(-3px 3px 7px #0000004d);
+}
+.peel-flap {
+  transform-origin: 0 0;
+}
+.peel-flap > .leaf-face {
+  -webkit-backface-visibility: visible;
+  backface-visibility: visible;
+}
 .leaf-face {
   position: absolute;
   inset: 0;
