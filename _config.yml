@@ -23,7 +23,8 @@ markdown: kramdown
 exclude:
   - AGENTS.md
   - README.md
-  - LICENSE.txt
+  - LICENSE
+  - assets/vendor/README.md
   - scripts/
   - node_modules/
   - Gemfile

@@ -1,3 +1,4 @@
+/* Site-wide type, colours and page frame; loaded on every page except the full-screen map. */
 :root {
   color-scheme: light;
   --paper: #faf8f3;

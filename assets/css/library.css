@@ -1,3 +1,4 @@
+/* The reading and movie shelves, and the book that opens from them. */
 .library-toolbar {
   display: flex;
   justify-content: space-between;
