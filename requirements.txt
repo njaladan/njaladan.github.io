@@ -1,4 +1,0 @@
-# Dependencies for the data scripts in scripts/. The site itself needs none.
-Pillow>=11.3,<13
-pillow-heif>=1,<2
-fitdecode>=0.10,<1

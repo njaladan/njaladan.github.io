@@ -1,9 +1,21 @@
-# Configuration for the data scripts in scripts/; the site is built with Jekyll.
+# Data importers in scripts/ (the site itself is built with Jekyll). Run them as
+# modules from the repository root, e.g. `python -m scripts.travel.import_photo`.
+[project]
+name = "nagaganesh-scripts"
+version = "0"
+requires-python = ">=3.12"
+
+[dependency-groups]
+scripts = ["Pillow>=11.3,<13", "pillow-heif>=1,<2", "fitdecode>=0.10,<1"]
+dev = ["ruff==0.16.9"]
+
 [tool.ruff]
 target-version = "py312"
 line-length = 120
 include = ["scripts/**/*.py"]
 
 [tool.ruff.lint]
-# Catch real errors (syntax, undefined names, unused imports); the scripts keep their compact style.
-select = ["E9", "F"]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["scripts"]

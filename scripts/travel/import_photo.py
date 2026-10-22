@@ -12,8 +12,10 @@ from pathlib import Path
 
 from PIL import Image, ImageCms, ImageOps
 
+from scripts.common.paths import ASSETS
+
 # Photo paths in the manifest are relative to assets/, where the site resolves them.
-ROOT = Path(__file__).resolve().parents[2] / "assets"
+ROOT = ASSETS
 VARIANTS = {"thumbnail": (128, 86), "small": (640, 90), "medium": (1280, 93), "large": (2400, 94)}
 PIPELINE_VERSION = "2"
 

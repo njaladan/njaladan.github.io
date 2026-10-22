@@ -2,3 +2,5 @@
 d23409442c560e400457f9e97f2d510e1873c588
 # Prettier reformat of site CSS
 0c8f7585c3f4fa47ff8241c93e82f1142f7970c1
+# ruff format of the data scripts
+2396d6523d84c5bdbd99ca56e91c104348101953

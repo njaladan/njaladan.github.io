@@ -18,6 +18,8 @@ plugins:
 # Other
 markdown: kramdown
 
+# Tooling and docs at the repository root stay out of the built site. Add any new
+# root-level config or source folder here.
 exclude:
   - AGENTS.md
   - README.md
@@ -33,7 +35,6 @@ exclude:
   - tests/
   - types/
   - pyproject.toml
-  - requirements.txt
 
 redirect_from:
   json: false
