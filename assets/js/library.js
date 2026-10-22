@@ -132,7 +132,14 @@
       dialog.style.setProperty('--ar', shelfCover.style.getPropertyValue('--ar') || '.6667');
       dialog.style.setProperty('--spine', shelfCover.style.getPropertyValue('--spine') || '#6b5a48');
       const art = shelfCover.querySelector('img:not([hidden])') || shelfCover.querySelector('.cover-fallback');
-      dialog.querySelector('.board-front').replaceChildren(art.cloneNode(true));
+      const face = art.cloneNode(true);
+      dialog.querySelector('.board-front').replaceChildren(face);
+      // Start from the shelf image and swap in the large scan once it has loaded.
+      if (face.tagName === 'IMG' && card.dataset.coverLarge) {
+        const large = new Image();
+        large.onload = () => { if (face.isConnected) face.src = large.src; };
+        large.src = card.dataset.coverLarge;
+      }
       const pages = shelfCover.style.getPropertyValue('--pages').trim();
       document.getElementById('review-title').textContent = card.dataset.title;
       document.getElementById('review-author').textContent = card.dataset.author;
