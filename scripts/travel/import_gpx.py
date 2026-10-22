@@ -2,22 +2,18 @@
 """Import actual GPX tracks into assets/data/travel/activities.json. No external dependencies."""
 
 import argparse
-from datetime import datetime
 import gzip
 import json
-import math
-from pathlib import Path
 import xml.etree.ElementTree as ET
+from datetime import datetime
+from pathlib import Path
+
+from scripts.common.geo import distance_m
+from scripts.common.paths import TRAVEL_DATA
 
 
 def parse_time(value):
     return datetime.fromisoformat(value.replace("Z", "+00:00")) if value else None
-
-
-def distance(a, b):
-    lat1, lon1, lat2, lon2 = map(math.radians, [*a, *b])
-    h = math.sin((lat2 - lat1) / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin((lon2 - lon1) / 2) ** 2
-    return 6371008.8 * 2 * math.asin(min(1, math.sqrt(h)))
 
 
 def read_gpx(path):
@@ -37,7 +33,7 @@ def read_gpx(path):
             if not (-90 <= point[0] <= 90 and -180 <= point[1] <= 180):
                 raise ValueError(f"Invalid coordinate in {path.name}")
             if points:
-                total_distance += distance(points[-1], point)
+                total_distance += distance_m(points[-1], point)
             points.append(point)
             elevation = node.findtext("{*}ele")
             if elevation is not None:
@@ -84,9 +80,7 @@ def main():
     parser.add_argument("--journey", required=True)
     parser.add_argument("--name", required=True)
     parser.add_argument("--countries", required=True, help="Comma-separated ISO numeric country IDs, e.g. 250,380,756")
-    parser.add_argument(
-        "--output", type=Path, default=Path(__file__).resolve().parents[2] / "assets/data/travel/activities.json"
-    )
+    parser.add_argument("--output", type=Path, default=TRAVEL_DATA / "activities.json")
     args = parser.parse_args()
     imported = [read_gpx(path) for path in args.files]
     if args.journey == "tmb":

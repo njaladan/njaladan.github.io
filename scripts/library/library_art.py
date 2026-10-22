@@ -12,10 +12,11 @@ import re
 import unicodedata
 import urllib.parse
 import urllib.request
-from pathlib import Path
+
 from PIL import Image
 
-ROOT = Path(__file__).resolve().parents[2]
+from scripts.common.paths import DATA, REPO
+
 HEADERS = {"User-Agent": "GaneshPersonalLibrary/1.0 (personal reading and movie archive)"}
 
 
@@ -39,7 +40,7 @@ def save_image(url, dest):
 
 
 def movie(film):
-    if film.get("cover") and (ROOT / film["cover"].lstrip("/")).exists():
+    if film.get("cover") and (REPO / film["cover"].lstrip("/")).exists():
         return film
     query = urllib.parse.urlencode({"query": film["title"]})
     page = get("https://www.themoviedb.org/search?" + query).decode()
@@ -57,7 +58,7 @@ def movie(film):
             continue
         # Title and release year must agree; never guess from the first search hit.
         path = "/assets/images/movies/" + film["id"] + ".webp"
-        save_image("https://media.themoviedb.org/t/p/w300/" + art[1], ROOT / path.lstrip("/"))
+        save_image("https://media.themoviedb.org/t/p/w300/" + art[1], REPO / path.lstrip("/"))
         source = re.search(r'href="(/movie/[^"?]+)', card)
         film.update(cover=path, art_source="https://www.themoviedb.org" + source[1])
         break
@@ -77,13 +78,13 @@ BOOK_ALIASES = {
 
 def cover_ratio(item):
     # Width over height of the saved cover; the reading shelf shapes each 3D book to it.
-    with Image.open(ROOT / item["cover"].lstrip("/")) as image:
+    with Image.open(REPO / item["cover"].lstrip("/")) as image:
         item["cover_ratio"] = round(image.width / image.height, 3)
     return item
 
 
 def book(item):
-    if item.get("cover") and (ROOT / item["cover"].lstrip("/")).exists():
+    if item.get("cover") and (REPO / item["cover"].lstrip("/")).exists():
         return cover_ratio(item)
     title = BOOK_ALIASES.get(item["title"], item["title"]).split(":")[0]
     expected_author = item.get("author", "").split(",")[0]
@@ -105,7 +106,7 @@ def book(item):
         path = "/assets/images/books/" + item["id"] + ".webp"
         try:
             save_image(
-                f"https://covers.openlibrary.org/b/id/{doc['cover_i']}-M.jpg?default=false", ROOT / path.lstrip("/")
+                f"https://covers.openlibrary.org/b/id/{doc['cover_i']}-M.jpg?default=false", REPO / path.lstrip("/")
             )
         except Exception:
             continue
@@ -117,11 +118,11 @@ def book(item):
 
 def main():
     for filename, field, worker in [("movies.json", "films", movie), ("books.json", None, book)]:
-        path = ROOT / "_data" / filename
+        path = DATA / filename
         data = json.loads(path.read_text())
         items = data[field] if field else data
 
-        def safe(item):
+        def safe(item, worker=worker):
             try:
                 return worker(item)
             except Exception:

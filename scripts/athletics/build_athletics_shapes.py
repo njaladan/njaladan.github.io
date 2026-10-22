@@ -1,6 +1,6 @@
 """Build assets/data/athletics/shapes.json: every GPS activity as a normalized route shape.
 
-    python scripts/athletics/build_athletics_shapes.py STRAVA_ACTIVITIES_DIR SUMMARY.json
+    python -m scripts.athletics.build_athletics_shapes STRAVA_ACTIVITIES_DIR SUMMARY.json
 
 Each shape is scaled into a 0-1000 box with no real coordinates, so the page shows what
 a route looks like, not where it was. Lines break at pauses and GPS glitches (the same
@@ -12,10 +12,12 @@ import json
 import math
 import sys
 from datetime import datetime, timedelta
+from itertools import pairwise
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-import summarize_strava as strava  # noqa: E402
+from scripts.athletics import summarize_strava as strava
+from scripts.common.geo import distance_m
+from scripts.common.paths import ATHLETICS_DATA
 
 SPORTS = {"running": "run", "cycling": "ride", "hiking": "foot", "walking": "foot", "snowboarding": "snow"}
 PLACE_JUMP_M = 5000
@@ -72,7 +74,7 @@ def segments(path, kind):
     for p in geo:
         if prev is not None:
             dt = (p[2] - prev[2]).total_seconds() if p[2] and prev[2] else None
-            if dt is not None and (dt <= 0 or dt > strava.MAX_GAP_S or strava.hav(prev, p) / dt > cap):
+            if dt is not None and (dt <= 0 or dt > strava.MAX_GAP_S or distance_m(prev, p) / dt > cap):
                 if len(current) > 1:
                     out.append(current)
                 current = []
@@ -93,13 +95,16 @@ def largest_place(segs):
     """
     groups = []
     for seg in segs:
-        if groups and strava.hav(groups[-1][-1][-1], seg[0]) <= PLACE_JUMP_M:
+        if groups and distance_m(groups[-1][-1][-1], seg[0]) <= PLACE_JUMP_M:
             groups[-1].append(seg)
         else:
             groups.append([seg])
     if len(groups) < 2:
         return segs
-    length = lambda g: sum(strava.hav(a, b) for s in g for a, b in zip(s, s[1:]))
+
+    def length(group):
+        return sum(distance_m(a, b) for s in group for a, b in pairwise(s))
+
     longest = max(groups, key=length)
     rest = sum(length(g) for g in groups if g is not longest)
     # Crop only when one place clearly dominates; otherwise draw every part.
@@ -139,7 +144,7 @@ def main(activities, summary_path):
             continue
         shapes.append({"date": local_date(r).isoformat(), "sport": SPORTS.get(r["type"], "other"), "segs": s})
     shapes.sort(key=lambda s: s["date"], reverse=True)
-    out = Path(__file__).resolve().parents[2] / "assets/data/athletics/shapes.json"
+    out = ATHLETICS_DATA / "shapes.json"
     out.write_text(json.dumps(shapes, separators=(",", ":"), ensure_ascii=False) + "\n")
     print(f"wrote {out} ({out.stat().st_size // 1024} KB, {len(shapes)} shapes)")
 

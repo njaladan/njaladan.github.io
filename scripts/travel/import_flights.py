@@ -5,10 +5,10 @@ import csv
 import io
 import json
 import math
-from pathlib import Path
 import re
+from pathlib import Path
 
-DATA = Path(__file__).resolve().parents[2] / "assets/data/travel"
+from scripts.common.paths import TRAVEL_DATA
 
 
 def airport_code(label):
@@ -26,7 +26,7 @@ def great_circle(start, end):
         return (math.cos(lat) * math.cos(lon), math.cos(lat) * math.sin(lon), math.sin(lat))
 
     a, b = vector(start), vector(end)
-    angle = math.acos(max(-1, min(1, sum(x * y for x, y in zip(a, b)))))
+    angle = math.acos(max(-1, min(1, sum(x * y for x, y in zip(a, b, strict=True)))))
     steps = max(2, math.ceil(math.degrees(angle)))
     points = [start]
     for i in range(1, steps):
@@ -93,9 +93,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("csv", type=Path)
     args = parser.parse_args()
-    airports = json.loads((DATA / "flights.json").read_text())["airports"]
+    airports = json.loads((TRAVEL_DATA / "flights.json").read_text())["airports"]
     data = import_flights(args.csv, airports)
-    (DATA / "flights.json").write_text(json.dumps(data, separators=(",", ":"), ensure_ascii=False) + "\n")
+    (TRAVEL_DATA / "flights.json").write_text(json.dumps(data, separators=(",", ":"), ensure_ascii=False) + "\n")
     print(f"Saved {len(data['flights'])} flights on {len(data['routes'])} connections across {len(airports)} airports")
 
 
