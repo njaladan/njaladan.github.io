@@ -96,3 +96,49 @@ export const stripShade = angle =>
  */
 export const stripEdges = width =>
   Array.from({ length: STRIPS + 1 }, (_, index) => Math.round((index * width) / STRIPS));
+
+// A held page bends toward its free edge: strips nearer the edge are this far ahead of the spine.
+const HOLD_LEAD = 0.35;
+const HOLD_SEARCH_STEPS = 24;
+
+/**
+ * Absolute strip angles for a page held `hold` of the way through a turn (0 flat on its own side,
+ * 1 flat on the other); the strips toward the free edge lead.
+ * @param {number} hold 0–1.
+ * @param {boolean} turned Turning onto the left-hand pile.
+ * @returns {number[]} Degrees, from the spine outward.
+ */
+export function heldAngles(hold, turned) {
+  return Array.from({ length: STRIPS }, (_, index) => {
+    const lag = HOLD_LEAD * (1 - (index + 1) / STRIPS);
+    const k = Math.min(1, Math.max(0, (hold - lag) / (1 - HOLD_LEAD)));
+    const angle = 90 * (1 - Math.cos(Math.PI * k));
+    return turned ? -angle : angle - 180;
+  });
+}
+
+/**
+ * Where a held page's free edge falls, as a share of the page width right of the spine.
+ * @param {number[]} angles From heldAngles.
+ * @returns {number} From -1 (flat on the left) to 1 (flat on the right).
+ */
+export const edgeOf = angles =>
+  angles.reduce((x, angle) => x + Math.cos((angle * Math.PI) / 180), 0) / angles.length;
+
+/**
+ * How far through the turn a page is when its free edge sits under the finger.
+ * @param {number} edge Finger position, as a share of the page width right of the spine.
+ * @param {boolean} turned
+ * @returns {number} 0–1.
+ */
+export function holdFor(edge, turned) {
+  // The edge moves steadily one way as the hold grows, so halve the range toward it.
+  let [low, high] = [0, 1];
+  for (let step = 0; step < HOLD_SEARCH_STEPS; step++) {
+    const middle = (low + high) / 2;
+    const past = edgeOf(heldAngles(middle, turned));
+    if (turned ? past > edge : past < edge) low = middle;
+    else high = middle;
+  }
+  return (low + high) / 2;
+}
