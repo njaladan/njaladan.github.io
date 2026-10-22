@@ -7,3 +7,4 @@ _site
 .jekyll-cache
 __pycache__/
 *.pyc
+node_modules/
