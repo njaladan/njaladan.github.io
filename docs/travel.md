@@ -151,3 +151,10 @@ replaces its own route IDs. Context rebuilding expects
 `ne_50m_populated_places.geojson` in the source directory.
 
 Asset and map JSON URLs reuse the build timestamp, so there are no versions to bump.
+
+## JSON formatting
+
+Data files in `assets/travel/data/` are kept pretty-printed in git. Importers such as
+`match_activities.py` write compact JSON, so run `npm run format` after them (CI runs
+`format:check`). Production builds minify every `.json` file in `_site/` through
+`_plugins/minify_json.rb`, so visitors get the compact versions.

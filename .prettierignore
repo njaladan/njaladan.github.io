@@ -4,3 +4,4 @@ vendor/
 assets/travel/vendor/
 assets/data/
 assets/codequeue/
+package-lock.json
