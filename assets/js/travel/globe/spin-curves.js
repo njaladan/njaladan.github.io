@@ -101,9 +101,7 @@ export function splitEase(easing, pieces) {
     }
     return high;
   };
-  const bounds = Array.from({ length: pieces + 1 }, (_, i) =>
-    i === 0 ? 0 : i === pieces ? 1 : timeAt(i / pieces)
-  );
+  const bounds = [0, ...Array.from({ length: pieces - 1 }, (_, i) => timeAt((i + 1) / pieces)), 1];
   return bounds.slice(1).map((end, i) => {
     const start = bounds[i];
     return { start, end, easing: t => easing(start + t * (end - start)) * pieces - i };
