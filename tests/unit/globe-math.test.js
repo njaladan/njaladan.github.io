@@ -16,7 +16,8 @@ import {
   flingTravel,
   idleRise,
   introTravel,
-  releaseSpeed
+  releaseSpeed,
+  splitEase
 } from '../../assets/js/travel/globe/spin-curves.js';
 
 test('clamp keeps values within range', () => {
@@ -118,4 +119,17 @@ test('releaseSpeed measures throws and ignores pauses', () => {
     ),
     -400
   );
+});
+
+test('splitEase cuts a turn into equal legs that join up', () => {
+  const easing = t => flingTravel(400, t * FLING_SECONDS) / flingTravel(400, FLING_SECONDS);
+  const legs = splitEase(easing, 6);
+  assert.equal(legs.length, 6);
+  assert.equal(legs[0].start, 0);
+  assert.equal(legs[5].end, 1);
+  for (const [i, leg] of legs.entries()) {
+    assert.ok(Math.abs(leg.easing(0)) < 1e-6);
+    assert.ok(Math.abs(leg.easing(1) - 1) < 1e-6);
+    if (i) assert.equal(leg.start, legs[i - 1].end);
+  }
 });
