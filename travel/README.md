@@ -123,6 +123,7 @@ location evidence in the manifest rather than maintaining separate mapping repor
 python travel/scripts/import_strava.py EXPORT_DIRECTORY REVIEW.json
 python travel/scripts/import_gpx.py TRACK.gpx --journey netherlands \
   --name "Amsterdam ride" --countries 528
+python travel/scripts/match_activities.py CACHE_DIRECTORY
 python travel/scripts/import_flights.py PATH_TO_FLIGHTS.csv
 python travel/scripts/build_transport_routes.py CACHE_DIRECTORY
 python travel/scripts/build_iceland_routes.py CACHE_DIRECTORY
@@ -136,6 +137,9 @@ statistics, crop FIT tracks to the published interval, and simplify display geom
 within 3 meters. Existing IDs are skipped unless `--replace` is supplied; entries
 marked `already_imported` remain protected. GPX reimports replace matching IDs;
 `--journey tmb --countries 250,380,756` validates tracks against the Mont Blanc area.
+After importing, `match_activities.py` thins GPS jitter and snaps new walks, hikes and
+rides onto OpenStreetMap paths with Valhalla; stretches off the map keep the GPS line,
+smoothed. Already matched tracks are skipped unless `--force` is supplied.
 
 Before importing flights with new airports, add their coordinates and labels to
 `data/flights.json`'s `airports` catalog. Flight imports preserve that catalog.
