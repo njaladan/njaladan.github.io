@@ -1,7 +1,10 @@
+import { escapeHtml } from '../lib/html.js';
+import { travelAsset } from './runtime.js';
+
 // Saved trips are ordered days of legs that link to the original activity and
 // transport records. A side panel lists the trips and shows one trip's days
 // beside the map; route cards link to it. No completion is stored.
-function installTripItineraries({
+export function installTripItineraries({
   cards,
   modes,
   onFit,

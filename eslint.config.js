@@ -1,33 +1,14 @@
-const js = require('@eslint/js');
-const globals = require('globals');
+import js from '@eslint/js';
+import globals from 'globals';
 
-// The site's scripts are plain browser scripts loaded in order with <script defer>,
-// so files share top-level declarations instead of importing them.
-const shared = {
-  // assets/js/travel/data.js
-  COUNTRY_PLACES: 'readonly',
-  HOME_COUNTRY: 'readonly',
-  ROUTE_MODES: 'readonly',
-  US_VISITS: 'readonly',
-  VISITED_COUNTRIES: 'readonly',
-  // assets/js/travel/runtime.js
-  escapeHtml: 'readonly',
-  travelAsset: 'readonly',
-  // assets/js/travel/*.js installers
-  createGlobeFlights: 'readonly',
-  installAtlasPhotos: 'readonly',
-  installBasemapLabels: 'readonly',
-  installPhotoZoom: 'readonly',
-  installRouteCards: 'readonly',
-  installSmoothZoom: 'readonly',
-  installTripItineraries: 'readonly',
-  // assets/vendor
+// Vendor libraries are classic scripts that define browser globals.
+const vendor = {
   L: 'readonly',
   maplibregl: 'readonly',
   topojson: 'readonly'
 };
 
-module.exports = [
+export default [
   {
     ignores: [
       '_site/',
@@ -43,19 +24,42 @@ module.exports = [
     files: ['**/*.js'],
     languageOptions: {
       ecmaVersion: 'latest',
-      sourceType: 'script',
-      globals: { ...globals.browser, ...shared }
+      sourceType: 'module',
+      globals: { ...globals.browser, ...vendor }
     },
     rules: {
-      // Top-level declarations are how scripts share code with each other.
-      'no-unused-vars': ['error', { vars: 'local', caughtErrors: 'none' }],
-      'no-redeclare': ['error', { builtinGlobals: false }],
+      'no-unused-vars': ['error', { caughtErrors: 'none' }],
       // Storage access can throw in private windows; those failures are ignored.
-      'no-empty': ['error', { allowEmptyCatch: true }]
+      'no-empty': ['error', { allowEmptyCatch: true }],
+      // Correctness and clarity, following the Airbnb and Google style guides.
+      eqeqeq: ['error', 'always', { null: 'ignore' }],
+      curly: ['error', 'multi-line'],
+      'no-var': 'error',
+      'prefer-const': 'error',
+      'object-shorthand': 'error',
+      'prefer-template': 'error',
+      'no-implicit-coercion': 'error',
+      'no-nested-ternary': 'error',
+      'no-param-reassign': 'error',
+      'no-shadow': 'error',
+      'no-use-before-define': ['error', { functions: false, classes: true, variables: true }],
+      'consistent-return': 'error',
+      'no-promise-executor-return': 'error',
+      'no-console': ['error', { allow: ['warn', 'error'] }],
+      'max-params': ['error', 4],
+      'max-depth': ['error', 4],
+      complexity: ['error', 15],
+      'max-lines-per-function': ['error', { max: 80, skipBlankLines: true, skipComments: true }]
     }
   },
   {
-    files: ['eslint.config.js'],
-    languageOptions: { sourceType: 'commonjs', globals: globals.node }
+    // Runs in <head> before first paint, so it stays a classic script.
+    files: ['assets/js/navigation.js'],
+    languageOptions: { sourceType: 'script' }
+  },
+  {
+    files: ['*.config.js', 'tests/**/*.js'],
+    languageOptions: { globals: { ...globals.node, ...globals.browser } },
+    rules: { 'no-console': 'off' }
   }
 ];
