@@ -147,7 +147,9 @@
     let notes = null,
       pageCount = 1,
       spread = 0,
-      lastSpread = 0;
+      lastSpread = 0,
+      lead = 0,
+      coverOpen = false;
     // The closed book is the front board; transforms on the open book move it over a shelf slot or to centre stage.
     const closedBook = () => {
       const left = book.offsetLeft + board.offsetLeft,
@@ -161,21 +163,27 @@
     };
     const play = (element, frames, duration, ease = easing) =>
       element.animate(frames, { duration, easing: ease }).finished;
-    const wait = ms => new Promise(resolve => setTimeout(resolve, reducedMotion() ? 0 : ms));
 
-    // The notes are set once in page-tall columns; each page shows one column of that run. A spread shows two
-    // pages (the inside cover faces page 1); a phone shows one, with the title at the top of page 1.
+    // The notes are set once in page-tall columns, headed by the title; each page shows one column of that run.
+    // A spread shows two pages, and its first leaf turns with the cover so the book opens on pages 1 and 2;
+    // a phone shows one page at a time.
     const titlePage = () => {
       const header = document.createElement('header');
       header.className = 'page-title';
-      header.innerHTML = dialog.querySelector('.board-inside').innerHTML;
-      header.querySelectorAll('[id]').forEach(element => element.removeAttribute('id'));
+      const title = document.createElement('h2');
+      const byline = document.createElement('p');
+      title.textContent = document.getElementById('review-title').textContent;
+      byline.textContent = ['review-author', 'review-meta']
+        .map(id => document.getElementById(id).textContent)
+        .filter(Boolean)
+        .join(' · ');
+      header.append(title, byline);
       return header;
     };
     const paginate = () => {
       const flow = probe.querySelector('.page-flow');
       const content = notes.cloneNode(true);
-      if (single.matches) content.prepend(titlePage());
+      content.prepend(titlePage());
       flow.replaceChildren(content);
       const width = flow.clientWidth;
       flow.style.columnWidth = `${width}px`;
@@ -184,7 +192,7 @@
       const page = (number, side) => {
         const face = document.createElement('div');
         face.className = `leaf-face leaf-${side}`;
-        if (number < pageCount) {
+        if (number >= 0 && number < pageCount) {
           const run = flow.cloneNode(true);
           run.style.transform = `translateX(${-number * step}px)`;
           const mark = document.createElement('span');
@@ -194,50 +202,152 @@
         }
         return face;
       };
-      lastSpread = single.matches ? pageCount - 1 : Math.floor(pageCount / 2);
+      lead = single.matches ? 0 : 1;
+      lastSpread = single.matches ? pageCount - 1 : Math.floor((pageCount - 1) / 2);
       leaves.replaceChildren(
-        ...Array.from({ length: lastSpread + 1 }, (_, index) => {
+        ...Array.from({ length: lastSpread + 1 + lead }, (_, index) => {
           const leaf = document.createElement('div');
           leaf.className = 'leaf';
           leaf.append(
-            page(single.matches ? index : index * 2, 'front'),
-            page(single.matches ? Infinity : index * 2 + 1, 'back')
+            page(single.matches ? index : index * 2 - 1, 'front'),
+            page(single.matches ? Infinity : index * 2, 'back')
           );
           return leaf;
         })
       );
       flow.replaceChildren();
     };
+    // A turning page bends instead of swinging stiff: it is cut into strips, each hinged to the last, and a curl
+    // runs across them. The free edge lifts first and leads, then trails and settles last.
+    const curls = new Set();
+    const STRIPS = 10;
+    const ease = t => (t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2);
+    const curl = (leaf, turned) => {
+      // Slices must line up with the settled page to the subpixel, or the text jumps when the curl hands back.
+      const width = parseFloat(getComputedStyle(leaf).width);
+      const edges = Array.from({ length: STRIPS + 1 }, (_, index) =>
+        Math.round((index * width) / STRIPS)
+      );
+      const overlap = 2;
+      const [front, back] = leaf.children;
+      const slice = (face, offset, side) => {
+        const holder = document.createElement('div');
+        holder.className = `curl-face curl-${side}`;
+        const copy = face.cloneNode(true);
+        // Percentage padding would resolve against the narrow strip and reflow the text, so pin it.
+        Object.assign(copy.style, {
+          left: `${-offset}px`,
+          width: `${width}px`,
+          padding: getComputedStyle(face).padding,
+          transform: 'none'
+        });
+        holder.append(copy);
+        return holder;
+      };
+      const stack = document.createElement('div');
+      stack.className = 'curl';
+      const strips = [];
+      let parent = stack;
+      for (let index = 0; index < STRIPS; index++) {
+        const [start, end] = [edges[index], edges[index + 1]];
+        const piece = document.createElement('div');
+        piece.className = 'curl-strip';
+        // Strips overlap slightly to hide seams; the back face mirrors across the wider strip, so it shifts too.
+        Object.assign(piece.style, {
+          left: `${index ? start - edges[index - 1] : 0}px`,
+          width: `${end - start + overlap}px`
+        });
+        piece.append(slice(front, start, 'front'), slice(back, width - end - overlap, 'back'));
+        parent.append(piece);
+        parent = piece;
+        strips.push(piece);
+      }
+      leaf.append(stack);
+      leaf.classList.add('curling');
+      leaf.style.zIndex = 300;
+      const duration = 850;
+      const start = performance.now();
+      const done = new Promise(resolve => {
+        const frame = now => {
+          const t = Math.min(1, (now - start) / duration);
+          let previous = 0;
+          strips.forEach((piece, index) => {
+            const reach = (index + 0.5) / STRIPS;
+            const progress = ease(
+              Math.min(1, Math.max(0, t + 0.22 * reach * Math.sin(2 * Math.PI * t)))
+            );
+            const angle = -180 * (turned ? progress : 1 - progress);
+            piece.style.transform = `rotateY(${angle - previous}deg)`;
+            piece.style.setProperty(
+              '--shade',
+              (0.28 * (1 - Math.abs(Math.cos((angle * Math.PI) / 180)))).toFixed(3)
+            );
+            previous = angle;
+          });
+          if (t < 1) return requestAnimationFrame(frame);
+          stack.remove();
+          leaf.classList.remove('curling');
+          resolve();
+        };
+        requestAnimationFrame(frame);
+      });
+      curls.add(done);
+      return done.then(() => curls.delete(done));
+    };
     const show = (target, animate = true) => {
       spread = Math.max(0, Math.min(lastSpread, target));
       [...leaves.children].forEach((leaf, index) => {
-        const turned = index < spread;
+        const turned = index < spread + (coverOpen ? lead : 0);
         const rest = turned ? 100 + index : 100 - index;
         if (animate && !reducedMotion() && turned !== leaf.classList.contains('turned')) {
-          leaf.classList.add('turning');
-          leaf.style.zIndex = 300;
-          leaf.addEventListener(
-            'transitionend',
-            () => {
-              leaf.classList.remove('turning');
-              leaf.style.zIndex = rest;
-            },
-            { once: true }
-          );
+          leaf.classList.toggle('turned', turned);
+          curl(leaf, turned).then(() => (leaf.style.zIndex = rest));
         } else {
           leaf.style.zIndex = rest;
+          leaf.classList.toggle('turned', turned);
         }
-        leaf.classList.toggle('turned', turned);
       });
-      const first = single.matches ? spread + 1 : Math.max(1, spread * 2);
-      const last = single.matches ? first : Math.min(pageCount, spread * 2 + 1);
+      const first = single.matches ? spread + 1 : spread * 2 + 1;
+      const last = single.matches ? first : Math.min(pageCount, spread * 2 + 2);
       folio.textContent = `${first === last ? first : `${first}–${last}`} of ${pageCount}`;
       nav.querySelector('[data-turn="-1"]').disabled = spread === 0;
       nav.querySelector('[data-turn="1"]').disabled = spread === lastSpread;
       nav.hidden = lastSpread === 0;
     };
+    // The cover and, on a spread, the first leaf swing together. They pass edge-on exactly halfway, which is
+    // where the leaf takes over the top of the stack from the cover.
+    const swingCover = async open => {
+      const leaf = lead ? leaves.firstElementChild : null;
+      const [from, to] = open ? ['0deg', '-180deg'] : ['-180deg', '0deg'];
+      const frames = [
+        { transform: `rotateY(${from})`, easing: 'cubic-bezier(.5,0,1,1)' },
+        { transform: 'rotateY(-90deg)', easing: 'cubic-bezier(0,0,.4,1)' },
+        { transform: `rotateY(${to})` }
+      ];
+      const duration = open ? 900 : 750;
+      coverOpen = open;
+      if (leaf) {
+        leaf.style.transition = 'none';
+        leaf.classList.toggle('turned', open);
+      }
+      setTimeout(() => (board.style.zIndex = open ? 0 : 400), duration / 2);
+      await Promise.all([
+        play(board, frames, duration, 'linear'),
+        leaf &&
+          play(
+            leaf,
+            frames.map(frame => ({
+              ...frame,
+              transform: `perspective(2400px) ${frame.transform}`
+            })),
+            duration,
+            'linear'
+          )
+      ]);
+      if (leaf) leaf.style.transition = '';
+    };
     const turn = direction => {
-      if (!busy && dialog.classList.contains('is-open')) show(spread + direction);
+      if (!busy && !curls.size && dialog.classList.contains('is-open')) show(spread + direction);
     };
 
     const openBook = async (link, card, template) => {
@@ -278,6 +388,7 @@
       dialog.classList.remove('is-open');
       dialog.classList.add('backdrop-hidden');
       board.style.zIndex = 400;
+      coverOpen = false;
       dialog.showModal();
       paginate();
       show(0, false);
@@ -285,6 +396,8 @@
         dialog.classList.add('is-open');
         dialog.classList.remove('backdrop-hidden');
         board.style.zIndex = 0;
+        coverOpen = true;
+        show(0, false);
         busy = false;
         return;
       }
@@ -302,10 +415,9 @@
       dialog.classList.add('is-open');
       book.style.transform = '';
       await Promise.all([
-        play(board, [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(-180deg)' }], 900),
+        swingCover(true),
         play(book, [{ transform: stage.centred }, { transform: 'none' }], 900)
       ]);
-      board.style.zIndex = 0;
       busy = false;
     };
 
@@ -316,16 +428,16 @@
         return;
       }
       busy = true;
+      await Promise.all(curls);
       if (spread > 0) {
         show(0);
-        await wait(850);
+        await Promise.all(curls);
       }
-      board.style.zIndex = 400;
       const stage = closedBook();
       dialog.classList.remove('is-open');
       book.style.transform = stage.centred;
       await Promise.all([
-        play(board, [{ transform: 'rotateY(-180deg)' }, { transform: 'rotateY(0deg)' }], 750),
+        swingCover(false),
         play(book, [{ transform: 'none' }, { transform: stage.centred }], 750)
       ]);
       dialog.classList.add('backdrop-hidden');
@@ -344,6 +456,7 @@
       [...book.getAnimations(), ...board.getAnimations()].forEach(animation => animation.cancel());
       book.style.transform = '';
       board.style.zIndex = '';
+      coverOpen = false;
       dialog.classList.remove('is-open', 'backdrop-hidden');
       if (shelfCover) shelfCover.style.visibility = '';
       busy = false;
