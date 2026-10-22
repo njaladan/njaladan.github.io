@@ -9,7 +9,11 @@
   const search = root.querySelector('[data-search]');
   const filter = root.querySelector('[data-filter]');
   const sort = root.querySelector('[data-sort]');
-  const fold = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const fold = text =>
+    text
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
   root.querySelector('.js-controls').hidden = false;
 
   function update() {
@@ -17,7 +21,8 @@
     const visible = cards.filter(card => {
       const data = card.dataset;
       const matches = fold(data.title || '').includes(query);
-      const category = filter.value === 'all' ||
+      const category =
+        filter.value === 'all' ||
         (filter.value === 'notes' ? data.notes === 'true' : data.section === filter.value);
       return matches && category;
     });
@@ -28,21 +33,26 @@
         return a.dataset.title.localeCompare(b.dataset.title);
       const yearA = a.dataset.year || a.dataset.date.slice(0, 4);
       const yearB = b.dataset.year || b.dataset.date.slice(0, 4);
-      const yearOrder = sort.value === 'oldest'
-        ? yearA.localeCompare(yearB)
-        : yearB.localeCompare(yearA);
+      const yearOrder =
+        sort.value === 'oldest' ? yearA.localeCompare(yearB) : yearB.localeCompare(yearA);
       if (yearOrder) return yearOrder;
       if (!a.dataset.date || !b.dataset.date) {
-        if (!a.dataset.date && !b.dataset.date) return a.dataset.title.localeCompare(b.dataset.title);
+        if (!a.dataset.date && !b.dataset.date)
+          return a.dataset.title.localeCompare(b.dataset.title);
         return a.dataset.date ? -1 : 1;
       }
-      return sort.value === 'oldest' ? a.dataset.date.localeCompare(b.dataset.date)
+      return sort.value === 'oldest'
+        ? a.dataset.date.localeCompare(b.dataset.date)
         : b.dataset.date.localeCompare(a.dataset.date);
     });
     const sections = new Map();
     for (const card of visible) {
-      const key = card.dataset.section === 'earlier' ? 'earlier'
-        : sort.value === 'title' ? 'all' : card.dataset.year || card.dataset.date.slice(0, 4);
+      const key =
+        card.dataset.section === 'earlier'
+          ? 'earlier'
+          : sort.value === 'title'
+            ? 'all'
+            : card.dataset.year || card.dataset.date.slice(0, 4);
       if (!sections.has(key)) sections.set(key, []);
       sections.get(key).push(card);
     }
@@ -55,8 +65,14 @@
       const heading = document.createElement('div');
       heading.className = 'group-heading';
       const title = document.createElement('h2');
-      title.textContent = key === 'earlier' ? 'Undated'
-        : key === 'all' ? kind === 'books' ? 'The collection' : 'The diary' : key;
+      title.textContent =
+        key === 'earlier'
+          ? 'Undated'
+          : key === 'all'
+            ? kind === 'books'
+              ? 'The collection'
+              : 'The diary'
+            : key;
       const count = document.createElement('span');
       count.textContent = `${items.length} ${kind === 'books' ? 'books' : key === 'earlier' ? 'movies' : 'viewings'}`;
       heading.append(title);
@@ -77,7 +93,8 @@
     nav.hidden = !visible.length;
     root.querySelector('[data-empty]').hidden = Boolean(visible.length);
     const resultCount = root.querySelector('[data-count]');
-    if (resultCount) resultCount.textContent = `${new Set(visible.map(card => card.dataset.filmId)).size} movies`;
+    if (resultCount)
+      resultCount.textContent = `${new Set(visible.map(card => card.dataset.filmId)).size} movies`;
   }
   search.addEventListener('input', update);
   filter.addEventListener('change', update);
@@ -93,7 +110,17 @@
       const canvas = document.createElement('canvas');
       canvas.width = canvas.height = 1;
       const context = canvas.getContext('2d', { willReadFrequently: true });
-      context.drawImage(img, 0, 0, Math.max(1, img.naturalWidth * 0.04), img.naturalHeight, 0, 0, 1, 1);
+      context.drawImage(
+        img,
+        0,
+        0,
+        Math.max(1, img.naturalWidth * 0.04),
+        img.naturalHeight,
+        0,
+        0,
+        1,
+        1
+      );
       const [r, g, b] = context.getImageData(0, 0, 1, 1).data;
       cover.style.setProperty('--spine', `rgb(${r} ${g} ${b})`);
     } catch {}
@@ -117,17 +144,23 @@
     const easing = 'cubic-bezier(.55,0,.2,1)';
     let shelfCover = null;
     let busy = false;
-    let notes = null, pageCount = 1, spread = 0, lastSpread = 0;
+    let notes = null,
+      pageCount = 1,
+      spread = 0,
+      lastSpread = 0;
     // The closed book is the front board; transforms on the open book move it over a shelf slot or to centre stage.
     const closedBook = () => {
-      const left = book.offsetLeft + board.offsetLeft, top = book.offsetTop + board.offsetTop;
+      const left = book.offsetLeft + board.offsetLeft,
+        top = book.offsetTop + board.offsetTop;
       book.style.transformOrigin = `${board.offsetLeft}px ${board.offsetTop}px`;
       return {
         centred: `translateX(${innerWidth / 2 - left - board.offsetWidth / 2}px)`,
-        over: rect => `translate(${rect.left - left}px, ${rect.top - top}px) scale(${rect.width / board.offsetWidth}, ${rect.height / board.offsetHeight})`
+        over: rect =>
+          `translate(${rect.left - left}px, ${rect.top - top}px) scale(${rect.width / board.offsetWidth}, ${rect.height / board.offsetHeight})`
       };
     };
-    const play = (element, frames, duration, ease = easing) => element.animate(frames, { duration, easing: ease }).finished;
+    const play = (element, frames, duration, ease = easing) =>
+      element.animate(frames, { duration, easing: ease }).finished;
     const wait = ms => new Promise(resolve => setTimeout(resolve, reducedMotion() ? 0 : ms));
 
     // The notes are set once in page-tall columns; each page shows one column of that run. A spread shows two
@@ -162,12 +195,17 @@
         return face;
       };
       lastSpread = single.matches ? pageCount - 1 : Math.floor(pageCount / 2);
-      leaves.replaceChildren(...Array.from({ length: lastSpread + 1 }, (_, index) => {
-        const leaf = document.createElement('div');
-        leaf.className = 'leaf';
-        leaf.append(page(single.matches ? index : index * 2, 'front'), page(single.matches ? Infinity : index * 2 + 1, 'back'));
-        return leaf;
-      }));
+      leaves.replaceChildren(
+        ...Array.from({ length: lastSpread + 1 }, (_, index) => {
+          const leaf = document.createElement('div');
+          leaf.className = 'leaf';
+          leaf.append(
+            page(single.matches ? index : index * 2, 'front'),
+            page(single.matches ? Infinity : index * 2 + 1, 'back')
+          );
+          return leaf;
+        })
+      );
       flow.replaceChildren();
     };
     const show = (target, animate = true) => {
@@ -178,10 +216,14 @@
         if (animate && !reducedMotion() && turned !== leaf.classList.contains('turned')) {
           leaf.classList.add('turning');
           leaf.style.zIndex = 300;
-          leaf.addEventListener('transitionend', () => {
-            leaf.classList.remove('turning');
-            leaf.style.zIndex = rest;
-          }, { once: true });
+          leaf.addEventListener(
+            'transitionend',
+            () => {
+              leaf.classList.remove('turning');
+              leaf.style.zIndex = rest;
+            },
+            { once: true }
+          );
         } else {
           leaf.style.zIndex = rest;
         }
@@ -204,8 +246,13 @@
       untilt(shelfCover);
       spineColor(shelfCover);
       dialog.style.setProperty('--ar', shelfCover.style.getPropertyValue('--ar') || '.6667');
-      dialog.style.setProperty('--spine', shelfCover.style.getPropertyValue('--spine') || '#6b5a48');
-      const art = shelfCover.querySelector('img:not([hidden])') || shelfCover.querySelector('.cover-fallback');
+      dialog.style.setProperty(
+        '--spine',
+        shelfCover.style.getPropertyValue('--spine') || '#6b5a48'
+      );
+      const art =
+        shelfCover.querySelector('img:not([hidden])') ||
+        shelfCover.querySelector('.cover-fallback');
       const face = art.cloneNode(true);
       dialog.querySelector('.board-front').replaceChildren(face);
       // Start from the shelf image and fade in the large scan once it has loaded (hovering the book starts the download).
@@ -213,13 +260,18 @@
         const large = new Image();
         large.className = 'board-large';
         large.alt = '';
-        large.onload = () => { if (face.isConnected) face.after(large); };
+        large.onload = () => {
+          if (face.isConnected) face.after(large);
+        };
         large.src = card.dataset.coverLarge;
       }
       document.getElementById('review-title').textContent = card.dataset.title;
       document.getElementById('review-author').textContent = card.dataset.author;
       document.getElementById('review-meta').textContent = new Intl.DateTimeFormat('en-US', {
-        year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'UTC'
       }).format(new Date(`${card.dataset.date}T00:00:00Z`));
       document.getElementById('review-body').replaceChildren(template.content.cloneNode(true));
       notes = template.content.firstElementChild;
@@ -241,7 +293,12 @@
       shelfCover.style.visibility = 'hidden';
       requestAnimationFrame(() => dialog.classList.remove('backdrop-hidden'));
       book.style.transform = stage.centred;
-      await play(book, [{ transform: from }, { transform: stage.centred }], 560, 'cubic-bezier(.2,.8,.2,1)');
+      await play(
+        book,
+        [{ transform: from }, { transform: stage.centred }],
+        560,
+        'cubic-bezier(.2,.8,.2,1)'
+      );
       dialog.classList.add('is-open');
       book.style.transform = '';
       await Promise.all([
@@ -274,7 +331,12 @@
       dialog.classList.add('backdrop-hidden');
       const to = stage.over(shelfCover.getBoundingClientRect());
       book.style.transform = to;
-      await play(book, [{ transform: stage.centred }, { transform: to }], 520, 'cubic-bezier(.5,0,.3,1)');
+      await play(
+        book,
+        [{ transform: stage.centred }, { transform: to }],
+        520,
+        'cubic-bezier(.5,0,.3,1)'
+      );
       dialog.close();
     };
 
@@ -295,7 +357,15 @@
     });
     root.addEventListener('click', event => {
       const link = event.target.closest('[data-review]');
-      if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+      if (
+        !link ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        event.button !== 0
+      )
+        return;
       const card = link.closest('.library-card');
       const template = card.querySelector('[data-review-content]');
       if (!template) return;
@@ -322,15 +392,20 @@
     });
     // A swipe turns the page; a tap on the left of the book goes back and anywhere else goes on.
     let press = null;
-    book.addEventListener('pointerdown', event => { press = { x: event.clientX, y: event.clientY }; });
+    book.addEventListener('pointerdown', event => {
+      press = { x: event.clientX, y: event.clientY };
+    });
     book.addEventListener('pointerup', event => {
       const start = press;
       press = null;
       if (!start || event.target.closest('a')) return;
-      const dx = event.clientX - start.x, dy = event.clientY - start.y;
+      const dx = event.clientX - start.x,
+        dy = event.clientY - start.y;
       if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) return turn(dx < 0 ? 1 : -1);
       if (Math.hypot(dx, dy) > 8) return;
-      const back = single.matches ? event.clientX < innerWidth * 0.3 : event.clientX < book.getBoundingClientRect().left + book.offsetWidth / 2;
+      const back = single.matches
+        ? event.clientX < innerWidth * 0.3
+        : event.clientX < book.getBoundingClientRect().left + book.offsetWidth / 2;
       turn(back ? -1 : 1);
     });
     let resizeTimer;
@@ -371,7 +446,9 @@
   }
   // A failed artwork request still leaves a readable, locally styled title cover.
   root.querySelectorAll('.cover img').forEach(img => {
-    const failed = () => { img.hidden = true; };
+    const failed = () => {
+      img.hidden = true;
+    };
     img.addEventListener('error', failed);
     if (img.complete && !img.naturalWidth) failed();
   });
