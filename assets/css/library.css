@@ -1142,6 +1142,16 @@ body:has(dialog[open]) {
 .leaf.curling > .leaf-face {
   visibility: hidden;
 }
+/* Safari ignores backface-visibility when it paints without 3D compositing (as iOS does once
+   the layers get too large), so faces turned away from the reader are hidden outright too. */
+.leaf.turned:not(.swinging) > .leaf-front,
+.leaf:not(.turned, .swinging) > .leaf-back,
+.curl-strip.flipped > .curl-front,
+.curl-strip:not(.flipped) > .curl-back,
+.book-board.flipped > .board-front,
+.book-board:not(.flipped) > .board-inside {
+  visibility: hidden;
+}
 .curl,
 .curl-strip {
   position: absolute;

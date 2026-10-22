@@ -225,6 +225,7 @@ function poseStrips(strips, t, turned) {
     const angle = stripAngle(t, index, turned);
     piece.style.transform = `rotateY(${angle - previous}deg)`;
     piece.style.setProperty('--shade', stripShade(angle));
+    piece.classList.toggle('flipped', angle < -90);
     previous = angle;
   });
 }
@@ -305,10 +306,12 @@ async function swingCover(open) {
   state.coverOpen = open;
   if (leaf) {
     leaf.style.transition = 'none';
+    leaf.classList.add('swinging');
     leaf.classList.toggle('turned', open);
   }
   setTimeout(() => {
     ui.board.style.zIndex = open ? '0' : String(Z_BOARD_CLOSED);
+    ui.board.classList.toggle('flipped', open);
   }, duration / 2);
   const leafFrames = frames.map(frame => ({
     ...frame,
@@ -318,7 +321,10 @@ async function swingCover(open) {
     play(ui.board, frames, duration, 'linear'),
     leaf && play(leaf, leafFrames, duration, 'linear')
   ]);
-  if (leaf) leaf.style.transition = '';
+  if (leaf) {
+    leaf.style.transition = '';
+    leaf.classList.remove('swinging');
+  }
 }
 
 /** @param {number} direction */
@@ -371,6 +377,7 @@ function openInstantly() {
   ui.dialog.classList.add('is-open');
   ui.dialog.classList.remove('backdrop-hidden');
   ui.board.style.zIndex = '0';
+  ui.board.classList.add('flipped');
   state.coverOpen = true;
   show(0, false);
 }
@@ -413,6 +420,7 @@ async function openBook(link, card, template) {
   ui.dialog.classList.remove('is-open');
   ui.dialog.classList.add('backdrop-hidden');
   ui.board.style.zIndex = String(Z_BOARD_CLOSED);
+  ui.board.classList.remove('flipped');
   state.coverOpen = false;
   ui.dialog.showModal();
   paginate();
@@ -463,6 +471,7 @@ function resetBook() {
   [...book.getAnimations(), ...board.getAnimations()].forEach(animation => animation.cancel());
   book.style.transform = '';
   board.style.zIndex = '';
+  board.classList.remove('flipped');
   state.coverOpen = false;
   dialog.classList.remove('is-open', 'backdrop-hidden');
   if (state.shelfCover) state.shelfCover.style.visibility = '';
