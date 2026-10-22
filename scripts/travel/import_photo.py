@@ -11,7 +11,8 @@ from pathlib import Path
 
 from PIL import Image, ImageCms, ImageOps
 
-ROOT = Path(__file__).resolve().parents[2] / 'assets' / 'travel'
+# Photo paths in the manifest are relative to assets/, where the site resolves them.
+ROOT = Path(__file__).resolve().parents[2] / 'assets'
 VARIANTS = {"thumbnail": (128, 86), "small": (640, 90), "medium": (1280, 93), "large": (2400, 94)}
 PIPELINE_VERSION = "2"
 
@@ -71,7 +72,7 @@ def import_photo(source, *, place, lat, lon, photo_id=None, country=None, captio
     photo_id = photo_id or (re.sub(r"[^a-z0-9]+", "-", place.lower()).strip("-") or "photo") + "-" + digest[:8]
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,99}", photo_id):
         raise ValueError("Photo ID must use lowercase letters, digits and hyphens (max 100 characters)")
-    manifest_path = root / "data/photos.json"
+    manifest_path = root / "data/travel/photos.json"
     manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {"photos": []}
     with Image.open(io.BytesIO(original)) as raw:
         extension = {"JPEG": ".jpg", "PNG": ".png", "WEBP": ".webp", "HEIF": ".heic"}.get(raw.format)
@@ -89,7 +90,7 @@ def import_photo(source, *, place, lat, lon, photo_id=None, country=None, captio
             image = image.convert("RGB")
         width, height = image.size
         fingerprint = hashlib.sha256((digest + PIPELINE_VERSION + repr(VARIANTS)).encode()).hexdigest()[:16]
-        directory = root / "photos" / photo_id
+        directory = root / "images/travel" / photo_id
         variants = {}
         for name, (edge, quality) in VARIANTS.items():
             resized = image.copy()

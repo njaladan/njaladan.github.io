@@ -180,7 +180,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('export', type=Path)
     parser.add_argument('review', type=Path, help='User-reviewed activity manifest')
-    parser.add_argument('--output', type=Path, default=Path(__file__).resolve().parents[2]/'assets/travel/data/activities.json')
+    parser.add_argument('--output', type=Path, default=Path(__file__).resolve().parents[2]/'assets/data/travel/activities.json')
     parser.add_argument('--replace', action='store_true', help='Reimport new reviewed tracks, preserving tracks present before this review')
     args = parser.parse_args()
     import_selection(args.export, args.review, args.output, args.replace)
