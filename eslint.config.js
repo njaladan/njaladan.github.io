@@ -10,14 +10,7 @@ const vendor = {
 
 export default [
   {
-    ignores: [
-      '_site/',
-      'node_modules/',
-      'vendor/',
-      'assets/vendor/',
-      'assets/data/',
-      'assets/codequeue/'
-    ]
+    ignores: ['_site/', 'node_modules/', 'vendor/', 'assets/vendor/', 'assets/data/', 'archive/']
   },
   js.configs.recommended,
   {

@@ -1,43 +1,43 @@
-import { ROUTE_MODES } from './data.js';
+import { ROUTE_MODES } from './shared/data.js';
 import { $ } from '../lib/dom.js';
-import { installSmoothZoom } from './smooth-zoom.js';
-import { installBasemapLabels } from './basemap-labels.js';
-import { installRouteCards } from './route-cards.js';
-import { installTripItineraries } from './itineraries.js';
-import { installAtlasPhotos } from './photos.js';
-import { globeRenderer, globeSupported } from './globe.js';
-import { createContext } from './atlas/context.js';
-import { CARD_OPTIONS } from './atlas/constants.js';
+import { installSmoothZoom } from './map/smooth-zoom.js';
+import { installBasemapLabels } from './map/basemap-labels.js';
+import { installRouteCards } from './routes/index.js';
+import { installTripItineraries } from './itineraries/index.js';
+import { installAtlasPhotos } from './photos/index.js';
+import { globeRenderer, globeSupported } from './globe/index.js';
+import { createContext } from './map/context.js';
+import { CARD_OPTIONS } from './map/constants.js';
 import {
   addAttributions,
   createDetailLayer,
   createMap,
   createPanes,
   fitWorld
-} from './atlas/camera.js';
-import { installSettings } from './atlas/settings.js';
-import { focusPhoto, renderStates, renderWorld } from './atlas/countries.js';
-import { createCityTooltip, declutterLabels, renderCities } from './atlas/labels.js';
-import { fitBesidePanel, legPoints, panelToggled } from './atlas/panel.js';
-import { highlightRoutes } from './atlas/route-style.js';
-import { installPopupEvents } from './atlas/popups.js';
+} from './map/camera.js';
+import { installSettings } from './map/settings.js';
+import { focusPhoto, renderStates, renderWorld } from './map/countries.js';
+import { createCityTooltip, declutterLabels, renderCities } from './map/labels.js';
+import { fitBesidePanel, legPoints, panelToggled } from './map/panel.js';
+import { highlightRoutes } from './map/route-style.js';
+import { installPopupEvents } from './map/popups.js';
 import {
   createRouteHint,
   queueRouteAnimations,
   renderRoutes,
   renderTransport,
   updateBadges
-} from './atlas/routes.js';
-import { renderFlights } from './atlas/flights.js';
-import { mappablePhotos } from './atlas/format.js';
-import { applyDeepLink, applyHash, installEscapeKeys } from './atlas/router.js';
-import { installViewEvents } from './atlas/view-events.js';
-import { loadAtlasData } from './atlas/loader.js';
+} from './map/routes.js';
+import { renderFlights } from './map/flights.js';
+import { mappablePhotos } from './map/format.js';
+import { applyDeepLink, applyHash, installEscapeKeys } from './map/router.js';
+import { installViewEvents } from './map/view-events.js';
+import { loadAtlasData } from './map/loader.js';
 
 // The travel atlas: wires the map, its layers and panels together. Each
-// module under atlas/ takes the shared context created here.
+// module under map/ takes the shared context created here.
 
-/** @typedef {import('./atlas/context.js').AtlasContext} AtlasContext */
+/** @typedef {import('./map/context.js').AtlasContext} AtlasContext */
 
 const L = globeRenderer || window.L;
 
@@ -98,7 +98,7 @@ function installPanels(ctx, main) {
 /**
  * Draws the loaded data, applies the URL and signals that the atlas is ready.
  * @param {AtlasContext} ctx
- * @param {import('./atlas/loader.js').AtlasData} data
+ * @param {import('./map/loader.js').AtlasData} data
  */
 async function showData(ctx, data) {
   const { map, state } = ctx;

@@ -1,4 +1,4 @@
-"""Build assets/data/athletics-shapes.js: every GPS activity as a normalized route shape.
+"""Build assets/data/athletics/shapes.json: every GPS activity as a normalized route shape.
 
     python scripts/athletics/build_athletics_shapes.py STRAVA_ACTIVITIES_DIR SUMMARY.json
 
@@ -126,8 +126,8 @@ def main(activities, summary_path):
         if not s: continue
         shapes.append({"date": local_date(r).isoformat(), "sport": SPORTS.get(r["type"], "other"), "segs": s})
     shapes.sort(key=lambda s: s["date"], reverse=True)
-    out = Path(__file__).resolve().parents[2] / "assets/data/athletics-shapes.js"
-    out.write_text("window.SHAPES = " + json.dumps(shapes, separators=(",", ":"), ensure_ascii=False) + ";\n")
+    out = Path(__file__).resolve().parents[2] / "assets/data/athletics/shapes.json"
+    out.write_text(json.dumps(shapes, separators=(",", ":"), ensure_ascii=False) + "\n")
     print(f"wrote {out} ({out.stat().st_size // 1024} KB, {len(shapes)} shapes)")
 
 
