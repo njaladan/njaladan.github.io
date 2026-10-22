@@ -1,6 +1,6 @@
 """Summarize a Strava export's GPX/FIT files into one JSON row per activity.
 
-    python scripts/summarize_strava.py STRAVA_ACTIVITIES_DIR SUMMARY.json
+    python scripts/athletics/summarize_strava.py STRAVA_ACTIVITIES_DIR SUMMARY.json
 
 Distance counts only actively tracked movement. FIT files use the watch's own session
 distance and timer. GPS-only files skip jumps across pauses (a train or car ride with

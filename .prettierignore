@@ -1,6 +1,6 @@
 _site/
 node_modules/
-travel/vendor/
-athletics/shapes.js
-codequeue/
 vendor/
+assets/travel/vendor/
+assets/data/
+assets/codequeue/

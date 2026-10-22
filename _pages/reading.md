@@ -4,5 +4,5 @@ permalink: /reading
 comments: false
 imageshadow: true
 title: "Reading"
-library: books
+scripts: [/assets/js/library.js]
 ---

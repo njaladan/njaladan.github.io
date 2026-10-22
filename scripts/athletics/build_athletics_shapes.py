@@ -1,6 +1,6 @@
-"""Build athletics/shapes.js: every GPS activity as a normalized route shape.
+"""Build assets/data/athletics-shapes.js: every GPS activity as a normalized route shape.
 
-    python scripts/build_athletics_shapes.py STRAVA_ACTIVITIES_DIR SUMMARY.json
+    python scripts/athletics/build_athletics_shapes.py STRAVA_ACTIVITIES_DIR SUMMARY.json
 
 Each shape is scaled into a 0-1000 box with no real coordinates, so the page shows what
 a route looks like, not where it was. Lines break at pauses and GPS glitches (the same
@@ -126,7 +126,7 @@ def main(activities, summary_path):
         if not s: continue
         shapes.append({"date": local_date(r).isoformat(), "sport": SPORTS.get(r["type"], "other"), "segs": s})
     shapes.sort(key=lambda s: s["date"], reverse=True)
-    out = Path(__file__).resolve().parent.parent / "athletics/shapes.js"
+    out = Path(__file__).resolve().parents[2] / "assets/data/athletics-shapes.js"
     out.write_text("window.SHAPES = " + json.dumps(shapes, separators=(",", ":"), ensure_ascii=False) + ";\n")
     print(f"wrote {out} ({out.stat().st_size // 1024} KB, {len(shapes)} shapes)")
 

@@ -3,7 +3,7 @@ Rails use BRouter’s rail profile; roads use OSRM full geometry.
 No live routing service is required by the published atlas.
 """
 import argparse, json, math, pathlib, urllib.parse, urllib.request
-ROOT=pathlib.Path(__file__).resolve().parents[1]
+ROOT=pathlib.Path(__file__).resolve().parents[2]/'assets/travel'
 STOPS={
  'Amsterdam':('528',[52.3791,4.9003]),'Haarlem':('528',[52.3879,4.6384]),'Utrecht':('528',[52.0894,5.1102]),'Keukenhof':('528',[52.2712,4.5463]),
  'Bern':('756',[46.948993,7.4390602]),'Lucerne':('756',[47.0502,8.3102]),'Chur':('756',[46.853,9.529]),'Tirano':('380',[46.2164,10.1678]),'Milan':('380',[45.4863,9.2045]),'Bologna':('380',[44.5061,11.3426]),'Florence':('380',[43.7765,11.2486]),'Rome':('380',[41.901,12.5016]),
