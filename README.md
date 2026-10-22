@@ -146,3 +146,5 @@ npm run lint
 
 The scripts share top-level functions and constants through ordered `<script defer>`
 tags; add any new cross-file global to `shared` in `eslint.config.js`.
+`.git-blame-ignore-revs` lists the bulk reformat; run
+`git config blame.ignoreRevsFile .git-blame-ignore-revs` to skip it in `git blame`.

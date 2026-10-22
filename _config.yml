@@ -18,4 +18,4 @@ plugins:
 # Other
 markdown: kramdown
 
-exclude: [AGENTS.md, node_modules, package.json, package-lock.json, eslint.config.js, .prettierrc.json, .prettierignore, LICENSE.txt, README.md, Gemfile, Gemfile.lock, scripts, "travel/scripts", "travel/README.md"]
+exclude: [AGENTS.md, .git-blame-ignore-revs, node_modules, package.json, package-lock.json, eslint.config.js, .prettierrc.json, .prettierignore, LICENSE.txt, README.md, Gemfile, Gemfile.lock, scripts, "travel/scripts", "travel/README.md"]
