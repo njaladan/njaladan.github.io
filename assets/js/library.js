@@ -84,29 +84,116 @@
   sort.addEventListener('change', update);
   update();
 
+  const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // A book's spine takes the colour of its cover's left edge.
+  const spineColor = cover => {
+    const img = cover.querySelector('img');
+    if (cover.style.getPropertyValue('--spine') || !img || img.hidden || !img.naturalWidth) return;
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 1;
+      const context = canvas.getContext('2d', { willReadFrequently: true });
+      context.drawImage(img, 0, 0, Math.max(1, img.naturalWidth * 0.04), img.naturalHeight, 0, 0, 1, 1);
+      const [r, g, b] = context.getImageData(0, 0, 1, 1).data;
+      cover.style.setProperty('--spine', `rgb(${r} ${g} ${b})`);
+    } catch {}
+  };
+  const untilt = cover => {
+    cover.classList.remove('tilting');
+    ['--rx', '--ry', '--px', '--py'].forEach(name => cover.style.removeProperty(name));
+  };
+
   // Preserve the normal note URL for no-JS browsing, sharing, and opening a new tab.
+  // Otherwise the book comes off the shelf, its front board swings open, and the notes sit on the first page.
   const dialog = document.getElementById('review-dialog');
   if (dialog && typeof dialog.showModal === 'function') {
-    let openCover = null;
-    // The clicked cover grows into the notes dialog, and shrinks back on close.
-    const morph = (from, to, update) => {
-      if (!document.startViewTransition || !from || !to || matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        update();
+    const book = dialog.querySelector('.open-book');
+    const board = dialog.querySelector('.book-board');
+    const page = dialog.querySelector('.page-scroll');
+    const easing = 'cubic-bezier(.55,0,.2,1)';
+    let shelfCover = null;
+    let busy = false;
+    // The closed book is the front board; transforms on the open book move it over a shelf slot or to centre stage.
+    const closedBook = () => {
+      const left = book.offsetLeft + board.offsetLeft, top = book.offsetTop + board.offsetTop;
+      book.style.transformOrigin = `${board.offsetLeft}px ${board.offsetTop}px`;
+      return {
+        centred: `translateX(${innerWidth / 2 - left - board.offsetWidth / 2}px)`,
+        over: rect => `translate(${rect.left - left}px, ${rect.top - top}px) scale(${rect.width / board.offsetWidth}, ${rect.height / board.offsetHeight})`
+      };
+    };
+    const play = (element, frames, duration, ease = easing) => element.animate(frames, { duration, easing: ease }).finished;
+
+    const openBook = async (link, card, template) => {
+      busy = true;
+      shelfCover = link.querySelector('.cover');
+      untilt(shelfCover);
+      spineColor(shelfCover);
+      dialog.style.setProperty('--ar', shelfCover.style.getPropertyValue('--ar') || '.6667');
+      dialog.style.setProperty('--spine', shelfCover.style.getPropertyValue('--spine') || '#6b5a48');
+      const art = shelfCover.querySelector('img:not([hidden])') || shelfCover.querySelector('.cover-fallback');
+      dialog.querySelector('.board-front').replaceChildren(art.cloneNode(true));
+      const pages = shelfCover.style.getPropertyValue('--pages').trim();
+      document.getElementById('review-title').textContent = card.dataset.title;
+      document.getElementById('review-author').textContent = card.dataset.author;
+      document.getElementById('review-meta').textContent = [new Intl.DateTimeFormat('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
+      }).format(new Date(`${card.dataset.date}T00:00:00Z`)), pages && `${pages} pages`].filter(Boolean).join(' · ');
+      document.getElementById('review-body').replaceChildren(template.content.cloneNode(true));
+      dialog.classList.remove('is-open');
+      dialog.classList.add('backdrop-hidden');
+      dialog.showModal();
+      page.scrollTop = 0;
+      if (reducedMotion() || !book.animate) {
+        dialog.classList.add('is-open');
+        dialog.classList.remove('backdrop-hidden');
+        busy = false;
         return;
       }
-      const html = document.documentElement;
-      html.classList.add('review-morph');
-      from.style.viewTransitionName = 'review-cover';
-      const transition = document.startViewTransition(() => {
-        from.style.viewTransitionName = '';
-        to.style.viewTransitionName = 'review-cover';
-        update();
-      });
-      transition.finished.finally(() => {
-        to.style.viewTransitionName = '';
-        html.classList.remove('review-morph');
-      });
+      const stage = closedBook();
+      const from = stage.over(shelfCover.getBoundingClientRect());
+      shelfCover.style.visibility = 'hidden';
+      requestAnimationFrame(() => dialog.classList.remove('backdrop-hidden'));
+      book.style.transform = stage.centred;
+      await play(book, [{ transform: from }, { transform: stage.centred }], 560, 'cubic-bezier(.2,.8,.2,1)');
+      dialog.classList.add('is-open');
+      book.style.transform = '';
+      await Promise.all([
+        play(board, [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(-180deg)' }], 900),
+        play(book, [{ transform: stage.centred }, { transform: 'none' }], 900)
+      ]);
+      busy = false;
+      page.focus({ preventScroll: true });
     };
+
+    const closeBook = async () => {
+      if (busy || !dialog.open) return;
+      if (reducedMotion() || !book.animate) {
+        dialog.close();
+        return;
+      }
+      busy = true;
+      const stage = closedBook();
+      dialog.classList.remove('is-open');
+      book.style.transform = stage.centred;
+      await Promise.all([
+        play(board, [{ transform: 'rotateY(-180deg)' }, { transform: 'rotateY(0deg)' }], 750),
+        play(book, [{ transform: 'none' }, { transform: stage.centred }], 750)
+      ]);
+      dialog.classList.add('backdrop-hidden');
+      const to = stage.over(shelfCover.getBoundingClientRect());
+      book.style.transform = to;
+      await play(book, [{ transform: stage.centred }, { transform: to }], 520, 'cubic-bezier(.5,0,.3,1)');
+      dialog.close();
+    };
+
+    dialog.addEventListener('close', () => {
+      [...book.getAnimations(), ...board.getAnimations()].forEach(animation => animation.cancel());
+      book.style.transform = '';
+      dialog.classList.remove('is-open', 'backdrop-hidden');
+      if (shelfCover) shelfCover.style.visibility = '';
+      busy = false;
+    });
     root.addEventListener('click', event => {
       const link = event.target.closest('[data-review]');
       if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
@@ -114,43 +201,20 @@
       const template = card.querySelector('[data-review-content]');
       if (!template) return;
       event.preventDefault();
-      document.getElementById('review-title').textContent = card.dataset.title;
-      document.getElementById('review-meta').textContent = new Intl.DateTimeFormat('en-US', {
-        year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
-      }).format(new Date(`${card.dataset.date}T00:00:00Z`));
-      document.getElementById('review-body').replaceChildren(template.content.cloneNode(true));
-      openCover = link.querySelector('.cover');
-      morph(openCover, dialog, () => {
-        dialog.showModal();
-        dialog.scrollTop = 0;
-      });
+      if (!busy && !dialog.open) openBook(link, card, template);
     });
-    const closeReview = () => morph(dialog, openCover, () => dialog.close());
-    dialog.querySelector('.dialog-close').addEventListener('click', closeReview);
+    dialog.querySelector('.dialog-close').addEventListener('click', closeBook);
     dialog.addEventListener('cancel', event => {
       event.preventDefault();
-      closeReview();
+      closeBook();
     });
     dialog.addEventListener('click', event => {
-      const bounds = dialog.getBoundingClientRect();
-      if (event.target === dialog && (event.clientX < bounds.left || event.clientX > bounds.right ||
-        event.clientY < bounds.top || event.clientY > bounds.bottom)) closeReview();
+      if (event.target === dialog) closeBook();
     });
   }
-  // Covers turn to face the pointer; a book's spine takes the colour of its cover's left edge.
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const spineColor = cover => {
-      const img = cover.querySelector('img');
-      if (cover.style.getPropertyValue('--spine') || !img || img.hidden || !img.naturalWidth) return;
-      try {
-        const canvas = document.createElement('canvas');
-        canvas.width = canvas.height = 1;
-        const context = canvas.getContext('2d', { willReadFrequently: true });
-        context.drawImage(img, 0, 0, Math.max(1, img.naturalWidth * 0.04), img.naturalHeight, 0, 0, 1, 1);
-        const [r, g, b] = context.getImageData(0, 0, 1, 1).data;
-        cover.style.setProperty('--spine', `rgb(${r} ${g} ${b})`);
-      } catch {}
-    };
+
+  // Covers turn to face the pointer while the light stays put: the glare, shadow and edge shading move against the turn.
+  if (!reducedMotion()) {
     root.addEventListener('pointermove', event => {
       if (event.pointerType !== 'mouse') return;
       const cover = event.target.closest('.card-link')?.querySelector('.cover');
@@ -164,14 +228,13 @@
       const y = Math.min(Math.max((event.clientY - bounds.top) / bounds.height, 0), 1) - 0.5;
       cover.style.setProperty('--ry', `${(x * 36).toFixed(1)}deg`);
       cover.style.setProperty('--rx', `${(-y * 24).toFixed(1)}deg`);
+      cover.style.setProperty('--px', x.toFixed(3));
+      cover.style.setProperty('--py', y.toFixed(3));
     });
     root.addEventListener('pointerout', event => {
       const link = event.target.closest('.card-link');
       if (!link || link.contains(event.relatedTarget)) return;
-      const cover = link.querySelector('.cover');
-      cover.classList.remove('tilting');
-      cover.style.removeProperty('--rx');
-      cover.style.removeProperty('--ry');
+      untilt(link.querySelector('.cover'));
     });
   }
   // A failed artwork request still leaves a readable, locally styled title cover.
