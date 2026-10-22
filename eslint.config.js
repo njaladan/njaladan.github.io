@@ -28,7 +28,16 @@ const shared = {
 };
 
 module.exports = [
-  { ignores: ['_site/', 'node_modules/', 'travel/vendor/', 'athletics/shapes.js', 'codequeue/'] },
+  {
+    ignores: [
+      '_site/',
+      'node_modules/',
+      'vendor/',
+      'travel/vendor/',
+      'athletics/shapes.js',
+      'codequeue/'
+    ]
+  },
   js.configs.recommended,
   {
     files: ['**/*.js'],
