@@ -2,5 +2,6 @@ _site/
 node_modules/
 vendor/
 assets/vendor/
-assets/data/
+assets/data/athletics-shapes.js
 assets/codequeue/
+package-lock.json
