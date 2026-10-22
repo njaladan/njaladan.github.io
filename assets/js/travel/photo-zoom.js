@@ -1,186 +1,294 @@
+import { $ } from '../lib/dom.js';
+import {
+  anchoredOffset,
+  clamp,
+  constrainOffset,
+  containSize,
+  pinch,
+  wheelUnit
+} from './ui/zoom-math.js';
+
 /* Fullscreen photo gestures; paints at most once per input frame. */
-'use strict';
-export function installPhotoZoom(viewport, pixels, image, { canInteract, onScale }) {
+
+const MIN_SCALE = 1;
+const MAX_SCALE = 6;
+// Zoom factor of one button press or +/− key.
+const STEP_SCALE = 1.25;
+// Largest wheel delta honoured per event (px), so one flick can't jump to max zoom.
+const MAX_WHEEL_DELTA = 240;
+// Scale change per wheel pixel; trackpad pinches (Ctrl-wheel) are coarser.
+const WHEEL_ZOOM_RATE = 0.002;
+const PINCH_ZOOM_RATE = 0.01;
+// Arrow keys pan an enlarged photo by this much (px).
+const KEY_PAN = 48;
+const ARROW_PAN = {
+  ArrowLeft: [KEY_PAN, 0],
+  ArrowRight: [-KEY_PAN, 0],
+  ArrowUp: [0, KEY_PAN],
+  ArrowDown: [0, -KEY_PAN]
+};
+const ZOOM_IN_KEYS = ['+', '='];
+const ZOOM_OUT_KEYS = ['-', '_'];
+const RESET_KEYS = ['0', 'Home'];
+
+/**
+ * @typedef {{x: number, y: number}} Point
+ * @typedef {{left: number, top: number, width: number, height: number,
+ *   photoWidth: number, photoHeight: number}} Bounds
+ * @typedef {ReturnType<typeof createZoomView>} ZoomView
+ */
+
+/**
+ * The zoomed pose of a photo and its painting.
+ * @param {{viewport: HTMLElement, pixels: HTMLElement, image: HTMLImageElement,
+ *   buttons: {out: HTMLButtonElement, reset: HTMLButtonElement, into: HTMLButtonElement},
+ *   onScale: () => void}} parts
+ */
+function createZoomView({ viewport, pixels, image, buttons, onScale }) {
+  /** @type {Map<number, {clientX: number, clientY: number}>} */
   const pointers = new Map();
-  const controls = document.querySelector('.photo-zoom-controls');
-  const out = controls.querySelector('.photo-zoom-out');
-  const resetButton = controls.querySelector('.photo-zoom-reset');
-  const into = controls.querySelector('.photo-zoom-in');
-  let active = false,
-    scale = 1,
-    x = 0,
-    y = 0,
-    bounds = null,
-    gesture = null,
-    paintFrame = null;
-  const limit = (value, min, max) => Math.max(min, Math.min(max, value));
-  const enabled = () => active && canInteract();
+  const pose = { scale: 1, x: 0, y: 0 };
+  /** @type {Bounds | null} */
+  let bounds = null;
+  /** @type {number | null} */
+  let paintFrame = null;
+  /** Viewport and letterboxed photo sizes, cached until invalidated. */
   function measure() {
     if (!bounds) {
       const box = viewport.getBoundingClientRect();
       const ratio = Number(image.getAttribute('width')) / Number(image.getAttribute('height'));
-      const width = Math.min(box.width, box.height * ratio);
+      const photo = containSize(box, ratio);
       bounds = {
         left: box.left,
         top: box.top,
         width: box.width,
         height: box.height,
-        photoWidth: width,
-        photoHeight: width / ratio
+        photoWidth: photo.width,
+        photoHeight: photo.height
       };
     }
     return bounds;
   }
   function paint() {
     paintFrame = null;
+    const { scale, x, y } = pose;
     pixels.style.transform = scale === 1 ? '' : `translate3d(${x}px,${y}px,0) scale(${scale})`;
     viewport.classList.toggle('photo-zoomed', scale > 1);
     viewport.classList.toggle('photo-dragging', pointers.size > 0 && scale > 1);
-    resetButton.textContent = `${Math.round(scale * 100)}%`;
-    out.disabled = scale <= 1;
-    into.disabled = scale >= 6;
+    buttons.reset.textContent = `${Math.round(scale * 100)}%`;
+    buttons.out.disabled = scale <= MIN_SCALE;
+    buttons.into.disabled = scale >= MAX_SCALE;
   }
-  function queuePaint() {
-    if (paintFrame === null) paintFrame = requestAnimationFrame(paint);
-  }
+  /** Sets scale and offset, keeping the photo covering the viewport. */
   function setPose(nextScale, nextX, nextY) {
     const box = measure(),
-      oldScale = scale;
-    scale = limit(nextScale, 1, 6);
-    function constrain(offset, size, photoSize) {
-      const gap = (size - photoSize) / 2;
-      return photoSize * scale <= size
-        ? (size * (1 - scale)) / 2
-        : limit(offset, size - scale * (gap + photoSize), -scale * gap);
-    }
-    x = constrain(nextX, box.width, box.photoWidth);
-    y = constrain(nextY, box.height, box.photoHeight);
-    queuePaint();
-    if (scale !== oldScale) onScale();
-  }
-  function zoomAt(nextScale, point) {
-    nextScale = limit(nextScale, 1, 6);
-    const ratio = nextScale / scale;
-    setPose(nextScale, point.x + (x - point.x) * ratio, point.y + (y - point.y) * ratio);
-  }
-  function center() {
-    const box = measure();
-    return { x: box.width / 2, y: box.height / 2 };
-  }
-  function local(point) {
-    const box = measure();
-    return { x: point.clientX - box.left, y: point.clientY - box.top };
-  }
-  function positions() {
-    const points = [...pointers.values()].slice(0, 2).map(local);
-    if (points.length < 2) return { point: points[0], distance: 0 };
-    return {
-      point: { x: (points[0].x + points[1].x) / 2, y: (points[0].y + points[1].y) / 2 },
-      distance: Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y)
-    };
-  }
-  function beginGesture() {
-    gesture = pointers.size ? { ...positions(), scale, x, y } : null;
-    queuePaint();
-  }
-  function down(event) {
-    if (!enabled() || event.button !== 0 || (event.pointerType === 'mouse' && scale === 1)) return;
-    event.preventDefault();
-    viewport.setPointerCapture(event.pointerId);
-    pointers.set(event.pointerId, { clientX: event.clientX, clientY: event.clientY });
-    beginGesture();
-  }
-  function move(event) {
-    if (!enabled() || !pointers.has(event.pointerId)) return;
-    event.preventDefault();
-    pointers.set(event.pointerId, { clientX: event.clientX, clientY: event.clientY });
-    const current = positions();
-    const nextScale =
-      gesture.distance > 0
-        ? limit((gesture.scale * current.distance) / gesture.distance, 1, 6)
-        : scale;
-    const ratio = nextScale / gesture.scale;
-    setPose(
-      nextScale,
-      current.point.x + (gesture.x - gesture.point.x) * ratio,
-      current.point.y + (gesture.y - gesture.point.y) * ratio
-    );
-  }
-  function up(event) {
-    if (!pointers.delete(event.pointerId)) return;
-    if (viewport.hasPointerCapture(event.pointerId))
-      viewport.releasePointerCapture(event.pointerId);
-    beginGesture();
-  }
-  function wheel(event) {
-    if (!enabled()) return;
-    event.preventDefault();
-    event.stopPropagation();
-    const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? measure().height : 1;
-    const delta = limit(event.deltaY * unit, -240, 240);
-    zoomAt(scale * Math.exp(-delta * (event.ctrlKey ? 0.01 : 0.002)), local(event));
-  }
-  function keydown(event) {
-    if (!enabled() || event.ctrlKey || event.metaKey || event.altKey) return;
-    if (['+', '='].includes(event.key)) zoomAt(scale * 1.25, center());
-    else if (['-', '_'].includes(event.key)) zoomAt(scale / 1.25, center());
-    else if (['0', 'Home'].includes(event.key)) reset();
-    else if (scale > 1 && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
-      setPose(
-        scale,
-        x + (event.key === 'ArrowLeft' ? 48 : event.key === 'ArrowRight' ? -48 : 0),
-        y + (event.key === 'ArrowUp' ? 48 : event.key === 'ArrowDown' ? -48 : 0)
-      );
-    } else return;
-    event.preventDefault();
-    event.stopPropagation();
+      oldScale = pose.scale;
+    pose.scale = clamp(nextScale, MIN_SCALE, MAX_SCALE);
+    pose.x = constrainOffset(nextX, box.width, box.photoWidth, pose.scale);
+    pose.y = constrainOffset(nextY, box.height, box.photoHeight, pose.scale);
+    if (paintFrame === null) paintFrame = requestAnimationFrame(paint);
+    if (pose.scale !== oldScale) onScale();
   }
   function reset() {
-    for (const id of pointers.keys())
+    for (const id of pointers.keys()) {
       if (viewport.hasPointerCapture(id)) viewport.releasePointerCapture(id);
+    }
     pointers.clear();
-    gesture = null;
     bounds = null;
-    const changed = scale !== 1;
-    scale = 1;
-    x = y = 0;
+    const changed = pose.scale !== 1;
+    Object.assign(pose, { scale: 1, x: 0, y: 0 });
     if (paintFrame !== null) cancelAnimationFrame(paintFrame);
     paint();
     if (changed) onScale();
   }
-  function zoomOut() {
-    if (enabled()) zoomAt(scale / 1.25, center());
-  }
-  function zoomIn() {
-    if (enabled()) zoomAt(scale * 1.25, center());
-  }
-  function fit() {
-    if (enabled()) reset();
-  }
-  const listeners = [
-    ['pointerdown', down],
-    ['pointermove', move],
-    ['pointerup', up],
-    ['pointercancel', up],
-    ['lostpointercapture', up],
-    ['wheel', wheel]
-  ];
-  listeners.forEach(([name, handler]) =>
-    viewport.addEventListener(name, handler, { passive: false })
-  );
-  viewport.parentElement.addEventListener('keydown', keydown);
-  out.addEventListener('click', zoomOut);
-  into.addEventListener('click', zoomIn);
-  resetButton.addEventListener('click', fit);
-  paint();
   return {
-    get scale() {
-      return scale;
-    },
+    pose,
+    pointers,
+    measure,
+    paint,
+    setPose,
     reset,
-    invalidate: () => {
+    queuePaint() {
+      if (paintFrame === null) paintFrame = requestAnimationFrame(paint);
+    },
+    invalidate() {
       bounds = null;
     },
+    /** Zooms to `scale`, keeping `point` (viewport pixels) in place. */
+    zoomAt(scale, point) {
+      const next = clamp(scale, MIN_SCALE, MAX_SCALE);
+      const ratio = next / pose.scale;
+      setPose(next, anchoredOffset(point.x, pose.x, ratio), anchoredOffset(point.y, pose.y, ratio));
+    },
+    /** @returns {Point} */
+    center() {
+      const box = measure();
+      return { x: box.width / 2, y: box.height / 2 };
+    },
+    /** @param {{clientX: number, clientY: number}} point @returns {Point} */
+    local(point) {
+      const box = measure();
+      return { x: point.clientX - box.left, y: point.clientY - box.top };
+    }
+  };
+}
+
+/**
+ * Drag and pinch with pointers: each gesture starts from the pose and pointer
+ * positions when a pointer was added or removed.
+ * @param {HTMLElement} viewport
+ * @param {ZoomView} view
+ * @param {() => boolean} enabled
+ */
+function pointerHandlers(viewport, view, enabled) {
+  const { pointers, pose } = view;
+  let gesture = null;
+  const positions = () => pinch([...pointers.values()].slice(0, 2).map(view.local));
+  function beginGesture() {
+    gesture = pointers.size ? { ...positions(), ...pose } : null;
+    view.queuePaint();
+  }
+  /** @param {PointerEvent} event */
+  function track(event) {
+    pointers.set(event.pointerId, { clientX: event.clientX, clientY: event.clientY });
+  }
+  return {
+    /** @param {PointerEvent} event */
+    down(event) {
+      if (!enabled() || event.button !== 0 || (event.pointerType === 'mouse' && pose.scale === 1)) {
+        return;
+      }
+      event.preventDefault();
+      viewport.setPointerCapture(event.pointerId);
+      track(event);
+      beginGesture();
+    },
+    /** @param {PointerEvent} event */
+    move(event) {
+      if (!enabled() || !pointers.has(event.pointerId)) return;
+      event.preventDefault();
+      track(event);
+      const current = positions();
+      const scale =
+        gesture.distance > 0
+          ? clamp((gesture.scale * current.distance) / gesture.distance, MIN_SCALE, MAX_SCALE)
+          : pose.scale;
+      const ratio = scale / gesture.scale;
+      view.setPose(
+        scale,
+        current.point.x + (gesture.x - gesture.point.x) * ratio,
+        current.point.y + (gesture.y - gesture.point.y) * ratio
+      );
+    },
+    /** @param {PointerEvent} event */
+    up(event) {
+      if (!pointers.delete(event.pointerId)) return;
+      if (viewport.hasPointerCapture(event.pointerId)) {
+        viewport.releasePointerCapture(event.pointerId);
+      }
+      beginGesture();
+    },
+    reset() {
+      gesture = null;
+    }
+  };
+}
+
+/**
+ * Wheel zooms around the pointer; keys zoom around the centre and pan.
+ * @param {ZoomView} view
+ * @param {() => boolean} enabled
+ * @param {() => void} reset
+ */
+function keyAndWheelHandlers(view, enabled, reset) {
+  const { pose } = view;
+  /** @param {string} key @returns {boolean} whether the key was used */
+  function applyKey(key) {
+    if (ZOOM_IN_KEYS.includes(key)) view.zoomAt(pose.scale * STEP_SCALE, view.center());
+    else if (ZOOM_OUT_KEYS.includes(key)) view.zoomAt(pose.scale / STEP_SCALE, view.center());
+    else if (RESET_KEYS.includes(key)) reset();
+    else if (pose.scale > 1 && Object.hasOwn(ARROW_PAN, key)) {
+      const [dx, dy] = ARROW_PAN[key];
+      view.setPose(pose.scale, pose.x + dx, pose.y + dy);
+    } else return false;
+    return true;
+  }
+  return {
+    /** @param {WheelEvent} event */
+    wheel(event) {
+      if (!enabled()) return;
+      event.preventDefault();
+      event.stopPropagation();
+      const unit = wheelUnit(event.deltaMode, view.measure().height);
+      const delta = clamp(event.deltaY * unit, -MAX_WHEEL_DELTA, MAX_WHEEL_DELTA);
+      const rate = event.ctrlKey ? PINCH_ZOOM_RATE : WHEEL_ZOOM_RATE;
+      view.zoomAt(pose.scale * Math.exp(-delta * rate), view.local(event));
+    },
+    /** @param {KeyboardEvent} event */
+    keydown(event) {
+      if (!enabled() || event.ctrlKey || event.metaKey || event.altKey) return;
+      if (!applyKey(event.key)) return;
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  };
+}
+
+/**
+ * Zoom and pan for the fullscreen photo: wheel, pinch, drag, keyboard and the
+ * zoom buttons in `.photo-zoom-controls`.
+ * @param {HTMLElement} viewport element receiving gestures
+ * @param {HTMLElement} pixels element transformed to zoom
+ * @param {HTMLImageElement} image photo, whose width/height attributes give its ratio
+ * @param {{canInteract: () => boolean, onScale: () => void}} options
+ */
+export function installPhotoZoom(viewport, pixels, image, { canInteract, onScale }) {
+  const controls = $('.photo-zoom-controls');
+  const buttons = {
+    out: /** @type {HTMLButtonElement} */ ($('.photo-zoom-out', controls)),
+    reset: /** @type {HTMLButtonElement} */ ($('.photo-zoom-reset', controls)),
+    into: /** @type {HTMLButtonElement} */ ($('.photo-zoom-in', controls))
+  };
+  let active = false;
+  const enabled = () => active && canInteract();
+  const view = createZoomView({ viewport, pixels, image, buttons, onScale });
+  const pointer = pointerHandlers(viewport, view, enabled);
+  function reset() {
+    pointer.reset();
+    view.reset();
+  }
+  const input = keyAndWheelHandlers(view, enabled, reset);
+  const listeners = new AbortController();
+  const options = { passive: false, signal: listeners.signal };
+  viewport.addEventListener('pointerdown', pointer.down, options);
+  viewport.addEventListener('pointermove', pointer.move, options);
+  viewport.addEventListener('pointerup', pointer.up, options);
+  viewport.addEventListener('pointercancel', pointer.up, options);
+  viewport.addEventListener('lostpointercapture', pointer.up, options);
+  viewport.addEventListener('wheel', input.wheel, options);
+  viewport.parentElement.addEventListener('keydown', input.keydown, options);
+  const whenEnabled = action => () => {
+    if (enabled()) action();
+  };
+  buttons.out.addEventListener(
+    'click',
+    whenEnabled(() => view.zoomAt(view.pose.scale / STEP_SCALE, view.center())),
+    options
+  );
+  buttons.into.addEventListener(
+    'click',
+    whenEnabled(() => view.zoomAt(view.pose.scale * STEP_SCALE, view.center())),
+    options
+  );
+  buttons.reset.addEventListener('click', whenEnabled(reset), options);
+  view.paint();
+  return {
+    get scale() {
+      return view.pose.scale;
+    },
+    reset,
+    invalidate: view.invalidate,
+    /** Enables gestures and shows the zoom controls while the photo is fullscreen. */
     setActive(value) {
       if (value !== active) reset();
       active = value;
@@ -189,11 +297,7 @@ export function installPhotoZoom(viewport, pixels, image, { canInteract, onScale
     },
     destroy() {
       reset();
-      listeners.forEach(([name, handler]) => viewport.removeEventListener(name, handler));
-      viewport.parentElement.removeEventListener('keydown', keydown);
-      out.removeEventListener('click', zoomOut);
-      into.removeEventListener('click', zoomIn);
-      resetButton.removeEventListener('click', fit);
+      listeners.abort();
     }
   };
 }
