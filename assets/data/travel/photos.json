@@ -13,25 +13,25 @@
       "sha256": "464a6dd214fa73ccae89cd4f5d0732d237119cad0e410a6b025207c362aa1dde",
       "variants": {
         "thumbnail": {
-          "src": "photos/louvre-pyramid/d4dc4bac6363248a-thumbnail.webp",
+          "src": "images/travel/louvre-pyramid/d4dc4bac6363248a-thumbnail.webp",
           "width": 128,
           "height": 85,
           "bytes": 2182
         },
         "small": {
-          "src": "photos/louvre-pyramid/d4dc4bac6363248a-small.webp",
+          "src": "images/travel/louvre-pyramid/d4dc4bac6363248a-small.webp",
           "width": 640,
           "height": 424,
           "bytes": 54920
         },
         "medium": {
-          "src": "photos/louvre-pyramid/d4dc4bac6363248a-medium.webp",
+          "src": "images/travel/louvre-pyramid/d4dc4bac6363248a-medium.webp",
           "width": 1280,
           "height": 849,
           "bytes": 349956
         },
         "large": {
-          "src": "photos/louvre-pyramid/d4dc4bac6363248a-large.jpg",
+          "src": "images/travel/louvre-pyramid/d4dc4bac6363248a-large.jpg",
           "width": 1875,
           "height": 1243,
           "bytes": 506783
@@ -56,25 +56,25 @@
       "sha256": "61f765eb9178ef7cfa341c62abf5c201a65b527e8f0af9edd04751f19179698f",
       "variants": {
         "thumbnail": {
-          "src": "photos/pantheon-columns/pantheon-columns-thumbnail.webp",
+          "src": "images/travel/pantheon-columns/pantheon-columns-thumbnail.webp",
           "width": 128,
           "height": 193,
           "bytes": 4510
         },
         "small": {
-          "src": "photos/pantheon-columns/pantheon-columns-small.webp",
+          "src": "images/travel/pantheon-columns/pantheon-columns-small.webp",
           "width": 640,
           "height": 966,
           "bytes": 88086
         },
         "medium": {
-          "src": "photos/pantheon-columns/pantheon-columns-medium.webp",
+          "src": "images/travel/pantheon-columns/pantheon-columns-medium.webp",
           "width": 1280,
           "height": 1931,
           "bytes": 331034
         },
         "large": {
-          "src": "photos/pantheon-columns/pantheon-columns-large.webp",
+          "src": "images/travel/pantheon-columns/pantheon-columns-large.webp",
           "width": 1920,
           "height": 2897,
           "bytes": 613024
@@ -98,25 +98,25 @@
       "sha256": "7753fa1652575dc0b8172637204aee12ec8630032fd9b70c23abd347f366e8b6",
       "variants": {
         "thumbnail": {
-          "src": "photos/london-selfie/london-selfie-thumbnail.webp",
+          "src": "images/travel/london-selfie/london-selfie-thumbnail.webp",
           "width": 128,
           "height": 85,
           "bytes": 2210
         },
         "small": {
-          "src": "photos/london-selfie/london-selfie-small.webp",
+          "src": "images/travel/london-selfie/london-selfie-small.webp",
           "width": 640,
           "height": 424,
           "bytes": 23700
         },
         "medium": {
-          "src": "photos/london-selfie/london-selfie-medium.webp",
+          "src": "images/travel/london-selfie/london-selfie-medium.webp",
           "width": 1280,
           "height": 848,
           "bytes": 124558
         },
         "large": {
-          "src": "photos/london-selfie/london-selfie-large.webp",
+          "src": "images/travel/london-selfie/london-selfie-large.webp",
           "width": 1920,
           "height": 1273,
           "bytes": 296192
@@ -140,25 +140,25 @@
       "sha256": "90dd8c1216a035f3ec5849f1c0586cb9ca1c1e9e1d1467067e2b904ae8b89296",
       "variants": {
         "thumbnail": {
-          "src": "photos/haarlem-organ/haarlem-organ-thumbnail.webp",
+          "src": "images/travel/haarlem-organ/haarlem-organ-thumbnail.webp",
           "width": 128,
           "height": 193,
           "bytes": 9008
         },
         "small": {
-          "src": "photos/haarlem-organ/haarlem-organ-small.webp",
+          "src": "images/travel/haarlem-organ/haarlem-organ-small.webp",
           "width": 640,
           "height": 965,
           "bytes": 163412
         },
         "medium": {
-          "src": "photos/haarlem-organ/haarlem-organ-medium.webp",
+          "src": "images/travel/haarlem-organ/haarlem-organ-medium.webp",
           "width": 1280,
           "height": 1931,
           "bytes": 673552
         },
         "large": {
-          "src": "photos/haarlem-organ/haarlem-organ-large.webp",
+          "src": "images/travel/haarlem-organ/haarlem-organ-large.webp",
           "width": 1920,
           "height": 2896,
           "bytes": 1385362
@@ -182,25 +182,25 @@
       "sha256": "ffd8532201ed18a03400d525e1e3834fadafb84747f922b1df9b2478ef390114",
       "variants": {
         "thumbnail": {
-          "src": "photos/keukenhof-shrubs/keukenhof-shrubs-thumbnail.webp",
+          "src": "images/travel/keukenhof-shrubs/keukenhof-shrubs-thumbnail.webp",
           "width": 128,
           "height": 193,
           "bytes": 9258
         },
         "small": {
-          "src": "photos/keukenhof-shrubs/keukenhof-shrubs-small.webp",
+          "src": "images/travel/keukenhof-shrubs/keukenhof-shrubs-small.webp",
           "width": 640,
           "height": 965,
           "bytes": 207896
         },
         "medium": {
-          "src": "photos/keukenhof-shrubs/keukenhof-shrubs-medium.webp",
+          "src": "images/travel/keukenhof-shrubs/keukenhof-shrubs-medium.webp",
           "width": 1280,
           "height": 1931,
           "bytes": 752276
         },
         "large": {
-          "src": "photos/keukenhof-shrubs/keukenhof-shrubs-large.webp",
+          "src": "images/travel/keukenhof-shrubs/keukenhof-shrubs-large.webp",
           "width": 1920,
           "height": 2896,
           "bytes": 1473054
@@ -224,25 +224,25 @@
       "sha256": "b0702432624d8be3b93782b67271baa2dcf4b55bc7605a910c533979b0225186",
       "variants": {
         "thumbnail": {
-          "src": "photos/lucerne-lion/lucerne-lion-thumbnail.webp",
+          "src": "images/travel/lucerne-lion/lucerne-lion-thumbnail.webp",
           "width": 128,
           "height": 85,
           "bytes": 3728
         },
         "small": {
-          "src": "photos/lucerne-lion/lucerne-lion-small.webp",
+          "src": "images/travel/lucerne-lion/lucerne-lion-small.webp",
           "width": 640,
           "height": 424,
           "bytes": 69264
         },
         "medium": {
-          "src": "photos/lucerne-lion/lucerne-lion-medium.webp",
+          "src": "images/travel/lucerne-lion/lucerne-lion-medium.webp",
           "width": 1280,
           "height": 849,
           "bytes": 283618
         },
         "large": {
-          "src": "photos/lucerne-lion/lucerne-lion-large.webp",
+          "src": "images/travel/lucerne-lion/lucerne-lion-large.webp",
           "width": 1920,
           "height": 1273,
           "bytes": 662712
@@ -266,25 +266,25 @@
       "sha256": "6dd581a7c760d099d4dc332d02e508e6a07c8da597d7e09c61bb4afa94afeb70",
       "variants": {
         "thumbnail": {
-          "src": "photos/milano-turnstiles/milano-turnstiles-thumbnail.webp",
+          "src": "images/travel/milano-turnstiles/milano-turnstiles-thumbnail.webp",
           "width": 128,
           "height": 85,
           "bytes": 3350
         },
         "small": {
-          "src": "photos/milano-turnstiles/milano-turnstiles-small.webp",
+          "src": "images/travel/milano-turnstiles/milano-turnstiles-small.webp",
           "width": 640,
           "height": 424,
           "bytes": 37774
         },
         "medium": {
-          "src": "photos/milano-turnstiles/milano-turnstiles-medium.webp",
+          "src": "images/travel/milano-turnstiles/milano-turnstiles-medium.webp",
           "width": 1280,
           "height": 849,
           "bytes": 170908
         },
         "large": {
-          "src": "photos/milano-turnstiles/milano-turnstiles-large.webp",
+          "src": "images/travel/milano-turnstiles/milano-turnstiles-large.webp",
           "width": 1920,
           "height": 1273,
           "bytes": 509552
@@ -308,25 +308,25 @@
       "sha256": "4aa22d54cf7e5512a766e289b6a3e1c0f853cdd94a24b92d469cdbe7f47fc431",
       "variants": {
         "thumbnail": {
-          "src": "photos/hong-kong-umbrella/hong-kong-umbrella-thumbnail.webp",
+          "src": "images/travel/hong-kong-umbrella/hong-kong-umbrella-thumbnail.webp",
           "width": 128,
           "height": 171,
           "bytes": 6842
         },
         "small": {
-          "src": "photos/hong-kong-umbrella/hong-kong-umbrella-small.webp",
+          "src": "images/travel/hong-kong-umbrella/hong-kong-umbrella-small.webp",
           "width": 640,
           "height": 853,
           "bytes": 145116
         },
         "medium": {
-          "src": "photos/hong-kong-umbrella/hong-kong-umbrella-medium.webp",
+          "src": "images/travel/hong-kong-umbrella/hong-kong-umbrella-medium.webp",
           "width": 1280,
           "height": 1707,
           "bytes": 564194
         },
         "large": {
-          "src": "photos/hong-kong-umbrella/hong-kong-umbrella-large.webp",
+          "src": "images/travel/hong-kong-umbrella/hong-kong-umbrella-large.webp",
           "width": 1536,
           "height": 2048,
           "bytes": 766892
@@ -350,25 +350,25 @@
       "sha256": "d4f03b3a888b43903dab0739e7692d4b5bebc779e1ff9ca0a6bb4e68b2d324ca",
       "variants": {
         "thumbnail": {
-          "src": "photos/iceland-sheep/iceland-sheep-thumbnail.webp",
+          "src": "images/travel/iceland-sheep/iceland-sheep-thumbnail.webp",
           "width": 128,
           "height": 171,
           "bytes": 9070
         },
         "small": {
-          "src": "photos/iceland-sheep/iceland-sheep-small.webp",
+          "src": "images/travel/iceland-sheep/iceland-sheep-small.webp",
           "width": 640,
           "height": 853,
           "bytes": 220526
         },
         "medium": {
-          "src": "photos/iceland-sheep/iceland-sheep-medium.webp",
+          "src": "images/travel/iceland-sheep/iceland-sheep-medium.webp",
           "width": 1280,
           "height": 1707,
           "bytes": 764190
         },
         "large": {
-          "src": "photos/iceland-sheep/iceland-sheep-large.webp",
+          "src": "images/travel/iceland-sheep/iceland-sheep-large.webp",
           "width": 1920,
           "height": 2560,
           "bytes": 1371254
@@ -392,25 +392,25 @@
       "sha256": "a576172c360066c9ed80f988bded05d2c5b210853d14c8e56daf4975273a6dcd",
       "variants": {
         "thumbnail": {
-          "src": "photos/iceland-aurora/iceland-aurora-thumbnail.webp",
+          "src": "images/travel/iceland-aurora/iceland-aurora-thumbnail.webp",
           "width": 128,
           "height": 171,
           "bytes": 1454
         },
         "small": {
-          "src": "photos/iceland-aurora/iceland-aurora-small.webp",
+          "src": "images/travel/iceland-aurora/iceland-aurora-small.webp",
           "width": 640,
           "height": 853,
           "bytes": 12370
         },
         "medium": {
-          "src": "photos/iceland-aurora/iceland-aurora-medium.webp",
+          "src": "images/travel/iceland-aurora/iceland-aurora-medium.webp",
           "width": 1280,
           "height": 1707,
           "bytes": 165990
         },
         "large": {
-          "src": "photos/iceland-aurora/iceland-aurora-large.webp",
+          "src": "images/travel/iceland-aurora/iceland-aurora-large.webp",
           "width": 1920,
           "height": 2560,
           "bytes": 467592
@@ -441,25 +441,25 @@
       "sha256": "b4e7ea0ef6b728cd1813eabdd012a0f946209220efae3a589e6566cfbf460c22",
       "variants": {
         "thumbnail": {
-          "src": "photos/cinque-terre-waterfront/cinque-terre-waterfront-thumbnail.webp",
+          "src": "images/travel/cinque-terre-waterfront/cinque-terre-waterfront-thumbnail.webp",
           "width": 128,
           "height": 171,
           "bytes": 4776
         },
         "small": {
-          "src": "photos/cinque-terre-waterfront/cinque-terre-waterfront-small.webp",
+          "src": "images/travel/cinque-terre-waterfront/cinque-terre-waterfront-small.webp",
           "width": 640,
           "height": 853,
           "bytes": 126658
         },
         "medium": {
-          "src": "photos/cinque-terre-waterfront/cinque-terre-waterfront-medium.webp",
+          "src": "images/travel/cinque-terre-waterfront/cinque-terre-waterfront-medium.webp",
           "width": 1280,
           "height": 1707,
           "bytes": 443148
         },
         "large": {
-          "src": "photos/cinque-terre-waterfront/cinque-terre-waterfront-large.webp",
+          "src": "images/travel/cinque-terre-waterfront/cinque-terre-waterfront-large.webp",
           "width": 1920,
           "height": 2560,
           "bytes": 828172
@@ -483,25 +483,25 @@
       "sha256": "c977ae475699647ced68bdc8d68eb897fa0a7ed9a30667251a66a925c3639ac4",
       "variants": {
         "thumbnail": {
-          "src": "photos/w-trek-smile/w-trek-smile-thumbnail.webp",
+          "src": "images/travel/w-trek-smile/w-trek-smile-thumbnail.webp",
           "width": 128,
           "height": 171,
           "bytes": 7540
         },
         "small": {
-          "src": "photos/w-trek-smile/w-trek-smile-small.webp",
+          "src": "images/travel/w-trek-smile/w-trek-smile-small.webp",
           "width": 640,
           "height": 853,
           "bytes": 145388
         },
         "medium": {
-          "src": "photos/w-trek-smile/w-trek-smile-medium.webp",
+          "src": "images/travel/w-trek-smile/w-trek-smile-medium.webp",
           "width": 1280,
           "height": 1707,
           "bytes": 466738
         },
         "large": {
-          "src": "photos/w-trek-smile/w-trek-smile-large.webp",
+          "src": "images/travel/w-trek-smile/w-trek-smile-large.webp",
           "width": 1920,
           "height": 2560,
           "bytes": 895706
@@ -525,25 +525,25 @@
       "sha256": "89cfbe9b085120fb16b899b5fc52dce3180601f0f212f66256d325d02fe1ba86",
       "variants": {
         "thumbnail": {
-          "src": "photos/lac-blanc-hair/lac-blanc-hair-thumbnail.webp",
+          "src": "images/travel/lac-blanc-hair/lac-blanc-hair-thumbnail.webp",
           "width": 128,
           "height": 171,
           "bytes": 5216
         },
         "small": {
-          "src": "photos/lac-blanc-hair/lac-blanc-hair-small.webp",
+          "src": "images/travel/lac-blanc-hair/lac-blanc-hair-small.webp",
           "width": 640,
           "height": 853,
           "bytes": 90152
         },
         "medium": {
-          "src": "photos/lac-blanc-hair/lac-blanc-hair-medium.webp",
+          "src": "images/travel/lac-blanc-hair/lac-blanc-hair-medium.webp",
           "width": 1280,
           "height": 1707,
           "bytes": 303756
         },
         "large": {
-          "src": "photos/lac-blanc-hair/lac-blanc-hair-large.webp",
+          "src": "images/travel/lac-blanc-hair/lac-blanc-hair-large.webp",
           "width": 1920,
           "height": 2560,
           "bytes": 581224
@@ -567,25 +567,25 @@
       "sha256": "da4b0092e79d4c5dac7d5f02aa97ab03d0b0a1a8120f80220c04f23003a7274c",
       "variants": {
         "thumbnail": {
-          "src": "photos/wadi-rum-sand/wadi-rum-sand-thumbnail.webp",
+          "src": "images/travel/wadi-rum-sand/wadi-rum-sand-thumbnail.webp",
           "width": 128,
           "height": 171,
           "bytes": 2540
         },
         "small": {
-          "src": "photos/wadi-rum-sand/wadi-rum-sand-small.webp",
+          "src": "images/travel/wadi-rum-sand/wadi-rum-sand-small.webp",
           "width": 640,
           "height": 853,
           "bytes": 37132
         },
         "medium": {
-          "src": "photos/wadi-rum-sand/wadi-rum-sand-medium.webp",
+          "src": "images/travel/wadi-rum-sand/wadi-rum-sand-medium.webp",
           "width": 1280,
           "height": 1707,
           "bytes": 122978
         },
         "large": {
-          "src": "photos/wadi-rum-sand/wadi-rum-sand-large.webp",
+          "src": "images/travel/wadi-rum-sand/wadi-rum-sand-large.webp",
           "width": 1920,
           "height": 2560,
           "bytes": 249988
@@ -609,25 +609,25 @@
       "sha256": "51f06d528b65b91a5cd43738b13ebca6838ff24de2a7604afbaf966e6eca8aba",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-0964/edb3e464c54bbdde-thumbnail.webp",
+          "src": "images/travel/img-0964/edb3e464c54bbdde-thumbnail.webp",
           "width": 76,
           "height": 128,
           "bytes": 2814
         },
         "small": {
-          "src": "photos/img-0964/edb3e464c54bbdde-small.webp",
+          "src": "images/travel/img-0964/edb3e464c54bbdde-small.webp",
           "width": 378,
           "height": 640,
           "bytes": 67616
         },
         "medium": {
-          "src": "photos/img-0964/edb3e464c54bbdde-medium.webp",
+          "src": "images/travel/img-0964/edb3e464c54bbdde-medium.webp",
           "width": 757,
           "height": 1280,
           "bytes": 313354
         },
         "large": {
-          "src": "photos/img-0964/edb3e464c54bbdde-large.webp",
+          "src": "images/travel/img-0964/edb3e464c54bbdde-large.webp",
           "width": 1419,
           "height": 2400,
           "bytes": 948206
@@ -660,25 +660,25 @@
       "sha256": "1b0a45bcaf15012a881dae91cc466ea754f9fbcb4e0178b580df65c2f3792e66",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-1406/4e7b26ca164334a1-thumbnail.webp",
+          "src": "images/travel/img-1406/4e7b26ca164334a1-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 5770
         },
         "small": {
-          "src": "photos/img-1406/4e7b26ca164334a1-small.webp",
+          "src": "images/travel/img-1406/4e7b26ca164334a1-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 148880
         },
         "medium": {
-          "src": "photos/img-1406/4e7b26ca164334a1-medium.webp",
+          "src": "images/travel/img-1406/4e7b26ca164334a1-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 593964
         },
         "large": {
-          "src": "photos/img-1406/4e7b26ca164334a1-large.webp",
+          "src": "images/travel/img-1406/4e7b26ca164334a1-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1784862
@@ -713,25 +713,25 @@
       "sha256": "e466455cb85d6f393f0020aa841cc62c9c789dd334d1cfc72cc24124f609da65",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-1482/d4de8885745b8b11-thumbnail.webp",
+          "src": "images/travel/img-1482/d4de8885745b8b11-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 2412
         },
         "small": {
-          "src": "photos/img-1482/d4de8885745b8b11-small.webp",
+          "src": "images/travel/img-1482/d4de8885745b8b11-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 60200
         },
         "medium": {
-          "src": "photos/img-1482/d4de8885745b8b11-medium.webp",
+          "src": "images/travel/img-1482/d4de8885745b8b11-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 291960
         },
         "large": {
-          "src": "photos/img-1482/d4de8885745b8b11-large.webp",
+          "src": "images/travel/img-1482/d4de8885745b8b11-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1054216
@@ -766,25 +766,25 @@
       "sha256": "cb65206c690bbfddebc71020adb03457024919e21c227c1d1316f4228c9bf431",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-1540/7fa14cde7af1960f-thumbnail.webp",
+          "src": "images/travel/img-1540/7fa14cde7af1960f-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 3118
         },
         "small": {
-          "src": "photos/img-1540/7fa14cde7af1960f-small.webp",
+          "src": "images/travel/img-1540/7fa14cde7af1960f-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 73820
         },
         "medium": {
-          "src": "photos/img-1540/7fa14cde7af1960f-medium.webp",
+          "src": "images/travel/img-1540/7fa14cde7af1960f-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 314762
         },
         "large": {
-          "src": "photos/img-1540/7fa14cde7af1960f-large.webp",
+          "src": "images/travel/img-1540/7fa14cde7af1960f-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 987070
@@ -819,25 +819,25 @@
       "sha256": "ff1e0bef1e33bb51b6f0d0564002fd988be208ad09399f12585c277a000a6159",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-1561/c93df593e702db81-thumbnail.webp",
+          "src": "images/travel/img-1561/c93df593e702db81-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 5784
         },
         "small": {
-          "src": "photos/img-1561/c93df593e702db81-small.webp",
+          "src": "images/travel/img-1561/c93df593e702db81-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 123222
         },
         "medium": {
-          "src": "photos/img-1561/c93df593e702db81-medium.webp",
+          "src": "images/travel/img-1561/c93df593e702db81-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 538656
         },
         "large": {
-          "src": "photos/img-1561/c93df593e702db81-large.webp",
+          "src": "images/travel/img-1561/c93df593e702db81-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1861392
@@ -872,25 +872,25 @@
       "sha256": "a21cb0da60fac002f5b4879df81019d76a93b1c1ffc888a938b8ff7dd87e220a",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-1658/ac689836fb23d667-thumbnail.webp",
+          "src": "images/travel/img-1658/ac689836fb23d667-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 6006
         },
         "small": {
-          "src": "photos/img-1658/ac689836fb23d667-small.webp",
+          "src": "images/travel/img-1658/ac689836fb23d667-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 132464
         },
         "medium": {
-          "src": "photos/img-1658/ac689836fb23d667-medium.webp",
+          "src": "images/travel/img-1658/ac689836fb23d667-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 544780
         },
         "large": {
-          "src": "photos/img-1658/ac689836fb23d667-large.webp",
+          "src": "images/travel/img-1658/ac689836fb23d667-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1708492
@@ -925,25 +925,25 @@
       "sha256": "feda11ffb2ebef193c2913f2b6f3f8a4ae06b63e5f452a749ea6eaac23927962",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-1697/71a275b6f6e8f0d3-thumbnail.webp",
+          "src": "images/travel/img-1697/71a275b6f6e8f0d3-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 3690
         },
         "small": {
-          "src": "photos/img-1697/71a275b6f6e8f0d3-small.webp",
+          "src": "images/travel/img-1697/71a275b6f6e8f0d3-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 80192
         },
         "medium": {
-          "src": "photos/img-1697/71a275b6f6e8f0d3-medium.webp",
+          "src": "images/travel/img-1697/71a275b6f6e8f0d3-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 369314
         },
         "large": {
-          "src": "photos/img-1697/71a275b6f6e8f0d3-large.webp",
+          "src": "images/travel/img-1697/71a275b6f6e8f0d3-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1313266
@@ -978,25 +978,25 @@
       "sha256": "7511bc81fef4edfb949dce9c9bfc96f66dd1129d701ce0803c9fefe17bd5de8d",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6377/2939dd35d2a9e4bc-thumbnail.webp",
+          "src": "images/travel/img-6377/2939dd35d2a9e4bc-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 3700
         },
         "small": {
-          "src": "photos/img-6377/2939dd35d2a9e4bc-small.webp",
+          "src": "images/travel/img-6377/2939dd35d2a9e4bc-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 59306
         },
         "medium": {
-          "src": "photos/img-6377/2939dd35d2a9e4bc-medium.webp",
+          "src": "images/travel/img-6377/2939dd35d2a9e4bc-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 241548
         },
         "large": {
-          "src": "photos/img-6377/2939dd35d2a9e4bc-large.webp",
+          "src": "images/travel/img-6377/2939dd35d2a9e4bc-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1010076
@@ -1034,25 +1034,25 @@
       "sha256": "a052ea6e45b4b4c838f4aa5c137b05d9c164a7524d0b37ac25d6ef913f3c62cc",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6446/527a28f9bc40fa0f-thumbnail.webp",
+          "src": "images/travel/img-6446/527a28f9bc40fa0f-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 5658
         },
         "small": {
-          "src": "photos/img-6446/527a28f9bc40fa0f-small.webp",
+          "src": "images/travel/img-6446/527a28f9bc40fa0f-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 164562
         },
         "medium": {
-          "src": "photos/img-6446/527a28f9bc40fa0f-medium.webp",
+          "src": "images/travel/img-6446/527a28f9bc40fa0f-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 730168
         },
         "large": {
-          "src": "photos/img-6446/527a28f9bc40fa0f-large.webp",
+          "src": "images/travel/img-6446/527a28f9bc40fa0f-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 2436836
@@ -1090,25 +1090,25 @@
       "sha256": "9832dc3f65f6ae073bff3d343073cf3480cc859abf199b2874b15d305d2de90c",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6452/1cee06f5a0998cf2-thumbnail.webp",
+          "src": "images/travel/img-6452/1cee06f5a0998cf2-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 2904
         },
         "small": {
-          "src": "photos/img-6452/1cee06f5a0998cf2-small.webp",
+          "src": "images/travel/img-6452/1cee06f5a0998cf2-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 82346
         },
         "medium": {
-          "src": "photos/img-6452/1cee06f5a0998cf2-medium.webp",
+          "src": "images/travel/img-6452/1cee06f5a0998cf2-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 388538
         },
         "large": {
-          "src": "photos/img-6452/1cee06f5a0998cf2-large.webp",
+          "src": "images/travel/img-6452/1cee06f5a0998cf2-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1411352
@@ -1143,25 +1143,25 @@
       "sha256": "11333592c07365d62d3d002de33458f6904b875a17ab2df3c00331a225f6d5ae",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6511/7944d27717e6ea0f-thumbnail.webp",
+          "src": "images/travel/img-6511/7944d27717e6ea0f-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 4088
         },
         "small": {
-          "src": "photos/img-6511/7944d27717e6ea0f-small.webp",
+          "src": "images/travel/img-6511/7944d27717e6ea0f-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 98450
         },
         "medium": {
-          "src": "photos/img-6511/7944d27717e6ea0f-medium.webp",
+          "src": "images/travel/img-6511/7944d27717e6ea0f-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 452416
         },
         "large": {
-          "src": "photos/img-6511/7944d27717e6ea0f-large.webp",
+          "src": "images/travel/img-6511/7944d27717e6ea0f-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1609158
@@ -1196,25 +1196,25 @@
       "sha256": "f39e8d04c97648b6f75f9f7dbd9edb3d70e079dfea74d0c9a3be01ec86fb07a9",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6517/9349067b9f32ae58-thumbnail.webp",
+          "src": "images/travel/img-6517/9349067b9f32ae58-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 4040
         },
         "small": {
-          "src": "photos/img-6517/9349067b9f32ae58-small.webp",
+          "src": "images/travel/img-6517/9349067b9f32ae58-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 98282
         },
         "medium": {
-          "src": "photos/img-6517/9349067b9f32ae58-medium.webp",
+          "src": "images/travel/img-6517/9349067b9f32ae58-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 448328
         },
         "large": {
-          "src": "photos/img-6517/9349067b9f32ae58-large.webp",
+          "src": "images/travel/img-6517/9349067b9f32ae58-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1693940
@@ -1249,25 +1249,25 @@
       "sha256": "e3dde12804a47dd1ffe731bd62af9098c71ee41745673c303ea02f2d782e7e95",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6566/61ba9d9abbd2a11c-thumbnail.webp",
+          "src": "images/travel/img-6566/61ba9d9abbd2a11c-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 3538
         },
         "small": {
-          "src": "photos/img-6566/61ba9d9abbd2a11c-small.webp",
+          "src": "images/travel/img-6566/61ba9d9abbd2a11c-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 71550
         },
         "medium": {
-          "src": "photos/img-6566/61ba9d9abbd2a11c-medium.webp",
+          "src": "images/travel/img-6566/61ba9d9abbd2a11c-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 326976
         },
         "large": {
-          "src": "photos/img-6566/61ba9d9abbd2a11c-large.webp",
+          "src": "images/travel/img-6566/61ba9d9abbd2a11c-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1103950
@@ -1302,25 +1302,25 @@
       "sha256": "4b50f03fa95a3a96466deed1924356455b79e71b42d30cc0aed8cf3483afc292",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6567/fe43c8c9154fd3d3-thumbnail.webp",
+          "src": "images/travel/img-6567/fe43c8c9154fd3d3-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 2024
         },
         "small": {
-          "src": "photos/img-6567/fe43c8c9154fd3d3-small.webp",
+          "src": "images/travel/img-6567/fe43c8c9154fd3d3-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 38806
         },
         "medium": {
-          "src": "photos/img-6567/fe43c8c9154fd3d3-medium.webp",
+          "src": "images/travel/img-6567/fe43c8c9154fd3d3-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 181148
         },
         "large": {
-          "src": "photos/img-6567/fe43c8c9154fd3d3-large.webp",
+          "src": "images/travel/img-6567/fe43c8c9154fd3d3-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 611878
@@ -1355,25 +1355,25 @@
       "sha256": "274904182ea79307a5493ca8b63304901e12d9bb9a3082d0bde47a01b6c83903",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6618/a572b4042ad8ae84-thumbnail.webp",
+          "src": "images/travel/img-6618/a572b4042ad8ae84-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 4278
         },
         "small": {
-          "src": "photos/img-6618/a572b4042ad8ae84-small.webp",
+          "src": "images/travel/img-6618/a572b4042ad8ae84-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 102316
         },
         "medium": {
-          "src": "photos/img-6618/a572b4042ad8ae84-medium.webp",
+          "src": "images/travel/img-6618/a572b4042ad8ae84-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 465406
         },
         "large": {
-          "src": "photos/img-6618/a572b4042ad8ae84-large.webp",
+          "src": "images/travel/img-6618/a572b4042ad8ae84-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1638512
@@ -1411,25 +1411,25 @@
       "sha256": "f70f7f6a238eb4c166822534862975f5e2619af32104ed313599cf66cfd8ccff",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6663/9293fd591e454474-thumbnail.webp",
+          "src": "images/travel/img-6663/9293fd591e454474-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 3764
         },
         "small": {
-          "src": "photos/img-6663/9293fd591e454474-small.webp",
+          "src": "images/travel/img-6663/9293fd591e454474-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 94062
         },
         "medium": {
-          "src": "photos/img-6663/9293fd591e454474-medium.webp",
+          "src": "images/travel/img-6663/9293fd591e454474-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 427302
         },
         "large": {
-          "src": "photos/img-6663/9293fd591e454474-large.webp",
+          "src": "images/travel/img-6663/9293fd591e454474-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1570828
@@ -1464,25 +1464,25 @@
       "sha256": "203ef19b8ba0ec5430e7d186c780dbcebd22eadaf6be00756cf0e0487f35d5ed",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6899/40beb0bc789e2c48-thumbnail.webp",
+          "src": "images/travel/img-6899/40beb0bc789e2c48-thumbnail.webp",
           "width": 128,
           "height": 96,
           "bytes": 3536
         },
         "small": {
-          "src": "photos/img-6899/40beb0bc789e2c48-small.webp",
+          "src": "images/travel/img-6899/40beb0bc789e2c48-small.webp",
           "width": 640,
           "height": 480,
           "bytes": 76112
         },
         "medium": {
-          "src": "photos/img-6899/40beb0bc789e2c48-medium.webp",
+          "src": "images/travel/img-6899/40beb0bc789e2c48-medium.webp",
           "width": 1280,
           "height": 960,
           "bytes": 368328
         },
         "large": {
-          "src": "photos/img-6899/40beb0bc789e2c48-large.webp",
+          "src": "images/travel/img-6899/40beb0bc789e2c48-large.webp",
           "width": 2400,
           "height": 1800,
           "bytes": 1383900
@@ -1520,25 +1520,25 @@
       "sha256": "a853752103cf63fba430d4a4b2b7828d9b77906cbdb924f1e8d6b60967f12296",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-6924/8f2612714f37ad7e-thumbnail.webp",
+          "src": "images/travel/img-6924/8f2612714f37ad7e-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 1584
         },
         "small": {
-          "src": "photos/img-6924/8f2612714f37ad7e-small.webp",
+          "src": "images/travel/img-6924/8f2612714f37ad7e-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 30052
         },
         "medium": {
-          "src": "photos/img-6924/8f2612714f37ad7e-medium.webp",
+          "src": "images/travel/img-6924/8f2612714f37ad7e-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 129576
         },
         "large": {
-          "src": "photos/img-6924/8f2612714f37ad7e-large.webp",
+          "src": "images/travel/img-6924/8f2612714f37ad7e-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 555420
@@ -1573,25 +1573,25 @@
       "sha256": "65293990d24ef9863d58972fa086d277244c7d6149a7d8d85dcd6ba991f67514",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-7116/aa82a8230bcb98aa-thumbnail.webp",
+          "src": "images/travel/img-7116/aa82a8230bcb98aa-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 4248
         },
         "small": {
-          "src": "photos/img-7116/aa82a8230bcb98aa-small.webp",
+          "src": "images/travel/img-7116/aa82a8230bcb98aa-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 106012
         },
         "medium": {
-          "src": "photos/img-7116/aa82a8230bcb98aa-medium.webp",
+          "src": "images/travel/img-7116/aa82a8230bcb98aa-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 481888
         },
         "large": {
-          "src": "photos/img-7116/aa82a8230bcb98aa-large.webp",
+          "src": "images/travel/img-7116/aa82a8230bcb98aa-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1594094
@@ -1626,25 +1626,25 @@
       "sha256": "8e776a83398f59123863dbc9ec989dd947f6766d5320bd6a2e18bccefee5da1c",
       "variants": {
         "thumbnail": {
-          "src": "photos/img-7366/a0ce4c82c60d1543-thumbnail.webp",
+          "src": "images/travel/img-7366/a0ce4c82c60d1543-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 3936
         },
         "small": {
-          "src": "photos/img-7366/a0ce4c82c60d1543-small.webp",
+          "src": "images/travel/img-7366/a0ce4c82c60d1543-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 88704
         },
         "medium": {
-          "src": "photos/img-7366/a0ce4c82c60d1543-medium.webp",
+          "src": "images/travel/img-7366/a0ce4c82c60d1543-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 307470
         },
         "large": {
-          "src": "photos/img-7366/a0ce4c82c60d1543-large.webp",
+          "src": "images/travel/img-7366/a0ce4c82c60d1543-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 911966
@@ -1679,25 +1679,25 @@
       "sha256": "9a0b1e9e4f53da1df25388916da19be6ca26db32cf75072c03efe0488261d7e3",
       "variants": {
         "thumbnail": {
-          "src": "photos/acadia-granite-view/7c870a48e49b63b8-thumbnail.webp",
+          "src": "images/travel/acadia-granite-view/7c870a48e49b63b8-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 3630
         },
         "small": {
-          "src": "photos/acadia-granite-view/7c870a48e49b63b8-small.webp",
+          "src": "images/travel/acadia-granite-view/7c870a48e49b63b8-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 99376
         },
         "medium": {
-          "src": "photos/acadia-granite-view/7c870a48e49b63b8-medium.webp",
+          "src": "images/travel/acadia-granite-view/7c870a48e49b63b8-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 448932
         },
         "large": {
-          "src": "photos/acadia-granite-view/7c870a48e49b63b8-large.webp",
+          "src": "images/travel/acadia-granite-view/7c870a48e49b63b8-large.webp",
           "width": 1183,
           "height": 1578,
           "bytes": 716982
@@ -1731,25 +1731,25 @@
       "sha256": "7df527bda5b1a915141b434bfc0ad6f5538be1d4bf3c2e4658d130be0d401263",
       "variants": {
         "thumbnail": {
-          "src": "photos/mount-hood-lake/dc14a663132fa777-thumbnail.webp",
+          "src": "images/travel/mount-hood-lake/dc14a663132fa777-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 1666
         },
         "small": {
-          "src": "photos/mount-hood-lake/dc14a663132fa777-small.webp",
+          "src": "images/travel/mount-hood-lake/dc14a663132fa777-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 40778
         },
         "medium": {
-          "src": "photos/mount-hood-lake/dc14a663132fa777-medium.webp",
+          "src": "images/travel/mount-hood-lake/dc14a663132fa777-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 186524
         },
         "large": {
-          "src": "photos/mount-hood-lake/dc14a663132fa777-large.webp",
+          "src": "images/travel/mount-hood-lake/dc14a663132fa777-large.webp",
           "width": 1183,
           "height": 1578,
           "bytes": 297194
@@ -1787,25 +1787,25 @@
       "sha256": "5448b317d946e2db501b0a3ce7a186c1e041e49ad0175d09a44f2d5c05abc051",
       "variants": {
         "thumbnail": {
-          "src": "photos/space-needle/5c77570f79a9f7c0-thumbnail.webp",
+          "src": "images/travel/space-needle/5c77570f79a9f7c0-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 2780
         },
         "small": {
-          "src": "photos/space-needle/5c77570f79a9f7c0-small.webp",
+          "src": "images/travel/space-needle/5c77570f79a9f7c0-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 65940
         },
         "medium": {
-          "src": "photos/space-needle/5c77570f79a9f7c0-medium.webp",
+          "src": "images/travel/space-needle/5c77570f79a9f7c0-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 283074
         },
         "large": {
-          "src": "photos/space-needle/5c77570f79a9f7c0-large.webp",
+          "src": "images/travel/space-needle/5c77570f79a9f7c0-large.webp",
           "width": 1183,
           "height": 1578,
           "bytes": 463436
@@ -1839,25 +1839,25 @@
       "sha256": "9e71c133b206c8ff3bd11c249b609d324f004be222833056c9e46c256276d13b",
       "variants": {
         "thumbnail": {
-          "src": "photos/vatnajokull-glacier/5180feafa3b53b82-thumbnail.webp",
+          "src": "images/travel/vatnajokull-glacier/5180feafa3b53b82-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 4040
         },
         "small": {
-          "src": "photos/vatnajokull-glacier/5180feafa3b53b82-small.webp",
+          "src": "images/travel/vatnajokull-glacier/5180feafa3b53b82-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 82986
         },
         "medium": {
-          "src": "photos/vatnajokull-glacier/5180feafa3b53b82-medium.webp",
+          "src": "images/travel/vatnajokull-glacier/5180feafa3b53b82-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 356744
         },
         "large": {
-          "src": "photos/vatnajokull-glacier/5180feafa3b53b82-large.webp",
+          "src": "images/travel/vatnajokull-glacier/5180feafa3b53b82-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1131710
@@ -1894,25 +1894,25 @@
       "sha256": "679571a4af04c8d4d62c99799f0f201d6afc48fc43cfe37aed7d2126916aadbd",
       "variants": {
         "thumbnail": {
-          "src": "photos/fez-street-kitten/8549829d668fae43-thumbnail.webp",
+          "src": "images/travel/fez-street-kitten/8549829d668fae43-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 4188
         },
         "small": {
-          "src": "photos/fez-street-kitten/8549829d668fae43-small.webp",
+          "src": "images/travel/fez-street-kitten/8549829d668fae43-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 85516
         },
         "medium": {
-          "src": "photos/fez-street-kitten/8549829d668fae43-medium.webp",
+          "src": "images/travel/fez-street-kitten/8549829d668fae43-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 331712
         },
         "large": {
-          "src": "photos/fez-street-kitten/8549829d668fae43-large.webp",
+          "src": "images/travel/fez-street-kitten/8549829d668fae43-large.webp",
           "width": 1800,
           "height": 2400,
           "bytes": 1027526
@@ -1947,25 +1947,25 @@
       "sha256": "49be921236d7231c46a3ac092d7dbe59c4c8e48686931e1db4f995bbcbf7b81e",
       "variants": {
         "thumbnail": {
-          "src": "photos/orlando-sky-circle/5741c7464649ce36-thumbnail.webp",
+          "src": "images/travel/orlando-sky-circle/5741c7464649ce36-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 3692
         },
         "small": {
-          "src": "photos/orlando-sky-circle/5741c7464649ce36-small.webp",
+          "src": "images/travel/orlando-sky-circle/5741c7464649ce36-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 52490
         },
         "medium": {
-          "src": "photos/orlando-sky-circle/5741c7464649ce36-medium.webp",
+          "src": "images/travel/orlando-sky-circle/5741c7464649ce36-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 216150
         },
         "large": {
-          "src": "photos/orlando-sky-circle/5741c7464649ce36-large.webp",
+          "src": "images/travel/orlando-sky-circle/5741c7464649ce36-large.webp",
           "width": 1183,
           "height": 1578,
           "bytes": 309514
@@ -1997,25 +1997,25 @@
       "sha256": "40701037026a6a13a4eda5b8d61b09b0d5e24eb431c21f73b976675fa8a1ce7b",
       "variants": {
         "thumbnail": {
-          "src": "photos/zion-canyon-cliffs/dfdfd031496e0d09-thumbnail.webp",
+          "src": "images/travel/zion-canyon-cliffs/dfdfd031496e0d09-thumbnail.webp",
           "width": 128,
           "height": 96,
           "bytes": 4376
         },
         "small": {
-          "src": "photos/zion-canyon-cliffs/dfdfd031496e0d09-small.webp",
+          "src": "images/travel/zion-canyon-cliffs/dfdfd031496e0d09-small.webp",
           "width": 640,
           "height": 481,
           "bytes": 108342
         },
         "medium": {
-          "src": "photos/zion-canyon-cliffs/dfdfd031496e0d09-medium.webp",
+          "src": "images/travel/zion-canyon-cliffs/dfdfd031496e0d09-medium.webp",
           "width": 1280,
           "height": 961,
           "bytes": 466122
         },
         "large": {
-          "src": "photos/zion-canyon-cliffs/dfdfd031496e0d09-large.webp",
+          "src": "images/travel/zion-canyon-cliffs/dfdfd031496e0d09-large.webp",
           "width": 1875,
           "height": 1408,
           "bytes": 714724
@@ -2047,25 +2047,25 @@
       "sha256": "fec4fb4eb9aec2bdc5e985b8eb92dc5e9f104063ef4df07c8beb8dae9be4f7e7",
       "variants": {
         "thumbnail": {
-          "src": "photos/rocky-mountain-snowy-trail/a800aca9492c134a-thumbnail.webp",
+          "src": "images/travel/rocky-mountain-snowy-trail/a800aca9492c134a-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 4892
         },
         "small": {
-          "src": "photos/rocky-mountain-snowy-trail/a800aca9492c134a-small.webp",
+          "src": "images/travel/rocky-mountain-snowy-trail/a800aca9492c134a-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 141690
         },
         "medium": {
-          "src": "photos/rocky-mountain-snowy-trail/a800aca9492c134a-medium.webp",
+          "src": "images/travel/rocky-mountain-snowy-trail/a800aca9492c134a-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 588698
         },
         "large": {
-          "src": "photos/rocky-mountain-snowy-trail/a800aca9492c134a-large.webp",
+          "src": "images/travel/rocky-mountain-snowy-trail/a800aca9492c134a-large.webp",
           "width": 1125,
           "height": 1500,
           "bytes": 682964
@@ -2097,25 +2097,25 @@
       "sha256": "dcebcabe82785532268eb6ae7c8501b25bc7f3fa9732cdc47a241679c1e8884c",
       "variants": {
         "thumbnail": {
-          "src": "photos/chebika-oasis-stairs/74932c02cdd46a9c-thumbnail.webp",
+          "src": "images/travel/chebika-oasis-stairs/74932c02cdd46a9c-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 4104
         },
         "small": {
-          "src": "photos/chebika-oasis-stairs/74932c02cdd46a9c-small.webp",
+          "src": "images/travel/chebika-oasis-stairs/74932c02cdd46a9c-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 118098
         },
         "medium": {
-          "src": "photos/chebika-oasis-stairs/74932c02cdd46a9c-medium.webp",
+          "src": "images/travel/chebika-oasis-stairs/74932c02cdd46a9c-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 547066
         },
         "large": {
-          "src": "photos/chebika-oasis-stairs/74932c02cdd46a9c-large.webp",
+          "src": "images/travel/chebika-oasis-stairs/74932c02cdd46a9c-large.webp",
           "width": 1183,
           "height": 1578,
           "bytes": 612700
@@ -2147,25 +2147,25 @@
       "sha256": "40742f35bbb8a24a141a9f87d72992d69374047871d4d883fa4ee0379478c429",
       "variants": {
         "thumbnail": {
-          "src": "photos/olsany-cemetery-path/aaef042b987ee721-thumbnail.webp",
+          "src": "images/travel/olsany-cemetery-path/aaef042b987ee721-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 5226
         },
         "small": {
-          "src": "photos/olsany-cemetery-path/aaef042b987ee721-small.webp",
+          "src": "images/travel/olsany-cemetery-path/aaef042b987ee721-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 142466
         },
         "medium": {
-          "src": "photos/olsany-cemetery-path/aaef042b987ee721-medium.webp",
+          "src": "images/travel/olsany-cemetery-path/aaef042b987ee721-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 582836
         },
         "large": {
-          "src": "photos/olsany-cemetery-path/aaef042b987ee721-large.webp",
+          "src": "images/travel/olsany-cemetery-path/aaef042b987ee721-large.webp",
           "width": 1125,
           "height": 1500,
           "bytes": 599254
@@ -2197,25 +2197,25 @@
       "sha256": "49cc440aa07337a772e7a00061c22878e444ce35eb0cdd613d27b99aad7badbb",
       "variants": {
         "thumbnail": {
-          "src": "photos/vienna-state-opera/d2edfa6ac12e0b66-thumbnail.webp",
+          "src": "images/travel/vienna-state-opera/d2edfa6ac12e0b66-thumbnail.webp",
           "width": 96,
           "height": 128,
           "bytes": 4710
         },
         "small": {
-          "src": "photos/vienna-state-opera/d2edfa6ac12e0b66-small.webp",
+          "src": "images/travel/vienna-state-opera/d2edfa6ac12e0b66-small.webp",
           "width": 480,
           "height": 640,
           "bytes": 99316
         },
         "medium": {
-          "src": "photos/vienna-state-opera/d2edfa6ac12e0b66-medium.webp",
+          "src": "images/travel/vienna-state-opera/d2edfa6ac12e0b66-medium.webp",
           "width": 960,
           "height": 1280,
           "bytes": 355416
         },
         "large": {
-          "src": "photos/vienna-state-opera/d2edfa6ac12e0b66-large.webp",
+          "src": "images/travel/vienna-state-opera/d2edfa6ac12e0b66-large.webp",
           "width": 1183,
           "height": 1578,
           "bytes": 489216

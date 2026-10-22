@@ -9,5 +9,5 @@ styles: [/assets/css/photos.css]
 scripts: [/assets/js/photos.js]
 ---
 <h1 id="gallery-title">Photos</h1>
-<section id="photo-gallery" class="photo-gallery" data-travel-base="{{ '/assets/travel/' | relative_url }}" aria-label="Travel photos" aria-live="polite"></section>
+<section id="photo-gallery" class="photo-gallery" data-asset-base="{{ '/assets/' | relative_url }}" data-map-url="{{ '/travel/' | relative_url }}" aria-label="Travel photos" aria-live="polite"></section>
 <noscript><p>Enable JavaScript to browse the photos, or explore the <a href="{{ '/travel/' | relative_url }}">travel map</a>.</p></noscript>

@@ -7,7 +7,7 @@ import math
 from pathlib import Path
 import re
 
-ROOT = Path(__file__).resolve().parents[2] / 'assets' / 'travel'
+DATA = Path(__file__).resolve().parents[2] / 'assets/data/travel'
 
 
 def airport_code(label):
@@ -78,9 +78,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('csv', type=Path)
     args = parser.parse_args()
-    airports = json.loads((ROOT/'data/flights.json').read_text())['airports']
+    airports = json.loads((DATA/'flights.json').read_text())['airports']
     data = import_flights(args.csv, airports)
-    (ROOT/'data/flights.json').write_text(json.dumps(data, separators=(',', ':'), ensure_ascii=False)+'\n')
+    (DATA/'flights.json').write_text(json.dumps(data, separators=(',', ':'), ensure_ascii=False)+'\n')
     print(f"Saved {len(data['flights'])} flights on {len(data['routes'])} connections across {len(airports)} airports")
 
 
