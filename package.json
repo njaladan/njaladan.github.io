@@ -4,8 +4,8 @@
   "scripts": {
     "serve": "bundle exec jekyll serve --livereload",
     "build": "bundle exec jekyll build",
-    "format": "prettier --write \"**/*.{js,css}\"",
-    "format:check": "prettier --check \"**/*.{js,css}\"",
+    "format": "prettier --write \"**/*.{js,css,json}\"",
+    "format:check": "prettier --check \"**/*.{js,css,json}\"",
     "lint": "eslint .",
     "lint:py": "ruff check",
     "check": "npm run lint && npm run format:check && npm run lint:py && npm run build"
