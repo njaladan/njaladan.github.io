@@ -77,3 +77,35 @@ export function releaseSpeed(samples, now) {
     MAX_FLING_SPEED
   );
 }
+
+/**
+ * @typedef {{ start: number, end: number, easing: (t: number) => number }} Piece
+ */
+
+/**
+ * Splits a monotonic ease into `pieces` legs that each cover an equal share
+ * of the travel, so no single camera ease spans more than its share. Each leg
+ * runs from `start` to `end` of the original time and eases its own share.
+ * @param {(t: number) => number} easing
+ * @param {number} pieces
+ * @returns {Piece[]}
+ */
+export function splitEase(easing, pieces) {
+  const timeAt = (/** @type {number} */ share) => {
+    let low = 0,
+      high = 1;
+    for (let step = 0; step < 40; step++) {
+      const mid = (low + high) / 2;
+      if (easing(mid) < share) low = mid;
+      else high = mid;
+    }
+    return high;
+  };
+  const bounds = Array.from({ length: pieces + 1 }, (_, i) =>
+    i === 0 ? 0 : i === pieces ? 1 : timeAt(i / pieces)
+  );
+  return bounds.slice(1).map((end, i) => {
+    const start = bounds[i];
+    return { start, end, easing: t => easing(start + t * (end - start)) * pieces - i };
+  });
+}

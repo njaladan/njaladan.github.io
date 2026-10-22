@@ -11,7 +11,8 @@ import {
   flingTravel,
   idleRise,
   introTravel,
-  releaseSpeed
+  releaseSpeed,
+  splitEase
 } from './spin-curves.js';
 import { sameLongitude } from './math.js';
 
@@ -23,6 +24,9 @@ const RISE_SECONDS = 4;
 const DRIFT_STEP = 30;
 // Quiet time before the camera counts as resting.
 const REST_MS = 1500;
+// MapLibre eases the globe the short way round, so a turn past 180° would
+// run backwards. Longer turns go in legs no wider than this.
+const MAX_LEG_DEGREES = 90;
 
 /**
  * A linear-in-time ease covering `curve` from 0 to `seconds`.
@@ -50,13 +54,28 @@ class IdleSpin {
    * @param {(t: number) => number} easing
    */
   turn(degrees, seconds, easing) {
+    const pieces = Math.max(1, Math.ceil(Math.abs(degrees) / MAX_LEG_DEGREES));
+    this.ease(
+      splitEase(easing, pieces).map(piece => ({
+        degrees: degrees / pieces,
+        seconds: (piece.end - piece.start) * seconds,
+        easing: piece.easing
+      }))
+    );
+  }
+
+  /**
+   * Runs the legs of a turn in order, then drifts on.
+   * @param {{ degrees: number, seconds: number, easing: (t: number) => number }[]} legs
+   */
+  ease([leg, ...rest]) {
     const { globe, map } = this;
     const { lng, lat } = map.getCenter();
-    globe._spinTarget = lng - degrees;
+    globe._spinTarget = lng - leg.degrees;
     map.easeTo({
       center: [globe._spinTarget, lat],
-      duration: seconds * 1000,
-      easing,
+      duration: leg.seconds * 1000,
+      easing: leg.easing,
       essential: true
     });
     // Any other camera change interrupts the ease before it lands.
@@ -64,7 +83,8 @@ class IdleSpin {
       const landed =
         globe._spinTarget !== null && sameLongitude(map.getCenter().lng, globe._spinTarget);
       if (landed && !globe._removed) {
-        this.turn(DRIFT_STEP * this.dir, DRIFT_STEP / IDLE_SPEED, t => t);
+        if (rest.length) this.ease(rest);
+        else this.turn(DRIFT_STEP * this.dir, DRIFT_STEP / IDLE_SPEED, t => t);
       } else {
         globe._spinTarget = null;
         this.resume();
