@@ -14,8 +14,7 @@ import {
   shapeLines,
   shapeYears,
   sportColor,
-  stackAlpha,
-  stackFits
+  stackAlpha
 } from './athletics/shapes.js';
 
 /** @typedef {import('./athletics/shapes.js').Shape} Shape */
@@ -48,7 +47,6 @@ async function loadShapes() {
 
 /** @type {Shape[]} */
 const all = prepareShapes(await loadShapes());
-stackFits(all);
 /** @type {{ sport: string, year: 'all' | number, view: string }} */
 const state = { sport: 'all', year: 'all', view: 'grid' };
 /** Shapes currently shown, and the one open in the viewer. @type {Shape[]} */
@@ -131,15 +129,11 @@ function drawStack() {
   ctx.lineWidth = px / css / scale;
   ctx.lineJoin = ctx.lineCap = 'round';
   for (const s of list) {
-    const fit = s.fit ?? 1;
-    const shift = 500 * (1 - fit);
     ctx.strokeStyle = sportColor(s.sport);
     ctx.beginPath();
     for (const seg of s.segs) {
-      ctx.moveTo(seg[0] * fit + shift, seg[1] * fit + shift);
-      for (let i = 2; i < seg.length; i += 2) {
-        ctx.lineTo(seg[i] * fit + shift, seg[i + 1] * fit + shift);
-      }
+      ctx.moveTo(seg[0], seg[1]);
+      for (let i = 2; i < seg.length; i += 2) ctx.lineTo(seg[i], seg[i + 1]);
     }
     ctx.stroke();
   }
