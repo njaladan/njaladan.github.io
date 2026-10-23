@@ -10,6 +10,6 @@ The scope of the book in general is massive as well, literally. The end grapples
 
 A huge part of the story was just...melancholy. Moments like when Tianming’s brain is sent out forever, or when the solar system folds into 2 dimensions, or when Cheng Xin is literally miles away from reuniting with Tianming but ends up getting sucked into a black domain. That’s sad. The last moments were really written wonderfully, and I can’t even begin to describe how sad I felt during large chunks of the story. It’s sad spending almost 3 books rooting for Earth to win, only to realize that the end was inevitable. It seems real, though.
 
-The one regret I had when reading was the relationship between Tianming and Cheng Xin--it’s not established very well. Although I eventually felt the pain of loss, establishing that key connection would have made the end devastatingly brutal.
+The one regret I had when reading was the relationship between Tianming and Cheng Xin—it’s not established very well. Although I eventually felt the pain of loss, establishing that key connection would have made the end devastatingly brutal.
 
 I can’t wait to reread this series sometime in the future and relive the magic (and the destruction) all over again. Netflix, please make a series for this.

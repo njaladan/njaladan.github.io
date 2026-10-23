@@ -9,7 +9,7 @@ Well, the book is based more on nonfiction, so it’s less of a ride that’s in
 - Housing prices were at an all-time high, as they’d been growing for 50+ years
 - MBS (mortgage-backed securities) made up the secondary mortgage market, which were basically ways that loan-people sold loans to big companies
     - Big companies had an incentive to buy these loans outright as people paying off their mortgages would be a source of fixed income (mortgage bonds)
-    - Mortgages were taken by people had different amounts of credit (debt credibility) to them
+    - Mortgages were taken by people who had different amounts of credit (debt credibility) to them
     - As a result, large groups of mortgages were bundled together and separated into *tranches*, which were basically groups that were “more” or “less” credible depending on the average FICO score of the people that took those
 - Because of subtleties in how the tranches were given scores (securities are given scores by Moody’s and S&P in NYC), the banks were able to take advantage and sell lower quality securities disguised as higher quality ones
 - The situation was further compromised by the invention of synthetic CDOs

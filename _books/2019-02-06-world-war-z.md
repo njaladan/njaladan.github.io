@@ -2,7 +2,7 @@
 title:  "World War Z"
 ---
 
-There’s so much content jam-packed into this novel, partially due to its unique style. World War Z is a nontraditional novel, written as a series of vignettes from survivors of the “Zombie War” that takes place at some undetermined point in a world very similar to our own. It’s gripping and realistic, and most of the excitement comes due to the geopolitical tensions that arise from the unlikely scenario of a world teeming with a zombie parasite that somehow resists almost all forms of destruction except a shot to the brain.
+There’s so much content jam-packed into this novel, partially due to its unique style. *World War Z* is a nontraditional novel, written as a series of vignettes from survivors of the “Zombie War” that takes place at some undetermined point in a world very similar to our own. It’s gripping and realistic, and most of the excitement comes due to the geopolitical tensions that arise from the unlikely scenario of a world teeming with a zombie parasite that somehow resists almost all forms of destruction except a shot to the brain.
 
 Max Brooks takes us on a chronological journey through the way that over 30 countries deal with the crisis on every level of society; we see oil miners, people on the ISS, regular Joes in America, military officials in India, the secretive North Korea, and the catacombs of Paris. Every individual’s story fits into the larger picture of a world dealing with a crisis of never-before-seen proportions, and the failures at every point that prevent humanity from nipping the problem in the bud.
 
