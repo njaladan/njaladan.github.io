@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title:  "NESmerize"
 tags: [ Projects ]
 image: assets/images/projects/dk.png
