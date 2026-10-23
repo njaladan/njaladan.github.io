@@ -21,12 +21,14 @@ import {
 
 const DRAW_MS = 1600;
 const RESIZE_DEBOUNCE_MS = 150;
-// Shapes are drawn in a 0–1000 box; the stack adds a 40-unit margin on every side.
-const STACK_MARGIN = 40;
+// Shapes are drawn in a 0–1000 box; the stack zooms out with a margin on every side.
+const STACK_MARGIN = 70;
 const STACK_SIZE = 1000 + 2 * STACK_MARGIN;
 const STACK_FALLBACK_WIDTH = 720;
-// Higher pixel ratios cost memory on phones without looking any sharper.
-const MAX_PIXEL_RATIO = 2;
+// Match phone screens up to 3x; the stack canvas is small enough there to afford it.
+const MAX_PIXEL_RATIO = 3;
+// Keep the canvas backing store within ~16 MB however wide the screen and ratio.
+const MAX_STACK_PX = 2048;
 
 /**
  * Fetches the shapes written by scripts/athletics/build_athletics_shapes.py.
@@ -113,8 +115,9 @@ function render() {
 function drawStack() {
   const { canvas } = ui;
   const ratio = Math.min(window.devicePixelRatio || 1, MAX_PIXEL_RATIO);
-  const css = canvas.getBoundingClientRect().width || STACK_FALLBACK_WIDTH;
-  const px = Math.round(css * ratio);
+  // The drawable width, without the border, so canvas pixels map 1:1 onto the screen.
+  const css = canvas.clientWidth || STACK_FALLBACK_WIDTH;
+  const px = Math.min(MAX_STACK_PX, Math.round(css * ratio));
   canvas.width = canvas.height = px;
   const ctx = canvas.getContext('2d');
   const scale = px / STACK_SIZE;
@@ -123,8 +126,8 @@ function drawStack() {
   ctx.fillRect(-STACK_MARGIN, -STACK_MARGIN, STACK_SIZE, STACK_SIZE);
   ctx.globalCompositeOperation = 'multiply';
   ctx.globalAlpha = stackAlpha(list.length);
-  // One CSS pixel wide at any canvas size.
-  ctx.lineWidth = ((2 / scale) * ratio) / 2;
+  // Half a CSS pixel wide at any canvas size: hairlines keep a thousand routes legible.
+  ctx.lineWidth = (0.5 * px) / css / scale;
   ctx.lineJoin = ctx.lineCap = 'round';
   for (const s of list) {
     ctx.strokeStyle = sportColor(s.sport);
