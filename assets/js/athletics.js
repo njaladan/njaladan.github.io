@@ -115,7 +115,8 @@ function render() {
 function drawStack() {
   const { canvas } = ui;
   const ratio = Math.min(window.devicePixelRatio || 1, MAX_PIXEL_RATIO);
-  const css = canvas.getBoundingClientRect().width || STACK_FALLBACK_WIDTH;
+  // The drawable width, without the border, so canvas pixels map 1:1 onto the screen.
+  const css = canvas.clientWidth || STACK_FALLBACK_WIDTH;
   const px = Math.min(MAX_STACK_PX, Math.round(css * ratio));
   canvas.width = canvas.height = px;
   const ctx = canvas.getContext('2d');
@@ -125,8 +126,8 @@ function drawStack() {
   ctx.fillRect(-STACK_MARGIN, -STACK_MARGIN, STACK_SIZE, STACK_SIZE);
   ctx.globalCompositeOperation = 'multiply';
   ctx.globalAlpha = stackAlpha(list.length);
-  // One CSS pixel wide at any canvas size.
-  ctx.lineWidth = px / css / scale;
+  // Half a CSS pixel wide at any canvas size: hairlines keep a thousand routes legible.
+  ctx.lineWidth = (0.5 * px) / css / scale;
   ctx.lineJoin = ctx.lineCap = 'round';
   for (const s of list) {
     ctx.strokeStyle = sportColor(s.sport);
