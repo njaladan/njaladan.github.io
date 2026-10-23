@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title:  "CodeQueue"
 tags: [ Projects ]
 image: assets/images/projects/codequeue.png

@@ -1,7 +1,8 @@
 ---
 layout: default
 ---
-{% assign books = site.tags.Books | sort: 'date' %}
+{% comment %}Reversed first so books read on the same day keep their original order.{% endcomment %}
+{% assign books = site.books | reverse | sort: 'date' %}
 <div data-library="books">
   <h1>Reading</h1>
   <div class="library-toolbar">
