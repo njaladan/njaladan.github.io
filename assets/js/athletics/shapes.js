@@ -9,7 +9,7 @@ import { escapeHtml } from '../lib/html.js';
  * @property {string} sport A key of SPORTS.
  * @property {number[][]} segs
  * @property {number} year
- * @property {number} [fit] Cached stackFit(segs).
+ * @property {number} [fit] Stack scale, set by stackFits.
  */
 
 /** @typedef {{ sport: string, year: 'all' | number }} ShapeFilter */
@@ -134,21 +134,36 @@ export function chipButton({ key, text, swatch }) {
   return `<button type="button" aria-pressed="${key === 'all'}">${dot}${escapeHtml(text)}</button>`;
 }
 
+/** Share of routes that keep their size in the stack; the rest shrink to stay in frame. */
+const STACK_FIT_SHARE = 0.99;
+
 /**
- * How much to shrink a shape for the stack so its farthest point from the box centre
- * lands on a circle of radius 500. Fitting by radius instead of by box keeps long or
- * diagonal routes from piling up along a square edge.
- * @param {number[][]} segs
- * @returns {number}
+ * Sets each shape's `fit`: how much to scale it about the box centre for the stack.
+ * Routes are sized by their spread (RMS distance from the centre), not their extent, so
+ * their far ends land at different places instead of all meeting the same edge and
+ * looking cut off. One zoom keeps 99% of routes whole; the long, thin rest shrink until
+ * they fit the box too.
+ * @param {Shape[]} shapes
  */
-export function stackFit(segs) {
-  let max = 0;
-  for (const seg of segs) {
-    for (let i = 0; i < seg.length; i += 2) {
-      max = Math.max(max, Math.hypot(seg[i] - 500, seg[i + 1] - 500));
+export function stackFits(shapes) {
+  const sized = shapes.map(s => {
+    let sum = 0;
+    let n = 0;
+    let ext = 0;
+    for (const seg of s.segs) {
+      for (let i = 0; i < seg.length; i += 2) {
+        const dx = seg[i] - 500;
+        const dy = seg[i + 1] - 500;
+        sum += dx * dx + dy * dy;
+        n++;
+        ext = Math.max(ext, Math.abs(dx), Math.abs(dy));
+      }
     }
-  }
-  return max > 500 ? 500 / max : 1;
+    return { s, rms: Math.sqrt(sum / (n || 1)) || 1, ext: ext || 1 };
+  });
+  const ratios = sized.map(({ rms, ext }) => ext / rms).sort((a, b) => a - b);
+  const zoom = 500 / (ratios[Math.floor(STACK_FIT_SHARE * (ratios.length - 1))] || 1);
+  for (const { s, rms, ext } of sized) s.fit = Math.min(zoom / rms, 500 / ext);
 }
 
 /**

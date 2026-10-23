@@ -10,7 +10,7 @@ import {
   shapeEnds,
   shapeYears,
   stackAlpha,
-  stackFit
+  stackFits
 } from '../../assets/js/athletics/shapes.js';
 
 const raw = [
@@ -86,8 +86,15 @@ test('drawSchedule splits the duration by length', () => {
   assert.deepEqual(drawSchedule([0], 400), [{ delay: 0, share: 0 }]);
 });
 
-test('stackFit shrinks shapes that reach past the centred circle', () => {
-  assert.equal(stackFit([[400, 400, 600, 600]]), 1);
-  assert.equal(stackFit([[500, 0, 500, 1000]]), 1);
-  assert.ok(Math.abs(stackFit([[0, 0, 1000, 1000]]) - Math.SQRT1_2) < 1e-9);
+test('stackFits sizes routes by spread and keeps every route inside the box', () => {
+  const big = { segs: [[300, 500, 500, 300, 700, 500, 500, 700, 300, 500]] };
+  const small = { segs: [[400, 500, 500, 400, 600, 500, 500, 600, 400, 500]] };
+  const line = { segs: [[0, 500, 250, 500, 500, 500, 750, 500, 1000, 500]] };
+  const shapes = /** @type {any[]} */ ([big, small, line]);
+  stackFits(shapes);
+  // Rings of any size come out the same size; the long line shrinks to stay in the box.
+  assert.ok(Math.abs(200 * big.fit - 100 * small.fit) < 1e-9);
+  for (const s of shapes) {
+    for (const v of s.segs[0]) assert.ok(Math.abs((v - 500) * s.fit) <= 500 + 1e-9);
+  }
 });

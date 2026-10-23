@@ -15,7 +15,7 @@ import {
   shapeYears,
   sportColor,
   stackAlpha,
-  stackFit
+  stackFits
 } from './athletics/shapes.js';
 
 /** @typedef {import('./athletics/shapes.js').Shape} Shape */
@@ -48,6 +48,7 @@ async function loadShapes() {
 
 /** @type {Shape[]} */
 const all = prepareShapes(await loadShapes());
+stackFits(all);
 /** @type {{ sport: string, year: 'all' | number, view: string }} */
 const state = { sport: 'all', year: 'all', view: 'grid' };
 /** Shapes currently shown, and the one open in the viewer. @type {Shape[]} */
@@ -130,8 +131,7 @@ function drawStack() {
   ctx.lineWidth = px / css / scale;
   ctx.lineJoin = ctx.lineCap = 'round';
   for (const s of list) {
-    // Shrink about the centre so every route fits inside a circle.
-    const fit = (s.fit ??= stackFit(s.segs));
+    const fit = s.fit ?? 1;
     const shift = 500 * (1 - fit);
     ctx.strokeStyle = sportColor(s.sport);
     ctx.beginPath();
