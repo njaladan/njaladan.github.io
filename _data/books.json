@@ -20,17 +20,6 @@
     "cover_ratio": 0.652
   },
   {
-    "id": "2025-12-31-the-stranger",
-    "title": "The Stranger",
-    "date": "2025-12-31",
-    "author": "Albert Camus",
-    "pages": 123,
-    "cover": "/assets/images/books/2025-12-31-the-stranger.webp",
-    "art_source": "https://covers.openlibrary.org/b/id/15070895-M.jpg",
-    "cover_ratio": 0.618,
-    "cover_large": "/assets/images/books/large/2025-12-31-the-stranger.webp"
-  },
-  {
     "id": "2025-12-08-waiting-for-godot",
     "title": "Waiting for Godot",
     "date": "2025-12-08",
