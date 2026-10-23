@@ -137,8 +137,9 @@ function drawStack() {
     ctx.beginPath();
     for (const seg of s.segs) {
       ctx.moveTo(seg[0] * fit + shift, seg[1] * fit + shift);
-      for (let i = 2; i < seg.length; i += 2)
+      for (let i = 2; i < seg.length; i += 2) {
         ctx.lineTo(seg[i] * fit + shift, seg[i + 1] * fit + shift);
+      }
     }
     ctx.stroke();
   }
