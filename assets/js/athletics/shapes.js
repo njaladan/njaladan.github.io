@@ -9,6 +9,7 @@ import { escapeHtml } from '../lib/html.js';
  * @property {string} sport A key of SPORTS.
  * @property {number[][]} segs
  * @property {number} year
+ * @property {number} [fit] Cached stackFit(segs).
  */
 
 /** @typedef {{ sport: string, year: 'all' | number }} ShapeFilter */
@@ -131,6 +132,23 @@ export function chipButton({ key, text, swatch }) {
       ? `<span class="shape-swatch" style="background:${escapeHtml(sportColor(String(key)))}"></span>`
       : '';
   return `<button type="button" aria-pressed="${key === 'all'}">${dot}${escapeHtml(text)}</button>`;
+}
+
+/**
+ * How much to shrink a shape for the stack so its farthest point from the box centre
+ * lands on a circle of radius 500. Fitting by radius instead of by box keeps long or
+ * diagonal routes from piling up along a square edge.
+ * @param {number[][]} segs
+ * @returns {number}
+ */
+export function stackFit(segs) {
+  let max = 0;
+  for (const seg of segs) {
+    for (let i = 0; i < seg.length; i += 2) {
+      max = Math.max(max, Math.hypot(seg[i] - 500, seg[i + 1] - 500));
+    }
+  }
+  return max > 500 ? 500 / max : 1;
 }
 
 /**

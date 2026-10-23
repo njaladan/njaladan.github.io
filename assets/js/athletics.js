@@ -14,19 +14,22 @@ import {
   shapeLines,
   shapeYears,
   sportColor,
-  stackAlpha
+  stackAlpha,
+  stackFit
 } from './athletics/shapes.js';
 
 /** @typedef {import('./athletics/shapes.js').Shape} Shape */
 
 const DRAW_MS = 1600;
 const RESIZE_DEBOUNCE_MS = 150;
-// Shapes are drawn in a 0–1000 box; the stack adds a 40-unit margin on every side.
-const STACK_MARGIN = 40;
+// Shapes are drawn in a 0–1000 box; the stack zooms out with a margin on every side.
+const STACK_MARGIN = 70;
 const STACK_SIZE = 1000 + 2 * STACK_MARGIN;
 const STACK_FALLBACK_WIDTH = 720;
-// Higher pixel ratios cost memory on phones without looking any sharper.
-const MAX_PIXEL_RATIO = 2;
+// Match phone screens up to 3x; the stack canvas is small enough there to afford it.
+const MAX_PIXEL_RATIO = 3;
+// Keep the canvas backing store within ~16 MB however wide the screen and ratio.
+const MAX_STACK_PX = 2048;
 
 /**
  * Fetches the shapes written by scripts/athletics/build_athletics_shapes.py.
@@ -114,7 +117,7 @@ function drawStack() {
   const { canvas } = ui;
   const ratio = Math.min(window.devicePixelRatio || 1, MAX_PIXEL_RATIO);
   const css = canvas.getBoundingClientRect().width || STACK_FALLBACK_WIDTH;
-  const px = Math.round(css * ratio);
+  const px = Math.min(MAX_STACK_PX, Math.round(css * ratio));
   canvas.width = canvas.height = px;
   const ctx = canvas.getContext('2d');
   const scale = px / STACK_SIZE;
@@ -124,14 +127,18 @@ function drawStack() {
   ctx.globalCompositeOperation = 'multiply';
   ctx.globalAlpha = stackAlpha(list.length);
   // One CSS pixel wide at any canvas size.
-  ctx.lineWidth = ((2 / scale) * ratio) / 2;
+  ctx.lineWidth = px / css / scale;
   ctx.lineJoin = ctx.lineCap = 'round';
   for (const s of list) {
+    // Shrink about the centre so every route fits inside a circle.
+    const fit = (s.fit ??= stackFit(s.segs));
+    const shift = 500 * (1 - fit);
     ctx.strokeStyle = sportColor(s.sport);
     ctx.beginPath();
     for (const seg of s.segs) {
-      ctx.moveTo(seg[0], seg[1]);
-      for (let i = 2; i < seg.length; i += 2) ctx.lineTo(seg[i], seg[i + 1]);
+      ctx.moveTo(seg[0] * fit + shift, seg[1] * fit + shift);
+      for (let i = 2; i < seg.length; i += 2)
+        ctx.lineTo(seg[i] * fit + shift, seg[i + 1] * fit + shift);
     }
     ctx.stroke();
   }

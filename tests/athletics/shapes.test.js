@@ -9,7 +9,8 @@ import {
   shapeCell,
   shapeEnds,
   shapeYears,
-  stackAlpha
+  stackAlpha,
+  stackFit
 } from '../../assets/js/athletics/shapes.js';
 
 const raw = [
@@ -83,4 +84,10 @@ test('drawSchedule splits the duration by length', () => {
     { delay: 100, share: 300 }
   ]);
   assert.deepEqual(drawSchedule([0], 400), [{ delay: 0, share: 0 }]);
+});
+
+test('stackFit shrinks shapes that reach past the centred circle', () => {
+  assert.equal(stackFit([[400, 400, 600, 600]]), 1);
+  assert.equal(stackFit([[500, 0, 500, 1000]]), 1);
+  assert.ok(Math.abs(stackFit([[0, 0, 1000, 1000]]) - Math.SQRT1_2) < 1e-9);
 });
