@@ -5,6 +5,7 @@ import { REGIONAL_ZOOM, ROUTE_COLORS, TRANSPORT_COLOR, VISIT_COLORS } from './co
 import { daySegments, dayBounds, longestSegment } from './activities.js';
 import { popupOpen } from './camera.js';
 import { activityLabel } from './card-content.js';
+import { gondolaRide } from './gondola.js';
 import { middlePoint } from './geometry.js';
 import { asButton } from './keyboard.js';
 import { HINT_SEEN_KEY, openActivity, openTransport } from './popups.js';
@@ -178,8 +179,14 @@ function renderLeg(ctx, trip) {
   const hover = () => [outline.getElement(), line.getElement(), entry.badge?.getElement()];
   layers.routeHover.set(`transport:${trip.id}`, hover);
   const target = { coords: trip.coords, label: trip.name, open, hover };
-  routeTarget(ctx, target, layers.transport);
+  const hit = routeTarget(ctx, target, layers.transport);
   routeBadge(ctx, { ...target, modeKey: trip.mode, color }, entry);
+  if (trip.mode === 'Gondola') {
+    const ride = gondolaRide(ctx, trip.coords, color);
+    [hit, entry.badge].forEach(layer =>
+      layer.on('mouseover', ride.start).on('mouseout', ride.stop)
+    );
+  }
   asButton(line.getElement(), `${trip.mode}: ${trip.name}`, () => open());
 }
 
