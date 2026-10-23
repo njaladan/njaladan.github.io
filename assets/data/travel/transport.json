@@ -59845,7 +59845,7 @@
       "name": "NYC \u2192 Boston \u2192 Acadia National Park",
       "countries": ["840"],
       "stops": ["NYC", "Boston", "Hulls Cove Visitor Center"],
-      "mode": "Bus",
+      "mode": "Drive",
       "operator": "",
       "approximate": true,
       "note": "Estimated main-road route through Boston to the Hulls Cove Visitor Center; not a GPS recording.",
