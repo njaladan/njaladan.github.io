@@ -1,6 +1,6 @@
 {% assign current_nav = '' %}
 {% if page.url == '/' %}{% assign current_nav = 'about' %}
-{% elsif page.url == '/reading' or page.tags contains 'Books' %}{% assign current_nav = 'reading' %}
+{% elsif page.url == '/reading' or page.collection == 'books' %}{% assign current_nav = 'reading' %}
 {% elsif page.url == '/movies' %}{% assign current_nav = 'movies' %}
 {% elsif page.url == '/travel/' %}{% assign current_nav = 'travel' %}
 {% elsif page.url == '/photos/' %}{% assign current_nav = 'photos' %}

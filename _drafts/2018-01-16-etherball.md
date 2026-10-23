@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title:  "Etherball"
 tags: [ Projects ]
 image: assets/images/projects/etherball.gif

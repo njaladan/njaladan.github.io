@@ -11,9 +11,20 @@ email: ganesh.jaladanki@gmail.com
 # Plugins
 plugins:
   - jekyll-sitemap
-  - jekyll-feed
   - jekyll-seo-tag
   - jekyll-redirect-from
+
+# Book notes: one file per book in _books/, listed on /reading and served at /<title>/.
+collections:
+  books:
+    output: true
+    permalink: /:title/
+
+defaults:
+  - scope:
+      type: books
+    values:
+      layout: book
 
 # Other
 markdown: kramdown
