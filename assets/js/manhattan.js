@@ -14,6 +14,7 @@ import { decodeDeltas, ease, inOrderAt, measurePieces, sliceTrack } from './athl
  * @property {Array<{ d: string, b: 0 | 1, p: number[][] }>} tracks Sorted by date.
  * @property {number[][]} net The whole street network.
  * @property {number[][]} covered The street segments that count as covered.
+ * @property {number[][]} land Manhattan's shoreline, one ring per island.
  */
 
 /**
@@ -47,6 +48,8 @@ function palette() {
   const read = name => css.getPropertyValue(name).trim();
   return {
     ground: read('--map-ground'),
+    land: read('--map-land'),
+    shore: read('--map-shore'),
     street: read('--map-street'),
     trail: read('--map-trail'),
     head: read('--map-head')
@@ -126,6 +129,16 @@ function layout(data) {
   const net = offscreen(W, H);
   net.ctx.fillStyle = colors.ground;
   net.ctx.fillRect(0, 0, W, H);
+  net.ctx.beginPath();
+  for (const ring of pixelLines(data.land.map(decodeDeltas), toPx)) {
+    ring.forEach(([x, y], i) => (i ? net.ctx.lineTo(x, y) : net.ctx.moveTo(x, y)));
+    net.ctx.closePath();
+  }
+  net.ctx.fillStyle = colors.land;
+  net.ctx.fill();
+  net.ctx.strokeStyle = colors.shore;
+  net.ctx.lineWidth = Math.max(1, 1.2 * ratio);
+  net.ctx.stroke();
   net.ctx.strokeStyle = colors.street;
   net.ctx.lineWidth = Math.max(0.6, 0.6 * ratio);
   strokeLines(net.ctx, pixelLines(data.net.map(decodeDeltas), toPx));
@@ -181,7 +194,7 @@ function extendTrails(scene, u) {
 }
 
 /**
- * Draws a dark head on every track still moving.
+ * Draws a bright head on every track still moving.
  * @param {CanvasRenderingContext2D} ctx
  * @param {Scene} scene
  */

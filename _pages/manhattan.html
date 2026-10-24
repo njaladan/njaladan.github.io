@@ -47,14 +47,9 @@ modules: [/assets/js/manhattan.js]
   <section>
     <h2>Year by year</h2>
     <ol class="cov-years">
-      {% for y in c.years %}<li><span class="cov-year">{{ y[0] }}</span><span class="cov-bar"><span style="width: {{ y[1] }}%"></span></span><span class="cov-bar-pct">{{ y[1] | round: 1 }}%</span></li>
+      {% for y in c.years %}{% if y[0] < "2022" %}{% continue %}{% endif %}<li><span class="cov-year">{{ y[0] }}</span><span class="cov-bar"><span style="width: {{ y[1] }}%"></span></span><span class="cov-bar-pct">{{ y[1] | round: 1 }}%</span></li>
       {% endfor %}
     </ol>
-  </section>
-  <section class="cov-log">
-    <h2>Latest</h2>
-    <p><strong>{{ c.latest.date | date: "%-d %B %Y" }}</strong>: +{{ c.latest.gain }} km on {{ c.latest.where }}.</p>
-    <p><strong>Next up</strong>: {{ c.next }}.</p>
   </section>
 </div>
 
