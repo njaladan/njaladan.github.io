@@ -50,14 +50,6 @@
   width: 1px;
   background: #fff9;
 }
-.cov-km {
-  font: 14px/1.5 var(--sans);
-  margin: 12px 0 0;
-  font-variant-numeric: tabular-nums;
-}
-.cov-km strong {
-  font-weight: 600;
-}
 
 .cov-stage {
   position: relative;
