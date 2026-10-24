@@ -7,6 +7,7 @@ styles: [/assets/css/athletics.css]
 modules: [/assets/js/athletics.js]
 ---
 <h1>Athletics</h1>
+<a class="shape-feature" href="{{ '/athletics/manhattan/' | relative_url }}"><span class="shape-feature-pct">{{ site.data.manhattan_coverage.now | round: 1 }}%</span><span>of every street and path in Manhattan <span aria-hidden="true">→</span></span></a>
 <div class="shape-toolbar">
   <div class="shape-chips" role="group" aria-label="Sport" id="shape-sports"></div>
   <div class="shape-view" role="group" aria-label="View"><button type="button" data-view="grid" aria-pressed="true">Grid</button><button type="button" data-view="stack" aria-pressed="false">Stack</button></div>
