@@ -6,7 +6,15 @@ version = "0"
 requires-python = ">=3.12"
 
 [dependency-groups]
-scripts = ["Pillow>=11.3,<13", "pillow-heif>=1,<2", "fitdecode>=0.10,<1"]
+scripts = [
+  "Pillow>=11.3,<13",
+  "pillow-heif>=1,<2",
+  "fitdecode>=0.10,<1",
+  "numpy>=2,<3",
+  "scipy>=1.14,<2",
+  "shapely>=2,<3",
+  "pyproj>=3.7,<4",
+]
 dev = ["ruff==0.16.9"]
 
 [tool.ruff]
