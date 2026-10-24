@@ -10,8 +10,6 @@
   margin: 38px 0 56px;
 }
 .cov-side {
-  position: sticky;
-  top: calc(var(--site-header-height, 0px) + 24px);
   border-top: 1px solid var(--rule);
   padding-top: 20px;
 }
@@ -96,11 +94,7 @@
 }
 
 .cov-details {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 44px;
-  border-top: 1px solid var(--rule);
-  padding-top: 8px;
+  margin-top: 30px;
 }
 .cov-details h2 {
   font-size: 22px;
@@ -180,14 +174,7 @@
     gap: 28px;
     margin-top: 24px;
   }
-  .cov-side {
-    position: static;
-  }
   .cov-stage {
     order: -1;
-  }
-  .cov-details {
-    grid-template-columns: 1fr;
-    gap: 8px;
   }
 }
