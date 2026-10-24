@@ -129,10 +129,3 @@ export function inOrderAt(dates, years, u) {
   const share = (i - first + 1) / (last - first + 1);
   return { year, pct: prev + ((years[year] ?? prev) - prev) * share };
 }
-
-/**
- * @param {number} done
- * @param {number} total
- * @returns {number} Percent, to one decimal place.
- */
-export const percent = (done, total) => (total > 0 ? Math.round((done / total) * 1000) / 10 : 0);

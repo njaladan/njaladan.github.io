@@ -1,9 +1,4 @@
-/* Manhattan street coverage: progress on the left, the night map on the right. */
-:root {
-  --night: #05070d;
-  --amber: #ffc861;
-  --cyan: #5ef2ff;
-}
+/* Manhattan street coverage: progress on the left, the map on the right. */
 .eyebrow a {
   text-decoration: none;
 }
@@ -63,78 +58,23 @@
 }
 .cov-km {
   font: 14px/1.5 var(--sans);
-  margin: 12px 0 4px;
+  margin: 12px 0 0;
   font-variant-numeric: tabular-nums;
 }
 .cov-km strong {
   font-weight: 600;
 }
-.cov-live {
-  font: 12px/1.5 var(--sans);
-  color: var(--muted);
-  min-height: 18px;
-  margin: 0 0 22px;
-  font-variant-numeric: tabular-nums;
-}
-.cov-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 16px;
-}
-.cov-toggle {
-  display: inline-flex;
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-  overflow: hidden;
-}
-.cov-toggle button,
-.cov-replay {
-  font: 12px var(--sans);
-  border: 0;
-  background: transparent;
-  padding: 7px 14px;
-}
-.cov-toggle button[aria-pressed='true'] {
-  background: var(--ink);
-  color: var(--paper);
-}
-.cov-replay {
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-}
-.cov-replay:hover {
-  border-color: var(--ink);
-}
-.cov-legend {
-  font: 13px/1.6 var(--sans);
-  color: var(--muted);
-  max-width: 40ch;
-  margin: 0;
-}
-.cov-key {
-  display: inline-block;
-  width: 18px;
-  height: 3px;
-  border-radius: 2px;
-  vertical-align: middle;
-  margin: 0 5px 2px 0;
-}
-.cov-key-bike {
-  background: var(--cyan);
-  margin-left: 6px;
-  box-shadow: 0 0 0 1px #0002;
-}
-.cov-key-foot {
-  background: var(--amber);
-  box-shadow: 0 0 0 1px #0002;
-}
 
 .cov-stage {
   position: relative;
-  background: var(--night);
-  border-radius: 6px;
+  /* Read by manhattan.js to colour the canvas. */
+  --map-ground: #f3efe6;
+  --map-street: #dcd5c7;
+  --map-trail: var(--accent);
+  --map-head: var(--ink);
+  background: var(--map-ground);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
   overflow: hidden;
   aspect-ratio: var(--ar, 0.56);
 }
@@ -150,7 +90,7 @@
   place-items: center;
   margin: 0;
   font: 13px var(--sans);
-  color: #8892a6;
+  color: var(--muted);
 }
 
 .cov-details {
@@ -235,12 +175,6 @@
   font-size: 16px;
   line-height: 1.6;
   margin-bottom: 14px;
-}
-.cov-note {
-  font: 12px/1.6 var(--sans);
-  color: var(--muted);
-  max-width: 70ch;
-  margin: 40px 0 0;
 }
 
 @media (max-width: 900px) {

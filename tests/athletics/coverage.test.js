@@ -5,7 +5,6 @@ import {
   ease,
   inOrderAt,
   measurePieces,
-  percent,
   sliceTrack
 } from '../../assets/js/athletics/coverage.js';
 
@@ -69,9 +68,4 @@ test('inOrderAt interpolates within a year from the year before', () => {
   assert.equal(mid.year, '2023');
   assert.ok(Math.abs(mid.pct - (2 + 10 * (2 / 3))) < 1e-9);
   assert.deepEqual(inOrderAt(dates, years, 1), { year: '2024', pct: 20 });
-});
-
-test('percent rounds to one decimal place', () => {
-  assert.equal(percent(260.6, 834), 31.2);
-  assert.equal(percent(1, 0), 0);
 });
