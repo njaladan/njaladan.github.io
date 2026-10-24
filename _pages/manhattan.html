@@ -1,0 +1,73 @@
+---
+layout: default
+title: Every street in Manhattan
+description: "Running, walking and riding every street in Manhattan, and how far I've got."
+permalink: /athletics/manhattan/
+sitemap: false
+styles: [/assets/css/manhattan.css]
+modules: [/assets/js/manhattan.js]
+---
+{% assign c = site.data.manhattan_coverage %}
+{% assign left = c.km[1] | minus: c.km[0] | round: 1 %}
+<p class="eyebrow"><a href="{{ '/athletics/' | relative_url }}">Athletics</a> · Work in progress</p>
+<h1>Every street in Manhattan</h1>
+<p class="page-intro">I'm trying to run, walk or ride the whole of every street in Manhattan. This page keeps count of how far I've got, and replays every activity that's taken me there.</p>
+
+<div class="cov-layout">
+  <section class="cov-side" aria-label="Progress">
+    <div class="cov-stat" aria-live="polite">
+      <div class="cov-pct"><span id="cov-pct">{{ c.now | round: 1 }}</span><small>%</small></div>
+      <p class="cov-sub" id="cov-sub">of Manhattan's streets covered</p>
+    </div>
+    <div class="cov-meter" role="meter" aria-label="Streets covered" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ c.now }}">
+      <span class="cov-meter-fill" style="width: {{ c.now }}%"></span>
+      {% for y in c.years %}{% if y[1] > 3 %}<span class="cov-meter-tick" style="left: {{ y[1] }}%" title="End of {{ y[0] }}: {{ y[1] }}%"></span>{% endif %}{% endfor %}
+    </div>
+    <p class="cov-km"><strong>{{ c.km[0] }}</strong> of {{ c.km[1] }} km done · <strong>{{ left }} km</strong> to go</p>
+    <p class="cov-live" id="cov-live"></p>
+
+    <div class="cov-controls">
+      <div class="cov-toggle" role="group" aria-label="Playback order"><button type="button" data-mode="all" aria-pressed="true">Same speed</button><button type="button" data-mode="order" aria-pressed="false">In order</button></div>
+      <div class="cov-toggle" role="group" aria-label="Line style"><button type="button" data-style="glow" aria-pressed="true">By frequency</button><button type="button" data-style="flat" aria-pressed="false">Flat</button></div>
+      <button type="button" class="cov-replay" id="cov-replay">Replay</button>
+    </div>
+    <p class="cov-legend" id="cov-legend"><span class="cov-key cov-key-foot"></span>On foot <span class="cov-key cov-key-bike"></span>By bike. The brighter a street, the more often I've been down it.</p>
+    <p class="cov-legend" id="cov-legend-flat" hidden><span class="cov-key cov-key-foot"></span>Every street that counts as covered, however many times I've been down it.</p>
+  </section>
+
+  <div class="cov-stage" id="cov-stage" data-url="{{ '/assets/data/athletics/manhattan.json' | relative_url }}">
+    <canvas id="cov-canvas" role="img" aria-label="Map of Manhattan with every run, walk and ride drawn on its streets"></canvas>
+    <p class="cov-loading" id="cov-loading">Loading the map…</p>
+    <noscript><p class="cov-loading">Enable JavaScript to see the map.</p></noscript>
+  </div>
+</div>
+
+<div class="cov-details">
+  <section>
+    <h2>By neighbourhood</h2>
+    <table class="cov-table">
+      <thead><tr><th scope="col">Band</th><th scope="col">Done</th><th scope="col">Total</th><th scope="col"><span class="visually-hidden">Progress</span></th></tr></thead>
+      <tbody>
+        {% for b in c.bands %}{% assign pct = b.done | times: 100.0 | divided_by: b.total | round: 1 %}
+        <tr><th scope="row">{{ b.name }}</th><td>{{ b.done }} km</td><td>{{ b.total }} km</td><td class="cov-bar-cell"><span class="cov-bar"><span style="width: {{ pct }}%"></span></span><span class="cov-bar-pct">{{ pct }}%</span></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <section>
+    <h2>Year by year</h2>
+    <ol class="cov-years">
+      {% for y in c.years %}<li><span class="cov-year">{{ y[0] }}</span><span class="cov-bar"><span style="width: {{ y[1] }}%"></span></span><span class="cov-bar-pct">{{ y[1] | round: 1 }}%</span></li>
+      {% endfor %}
+    </ol>
+  </section>
+  <section class="cov-log">
+    <h2>Latest</h2>
+    <p><strong>{{ c.latest.date | date: "%-d %B %Y" }}</strong>: +{{ c.latest.gain }} km on {{ c.latest.where }}.</p>
+    <p><strong>Next up</strong>: {{ c.next }}.</p>
+  </section>
+</div>
+
+<p class="cov-note">A street counts once I've travelled along at least half of it; crossing it doesn't count. Highways, river bridges and private roads are left out, and both carriageways of a divided avenue count. Roosevelt, Randall's, Governors Island and Marble Hill are in. Tracks are cut off at the shoreline. Updated {{ c.asOf | date: "%-d %B %Y" }}.</p>
+
+<script type="application/json" id="cov-summary">{{ c | jsonify }}</script>

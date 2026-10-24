@@ -1,0 +1,43 @@
+{
+  "asOf": "2026-10-24",
+  "now": 31.25,
+  "km": [260.6, 834.0],
+  "years": {
+    "2019": 1.19,
+    "2020": 1.19,
+    "2021": 1.19,
+    "2022": 2.5,
+    "2023": 12.07,
+    "2024": 19.25,
+    "2025": 26.45,
+    "2026": 31.25
+  },
+  "bands": [
+    {
+      "name": "Below 14th St",
+      "done": 89.4,
+      "total": 192.7
+    },
+    {
+      "name": "14th–34th St",
+      "done": 31.0,
+      "total": 81.5
+    },
+    {
+      "name": "34th–59th St",
+      "done": 34.2,
+      "total": 113.6
+    },
+    {
+      "name": "North of 59th St",
+      "done": 106.1,
+      "total": 446.2
+    }
+  ],
+  "latest": {
+    "date": "2026-10-23",
+    "gain": 7.9,
+    "where": "W 28th–31st and 34th St, with parts of 25th St and 8th–10th Ave"
+  },
+  "next": "W 35th–40th St, to finish the 27th–40th zigzag"
+}
