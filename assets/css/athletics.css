@@ -188,6 +188,18 @@
   color: var(--muted);
 }
 @media (max-width: 600px) {
+  .shape-controls {
+    display: flex;
+    flex-direction: column;
+  }
+  .shape-toolbar {
+    display: contents;
+  }
+  .shape-view {
+    order: -1;
+    align-self: flex-start;
+    margin: 8px 0 12px;
+  }
   .shape-grid {
     grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
     gap: 3px;
