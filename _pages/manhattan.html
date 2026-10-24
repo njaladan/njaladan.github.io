@@ -31,6 +31,9 @@ modules: [/assets/js/manhattan.js]
             <tr><th scope="row">{{ b.name }}</th><td>{{ b.done }} km</td><td>{{ b.total }} km</td><td class="cov-bar-cell"><span class="cov-bar"><span style="width: {{ pct }}%"></span></span><span class="cov-bar-pct">{{ pct }}%</span></td></tr>
             {% endfor %}
           </tbody>
+          <tfoot>
+            <tr><th scope="row">All of Manhattan</th><td>{{ c.km[0] }} km</td><td>{{ c.km[1] }} km</td><td class="cov-bar-cell"><span class="cov-bar"><span style="width: {{ c.now }}%"></span></span><span class="cov-bar-pct">{{ c.now | round: 1 }}%</span></td></tr>
+          </tfoot>
         </table>
       </section>
       <section>

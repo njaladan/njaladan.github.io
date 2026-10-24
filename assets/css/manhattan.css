@@ -102,6 +102,11 @@
   font-weight: 400;
   white-space: nowrap;
 }
+.cov-table tfoot :is(th, td) {
+  color: var(--ink);
+  font-weight: 600;
+  border-bottom: 0;
+}
 .cov-table thead th {
   color: var(--muted);
   font-size: 11px;
