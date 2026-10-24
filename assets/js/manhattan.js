@@ -40,7 +40,6 @@ const stage = byId('cov-stage');
 const canvas = /** @type {HTMLCanvasElement | null} */ (byId('cov-canvas'));
 const summary = JSON.parse(byId('cov-summary')?.textContent || '{}');
 const pctEl = byId('cov-pct');
-const subEl = byId('cov-sub');
 
 /** The map's colours, from the stylesheet's custom properties. */
 function palette() {
@@ -209,20 +208,15 @@ function drawHeads(ctx, scene) {
 }
 
 /**
- * Updates the figures beside the map for progress `u`.
+ * Counts the big figure up with the playback: the coverage reached by the activity
+ * being drawn, ending on today's figure.
  * @param {Scene} scene
  * @param {number} u
  */
 function updateText(scene, u) {
-  if (u >= 1) {
-    pctEl.textContent = summary.now.toFixed(1);
-    subEl.textContent = "of Manhattan's streets covered";
-    return;
-  }
   const dates = scene.tracks.map(t => t.date);
-  const { year, pct } = inOrderAt(dates, summary.years, u / (1 - SPAN));
+  const pct = u >= 1 ? summary.now : inOrderAt(dates, summary.years, u / (1 - SPAN)).pct;
   pctEl.textContent = pct.toFixed(1);
-  subEl.innerHTML = `of Manhattan's streets by <span class="cov-year-now">${year}</span>`;
 }
 
 /**
@@ -257,7 +251,7 @@ function play(scene, onDone) {
 }
 
 async function init() {
-  if (!stage || !canvas || !pctEl || !subEl || !summary.years) return;
+  if (!stage || !canvas || !pctEl || !summary.years) return;
   const data = await loadMap();
   const loading = byId('cov-loading');
   if (!data) {

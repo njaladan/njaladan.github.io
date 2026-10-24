@@ -30,10 +30,6 @@
   color: var(--muted);
   margin: 10px 0 20px;
 }
-.cov-year-now {
-  color: var(--accent);
-  font-weight: 600;
-}
 .cov-meter {
   position: relative;
   height: 10px;

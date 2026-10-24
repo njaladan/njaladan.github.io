@@ -16,7 +16,7 @@ modules: [/assets/js/manhattan.js]
   <section class="cov-side" aria-label="Progress">
     <div class="cov-stat" aria-live="polite">
       <div class="cov-pct"><span id="cov-pct">{{ c.now | round: 1 }}</span><small>%</small></div>
-      <p class="cov-sub" id="cov-sub">of Manhattan's streets covered</p>
+      <p class="cov-sub">of Manhattan's streets covered</p>
     </div>
     <div class="cov-meter" role="meter" aria-label="Streets covered" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ c.now }}">
       <span class="cov-meter-fill" style="width: {{ c.now }}%"></span>
