@@ -14,9 +14,9 @@ npm run check    # what CI runs: ESLint, Prettier, tsc, tests, Ruff and a Jekyll
 
 ```
 _pages/           Site pages, one file per URL, including the Atom feed
-_books/           Book notes, one file per book, at /<title>/ and on /reading
+_books/           Book notes, one file per book, at /<title>/ and on /books
 _drafts/          Unpublished project posts; preview with `jekyll serve --drafts`
-_layouts/         default (page frame), book, reading, movies, redirect
+_layouts/         default (page frame), book, books, movies, redirect
 _includes/        Header, footer and the movie card
 _plugins/         cache_bust.rb: version-stamps asset URLs on every build
 _data/            books.json and movies.json, read by Liquid at build time
