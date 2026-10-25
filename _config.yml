@@ -2,7 +2,7 @@
 name: "Ganesh"
 title: "Ganesh"
 url: "https://nagaganesh.com"
-description: "Reading, movies, and travel."
+description: "Books, movies, and travel."
 logo: 'assets/images/site/logo.png'
 include: ["_pages"]
 permalink: /:title/
@@ -14,7 +14,7 @@ plugins:
   - jekyll-seo-tag
   - jekyll-redirect-from
 
-# Book notes: one file per book in _books/, listed on /reading and served at /<title>/.
+# Book notes: one file per book in _books/, listed on /books and served at /<title>/.
 collections:
   books:
     output: true
