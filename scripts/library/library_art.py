@@ -77,7 +77,7 @@ BOOK_ALIASES = {
 
 
 def cover_ratio(item):
-    # Width over height of the saved cover; the reading shelf shapes each 3D book to it.
+    # Width over height of the saved cover; the book shelf shapes each 3D book to it.
     with Image.open(REPO / item["cover"].lstrip("/")) as image:
         item["cover_ratio"] = round(image.width / image.height, 3)
     return item
