@@ -3896,9 +3896,21 @@
       "year": "2026",
       "cover": "/assets/images/movies/1ebe9e303cb6.webp",
       "art_source": "https://www.themoviedb.org/movie/1368337-the-odyssey"
+    },
+    {
+      "id": "176681fee509",
+      "title": "Moneyball",
+      "year": "2011",
+      "cover": "/assets/images/movies/176681fee509.webp",
+      "art_source": "https://www.themoviedb.org/movie/60308-moneyball"
     }
   ],
   "viewings": [
+    {
+      "film_id": "176681fee509",
+      "date": "2026-10-25",
+      "rewatch": false
+    },
     {
       "film_id": "1ebe9e303cb6",
       "date": "2026-10-06",
