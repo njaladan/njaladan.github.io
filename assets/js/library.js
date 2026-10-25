@@ -1,4 +1,4 @@
-// Reading and movies pages: search, filter and sort the shelf into year groups, tilt covers
+// Books and movies pages: search, filter and sort the shelf into year groups, tilt covers
 // toward the pointer, and open notes as a book.
 import { $, $$ } from './lib/dom.js';
 import { installBookDialog } from './library/book.js';

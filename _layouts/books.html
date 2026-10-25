@@ -4,7 +4,7 @@ layout: default
 {% comment %}Reversed first so books read on the same day keep their original order.{% endcomment %}
 {% assign books = site.books | reverse | sort: 'date' %}
 <div data-library="books">
-  <h1>Reading</h1>
+  <h1>Books</h1>
   <div class="library-toolbar">
     <div class="library-controls js-controls" hidden>
       <label class="control control-search">Find a book<input type="search" data-search placeholder="Title" aria-label="Search books by title"></label>
@@ -12,7 +12,7 @@ layout: default
       <label class="control">Sort<select data-sort><option value="oldest">Earliest read</option><option value="newest">Recently read</option><option value="title">Title (A–Z)</option></select></label>
     </div>
   </div>
-  <nav class="year-nav" data-year-nav aria-label="Reading years">
+  <nav class="year-nav" data-year-nav aria-label="Book years">
     {% assign previous_year = '' %}{% for book in books %}{% assign year = book.date | date: '%Y' %}{% if year != previous_year %}<a href="#y{{ year }}">{{ year }}</a>{% assign previous_year = year %}{% endif %}{% endfor %}
   </nav>
   <div data-groups>
@@ -31,7 +31,7 @@ layout: default
       <article class="library-card" data-title="{{ book.title | escape }}" data-author="{{ metadata.author | escape }}" data-date="{{ book.date | date: '%Y-%m-%d' }}" data-section="dated" data-notes="{{ has_notes }}"{% if metadata.cover_large %} data-cover-large="{{ metadata.cover_large | relative_url }}"{% endif %}>
         {% if has_notes %}<a class="card-link" data-review href="{{ book.url | relative_url }}" aria-label="Read notes on {{ book.title | escape }}">{% else %}<div class="card-link">{% endif %}
           <div class="cover book-cover{% if has_notes %} cover-with-notes{% endif %}"{% if metadata.pages or metadata.cover_ratio %} style="{% if metadata.pages %}--pages: {{ metadata.pages }};{% endif %}{% if metadata.cover_ratio %} --ar: {{ metadata.cover_ratio }};{% endif %}"{% endif %}>
-            <div class="cover-fallback" aria-hidden="true"><span>{{ book.title | escape }}</span><small>{{ metadata.author | default: 'Reading' | escape }}</small></div>
+            <div class="cover-fallback" aria-hidden="true"><span>{{ book.title | escape }}</span><small>{{ metadata.author | default: 'Books' | escape }}</small></div>
             {% if metadata.cover %}<img src="{{ metadata.cover | relative_url }}" alt="" width="300" height="450" loading="lazy" decoding="async">{% endif %}
             {% if has_notes %}<span class="note-corner" aria-hidden="true"></span>{% endif %}
             <span class="book-edges" aria-hidden="true"><i class="edge-spine"></i><i class="edge-pages"></i><i class="edge-top"></i><i class="edge-bottom"></i></span>
