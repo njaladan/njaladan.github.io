@@ -3903,9 +3903,21 @@
       "year": "2011",
       "cover": "/assets/images/movies/176681fee509.webp",
       "art_source": "https://www.themoviedb.org/movie/60308-moneyball"
+    },
+    {
+      "id": "d74bd8334e8e",
+      "title": "Sherlock Jr.",
+      "year": "1924",
+      "cover": "/assets/images/movies/d74bd8334e8e.webp",
+      "art_source": "https://www.themoviedb.org/movie/992-sherlock-jr"
     }
   ],
   "viewings": [
+    {
+      "film_id": "d74bd8334e8e",
+      "date": "2026-10-25",
+      "rewatch": false
+    },
     {
       "film_id": "176681fee509",
       "date": "2026-10-25",
