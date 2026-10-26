@@ -18,7 +18,7 @@
   font: 11px var(--sans);
   color: var(--muted);
 }
-/* Older years fold to one line: the year, and a strip of small covers ending in a tile
+/* Movie years fold to one line: the year, and a strip of small covers ending in a tile
    that opens the rest. */
 .library-group.is-folded {
   display: grid;
@@ -28,6 +28,9 @@
   margin-top: 0;
   padding: 18px 0;
   border-top: 1px solid var(--rule);
+}
+.library-group.is-folded:first-child {
+  border-top: 0;
 }
 .library-group:not(.is-folded) + .is-folded {
   margin-top: 39px;

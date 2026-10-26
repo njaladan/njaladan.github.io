@@ -1,5 +1,5 @@
-// Pure shelf logic for the books and movies pages: ordering, grouping and folding cards
-// by the values in their data-* attributes. Nothing here touches the DOM.
+// Pure shelf logic for the books and movies pages: ordering and grouping cards by the
+// values in their data-* attributes. Nothing here touches the DOM.
 
 /**
  * The data-* values a library card carries.
@@ -21,8 +21,6 @@
 
 // Undated films sit in their own section, always after the dated diary.
 const UNDATED = 'earlier';
-// Years left open when the older ones fold.
-const OPEN_YEARS = 2;
 
 /**
  * @param {CardData} data
@@ -105,21 +103,6 @@ export function groupBy(items, keyOf) {
     groups.get(key).push(item);
   }
   return groups;
-}
-
-/**
- * The groups that start folded to a strip: every group but the most recent years, so the
- * page opens on what came lately.
- * @param {string[]} keys Group keys in page order.
- * @returns {Set<string>}
- */
-export function foldedGroups(keys) {
-  if (keys.length <= OPEN_YEARS + 1) return new Set();
-  const open = keys
-    .filter(key => key !== UNDATED)
-    .sort()
-    .slice(-OPEN_YEARS);
-  return new Set(keys.filter(key => !open.includes(key)));
 }
 
 /**
