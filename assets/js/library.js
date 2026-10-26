@@ -1,17 +1,10 @@
-// Books and movies pages: shelve the cards into year groups, fold older years to a strip,
+// Books and movies pages: shelve the cards into year groups, fold movie years to a strip,
 // mark the year in view, tilt covers toward the pointer, and open notes as a book.
 import { $, $$ } from './lib/dom.js';
 import { installBackToTop, installIndexBar, installScrollSpy } from './lib/collection.js';
 import { installBookDialog } from './library/book.js';
 import { installCoverFallbacks, installCoverTilt } from './library/covers.js';
-import {
-  compareCards,
-  foldedGroups,
-  groupBy,
-  groupKey,
-  groupLabels,
-  keyFromId
-} from './library/shelf.js';
+import { compareCards, groupBy, groupKey, groupLabels, keyFromId } from './library/shelf.js';
 
 /**
  * @typedef {object} Shelf
@@ -19,7 +12,7 @@ import {
  * @property {HTMLElement[]} cards
  * @property {HTMLElement} groups
  * @property {HTMLElement} nav Year navigation.
- * @property {boolean} folds Whether older years fold to a strip.
+ * @property {boolean} folds Whether years start folded to a strip.
  * @property {Set<string>} opened Folding groups the reader has opened.
  * @property {() => void} spy Re-marks the year in view.
  */
@@ -107,11 +100,10 @@ function update(shelf) {
   const order = ORDER[kind] || 'oldest';
   const sorted = [...cards].sort((a, b) => compareCards(a.dataset, b.dataset, order));
   const grouped = groupBy(sorted, card => groupKey(card.dataset));
-  const folded = shelf.folds ? foldedGroups([...grouped.keys()]) : null;
   const content = document.createDocumentFragment();
   const links = document.createDocumentFragment();
   for (const [key, items] of grouped) {
-    const state = folded?.has(key) ? !shelf.opened.has(key) : null;
+    const state = shelf.folds ? !shelf.opened.has(key) : null;
     const { section, link } = buildGroup(key, items, kind, state);
     content.append(section);
     links.append(link);

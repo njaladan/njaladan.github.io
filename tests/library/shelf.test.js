@@ -2,7 +2,6 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
   compareCards,
-  foldedGroups,
   groupBy,
   groupKey,
   groupLabels,
@@ -61,16 +60,6 @@ test('groupBy keeps first-appearance order', () => {
       ['even', [2, 4]]
     ]
   );
-});
-
-test('foldedGroups keeps the two most recent years open in either date order', () => {
-  const keys = ['2026', '2025', '2024', '2023', 'earlier'];
-  assert.deepEqual([...foldedGroups(keys)], ['2024', '2023', 'earlier']);
-  assert.deepEqual([...foldedGroups([...keys].reverse())], ['earlier', '2023', '2024']);
-});
-
-test('foldedGroups folds nothing on a short shelf', () => {
-  assert.equal(foldedGroups(['2026', '2025', 'earlier']).size, 0);
 });
 
 test('keyFromId reads the group key from a section id', () => {
