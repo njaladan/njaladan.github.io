@@ -5577,6 +5577,13 @@
       "source": "prime_video"
     },
     {
+      "film_id": "e30989b6c42b",
+      "date": "2016-07-05",
+      "rewatch": false,
+      "source": "user_logged",
+      "theater": true
+    },
+    {
       "film_id": "7ee1bca9fe0b",
       "date": "2016-06-28",
       "rewatch": false,
@@ -6284,7 +6291,6 @@
     "9de850d302c4",
     "d94b28ef00f4",
     "a06f4f01232e",
-    "e30989b6c42b",
     "f14ce80db49b",
     "f1458c889e72",
     "e9e90db2d833",
