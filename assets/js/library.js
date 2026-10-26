@@ -24,6 +24,8 @@ const ORDER = { movies: 'newest', books: 'oldest' };
 // How long a year takes to open or fold, in milliseconds.
 const FOLD_MS = 420;
 const FOLD_EASE = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
+// How long what a fold hides takes to fade out before the covers move.
+const FADE_MS = 160;
 
 /**
  * Folds `section` to a strip of its first covers, or opens it.
@@ -63,18 +65,44 @@ function placeIn(element, origin) {
 }
 
 /**
+ * Fades out what folding `section` will hide: the titles and the covers past the strip.
+ * @param {HTMLElement} section
+ */
+function fadeHidden(section) {
+  section.classList.add('is-folded');
+  const hidden = $$('.library-card', section).filter(card => !card.offsetWidth);
+  section.classList.remove('is-folded');
+  const fading = [...hidden, ...$$('.card-title', section)].map(element =>
+    element.animate(
+      { opacity: [1, 0] },
+      { duration: FADE_MS, easing: 'ease-out', fill: 'forwards' }
+    )
+  );
+  return Promise.all(fading.map(animation => animation.finished)).catch(() => {});
+}
+
+/**
  * Runs `change` on `section`, then eases it there: the height follows, covers on show
- * before and after slide and grow from where they were, and the rest fade in.
+ * before and after slide and grow from where they were, and the rest fade in. A fold first
+ * fades out what it will hide, so nothing vanishes from under the moving covers.
  * @param {HTMLElement} section
  * @param {() => void} change
+ * @param {boolean} folding
  */
-function animateFold(section, change) {
-  const running = section.getAnimations({ subtree: true });
+async function animateFold(section, change, folding) {
   if (reducedMotion()) {
-    running.forEach(animation => animation.cancel());
+    section.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
     change();
     return;
   }
+  if (folding) {
+    section.dataset.fading = '';
+    await fadeHidden(section);
+    // Jumping to another year in the meantime settles this one.
+    if (!('fading' in section.dataset)) return;
+    delete section.dataset.fading;
+  }
+  const running = section.getAnimations({ subtree: true });
   // Measured before cancelling, so a fold reversed midway starts from where it got to.
   const from = section.getBoundingClientRect();
   const covers = $$('.cover, .fold-more', section);
@@ -182,6 +210,7 @@ function openGroup(shelf, id) {
   shelf.opened = new Set([keyFromId(id)]);
   for (const section of $$('.library-group', shelf.groups)) {
     section.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
+    delete section.dataset.fading;
     const folded = section.id !== id;
     if (section.classList.contains('is-folded') !== folded) setFolded(section, folded);
   }
@@ -201,14 +230,15 @@ function installFolding(shelf) {
     const folded = section.classList.contains('is-folded');
     if (!toggle && !(folded && target.closest('.library-card'))) return;
     event.preventDefault();
+    if ('fading' in section.dataset) return;
     const key = section.dataset.key;
     if (folded) shelf.opened.add(key);
     else shelf.opened.delete(key);
-    animateFold(section, () => {
-      setFolded(section, !folded);
-      // Folding a long year from inside it would leave the reader somewhere further down.
-      if (!folded && section.getBoundingClientRect().top < 0) section.scrollIntoView();
-    });
+    // Folding a long year from inside it would leave the reader somewhere further down.
+    if (!folded && section.getBoundingClientRect().top < 0) {
+      section.scrollIntoView({ behavior: 'instant' });
+    }
+    animateFold(section, () => setFolded(section, !folded), !folded);
   });
   nav.addEventListener('click', event => {
     const link = /** @type {Element} */ (event.target).closest('a[href^="#"]');
