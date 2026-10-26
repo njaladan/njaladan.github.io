@@ -45,31 +45,29 @@ const years = [
   { left: 100, right: 150 }
 ];
 
-test('railTrack holds on each link and stretches across on the way to the next', () => {
-  const stops = railTrack([-Infinity, 1000, 3000], years, 5000);
+test('railTrack rests on each link where its section starts, gliding over before it', () => {
+  const stops = railTrack([0, 1000, 3000], years, 5000);
   assert.deepEqual(railAt(stops, -200), years[0]);
-  assert.deepEqual(railAt(stops, 800), years[0]);
+  assert.deepEqual(railAt(stops, 700), years[0]);
   assert.deepEqual(railAt(stops, 1000), years[1]);
-  assert.deepEqual(railAt(stops, 2800), years[1]);
+  assert.deepEqual(railAt(stops, 2700), years[1]);
   assert.deepEqual(railAt(stops, 6000), years[2]);
-  // Halfway over, the leading edge is ahead of the trailing one: stretched.
-  const middle = railAt(stops, 920);
-  assert.ok(middle.right - middle.left > 60);
-  assert.ok(middle.left >= 0 && middle.right <= 100);
+  // Halfway through the glide, halfway between.
+  assert.deepEqual(railAt(stops, 880), { left: 25, right: 75 });
 });
 
-test('railTrack moves continuously and squeezes moves between close years', () => {
-  const stops = railTrack([-Infinity, 1000, 1050], years, 5000);
-  for (let y = 900; y < 1200; y += 1) {
-    const a = railAt(stops, y);
-    const b = railAt(stops, y + 1);
-    assert.ok(Math.abs(b.left - a.left) < 5 && Math.abs(b.right - a.right) < 5, `at ${y}`);
-  }
+test('railTrack glides steadily through close years, without resting', () => {
+  const stops = railTrack([0, 100, 200], years, 5000);
+  const centre = y => {
+    const { left, right } = railAt(stops, y);
+    return (left + right) / 2;
+  };
+  for (let y = 0; y < 200; y += 10) assert.equal(centre(y + 10) - centre(y), 5, `at ${y}`);
   assert.ok(stops.every((stop, index) => index === 0 || stop.y >= stops[index - 1].y));
 });
 
 test('railTrack leaves out years the page cannot scroll to', () => {
-  const stops = railTrack([-Infinity, 1000, 3000], years, 2000);
+  const stops = railTrack([0, 1000, 3000], years, 2000);
   assert.deepEqual(railAt(stops, 2000), years[1]);
   assert.deepEqual(railTrack([], [], 100), []);
 });

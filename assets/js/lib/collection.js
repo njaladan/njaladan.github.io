@@ -3,20 +3,19 @@
 // kept in the address, and a button back to the top (also on photos).
 import { $, $$ } from './dom.js';
 
-// How far below the pinned bar a section's top counts as having reached the top: past the
-// gap anchors leave under the bar.
-const SPY_SLACK = 64;
+// How far a section's top may sit below where scrolling to it lands (the page's scroll
+// padding) and still count as having reached the top, for rounding.
+const SPY_SLACK = 2;
 
-// The rail's highlight follows the page's scroll: it holds on a year, and as the next
-// year's top comes up to the bar it stretches across, its leading edge going first and its
-// trailing edge catching up, over at most this many pixels of scrolling, and at most half
-// the way from the year before, so even close years have it resting a while. It arrives as the year does, so a year scrolled to by
-// its link has it resting there.
-const STRETCH_PX = 160;
-// How far along the move each edge starts or finishes its part.
-const STRETCH_LAG = 0.4;
-// Points sampled along each move.
-const STRETCH_STEPS = 8;
+// The rail's highlight glides from each year to the next, steadily, over the scrolling up
+// to where the next year's top reaches the bar, or over at most this many pixels of it,
+// so in a long year it rests until the next comes near.
+const GLIDE_PX = 240;
+// While it moves, it draws out a tail behind it: this many milliseconds of its travel at
+// its current speed, up to this many pixels. Its speed is smoothed by this share each frame.
+const TAIL_MS = 45;
+const TAIL_MAX = 90;
+const SPEED_SMOOTHING = 0.35;
 
 /**
  * The query string for `state`, leaving out values at their defaults.
@@ -132,9 +131,6 @@ export function installIndexBar(bar) {
   return () => height;
 }
 
-/** @param {number} t */
-const smooth = t => t * t * (3 - 2 * t);
-
 /**
  * @typedef {object} RailStop Where the rail's highlight lies at one scroll position.
  * @property {number} y The window's scroll position.
@@ -143,10 +139,9 @@ const smooth = t => t * t * (3 - 2 * t);
  */
 
 /**
- * The highlight's path along the rail as the page scrolls: holding on each link, and
- * stretching from one to the next over the scrolling up to where the next one's section
- * reaches the bar. Moves past the end of the page's scroll are left out, as they can't be
- * reached.
+ * The highlight's path along the rail as the page scrolls: resting on each link where its
+ * section reaches the bar, and gliding steadily to the next on the way to where that one's
+ * does. Moves past the end of the page's scroll are left out, as they can't be reached.
  * @param {number[]} starts The scroll position where each link's section reaches the bar.
  * @param {{left: number, right: number}[]} links The links' edges along the rail.
  * @param {number} end The furthest the page scrolls.
@@ -159,21 +154,8 @@ export function railTrack(starts, links, end) {
   for (let index = 1; index < links.length; index++) {
     const at = starts[index];
     if (!(at <= end)) break;
-    const room = Math.min(at - starts[index - 1], (starts[index + 1] ?? Infinity) - at);
-    const span = Math.max(Math.min(STRETCH_PX, room / 2), 0);
-    const from = links[index - 1];
-    const to = links[index];
-    for (let step = 0; step <= STRETCH_STEPS; step++) {
-      const t = step / STRETCH_STEPS;
-      const lead = smooth(Math.min(t / (1 - STRETCH_LAG), 1));
-      const trail = smooth(Math.max(t - STRETCH_LAG, 0) / (1 - STRETCH_LAG));
-      const [left, right] = to.left >= from.left ? [trail, lead] : [lead, trail];
-      stops.push({
-        y: Math.max(at - span + t * span, stops[stops.length - 1].y),
-        left: from.left + (to.left - from.left) * left,
-        right: from.right + (to.right - from.right) * right
-      });
-    }
+    const from = Math.max(at - GLIDE_PX, starts[index - 1], stops[stops.length - 1].y);
+    stops.push({ y: from, ...links[index - 1] }, { y: Math.max(at, from), ...links[index] });
   }
   return stops;
 }
@@ -233,18 +215,17 @@ function markerPose({ left, right }, size) {
 
 /**
  * Marks the link in `nav` to the section at the top of the window with `aria-current`, and
- * moves a highlight along with the scroll to it: stretching from one link to the next as
- * their sections pass, and kept in the middle of the rail when the links overflow it.
- * Where the browser can, it ties the highlight to the scroll itself, so it moves in step
- * with the page rather than a frame behind.
+ * moves a highlight along with the scroll to it: gliding from one link to the next as their
+ * sections pass, drawing out a tail behind it the faster it goes, and kept in the middle of
+ * the rail when the links overflow it.
  * @param {HTMLElement} nav Links to sections on the page by `#id`; positioned, so it is
  *   their offset parent.
- * @param {() => number} offset How much of the window the pinned bar covers.
+ * @param {() => number} offset How much of the window the pinned bar covers, for when the
+ *   page sets no scroll padding.
  * @returns {() => void} Re-measures, for after the links or the sections change.
  */
 export function installScrollSpy(nav, offset) {
   const { marker, parts } = createMarker();
-  const scrollDriven = 'ScrollTimeline' in window;
   /** @type {RailStop[]} */
   let stops = [];
   /** @type {number[]} */
@@ -256,59 +237,57 @@ export function installScrollSpy(nav, offset) {
   let height = 0;
   let frame = 0;
   let stale = true;
-  /** @param {{left: number, right: number}} edges */
-  const pose = edges => markerPose(edges, height);
+  // The highlight's centre and smoothed speed along the rail, in pixels per millisecond.
+  let last = { centre: NaN, time: 0 };
+  let speed = 0;
 
   const measure = () => {
     stale = false;
+    last = { centre: NaN, time: 0 };
     links = $$('a[href^="#"]', nav);
     // The links can be rebuilt, taking the marker with them. It goes over them, turning
     // what it covers light.
     if (!marker.isConnected) nav.append(marker);
     marker.hidden = !links.length;
-    marker.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
     if (!links.length) return;
-    const line = offset() + SPY_SLACK;
+    // Where scrolling to a section lands, so one scrolled to by its link has the highlight
+    // resting on it.
+    const padding = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
+    const line = (Number.isFinite(padding) && padding > 0 ? padding : offset()) + SPY_SLACK;
     starts = links.map(link => {
       const section = document.getElementById(link.hash.slice(1));
       return section ? section.getBoundingClientRect().top + scrollY - line : Infinity;
     });
-    const end = document.documentElement.scrollHeight - innerHeight;
     stops = railTrack(
       starts,
       links.map(link => ({ left: link.offsetLeft, right: link.offsetLeft + link.offsetWidth })),
-      end
+      document.documentElement.scrollHeight - innerHeight
     );
     height = links[0].offsetHeight;
     marker.style.top = `${links[0].offsetTop}px`;
     marker.style.setProperty('--marker-size', `${height}px`);
-    if (!scrollDriven || end <= 0) return;
-    // Scroll progress runs from 0 to 1 over the page's whole scroll.
-    const offsets = [...stops.map(stop => Math.min(Math.max(stop.y / end, 0), 1)), 1];
-    const poses = [...stops, stops[stops.length - 1]].map(pose);
-    const source = document.scrollingElement ?? document.documentElement;
-    const timeline = new ScrollTimeline({ source, axis: 'block' });
-    parts.forEach((part, index) => {
-      const frames = poses.map((transforms, step) => ({
-        offset: offsets[step],
-        transform: transforms[index]
-      }));
-      part.animate(frames, { timeline, fill: 'both' });
-    });
   };
 
-  const update = () => {
+  /** @param {number} time */
+  const update = time => {
     frame = 0;
     if (stale) measure();
     if (!links.length) return;
     const y = scrollY;
-    const edges = railAt(stops, y);
-    if (!scrollDriven) {
-      pose(edges).forEach((transform, index) => (parts[index].style.transform = transform));
-    }
-    if (nav.scrollWidth > nav.clientWidth) {
-      nav.scrollLeft = (edges.left + edges.right) / 2 - nav.clientWidth / 2;
-    }
+    const { left, right } = railAt(stops, y);
+    const centre = (left + right) / 2;
+    const moved = Number.isNaN(last.centre) ? 0 : centre - last.centre;
+    speed += (moved / Math.max(time - last.time, 1) - speed) * SPEED_SMOOTHING;
+    last = { centre, time };
+    const tail = Math.min(Math.abs(speed) * TAIL_MS, TAIL_MAX);
+    const edges = speed > 0 ? { left: left - tail, right } : { left, right: right + tail };
+    markerPose(edges, height).forEach((transform, index) => {
+      parts[index].style.transform = transform;
+    });
+    if (nav.scrollWidth > nav.clientWidth) nav.scrollLeft = centre - nav.clientWidth / 2;
+    // The tail draws back in over the frames after the scrolling stops.
+    if (tail > 0.5) frame ||= requestAnimationFrame(update);
+    else speed = 0;
     const link = links[activeIndex(starts, y)];
     // Left alone while it stays put, so a scroll within a year touches nothing.
     if (link === current) return;
