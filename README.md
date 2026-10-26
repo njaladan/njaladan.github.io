@@ -20,6 +20,9 @@ _layouts/         default (page frame), book, books, movies, redirect
 _includes/        Header, footer and the movie card
 _plugins/         cache_bust.rb: version-stamps asset URLs on every build
 _data/            books.json and movies.json, read by Liquid at build time
+                  (movie viewings carry a `source` for the date: letterboxd, movies_journal,
+                  film_club, library, prime_video, theater_release, release_date, user_recall,
+                  user_logged; `theater: true` marks theater viewings)
 archive/          The retired CodeQueue app, still served at /codequeue/
 assets/
   css/            base.css on every page, plus one stylesheet per page or feature
