@@ -35,7 +35,12 @@ def import_movies(diary, watched):
         date.fromisoformat(when)
         logged.add(key)
         viewings.append(
-            {"film_id": film["id"], "date": when, "rewatch": row.get("Rewatch", "").strip().casefold() == "yes"}
+            {
+                "film_id": film["id"],
+                "date": when,
+                "rewatch": row.get("Rewatch", "").strip().casefold() == "yes",
+                "source": "letterboxd",
+            }
         )
     viewings.sort(key=lambda item: item["date"], reverse=True)
     earlier = [films[key]["id"] for key in films if key not in logged]
