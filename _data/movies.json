@@ -6083,6 +6083,13 @@
       "theater": true
     },
     {
+      "film_id": "6eadf3b9a2ee",
+      "group_year": "2011",
+      "rewatch": false,
+      "source": "theater_release",
+      "theater": true
+    },
+    {
       "film_id": "251362d037c8",
       "date": "2010-12-28",
       "rewatch": false,
@@ -6121,6 +6128,13 @@
     },
     {
       "film_id": "cc34e158fcb0",
+      "group_year": "2010",
+      "rewatch": false,
+      "source": "theater_release",
+      "theater": true
+    },
+    {
+      "film_id": "a9532e36c0b0",
       "group_year": "2010",
       "rewatch": false,
       "source": "theater_release",
@@ -6301,8 +6315,6 @@
     "b67023ab7bf0",
     "0ba9044cf2c5",
     "dc53c1bb30e3",
-    "a9532e36c0b0",
-    "6eadf3b9a2ee",
     "6a8d9c43a9e5",
     "8b76795a3b02",
     "04e2e5ee2021",
