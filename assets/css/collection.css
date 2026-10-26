@@ -93,18 +93,22 @@ html {
   border-color: var(--ink);
   background: #fff;
 }
-.pills-small .pill {
-  padding: 4px 10px;
-  font-size: 11px;
+/* Year pills read like the year links on the shelves: bare until chosen, then filled in. */
+.year-rail .pill {
+  flex: none;
+  border: 0;
+  padding: 4px 9px;
+  color: var(--muted);
+  transition:
+    background 150ms ease,
+    color 150ms ease;
 }
-.index-rail .pills {
-  flex-wrap: nowrap;
-  min-width: 0;
-  overflow-x: auto;
-  scrollbar-width: none;
+.year-rail .pill:hover {
+  color: var(--ink);
 }
-.index-rail .pills::-webkit-scrollbar {
-  display: none;
+.year-rail .pill[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--paper);
 }
 
 /* A view switch: two or three joined buttons, the current one filled in. */
