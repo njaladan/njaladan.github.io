@@ -48,7 +48,7 @@ const L = globeRenderer || window.L;
 function installMap(ctx) {
   const map = createMap(L);
   ctx.map = map;
-  ctx.smoothZoom = installSmoothZoom(map, ctx.reduceMotion);
+  ctx.smoothZoom = installSmoothZoom(map);
   ctx.CityTooltip = createCityTooltip(L);
   createPanes(map);
   ctx.layers.detail = createDetailLayer(L);

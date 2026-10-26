@@ -149,10 +149,7 @@ function createContext(elements, options) {
     format: formatters(options),
     dayPhotos: createDayPhotoCache(options.photos, options.geometry),
     highlight: createHighlighter(elements.content, options.onHighlight, currentTrip),
-    slide: createSlidingPanel(elements.panel, {
-      reduceMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
-      onToggle: options.onToggle
-    })
+    slide: createSlidingPanel(elements.panel, { onToggle: options.onToggle })
   };
 }
 

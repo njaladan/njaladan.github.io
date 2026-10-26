@@ -68,7 +68,6 @@ function createAtlas(map, options) {
     L,
     options,
     projection,
-    reduceMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
     layer: L.layerGroup().addTo(map),
     /** @type {Map<string, Pin>} pins by group key */
     pins: new Map(),
@@ -274,8 +273,7 @@ function assignPrints(atlas, { owners, oldOwners, snapshots, time }) {
       index,
       source: printSource(atlas, { id, old, snapshots }),
       merging: pin.items.length > (old?.pin.items.length || 0),
-      time,
-      animate: !atlas.reduceMotion
+      time
     });
   });
   [...stage.prints.values()].forEach(print => {
@@ -316,7 +314,7 @@ function layout(atlas) {
   const time = performance.now();
   const regrouping =
     groups.length !== pins.size || groups.some(group => !pins.has(groupKey(group.items)));
-  const snapshots = regrouping && !atlas.reduceMotion ? snapshotPrints(atlas, time) : new Map();
+  const snapshots = regrouping ? snapshotPrints(atlas, time) : new Map();
   const focused = [...pins.values()].find(
     pin => pin.marker.getElement() === document.activeElement
   );
@@ -383,7 +381,6 @@ export function installAtlasPhotos(map, { focus, onLayout }) {
   });
   atlas.viewer = createPhotoViewer(elements, {
     map,
-    reduceMotion: atlas.reduceMotion,
     asset,
     containerPoint: atlas.projection.containerPoint,
     pins: {

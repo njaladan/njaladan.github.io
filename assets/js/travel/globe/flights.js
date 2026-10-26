@@ -35,7 +35,6 @@ function createState(log) {
     sphere: sphereVertices(toMercator),
     programs: new Map(),
     styles: new Map(),
-    motion: matchMedia('(prefers-reduced-motion: reduce)'),
     map: null,
     gl: { vao: null, flightBuffer: null, sphereBuffer: null },
     latest: null,
@@ -52,16 +51,13 @@ function createState(log) {
 }
 
 /**
- * The dash flow holds still for reduced motion, hidden tabs, the photo
- * viewer and camera moves.
+ * The dash flow holds still for hidden tabs, the photo viewer and camera
+ * moves.
  * @param {ReturnType<typeof createState>} state
  * @returns {boolean}
  */
 const paused = state =>
-  state.motion.matches ||
-  document.hidden ||
-  document.body.classList.contains('photo-fullscreen') ||
-  state.map?.isMoving();
+  document.hidden || document.body.classList.contains('photo-fullscreen') || state.map?.isMoving();
 
 /**
  * Map and document handlers for picking, hovering and resuming the flow.
@@ -154,7 +150,6 @@ function attach(state, handlers, owner, gl) {
   state.abort = new AbortController();
   const { signal } = state.abort;
   document.addEventListener('visibilitychange', handlers.resume, { signal });
-  state.motion.addEventListener('change', handlers.resume, { signal });
   state.modalObserver = new MutationObserver(handlers.resume);
   state.modalObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 }

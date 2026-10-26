@@ -7,9 +7,6 @@ const SPINE_SAMPLE = 0.04;
 const TILT_Y_DEG = 36;
 const TILT_X_DEG = 24;
 
-/** @returns {boolean} */
-export const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-
 /**
  * A book's spine takes the colour of its cover's left edge.
  * @param {HTMLElement} cover
@@ -69,7 +66,6 @@ function tiltToward(event) {
  * @param {HTMLElement} root
  */
 export function installCoverTilt(root) {
-  if (reducedMotion()) return;
   root.addEventListener('pointermove', tiltToward);
   root.addEventListener('pointerout', event => {
     const link = /** @type {Element} */ (event.target).closest('.card-link');

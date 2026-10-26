@@ -3,10 +3,9 @@ import { VIEWER_ANIMATION } from './frame-motion.js';
 /**
  * Fades the fullscreen viewer's backdrop, hiding it once transparent.
  * @param {HTMLElement} backdrop
- * @param {boolean} reduceMotion
  * @returns {(visible: boolean, immediate?: boolean) => void}
  */
-export function createBackdropFade(backdrop, reduceMotion) {
+export function createBackdropFade(backdrop) {
   /** @type {Animation | null} */
   let motion = null;
   return (visible, immediate = false) => {
@@ -15,7 +14,7 @@ export function createBackdropFade(backdrop, reduceMotion) {
     motion?.cancel();
     motion = null;
     backdrop.style.opacity = String(to);
-    if (reduceMotion || immediate || from === to) {
+    if (immediate || from === to) {
       backdrop.hidden = !visible;
       return;
     }

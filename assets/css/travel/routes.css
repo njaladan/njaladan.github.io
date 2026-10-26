@@ -430,12 +430,6 @@ button.card-row span:first-child {
     box-shadow: 0 0 0 9px #e2b36b00;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .route-card,
-  .hint-dot {
-    animation: none;
-  }
-}
 /* The cabin that rides a hovered gondola line. It hangs from its wheel on the cable. */
 .gondola-cabin {
   pointer-events: none;

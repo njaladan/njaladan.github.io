@@ -100,13 +100,3 @@
     aspect-ratio: 5/3;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .photo-card,
-  .photo-map-arrow {
-    transition: none;
-  }
-  .photo-card:hover,
-  .photo-card:focus-visible {
-    transform: none;
-  }
-}

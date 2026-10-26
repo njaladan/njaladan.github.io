@@ -38,7 +38,6 @@ const ZOOM_MS = 260;
 // How long the view must sit still before the map is redrawn sharp at the new zoom.
 const SHARPEN_MS = 120;
 
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const byId = id => document.getElementById(id);
 const stage = byId('cov-stage');
 const canvas = /** @type {HTMLCanvasElement | null} */ (byId('cov-canvas'));
@@ -366,13 +365,12 @@ function play(scene, onDone) {
   };
   const frame = now => {
     t0 ||= now;
-    const u = reduce ? 1 : Math.min((now - t0) / PLAY_MS, 1);
+    const u = Math.min((now - t0) / PLAY_MS, 1);
     extendTrails(scene, u);
     scene.u = u;
     draw(scene);
     updateText(scene, u);
     if (u < 1) raf = requestAnimationFrame(frame);
-    else if (reduce) fade(now)(now + FADE_MS);
     else raf = requestAnimationFrame(fade(now));
   };
   raf = requestAnimationFrame(frame);
@@ -501,10 +499,6 @@ function animateTo(k, cx, cy) {
   const from = { ...view };
   zoomAt(k, cx, cy);
   const to = { ...view };
-  if (reduce) {
-    onZoom();
-    return;
-  }
   Object.assign(view, from);
   let t0 = 0;
   const step = now => {

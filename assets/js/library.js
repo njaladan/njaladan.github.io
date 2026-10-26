@@ -3,7 +3,7 @@
 import { $, $$ } from './lib/dom.js';
 import { installBackToTop, installIndexBar, installScrollSpy } from './lib/collection.js';
 import { installBookDialog } from './library/book.js';
-import { installCoverFallbacks, installCoverTilt, reducedMotion } from './library/covers.js';
+import { installCoverFallbacks, installCoverTilt } from './library/covers.js';
 import { compareCards, groupBy, groupKey, groupLabels, keyFromId } from './library/shelf.js';
 
 /**
@@ -90,11 +90,6 @@ function fadeHidden(section) {
  * @param {boolean} folding
  */
 async function animateFold(section, change, folding) {
-  if (reducedMotion()) {
-    section.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
-    change();
-    return;
-  }
   if (folding) {
     section.dataset.fading = '';
     await fadeHidden(section);

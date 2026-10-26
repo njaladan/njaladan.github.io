@@ -192,11 +192,10 @@ class IdleSpin {
 }
 
 /**
- * Starts the idle spin on a loaded GlobeMap, unless motion is reduced.
+ * Starts the idle spin on a loaded GlobeMap.
  * @param {any} globe
  */
 export function startSpin(globe) {
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const spin = new IdleSpin(globe);
   globe._spinAbort = new AbortController();
   spin.listen(globe._spinAbort.signal);

@@ -306,7 +306,7 @@ export function showWorld(ctx, animate = true) {
   layers.world.setStyle(styleCountry);
   if (animate) {
     stopCamera(ctx);
-    fitWorld(ctx, !ctx.reduceMotion);
+    fitWorld(ctx, true);
   }
   updateBasemap(ctx);
 }
@@ -333,7 +333,6 @@ export function focusPhoto(ctx, target) {
     const coords = L.latLng(target.coords),
       zoom = Math.min(MAX_ZOOM, target.zoom);
     if (map.getCenter().equals(coords) && map.getZoom() === zoom) complete();
-    else if (ctx.reduceMotion) map.setView(coords, zoom, { animate: false });
     else map.flyTo(coords, zoom, { duration: PHOTO_FLY_SECONDS });
   } else {
     fitView(ctx, target.bounds, target.maxZoom);
