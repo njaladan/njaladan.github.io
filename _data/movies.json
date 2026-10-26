@@ -4022,6 +4022,13 @@
       "year": "2004",
       "cover": "/assets/images/movies/57769e37536c.webp",
       "art_source": "https://www.themoviedb.org/movie/2567-the-aviator"
+    },
+    {
+      "id": "20a7896fe631",
+      "title": "Underdog",
+      "year": "2007",
+      "cover": "/assets/images/movies/20a7896fe631.webp",
+      "art_source": "https://www.themoviedb.org/movie/6589-underdog"
     }
   ],
   "viewings": [
@@ -6183,6 +6190,13 @@
       "group_year": "2007",
       "rewatch": false,
       "source": "user_recall"
+    },
+    {
+      "film_id": "20a7896fe631",
+      "group_year": "2007",
+      "rewatch": false,
+      "source": "theater_release",
+      "theater": true
     },
     {
       "film_id": "b6ae9f5e95b2",
