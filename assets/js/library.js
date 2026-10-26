@@ -26,6 +26,9 @@ const FOLD_MS = 420;
 const FOLD_EASE = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
 // How long what a fold hides takes to fade out before the covers move.
 const FADE_MS = 160;
+// The furthest the years below slide to their new place; further than this, they rise or
+// drop just this far and fade in, rather than racing a long way across the screen.
+const SETTLE_PX = 48;
 
 /**
  * Folds `section` to a strip of its first covers, or opens it.
@@ -82,9 +85,10 @@ function fadeHidden(section) {
 }
 
 /**
- * Runs `change` on `section`, then eases it there: the height follows, covers on show
- * before and after slide and grow from where they were, and the rest fade in. A fold first
- * fades out what it will hide, so nothing vanishes from under the moving covers.
+ * Runs `change` on `section`, then eases it there: covers on show before and after slide
+ * and grow from where they were, the rest fade in, and the years below settle into their
+ * new place. A fold first fades out what it will hide, so nothing vanishes from under the
+ * moving covers. Only transforms and opacity move, so phones keep up.
  * @param {HTMLElement} section
  * @param {() => void} change
  * @param {boolean} folding
@@ -97,18 +101,24 @@ async function animateFold(section, change, folding) {
     if (!('fading' in section.dataset)) return;
     delete section.dataset.fading;
   }
-  const running = section.getAnimations({ subtree: true });
+  const below = /** @type {HTMLElement[]} */ (
+    [...(section.parentElement?.children ?? [])].filter(
+      element => section.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_FOLLOWING
+    )
+  );
+  const running = [section, ...below].flatMap(element =>
+    element.getAnimations({ subtree: element === section })
+  );
   // Measured before cancelling, so a fold reversed midway starts from where it got to.
   const from = section.getBoundingClientRect();
   const covers = $$('.cover, .fold-more', section);
   const before = new Map(covers.map(cover => [cover, placeIn(cover, from)]));
+  const tops = below.map(element => element.getBoundingClientRect().top);
   running.forEach(animation => animation.cancel());
   change();
   const to = section.getBoundingClientRect();
   const timing = { duration: FOLD_MS, easing: FOLD_EASE };
-  section.classList.add('folding');
-  const height = section.animate({ height: [`${from.height}px`, `${to.height}px`] }, timing);
-  height.onfinish = height.oncancel = () => section.classList.remove('folding');
+  below.forEach((element, index) => settle(element, tops[index], timing));
   for (const cover of $$('.cover, .fold-more', section)) {
     const now = placeIn(cover, to);
     const was = before.get(cover);
@@ -129,6 +139,28 @@ async function animateFold(section, change, folding) {
       title.animate({ opacity: [0, 1] }, { ...timing, delay: FOLD_MS / 2, fill: 'backwards' });
     }
   }
+}
+
+/**
+ * Eases `element` from `top`, where it was drawn, to where it is now: all the way when
+ * that is near, and otherwise the last stretch, fading in. Off screen, it just goes.
+ * @param {HTMLElement} element
+ * @param {number} top
+ * @param {KeyframeAnimationOptions} timing
+ */
+function settle(element, top, timing) {
+  const now = element.getBoundingClientRect().top;
+  const shift = top - now;
+  if (!shift || (now > innerHeight && top > innerHeight)) return;
+  if (Math.abs(shift) <= SETTLE_PX) {
+    element.animate({ transform: [`translateY(${shift}px)`, 'none'] }, timing);
+    return;
+  }
+  element.animate({ transform: [`translateY(${Math.sign(shift) * SETTLE_PX}px)`, 'none'] }, timing);
+  element.animate(
+    { opacity: [0, 1] },
+    { duration: FOLD_MS, delay: FOLD_MS / 4, easing: 'ease-out', fill: 'backwards' }
+  );
 }
 
 /**
