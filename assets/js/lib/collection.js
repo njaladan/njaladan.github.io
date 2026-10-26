@@ -7,6 +7,10 @@ import { $, $$ } from './dom.js';
 // gap anchors leave under the bar.
 const SPY_SLACK = 64;
 
+// How long the page must stop scrolling before the rail slides to the marked link, in
+// milliseconds: years fly past a fast flick, and following each one jerks the rail about.
+const REVEAL_DELAY = 150;
+
 /**
  * The query string for `state`, leaving out values at their defaults.
  * @param {Record<string, string>} state
@@ -130,7 +134,11 @@ function revealLink(nav, link) {
   const left = link.offsetLeft;
   const right = left + link.offsetWidth;
   if (left >= nav.scrollLeft && right <= nav.scrollLeft + nav.clientWidth) return;
-  nav.scrollTo({ left: left - (nav.clientWidth - link.offsetWidth) / 2 });
+  const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  nav.scrollTo({
+    left: left - (nav.clientWidth - link.offsetWidth) / 2,
+    behavior: smooth ? 'smooth' : 'auto'
+  });
 }
 
 /**
@@ -141,6 +149,7 @@ function revealLink(nav, link) {
  */
 export function installScrollSpy(nav, offset) {
   let frame = 0;
+  let reveal = 0;
   const mark = () => {
     frame = 0;
     /** @type {HTMLAnchorElement[]} */
@@ -153,7 +162,9 @@ export function installScrollSpy(nav, offset) {
       if (index === active) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     });
-    if (links[active]) revealLink(nav, links[active]);
+    clearTimeout(reveal);
+    const link = links[active];
+    if (link) reveal = setTimeout(() => revealLink(nav, link), REVEAL_DELAY);
   };
   const schedule = () => {
     frame ||= requestAnimationFrame(mark);

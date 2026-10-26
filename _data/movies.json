@@ -4819,6 +4819,12 @@
       "source": "letterboxd"
     },
     {
+      "film_id": "23cdcc671661",
+      "date": "2020-07-01",
+      "rewatch": false,
+      "source": "user_logged"
+    },
+    {
       "film_id": "e10e5791e7c1",
       "date": "2020-05-14",
       "rewatch": false,
@@ -6459,7 +6465,6 @@
     "fede8bf62592",
     "0d439d68dc04",
     "7dba718d5d8c",
-    "23cdcc671661",
     "6112d92bb27b",
     "b2bf9149aa67",
     "45e0655aabd9"

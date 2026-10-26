@@ -1,0 +1,7 @@
+{% comment %}A movie year as library.js shelves it, folded, so the page loads as it will look: the
+heading, a strip of covers, and a tile to open the rest (when there are more than the five a
+phone strip shows).{% endcomment %}
+<section class="library-group is-folded" id="{{ include.id }}" data-key="{{ include.key }}" data-total="{{ include.total }}">
+  <div class="group-heading"><h2>{{ include.heading }}</h2><span>{{ include.total }} {{ include.noun }}</span><button type="button" class="fold-toggle" data-fold-toggle aria-expanded="false">Show all {{ include.total }}</button></div>
+  <div class="shelf">{{ include.cards }}{% if include.total > 5 %}<button type="button" class="fold-more" data-fold-toggle aria-label="Show all {{ include.total }} from {{ include.heading }}">All {{ include.total }}</button>{% endif %}</div>
+</section>
