@@ -18,9 +18,9 @@
   font: 11px var(--sans);
   color: var(--muted);
 }
-/* Movie years fold to one line: the year, and a strip of small covers ending in a tile
-   that opens the rest. */
-.library-group.is-folded {
+/* Movie years sit beside their heading, folded to one line (a strip of small covers ending
+   in a tile that opens the rest) or open in full. The heading stays put either way. */
+[data-fold] .library-group {
   display: grid;
   grid-template-columns: 150px minmax(0, 1fr);
   gap: 12px 24px;
@@ -29,13 +29,16 @@
   padding: 18px 0;
   border-top: 1px solid var(--rule);
 }
-.library-group.is-folded:first-child {
+[data-fold] .library-group:first-child {
   border-top: 0;
 }
-.library-group:not(.is-folded) + .is-folded {
-  margin-top: 39px;
+/* Clips the covers while a year opens or folds. */
+[data-fold] .library-group.folding {
+  overflow: clip;
 }
-.is-folded .group-heading {
+[data-fold] .group-heading {
+  position: sticky;
+  top: calc(var(--index-bar-height, 60px) + 18px);
   flex-direction: column;
   align-items: flex-start;
   gap: 2px;
@@ -43,7 +46,7 @@
   padding: 0;
   margin: 0;
 }
-.is-folded .group-heading h2 {
+[data-fold] .group-heading h2 {
   font-size: 22px;
 }
 .fold-toggle {
@@ -54,11 +57,16 @@
   background: none;
   padding: 4px 0;
 }
-.is-folded .fold-toggle {
+[data-fold] .fold-toggle {
   margin: 6px 0 0;
 }
 .fold-toggle:hover {
   color: var(--accent);
+}
+@media (min-width: 901px) {
+  [data-fold] .shelf {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
 }
 .library-group.is-folded .shelf {
   grid-template-columns: repeat(11, minmax(0, 1fr));
@@ -365,16 +373,17 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px 14px;
   }
-  .library-group.is-folded {
+  [data-fold] .library-group {
     grid-template-columns: minmax(0, 1fr);
     padding: 14px 0 16px;
   }
-  .is-folded .group-heading {
+  [data-fold] .group-heading {
+    position: static;
     flex-direction: row;
     align-items: baseline;
     gap: 12px;
   }
-  .is-folded .fold-toggle {
+  [data-fold] .fold-toggle {
     margin: 0 0 0 auto;
   }
   .library-group.is-folded .shelf {

@@ -3,7 +3,7 @@
 import { $, $$ } from './lib/dom.js';
 import { installBackToTop, installIndexBar, installScrollSpy } from './lib/collection.js';
 import { installBookDialog } from './library/book.js';
-import { installCoverFallbacks, installCoverTilt } from './library/covers.js';
+import { installCoverFallbacks, installCoverTilt, reducedMotion } from './library/covers.js';
 import { compareCards, groupBy, groupKey, groupLabels, keyFromId } from './library/shelf.js';
 
 /**
@@ -21,6 +21,9 @@ import { compareCards, groupBy, groupKey, groupLabels, keyFromId } from './libra
 const STRIP = 5;
 // Movies read newest first, books oldest first.
 const ORDER = { movies: 'newest', books: 'oldest' };
+// How long a year takes to open or fold, in milliseconds.
+const FOLD_MS = 420;
+const FOLD_EASE = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
 
 /**
  * Folds `section` to a strip of its first covers, or opens it.
@@ -46,6 +49,62 @@ function setFolded(section, folded) {
     more.setAttribute('aria-label', `Show all ${total} from ${label}`);
     more.textContent = `All ${total}`;
     shelf.append(more);
+  }
+}
+
+/**
+ * Where `element` is drawn, relative to `origin`.
+ * @param {Element} element
+ * @param {DOMRect} origin
+ */
+function placeIn(element, origin) {
+  const { left, top, width, height } = element.getBoundingClientRect();
+  return { left: left - origin.left, top: top - origin.top, width, height };
+}
+
+/**
+ * Runs `change` on `section`, then eases it there: the height follows, covers on show
+ * before and after slide and grow from where they were, and the rest fade in.
+ * @param {HTMLElement} section
+ * @param {() => void} change
+ */
+function animateFold(section, change) {
+  const running = section.getAnimations({ subtree: true });
+  if (reducedMotion()) {
+    running.forEach(animation => animation.cancel());
+    change();
+    return;
+  }
+  // Measured before cancelling, so a fold reversed midway starts from where it got to.
+  const from = section.getBoundingClientRect();
+  const covers = $$('.cover, .fold-more', section);
+  const before = new Map(covers.map(cover => [cover, placeIn(cover, from)]));
+  running.forEach(animation => animation.cancel());
+  change();
+  const to = section.getBoundingClientRect();
+  const timing = { duration: FOLD_MS, easing: FOLD_EASE };
+  section.classList.add('folding');
+  const height = section.animate({ height: [`${from.height}px`, `${to.height}px`] }, timing);
+  height.onfinish = height.oncancel = () => section.classList.remove('folding');
+  for (const cover of $$('.cover, .fold-more', section)) {
+    const now = placeIn(cover, to);
+    const was = before.get(cover);
+    if (!now.width) continue;
+    if (was?.width) {
+      const shift = `translate(${was.left - now.left}px, ${was.top - now.top}px)`;
+      const scale = `scale(${was.width / now.width}, ${was.height / now.height})`;
+      cover.animate(
+        { transform: [`${shift} ${scale}`, 'none'], transformOrigin: ['0 0', '0 0'] },
+        timing
+      );
+    } else {
+      cover.animate({ opacity: [0, 1] }, { ...timing, delay: FOLD_MS / 3, fill: 'backwards' });
+    }
+  }
+  if (!section.classList.contains('is-folded')) {
+    for (const title of $$('.card-title', section)) {
+      title.animate({ opacity: [0, 1] }, { ...timing, delay: FOLD_MS / 2, fill: 'backwards' });
+    }
   }
 }
 
@@ -141,9 +200,11 @@ function installFolding(shelf) {
     const key = section.dataset.key;
     if (folded) shelf.opened.add(key);
     else shelf.opened.delete(key);
-    setFolded(section, !folded);
-    // Folding a long year from inside it would leave the reader somewhere further down.
-    if (!folded && section.getBoundingClientRect().top < 0) section.scrollIntoView();
+    animateFold(section, () => {
+      setFolded(section, !folded);
+      // Folding a long year from inside it would leave the reader somewhere further down.
+      if (!folded && section.getBoundingClientRect().top < 0) section.scrollIntoView();
+    });
   });
   nav.addEventListener('click', event => {
     const link = /** @type {Element} */ (event.target).closest('a[href^="#"]');
