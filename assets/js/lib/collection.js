@@ -7,22 +7,16 @@ import { $, $$ } from './dom.js';
 // gap anchors leave under the bar.
 const SPY_SLACK = 64;
 
-// The rail's highlight moves on two springs, one for each edge. The edge in front is stiffer
-// than the one behind, so the highlight stretches as it goes, the more the faster it moves,
-// and gathers itself up when it arrives. Stiffness is per second squared; each spring is
-// critically damped, so it settles without overshooting.
-const LEAD_STIFFNESS = 520;
-const TRAIL_STIFFNESS = 150;
-// The springs are worked out ahead in steps of this many seconds and handed to the browser
-// as keyframes, so it can run them off the main thread.
-const SPRING_STEP = 1 / 60;
-// Close enough to rest, in pixels and pixels per second, and the longest a move may take.
-const REST_PX = 0.3;
-const REST_SPEED = 4;
-const SPRING_MAX_STEPS = 90;
-// How close the highlight's leading edge may come to the end of the rail before the rail
-// scrolls along with it, in pixels.
-const FOLLOW_MARGIN = 56;
+// The rail's highlight follows the page's scroll: it holds on a year, and as the next
+// year's top comes up to the bar it stretches across, its leading edge going first and its
+// trailing edge catching up, over at most this many pixels of scrolling, and at most half
+// the way from the year before, so even close years have it resting a while. It arrives as the year does, so a year scrolled to by
+// its link has it resting there.
+const STRETCH_PX = 160;
+// How far along the move each edge starts or finishes its part.
+const STRETCH_LAG = 0.4;
+// Points sampled along each move.
+const STRETCH_STEPS = 8;
 
 /**
  * The query string for `state`, leaving out values at their defaults.
@@ -138,163 +132,171 @@ export function installIndexBar(bar) {
   return () => height;
 }
 
+/** @param {number} t */
+const smooth = t => t * t * (3 - 2 * t);
+
 /**
- * An edge's path on a spring toward `target`, from where it is and how fast it is moving.
- * @param {{x: number, v: number}} edge
- * @param {number} target
- * @param {number} stiffness
- * @returns {{x: number, v: number}[]} Its state at each step, ending at rest on `target`.
+ * @typedef {object} RailStop Where the rail's highlight lies at one scroll position.
+ * @property {number} y The window's scroll position.
+ * @property {number} left Its edges, along the rail.
+ * @property {number} right
  */
-function springPath(edge, target, stiffness) {
-  const damping = 2 * Math.sqrt(stiffness);
-  let { x, v } = edge;
-  const path = [{ x, v }];
-  for (let step = 0; step < SPRING_MAX_STEPS; step++) {
-    if (Math.abs(target - x) < REST_PX && Math.abs(v) < REST_SPEED) break;
-    // Semi-implicit Euler: steady at these stiffnesses and step.
-    v += (stiffness * (target - x) - damping * v) * SPRING_STEP;
-    x += v * SPRING_STEP;
-    path.push({ x, v });
+
+/**
+ * The highlight's path along the rail as the page scrolls: holding on each link, and
+ * stretching from one to the next over the scrolling up to where the next one's section
+ * reaches the bar. Moves past the end of the page's scroll are left out, as they can't be
+ * reached.
+ * @param {number[]} starts The scroll position where each link's section reaches the bar.
+ * @param {{left: number, right: number}[]} links The links' edges along the rail.
+ * @param {number} end The furthest the page scrolls.
+ * @returns {RailStop[]} In scroll order, starting on the first link.
+ */
+export function railTrack(starts, links, end) {
+  if (!links.length) return [];
+  /** @type {RailStop[]} */
+  const stops = [{ y: -Infinity, ...links[0] }];
+  for (let index = 1; index < links.length; index++) {
+    const at = starts[index];
+    if (!(at <= end)) break;
+    const room = Math.min(at - starts[index - 1], (starts[index + 1] ?? Infinity) - at);
+    const span = Math.max(Math.min(STRETCH_PX, room / 2), 0);
+    const from = links[index - 1];
+    const to = links[index];
+    for (let step = 0; step <= STRETCH_STEPS; step++) {
+      const t = step / STRETCH_STEPS;
+      const lead = smooth(Math.min(t / (1 - STRETCH_LAG), 1));
+      const trail = smooth(Math.max(t - STRETCH_LAG, 0) / (1 - STRETCH_LAG));
+      const [left, right] = to.left >= from.left ? [trail, lead] : [lead, trail];
+      stops.push({
+        y: Math.max(at - span + t * span, stops[stops.length - 1].y),
+        left: from.left + (to.left - from.left) * left,
+        right: from.right + (to.right - from.right) * right
+      });
+    }
   }
-  path.push({ x: target, v: 0 });
-  return path;
+  return stops;
 }
 
 /**
- * A highlight for `nav` that springs to the link it is given, stretching while it moves.
- * A new link mid-move carries on from where the edges are and how fast they are going.
- * It jumps rather than travels into its first place, and back after hiding. When the links
- * overflow `nav`, it scrolls along with the highlight's leading edge.
- * @param {HTMLElement} nav Positioned, so it is its links' offset parent.
- * @param {HTMLElement} nav
- * @returns {(link: HTMLElement | undefined) => void}
+ * Where the highlight lies at scroll position `y`.
+ * @param {RailStop[]} stops
+ * @param {number} y
+ * @returns {{left: number, right: number}}
  */
-function createMarker(nav) {
-  const marker = document.createElement('span');
-  marker.className = 'rail-marker';
-  marker.setAttribute('aria-hidden', 'true');
-  /** @type {{left: number, right: number, top: number, width: number} | null} */
-  let to = null;
-  /** @type {{x: number, v: number}[][]} The left and right edges' paths. */
-  let paths = [];
-  let start = 0;
-  let forward = true;
-  let follow = 0;
-  /**
-   * @param {number} edge 0 for left, 1 for right.
-   * @param {number} time
-   */
-  const edgeAt = (edge, time) => {
-    const path = paths[edge];
-    return path[Math.min(Math.floor((time - start) / 1000 / SPRING_STEP), path.length - 1)];
-  };
-  /** Keeps the leading edge in view, a margin from the end, until the highlight settles. */
-  const keepInView = () => {
-    const now = performance.now();
-    const margin = Math.min(FOLLOW_MARGIN, nav.clientWidth / 4);
-    const left = edgeAt(0, now).x;
-    const right = edgeAt(1, now).x;
-    const view = nav.scrollLeft;
-    if (forward && right > view + nav.clientWidth - margin) {
-      nav.scrollLeft = right - nav.clientWidth + margin;
-    } else if (!forward && left < view + margin) nav.scrollLeft = left - margin;
-    const moving = (now - start) / 1000 < Math.max(...paths.map(path => path.length)) * SPRING_STEP;
-    follow = moving ? requestAnimationFrame(keepInView) : 0;
-  };
-  return link => {
-    // The links can be rebuilt, taking the marker with them. It goes over them, turning
-    // what it covers light.
-    if (!marker.isConnected) nav.append(marker);
-    marker.hidden = !link;
-    if (!link) {
-      to = null;
-      return;
-    }
-    const target = {
-      left: link.offsetLeft,
-      right: link.offsetLeft + link.offsetWidth,
-      top: link.offsetTop,
-      width: link.offsetWidth
-    };
-    if (to && ['left', 'right', 'top'].every(key => to?.[key] === target[key])) return;
-    const now = performance.now();
-    const moving = to !== null;
-    const [left, right] = moving
-      ? [edgeAt(0, now), edgeAt(1, now)]
-      : [
-          { x: target.left, v: 0 },
-          { x: target.right, v: 0 }
-        ];
-    forward = target.left >= left.x;
-    paths = [
-      springPath(left, target.left, forward ? TRAIL_STIFFNESS : LEAD_STIFFNESS),
-      springPath(right, target.right, forward ? LEAD_STIFFNESS : TRAIL_STIFFNESS)
-    ];
-    to = target;
-    start = now;
-    marker.getAnimations().forEach(animation => animation.cancel());
-    marker.style.width = `${target.width}px`;
-    marker.style.height = `${link.offsetHeight}px`;
-    /**
-     * @param {number} x
-     * @param {number} end
-     */
-    const pose = (x, end) =>
-      `translate(${x}px, ${target.top}px) scaleX(${(end - x) / target.width})`;
-    const steps = Math.max(paths[0].length, paths[1].length);
-    if (!moving || steps < 3) {
-      marker.style.transform = pose(target.left, target.right);
-      if (target.left < nav.scrollLeft || target.right > nav.scrollLeft + nav.clientWidth) {
-        nav.scrollLeft = target.left - (nav.clientWidth - target.width) / 2;
-      }
-      return;
-    }
-    const frames = Array.from({ length: steps }, (_, step) => {
-      const time = now + step * SPRING_STEP * 1000;
-      return { transform: pose(edgeAt(0, time).x, edgeAt(1, time).x) };
-    });
-    // Resting where it set off until the browser starts the move, and where it ends after.
-    marker.style.transform = frames[0].transform;
-    marker.animate(frames, { duration: (steps - 1) * SPRING_STEP * 1000, fill: 'forwards' });
-    follow ||= requestAnimationFrame(keepInView);
-  };
+export function railAt(stops, y) {
+  let low = 0;
+  let high = stops.length - 1;
+  if (y >= stops[high].y) return { left: stops[high].left, right: stops[high].right };
+  while (high - low > 1) {
+    const middle = (low + high) >> 1;
+    if (stops[middle].y <= y) low = middle;
+    else high = middle;
+  }
+  const [a, b] = [stops[low], stops[high]];
+  if (a.y === -Infinity) return { left: a.left, right: a.right };
+  const t = b.y > a.y ? (y - a.y) / (b.y - a.y) : 1;
+  return { left: a.left + (b.left - a.left) * t, right: a.right + (b.right - a.right) * t };
 }
 
 /**
  * Marks the link in `nav` to the section at the top of the window with `aria-current`, and
- * slides a highlight under it.
- * @param {HTMLElement} nav Links to sections on the page by `#id`.
+ * moves a highlight along with the scroll to it: stretching from one link to the next as
+ * their sections pass, and kept in the middle of the rail when the links overflow it.
+ * Where the browser can, it ties the highlight to the scroll itself, so it moves in step
+ * with the page rather than a frame behind.
+ * @param {HTMLElement} nav Links to sections on the page by `#id`; positioned, so it is
+ *   their offset parent.
  * @param {() => number} offset How much of the window the pinned bar covers.
- * @returns {() => void} Re-marks the links, for after they or the sections change.
+ * @returns {() => void} Re-measures, for after the links or the sections change.
  */
 export function installScrollSpy(nav, offset) {
-  let frame = 0;
+  const marker = document.createElement('span');
+  marker.className = 'rail-marker';
+  marker.setAttribute('aria-hidden', 'true');
+  const scrollDriven = 'ScrollTimeline' in window;
+  /** @type {RailStop[]} */
+  let stops = [];
+  /** @type {number[]} */
+  let starts = [];
+  /** @type {HTMLAnchorElement[]} */
+  let links = [];
   /** @type {HTMLAnchorElement | undefined} */
   let current;
-  const place = createMarker(nav);
-  const mark = () => {
-    frame = 0;
-    /** @type {HTMLAnchorElement[]} */
-    const links = $$('a[href^="#"]', nav);
-    const tops = links.map(
-      link => document.getElementById(link.hash.slice(1))?.getBoundingClientRect().top ?? Infinity
+  let width = 1;
+  let frame = 0;
+  let stale = true;
+  /** @param {{left: number, right: number}} edges */
+  const pose = ({ left, right }) => `translateX(${left}px) scaleX(${(right - left) / width})`;
+
+  const measure = () => {
+    stale = false;
+    links = $$('a[href^="#"]', nav);
+    // The links can be rebuilt, taking the marker with them. It goes over them, turning
+    // what it covers light.
+    if (!marker.isConnected) nav.append(marker);
+    marker.hidden = !links.length;
+    marker.getAnimations().forEach(animation => animation.cancel());
+    if (!links.length) return;
+    const line = offset() + SPY_SLACK;
+    starts = links.map(link => {
+      const section = document.getElementById(link.hash.slice(1));
+      return section ? section.getBoundingClientRect().top + scrollY - line : Infinity;
+    });
+    const end = document.documentElement.scrollHeight - innerHeight;
+    stops = railTrack(
+      starts,
+      links.map(link => ({ left: link.offsetLeft, right: link.offsetLeft + link.offsetWidth })),
+      end
     );
-    const active = activeIndex(tops, offset() + SPY_SLACK);
-    const link = links[active];
-    place(link);
+    width = links[0].offsetWidth;
+    Object.assign(marker.style, {
+      top: `${links[0].offsetTop}px`,
+      width: `${width}px`,
+      height: `${links[0].offsetHeight}px`
+    });
+    if (!scrollDriven || end <= 0) return;
+    // Scroll progress runs from 0 to 1 over the page's whole scroll.
+    const frames = stops.map(stop => ({
+      offset: Math.min(Math.max(stop.y / end, 0), 1),
+      transform: pose(stop)
+    }));
+    frames.push({ offset: 1, transform: pose(stops[stops.length - 1]) });
+    const source = document.scrollingElement ?? document.documentElement;
+    const timeline = new ScrollTimeline({ source, axis: 'block' });
+    marker.animate(frames, { timeline, fill: 'both' });
+  };
+
+  const update = () => {
+    frame = 0;
+    if (stale) measure();
+    if (!links.length) return;
+    const y = scrollY;
+    const edges = railAt(stops, y);
+    if (!scrollDriven) marker.style.transform = pose(edges);
+    if (nav.scrollWidth > nav.clientWidth) {
+      nav.scrollLeft = (edges.left + edges.right) / 2 - nav.clientWidth / 2;
+    }
+    const link = links[activeIndex(starts, y)];
     // Left alone while it stays put, so a scroll within a year touches nothing.
     if (link === current) return;
     current?.removeAttribute('aria-current');
-    link?.setAttribute('aria-current', 'location');
+    link.setAttribute('aria-current', 'location');
     current = link;
   };
   const schedule = () => {
-    frame ||= requestAnimationFrame(mark);
+    frame ||= requestAnimationFrame(update);
+  };
+  const remeasure = () => {
+    stale = true;
+    schedule();
   };
   addEventListener('scroll', schedule, { passive: true });
-  addEventListener('resize', schedule);
-  schedule();
-  return schedule;
+  addEventListener('resize', remeasure);
+  // Years opening and folding, covers loading and fonts arriving all move the sections.
+  new ResizeObserver(remeasure).observe(document.body);
+  remeasure();
+  return remeasure;
 }
 
 /** A button back to the top that appears once the page has scrolled well down. */
