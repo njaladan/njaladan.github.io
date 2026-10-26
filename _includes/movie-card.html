@@ -4,5 +4,5 @@
     <div class="cover-fallback" aria-hidden="true"><span>{{ film.title | escape }}</span></div>
     {% if film.cover %}<img src="{{ film.cover | relative_url }}" alt="" width="300" height="450" loading="lazy" decoding="async">{% endif %}
   </div>
-  <span class="card-title" title="{{ film.title | escape }}">{{ film.title | escape }}</span>
+  <span class="card-title" title="{{ film.title | escape }}">{% if film.title.size > 65 %}{{ film.title | truncatewords: 9, "…" | escape }}{% else %}{{ film.title | escape }}{% endif %}</span>
 </article>
