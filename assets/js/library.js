@@ -1,22 +1,11 @@
-// Books and movies pages: search, filter and sort the shelf into year groups, fold older
-// years to a strip, mark the year in view, tilt covers toward the pointer, and open notes
-// as a book.
+// Books and movies pages: shelve the cards into year groups, fold older years to a strip,
+// mark the year in view, tilt covers toward the pointer, and open notes as a book.
 import { $, $$ } from './lib/dom.js';
-import {
-  installBackToTop,
-  installIndexBar,
-  installPills,
-  installScrollSpy,
-  installSearchKey,
-  readQuery,
-  writeQuery
-} from './lib/collection.js';
+import { installBackToTop, installIndexBar, installScrollSpy } from './lib/collection.js';
 import { installBookDialog } from './library/book.js';
 import { installCoverFallbacks, installCoverTilt } from './library/covers.js';
 import {
-  cardMatches,
   compareCards,
-  fold,
   foldedGroups,
   groupBy,
   groupKey,
@@ -24,36 +13,21 @@ import {
   keyFromId
 } from './library/shelf.js';
 
-/** @typedef {import('./lib/collection.js').Pills} Pills */
-
 /**
  * @typedef {object} Shelf
- * @property {HTMLElement} root
  * @property {string} kind `books` or `movies`.
- * @property {HTMLElement[]} cards The shelved cards, not the recent strip's copies.
+ * @property {HTMLElement[]} cards
  * @property {HTMLElement} groups
  * @property {HTMLElement} nav Year navigation.
- * @property {HTMLInputElement} search
- * @property {Pills} filter
- * @property {Pills} sort
- * @property {Record<string, string>} defaults The filters' values with nothing chosen.
  * @property {boolean} folds Whether older years fold to a strip.
  * @property {Set<string>} opened Folding groups the reader has opened.
- * @property {HTMLElement | null} recent
  * @property {() => void} spy Re-marks the year in view.
  */
 
 // The fewest covers a folded strip shows, on phones; smaller years need no tile to open.
 const STRIP = 5;
-// Cards in the recent strip above the shelf.
-const RECENT = 8;
-
-/** @param {Shelf} shelf */
-const currentQuery = shelf => ({
-  q: shelf.search.value.trim(),
-  show: shelf.filter.value,
-  sort: shelf.sort.value
-});
+// Movies read newest first, books oldest first.
+const ORDER = { movies: 'newest', books: 'oldest' };
 
 /**
  * Folds `section` to a strip of its first covers, or opens it.
@@ -125,26 +99,15 @@ function buildGroup(key, items, kind, folded) {
 }
 
 /**
- * Cards matching the search and filter, in the chosen order.
- * @param {Shelf} shelf
- */
-function visibleCards({ cards, search, filter, sort }) {
-  const query = fold(search.value.trim());
-  return cards
-    .filter(card => cardMatches(card.dataset, query, filter.value))
-    .sort((a, b) => compareCards(a.dataset, b.dataset, sort.value));
-}
-
-/**
- * Re-shelves the visible cards into groups and rebuilds the year navigation.
+ * Shelves the cards into groups and builds the year navigation.
  * @param {Shelf} shelf
  */
 function update(shelf) {
-  const { root, kind, groups, nav, sort, search, recent } = shelf;
-  const visible = visibleCards(shelf);
-  const grouped = groupBy(visible, card => groupKey(card.dataset, sort.value));
-  const query = fold(search.value.trim());
-  const folded = shelf.folds ? foldedGroups([...grouped.keys()], query, sort.value) : null;
+  const { kind, cards, groups, nav } = shelf;
+  const order = ORDER[kind] || 'oldest';
+  const sorted = [...cards].sort((a, b) => compareCards(a.dataset, b.dataset, order));
+  const grouped = groupBy(sorted, card => groupKey(card.dataset));
+  const folded = shelf.folds ? foldedGroups([...grouped.keys()]) : null;
   const content = document.createDocumentFragment();
   const links = document.createDocumentFragment();
   for (const [key, items] of grouped) {
@@ -155,16 +118,6 @@ function update(shelf) {
   }
   groups.replaceChildren(content);
   nav.replaceChildren(links);
-  nav.hidden = !visible.length;
-  if (recent) recent.hidden = Boolean(query) || !recent.childElementCount;
-  const empty = $('[data-empty]', root);
-  if (empty) empty.hidden = Boolean(visible.length);
-  const resultCount = $('[data-count]', root);
-  if (resultCount) {
-    const count = new Set(visible.map(card => card.dataset.filmId || card)).size;
-    resultCount.textContent = `${count} ${kind === 'books' ? 'books' : 'movies'}`;
-  }
-  writeQuery(currentQuery(shelf), shelf.defaults);
   shelf.spy();
 }
 
@@ -207,76 +160,27 @@ function installFolding(shelf) {
 }
 
 /**
- * Copies the most recent dated cards into the strip above the shelf.
- * @param {HTMLElement[]} cards
- * @param {HTMLElement} strip
- */
-function fillRecent(cards, strip) {
-  const seen = new Set();
-  const latest = cards
-    .filter(card => card.dataset.section !== 'earlier' && card.dataset.date)
-    .sort((a, b) => compareCards(a.dataset, b.dataset, 'newest'))
-    .filter(card => {
-      const id = card.dataset.filmId || card.dataset.title;
-      if (seen.has(id)) return false;
-      seen.add(id);
-      return true;
-    })
-    .slice(0, RECENT);
-  strip.replaceChildren(
-    ...latest.map(card => {
-      const copy = /** @type {HTMLElement} */ (card.cloneNode(true));
-      copy.classList.add('recent-card');
-      return copy;
-    })
-  );
-}
-
-/**
- * Wires the search, filter and sort controls, when the page has them all.
+ * Shelves the cards and wires the index bar and folding, when the page has them.
  * @param {HTMLElement} root
  */
 function installShelf(root) {
   const groups = $('[data-groups]', root);
   const nav = $('[data-year-nav]', root);
   const bar = $('[data-index-bar]', root);
-  const search = /** @type {HTMLInputElement | null} */ ($('[data-search]', root));
-  const filterGroup = $('[data-filter]', root);
-  const sortGroup = $('[data-sort]', root);
-  const controls = $('.js-controls', root);
-  if (!groups || !nav || !bar || !search || !filterGroup || !sortGroup || !controls) return;
-  controls.hidden = false;
-  const cards = $$('.library-card', groups);
-  const recentSection = $('[data-recent]', root);
-  const recent = recentSection && $('.recent-shelf', recentSection);
-  if (recent) fillRecent(cards, recent);
-  const height = installIndexBar(bar);
+  if (!groups || !nav || !bar) return;
   /** @type {Shelf} */
   const shelf = {
-    root,
     kind: root.dataset.library,
-    cards,
+    cards: $$('.library-card', groups),
     groups,
     nav,
-    search,
-    filter: installPills(filterGroup, () => update(shelf)),
-    sort: installPills(sortGroup, () => update(shelf)),
-    defaults: {},
     folds: 'fold' in root.dataset,
     opened: new Set(),
-    recent: recentSection,
-    spy: installScrollSpy(nav, height)
+    spy: installScrollSpy(nav, installIndexBar(bar))
   };
-  shelf.defaults = { q: '', show: shelf.filter.value, sort: shelf.sort.value };
-  const chosen = readQuery(location.search, shelf.defaults);
-  search.value = chosen.q;
-  shelf.filter.select(chosen.show);
-  shelf.sort.select(chosen.sort);
   const hash = decodeURIComponent(location.hash.slice(1));
   if (hash) shelf.opened.add(keyFromId(hash));
-  search.addEventListener('input', () => update(shelf));
   installFolding(shelf);
-  installSearchKey(search);
   update(shelf);
   // The groups were rebuilt, so an anchor in the address needs scrolling to again, once
   // the browser has made its own attempt.

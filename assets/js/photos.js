@@ -1,15 +1,7 @@
-// Photos page: a gallery of geotagged travel photos, each linking to its spot on the map,
-// searchable by place.
-import { $, $$ } from './lib/dom.js';
+// Photos page: a gallery of geotagged travel photos, each linking to its spot on the map.
+import { $ } from './lib/dom.js';
 import { stampedUrl } from './lib/assets.js';
-import {
-  fold,
-  installBackToTop,
-  installIndexBar,
-  installSearchKey,
-  readQuery,
-  writeQuery
-} from './lib/collection.js';
+import { installBackToTop } from './lib/collection.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const MAP_ZOOM = 15;
@@ -128,7 +120,6 @@ function photoCard(photo, imagePath, mapUrl) {
   link.className = 'photo-card';
   link.href = `${mapUrl}?lat=${encodeURIComponent(photo.coords[0])}&lng=${encodeURIComponent(photo.coords[1])}&zoom=${MAP_ZOOM}`;
   link.setAttribute('aria-label', `View ${label} on the map`);
-  link.dataset.search = fold([label, photo.place, photo.caption || ''].join(' '));
   const figure = document.createElement('figure');
   figure.style.margin = '0';
   const image = document.createElement('img');
@@ -139,37 +130,6 @@ function photoCard(photo, imagePath, mapUrl) {
   figure.append(image, caption(photo, subject, location));
   link.append(figure);
   return link;
-}
-
-/**
- * Shows the cards matching the search box, and keeps the count and address in step.
- * @param {HTMLElement} gallery
- * @param {HTMLInputElement} search
- */
-function installSearch(gallery, search) {
-  const bar = $('[data-index-bar]');
-  const count = $('[data-count]');
-  const empty = $('[data-empty]');
-  const cards = $$('.photo-card', gallery);
-  const filter = () => {
-    const query = fold(search.value.trim());
-    let shown = 0;
-    for (const card of cards) {
-      card.hidden = !card.dataset.search.includes(query);
-      if (!card.hidden) shown += 1;
-    }
-    if (count) count.textContent = `${shown} ${shown === 1 ? 'photo' : 'photos'}`;
-    if (empty) empty.hidden = Boolean(shown);
-    writeQuery({ q: search.value.trim() }, { q: '' });
-  };
-  search.value = readQuery(location.search, { q: '' }).q;
-  search.addEventListener('input', filter);
-  installSearchKey(search);
-  if (bar) {
-    bar.hidden = false;
-    installIndexBar(bar);
-  }
-  filter();
 }
 
 async function init() {
@@ -190,8 +150,6 @@ async function init() {
       const imagePath = asset(base, photo.variants.small?.src || photo.variants.medium?.src);
       if (imagePath) gallery.append(photoCard(photo, imagePath, mapUrl));
     }
-    const search = /** @type {HTMLInputElement | null} */ ($('[data-search]'));
-    if (search) installSearch(gallery, search);
     installBackToTop();
   } catch (error) {
     console.error(error);
