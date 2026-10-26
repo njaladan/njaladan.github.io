@@ -16,6 +16,14 @@ const GLIDE_PX = 240;
 const TAIL_MS = 45;
 const TAIL_MAX = 90;
 const SPEED_SMOOTHING = 0.35;
+// Once the page has been still this long, in milliseconds, the highlight settles onto the
+// marked year, so it never rests stretched or between two, and when the scrolling picks up
+// again it eases back into its glide. Either way it closes the gap by about two thirds every
+// this many milliseconds, from wherever it is, so a change of year midway can't make it jump.
+const SETTLE_DELAY = 120;
+const SETTLE_MS = 70;
+// The longest frame the settling counts, so the first frame after a pause eases too.
+const SETTLE_FRAME_MS = 20;
 
 /**
  * The query string for `state`, leaving out values at their defaults.
@@ -214,6 +222,64 @@ function markerPose({ left, right }, size) {
 }
 
 /**
+ * How the highlight moves from frame to frame: gliding along with the scroll, drawing out
+ * a tail behind it the faster it goes, and once the page is still, settling onto the
+ * marked link, so it never rests stretched or between two.
+ */
+export function createMotion() {
+  // The glide's centre and smoothed speed along the rail, in pixels per millisecond.
+  let last = { centre: NaN, time: 0 };
+  let speed = 0;
+  // How far its edges sit from the glide, settling onto the marked link. It starts settled.
+  let shift = /** @type {{left: number, right: number} | null} */ (null);
+  return {
+    /** Forgets the last frame, for after the rail or the page are re-measured. */
+    reset() {
+      last = { centre: NaN, time: 0 };
+    },
+    /**
+     * The highlight's edges this frame, and whether it is still on the move.
+     * @param {{left: number, right: number}} glide Where the scroll puts it.
+     * @param {{left: number, right: number}} rest The marked link.
+     * @param {number} time
+     * @param {boolean} still Whether the page has stopped scrolling.
+     */
+    at(glide, rest, time, still) {
+      const centre = (glide.left + glide.right) / 2;
+      const elapsed = Math.max(time - last.time, 1);
+      const moved = Number.isNaN(last.centre) ? 0 : centre - last.centre;
+      speed += (moved / elapsed - speed) * SPEED_SMOOTHING;
+      last = { centre, time };
+      const target = still
+        ? { left: rest.left - glide.left, right: rest.right - glide.right }
+        : { left: 0, right: 0 };
+      shift ??= target;
+      const ease = 1 - Math.exp(-Math.min(elapsed, SETTLE_FRAME_MS) / SETTLE_MS);
+      shift = {
+        left: shift.left + (target.left - shift.left) * ease,
+        right: shift.right + (target.right - shift.right) * ease
+      };
+      // Draws back in on its own as the glide slows.
+      const tail = Math.min(Math.abs(speed) * TAIL_MS, TAIL_MAX);
+      const off = Math.max(
+        Math.abs(target.left - shift.left),
+        Math.abs(target.right - shift.right)
+      );
+      const moving = !still || off > 0.3 || tail > 0.3;
+      if (!moving) {
+        shift = target;
+        speed = 0;
+      }
+      return {
+        left: glide.left + shift.left - (speed > 0 ? tail : 0),
+        right: glide.right + shift.right + (speed < 0 ? tail : 0),
+        moving
+      };
+    }
+  };
+}
+
+/**
  * Marks the link in `nav` to the section at the top of the window with `aria-current`, and
  * moves a highlight along with the scroll to it: gliding from one link to the next as their
  * sections pass, drawing out a tail behind it the faster it goes, and kept in the middle of
@@ -228,6 +294,8 @@ export function installScrollSpy(nav, offset) {
   const { marker, parts } = createMarker();
   /** @type {RailStop[]} */
   let stops = [];
+  /** @type {{left: number, right: number}[]} */
+  let rests = [];
   /** @type {number[]} */
   let starts = [];
   /** @type {HTMLAnchorElement[]} */
@@ -237,13 +305,13 @@ export function installScrollSpy(nav, offset) {
   let height = 0;
   let frame = 0;
   let stale = true;
-  // The highlight's centre and smoothed speed along the rail, in pixels per millisecond.
-  let last = { centre: NaN, time: 0 };
-  let speed = 0;
+  // When the page last scrolled.
+  let scrolled = -Infinity;
+  const motion = createMotion();
 
   const measure = () => {
     stale = false;
-    last = { centre: NaN, time: 0 };
+    motion.reset();
     links = $$('a[href^="#"]', nav);
     // The links can be rebuilt, taking the marker with them. It goes over them, turning
     // what it covers light.
@@ -258,11 +326,11 @@ export function installScrollSpy(nav, offset) {
       const section = document.getElementById(link.hash.slice(1));
       return section ? section.getBoundingClientRect().top + scrollY - line : Infinity;
     });
-    stops = railTrack(
-      starts,
-      links.map(link => ({ left: link.offsetLeft, right: link.offsetLeft + link.offsetWidth })),
-      document.documentElement.scrollHeight - innerHeight
-    );
+    rests = links.map(link => ({
+      left: link.offsetLeft,
+      right: link.offsetLeft + link.offsetWidth
+    }));
+    stops = railTrack(starts, rests, document.documentElement.scrollHeight - innerHeight);
     height = links[0].offsetHeight;
     marker.style.top = `${links[0].offsetTop}px`;
     marker.style.setProperty('--marker-size', `${height}px`);
@@ -274,21 +342,18 @@ export function installScrollSpy(nav, offset) {
     if (stale) measure();
     if (!links.length) return;
     const y = scrollY;
-    const { left, right } = railAt(stops, y);
-    const centre = (left + right) / 2;
-    const moved = Number.isNaN(last.centre) ? 0 : centre - last.centre;
-    speed += (moved / Math.max(time - last.time, 1) - speed) * SPEED_SMOOTHING;
-    last = { centre, time };
-    const tail = Math.min(Math.abs(speed) * TAIL_MS, TAIL_MAX);
-    const edges = speed > 0 ? { left: left - tail, right } : { left, right: right + tail };
-    markerPose(edges, height).forEach((transform, index) => {
+    const active = activeIndex(starts, y);
+    const still = time - scrolled >= SETTLE_DELAY;
+    const { left, right, moving } = motion.at(railAt(stops, y), rests[active], time, still);
+    markerPose({ left, right }, height).forEach((transform, index) => {
       parts[index].style.transform = transform;
     });
-    if (nav.scrollWidth > nav.clientWidth) nav.scrollLeft = centre - nav.clientWidth / 2;
-    // The tail draws back in over the frames after the scrolling stops.
-    if (tail > 0.5) frame ||= requestAnimationFrame(update);
-    else speed = 0;
-    const link = links[activeIndex(starts, y)];
+    if (nav.scrollWidth > nav.clientWidth) {
+      nav.scrollLeft = (left + right) / 2 - nav.clientWidth / 2;
+    }
+    // Carries on after the scrolling stops, until the highlight has settled.
+    if (moving) frame ||= requestAnimationFrame(update);
+    const link = links[active];
     // Left alone while it stays put, so a scroll within a year touches nothing.
     if (link === current) return;
     current?.removeAttribute('aria-current');
@@ -302,7 +367,14 @@ export function installScrollSpy(nav, offset) {
     stale = true;
     schedule();
   };
-  addEventListener('scroll', schedule, { passive: true });
+  addEventListener(
+    'scroll',
+    () => {
+      scrolled = performance.now();
+      schedule();
+    },
+    { passive: true }
+  );
   addEventListener('resize', remeasure);
   // Years opening and folding, covers loading and fonts arriving all move the sections.
   new ResizeObserver(remeasure).observe(document.body);

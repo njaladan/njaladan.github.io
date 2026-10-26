@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
   activeIndex,
+  createMotion,
   queryFor,
   railAt,
   railTrack,
@@ -70,4 +71,24 @@ test('railTrack leaves out years the page cannot scroll to', () => {
   const stops = railTrack([0, 1000, 3000], years, 2000);
   assert.deepEqual(railAt(stops, 2000), years[1]);
   assert.deepEqual(railTrack([], [], 100), []);
+});
+
+test('createMotion trails a tail while scrolling and rests unstretched on the link once still', () => {
+  const motion = createMotion();
+  const rest = { left: 50, right: 100 };
+  let time = 0;
+  let frame;
+  // Scrolling: gliding right a few pixels a frame draws out a tail behind.
+  for (let x = 0; x < 30; x += 3) {
+    time += 16;
+    frame = motion.at({ left: 40 + x, right: 90 + x }, rest, time, false);
+  }
+  assert.ok(frame.right - frame.left > 55, 'stretched while moving');
+  assert.ok(frame.moving);
+  // Still, partway between two links: it settles onto the marked one, at its own size.
+  for (let step = 0; step < 40; step++) {
+    time += 16;
+    frame = motion.at({ left: 70, right: 120 }, rest, time, true);
+  }
+  assert.deepEqual(frame, { ...rest, moving: false });
 });
