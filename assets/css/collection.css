@@ -19,12 +19,6 @@ html {
   align-items: end;
   justify-content: space-between;
 }
-.index-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 20px;
-  align-items: end;
-}
 .index-rail {
   display: flex;
   gap: 16px;
@@ -32,12 +26,6 @@ html {
   justify-content: space-between;
   padding: 10px 0;
   min-height: 46px;
-}
-.control {
-  display: grid;
-  gap: 6px;
-  font: 11px/1.6 var(--sans);
-  color: var(--muted);
 }
 .index-count {
   font: 12px var(--sans);
@@ -137,11 +125,6 @@ html {
   color: var(--paper);
 }
 
-.empty-state {
-  padding: 55px 0;
-  font-size: 18px;
-  color: var(--muted);
-}
 .back-to-top {
   position: fixed;
   right: max(20px, env(safe-area-inset-right));
@@ -169,9 +152,6 @@ html {
     flex-direction: column;
     align-items: stretch;
     margin: 4px 0 8px;
-  }
-  .control-search input {
-    width: 100%;
   }
   .index-rail {
     position: sticky;
