@@ -218,13 +218,6 @@
       "art_source": "https://www.themoviedb.org/movie/299534-avengers-endgame"
     },
     {
-      "id": "80ca5916b59e",
-      "title": "Spider-Man: Far From Home",
-      "year": "2019",
-      "cover": "/assets/images/movies/80ca5916b59e.webp",
-      "art_source": "https://www.themoviedb.org/movie/429617-spider-man-far-from-home"
-    },
-    {
       "id": "7d5165471a3f",
       "title": "Doctor Strange in the Multiverse of Madness",
       "year": "2022",
@@ -6414,7 +6407,6 @@
     "c203d16ce53f",
     "357622d4d16b",
     "3699462c1ca7",
-    "80ca5916b59e",
     "5b089cd3a86c",
     "2b96fe2bb8d6",
     "ecd6853b34b7",
