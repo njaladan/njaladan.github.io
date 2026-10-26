@@ -1,4 +1,4 @@
-// Pure shelf logic for the reading and movies pages: matching, ordering and grouping
+// Pure shelf logic for the books and movies pages: matching, ordering and grouping
 // cards by the values in their data-* attributes. Nothing here touches the DOM.
 
 /**

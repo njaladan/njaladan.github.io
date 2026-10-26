@@ -4,6 +4,23 @@
   --foot: #7a9a22;
   --snow: #6a5fb0;
 }
+.shape-feature {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 22px;
+  font: 14px var(--sans);
+  color: var(--muted);
+  text-decoration: none;
+}
+.shape-feature-pct {
+  font: 28px var(--serif);
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+.shape-feature:hover span {
+  color: var(--accent);
+}
 .shape-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -171,6 +188,18 @@
   color: var(--muted);
 }
 @media (max-width: 600px) {
+  .shape-controls {
+    display: flex;
+    flex-direction: column;
+  }
+  .shape-toolbar {
+    display: contents;
+  }
+  .shape-view {
+    order: -1;
+    align-self: flex-start;
+    margin: 8px 0 12px;
+  }
   .shape-grid {
     grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
     gap: 3px;

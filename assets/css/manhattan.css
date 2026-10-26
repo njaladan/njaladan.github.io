@@ -1,0 +1,239 @@
+/* Manhattan street coverage: progress on the left, the map on the right. */
+.eyebrow a {
+  text-decoration: none;
+}
+.cov-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: 48px;
+  align-items: start;
+  margin: 38px 0 56px;
+}
+.cov-side {
+  border-top: 1px solid var(--rule);
+  padding-top: 20px;
+}
+.cov-pct {
+  font-size: clamp(80px, 11vw, 132px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.cov-pct small {
+  font-size: 0.4em;
+  letter-spacing: 0;
+  margin-left: 4px;
+  color: var(--muted);
+}
+.cov-sub {
+  font: 14px/1.5 var(--sans);
+  color: var(--muted);
+  margin: 10px 0 20px;
+}
+.cov-meter {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: #ece7dc;
+  overflow: hidden;
+}
+.cov-meter-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--accent);
+  border-radius: 999px;
+}
+.cov-meter-tick {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #fff9;
+}
+
+.cov-stage {
+  position: relative;
+  /* Read by manhattan.js to colour the canvas. */
+  --map-ground: #ebe5d8;
+  --map-land: var(--paper);
+  --map-shore: #a89d88;
+  --map-street: #dfd8ca;
+  --map-trail: var(--accent);
+  --map-head: #e8a03c;
+  background: var(--map-ground);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  aspect-ratio: var(--ar, 0.56);
+}
+.cov-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* One finger scrolls the page until the map is zoomed in; pinches go to manhattan.js. */
+  touch-action: pan-x pan-y;
+}
+.cov-stage.is-zoomed canvas {
+  touch-action: none;
+  cursor: grab;
+}
+.cov-stage.is-dragging canvas {
+  cursor: grabbing;
+}
+.cov-zoom {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+}
+.cov-zoom[hidden] {
+  display: none;
+}
+.cov-zoom-buttons {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--paper);
+  overflow: hidden;
+  pointer-events: auto;
+}
+.cov-zoom button {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: 18px/1 var(--sans);
+  cursor: pointer;
+}
+.cov-zoom button + button {
+  border-top: 1px solid var(--rule);
+}
+.cov-zoom button:hover {
+  background: #fff;
+}
+.cov-zoom button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.cov-zoom-hint {
+  margin: 0;
+  font: 11px var(--sans);
+  color: var(--muted);
+  text-align: right;
+  max-width: 9em;
+  transition: opacity 0.3s;
+}
+.cov-stage.is-zoomed .cov-zoom-hint {
+  opacity: 0;
+}
+@media (hover: none) {
+  .cov-zoom-hint {
+    display: none;
+  }
+}
+.cov-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  font: 13px var(--sans);
+  color: var(--muted);
+}
+
+.cov-details {
+  margin-top: 30px;
+}
+.cov-details h2 {
+  font-size: 22px;
+  margin: 18px 0 14px;
+}
+.cov-table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 13px/1.4 var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+.cov-table th,
+.cov-table td {
+  text-align: left;
+  padding: 8px 10px 8px 0;
+  border-bottom: 1px solid var(--rule);
+  font-weight: 400;
+  white-space: nowrap;
+}
+.cov-table tfoot :is(th, td) {
+  color: var(--ink);
+  font-weight: 600;
+  border-bottom: 0;
+}
+.cov-table thead th {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.cov-table td {
+  color: var(--muted);
+}
+.cov-bar-cell {
+  width: 40%;
+}
+.cov-bar {
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(100% - 48px);
+  min-width: 40px;
+  height: 6px;
+  border-radius: 999px;
+  background: #ece7dc;
+  overflow: hidden;
+}
+.cov-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+.cov-bar-pct {
+  display: inline-block;
+  width: 44px;
+  text-align: right;
+  font: 12px var(--sans);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.cov-years {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.cov-years li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 13px/2.1 var(--sans);
+}
+.cov-years .cov-bar {
+  flex: 1;
+}
+.cov-year {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 760px) {
+  .cov-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-top: 24px;
+  }
+  .cov-stage {
+    order: -1;
+  }
+}

@@ -14,9 +14,9 @@ npm run check    # what CI runs: ESLint, Prettier, tsc, tests, Ruff and a Jekyll
 
 ```
 _pages/           Site pages, one file per URL, including the Atom feed
-_books/           Book notes, one file per book, at /<title>/ and on /reading
+_books/           Book notes, one file per book, at /<title>/ and on /books
 _drafts/          Unpublished project posts; preview with `jekyll serve --drafts`
-_layouts/         default (page frame), book, reading, movies, redirect
+_layouts/         default (page frame), book, books, movies, redirect
 _includes/        Header, footer and the movie card
 _plugins/         cache_bust.rb: version-stamps asset URLs on every build
 _data/            books.json and movies.json, read by Liquid at build time
@@ -63,6 +63,9 @@ python -m scripts.library.library_art
 # Athletics shapes (Strava export)
 python -m scripts.athletics.summarize_strava activities/ SUMMARY.json
 python -m scripts.athletics.build_athletics_shapes activities/ SUMMARY.json
+
+# Manhattan street coverage (Strava export plus any newer .fit rides)
+python -m scripts.street_coverage.build activities/ new_ride.fit --cache ~/.cache/street-coverage
 
 # Travel map
 python -m scripts.travel.import_photo photo.jpg --place "Louvre · Paris" --lat 48.86 --lon 2.34
