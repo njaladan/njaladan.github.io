@@ -12,21 +12,21 @@ layout: default
       <p class="index-count" data-count role="status" aria-live="polite">{{ site.data.movies.films | size }} movies</p>
     </div>
   </div>
+  <noscript><style>[data-fold-toggle] { display: none; } .is-folded .shelf > .library-card { display: block !important; }</style></noscript>
   <div data-groups>
-    {% assign previous_year = '' %}
-    {% for viewing in site.data.movies.viewings %}
-      {% assign year = viewing.group_year | default: viewing.date | slice: 0, 4 %}
-      {% if year != previous_year %}
-        {% unless forloop.first %}</div></section>{% endunless %}
-        <section class="library-group" id="y{{ year }}"><div class="group-heading"><h2>{{ year }}</h2></div><div class="shelf">
-        {% assign previous_year = year %}
-      {% endif %}
-      {% include movie-card.html film_id=viewing.film_id date=viewing.date year=year section='dated' rewatch=viewing.rewatch %}
-      {% if forloop.last %}</div></section>{% endif %}
+    {% assign years = site.data.movies.viewings | group_by_exp: 'viewing', "viewing.group_year | default: viewing.date | slice: 0, 4" %}
+    {% for year in years %}
+      {% comment %}Ordered as library.js orders them: dated viewings as listed, then the rest by title.{% endcomment %}
+      {% assign dated = year.items | where_exp: 'viewing', 'viewing.date' %}
+      {% assign undated_ids = year.items | where_exp: 'viewing', 'viewing.date == nil' | map: 'film_id' %}
+      {% assign undated = site.data.movies.films | where_exp: 'film', 'undated_ids contains film.id' | sort_natural: 'title' %}
+      {% capture cards %}{% for viewing in dated %}{% include movie-card.html film_id=viewing.film_id date=viewing.date year=year.name section='dated' %}{% endfor %}{% for film in undated %}{% include movie-card.html film_id=film.id year=year.name section='dated' %}{% endfor %}{% endcapture %}
+      {% assign year_id = year.name | prepend: 'y' %}
+      {% include movie-year.html id=year_id key=year.name heading=year.name total=year.size noun='viewings' cards=cards %}
     {% endfor %}
-    <section class="library-group" id="earlier">
-      <div class="group-heading"><h2>Undated</h2><span>{{ site.data.movies.earlier | size }} movies</span></div>
-      <div class="shelf">{% for film_id in site.data.movies.earlier %}{% include movie-card.html film_id=film_id section='earlier' %}{% endfor %}</div>
-    </section>
+    {% assign earlier_ids = site.data.movies.earlier %}
+    {% assign earlier = site.data.movies.films | where_exp: 'film', 'earlier_ids contains film.id' | sort_natural: 'title' %}
+    {% capture cards %}{% for film in earlier %}{% include movie-card.html film_id=film.id section='earlier' %}{% endfor %}{% endcapture %}
+    {% include movie-year.html id='earlier' key='earlier' heading='Undated' total=site.data.movies.earlier.size noun='movies' cards=cards %}
   </div>
 </div>
