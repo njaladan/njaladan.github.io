@@ -239,16 +239,16 @@ export function animatePrint(stage, print, { source, merging, time }) {
  * @param {PrintStage} stage
  * @param {Print} print
  * @param {{pin: Pin, index: number, source: PrintPose | null, merging: boolean,
- *   time: number, animate: boolean}} placement
+ *   time: number}} placement
  */
-export function placePrint(stage, print, { pin, index, source, merging, time, animate }) {
+export function placePrint(stage, print, { pin, index, source, merging, time }) {
   print.pin = pin;
   print.index = index;
   print.node.classList.remove(...PRINT_POSITION_CLASSES);
   print.node.classList.add(index === 0 ? 'photo-pin-front' : 'photo-pin-back');
   if (index > 0) print.node.classList.add(index === 1 ? 'photo-pin-back-1' : 'photo-pin-back-2');
   pin.content.append(print.node);
-  if (source && animate) animatePrint(stage, print, { source, merging, time });
+  if (source) animatePrint(stage, print, { source, merging, time });
   else settlePrint(stage, print);
 }
 

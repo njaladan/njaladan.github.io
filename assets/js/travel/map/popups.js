@@ -53,7 +53,7 @@ export function panRoutePopupIntoView(ctx) {
   // panBy keeps the zoom fixed, even for distant sections.
   if (x || y) {
     map.panBy([x, y], {
-      animate: !ctx.reduceMotion,
+      animate: true,
       duration: PAN_SECONDS,
       easeLinearity: PAN_EASE
     });

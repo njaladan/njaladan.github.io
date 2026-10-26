@@ -67,7 +67,6 @@
  * @typedef {object} AtlasContext
  * @property {any} L Leaflet, or the globe renderer's Leaflet-like API.
  * @property {any} map
- * @property {boolean} reduceMotion
  * @property {{ finish: () => void }} smoothZoom
  * @property {ReturnType<typeof import('../routes/index.js').installRouteCards>} cards
  * @property {any} photos
@@ -93,7 +92,6 @@
 export function createContext(L, { legend, status }) {
   return /** @type {AtlasContext} */ ({
     L,
-    reduceMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
     legend,
     status,
     state: {

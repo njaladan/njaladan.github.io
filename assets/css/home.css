@@ -119,11 +119,6 @@
     font-size: 15px;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .portrait img {
-    transition: none;
-  }
-}
 .social-links {
   display: flex;
   align-items: center;

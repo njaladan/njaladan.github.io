@@ -67,10 +67,10 @@ function foldChrome({ chrome, stage, image }, { toPrint, before, after, photo })
 
 /**
  * @param {{dialog: HTMLElement, stage: HTMLElement, image: HTMLElement, chrome: HTMLElement[]}} parts
- * @param {{reduceMotion: boolean, resized: () => void, settled: (animated: boolean) => void}} hooks
+ * @param {{resized: () => void, settled: (animated: boolean) => void}} hooks
  *   `resized` runs once the frame has its final size; `settled` when it arrives.
  */
-export function createFrameMotion(parts, { reduceMotion, resized, settled }) {
+export function createFrameMotion(parts, { resized, settled }) {
   const { dialog, chrome } = parts;
   /** @type {Animation | null} */
   let motion = null;
@@ -97,7 +97,7 @@ export function createFrameMotion(parts, { reduceMotion, resized, settled }) {
     const { left, top, width, height } = framePose(to);
     Object.assign(dialog.style, { left, top, width, height });
     resized();
-    if (reduceMotion || !from) {
+    if (!from) {
       settled(false);
       complete?.();
       return;
