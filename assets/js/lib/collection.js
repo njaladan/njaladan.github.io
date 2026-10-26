@@ -138,7 +138,31 @@ function revealLink(nav, link) {
 }
 
 /**
- * Marks the link in `nav` to the section at the top of the window with `aria-current`.
+ * Slides `marker` under `link`, or hides it while no link is marked. It jumps rather than
+ * slides into its first place, and back after hiding.
+ * @param {HTMLElement} nav
+ * @param {HTMLElement} marker
+ * @param {HTMLElement | undefined} link
+ */
+function placeMarker(nav, marker, link) {
+  // The links can be rebuilt, taking the marker with them.
+  if (!marker.isConnected) nav.prepend(marker);
+  marker.hidden = !link;
+  if (!link) {
+    marker.classList.remove('is-placed');
+    return;
+  }
+  marker.style.transform = `translate(${link.offsetLeft}px, ${link.offsetTop}px)`;
+  marker.style.width = `${link.offsetWidth}px`;
+  marker.style.height = `${link.offsetHeight}px`;
+  if (marker.classList.contains('is-placed')) return;
+  void marker.offsetWidth;
+  marker.classList.add('is-placed');
+}
+
+/**
+ * Marks the link in `nav` to the section at the top of the window with `aria-current`, and
+ * slides a highlight under it.
  * @param {HTMLElement} nav Links to sections on the page by `#id`.
  * @param {() => number} offset How much of the window the pinned bar covers.
  * @returns {() => void} Re-marks the links, for after they or the sections change.
@@ -146,6 +170,9 @@ function revealLink(nav, link) {
 export function installScrollSpy(nav, offset) {
   let frame = 0;
   let reveal = 0;
+  const marker = document.createElement('span');
+  marker.className = 'rail-marker';
+  marker.setAttribute('aria-hidden', 'true');
   const mark = () => {
     frame = 0;
     /** @type {HTMLAnchorElement[]} */
@@ -160,6 +187,7 @@ export function installScrollSpy(nav, offset) {
     });
     clearTimeout(reveal);
     const link = links[active];
+    placeMarker(nav, marker, link);
     if (link) reveal = setTimeout(() => revealLink(nav, link), REVEAL_DELAY);
   };
   const schedule = () => {
