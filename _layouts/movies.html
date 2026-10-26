@@ -1,20 +1,25 @@
 ---
 layout: default
 ---
-<div data-library="movies">
+<div data-library="movies" data-fold>
   <h1>Movies</h1>
-  <div class="library-toolbar">
-    <div class="library-controls js-controls" hidden>
+  <section class="recent" data-recent aria-labelledby="recent-title" hidden><h2 class="recent-title" id="recent-title">Recently watched</h2><div class="recent-shelf"></div></section>
+  <div class="index-bar" data-index-bar>
+    <div class="index-controls js-controls" hidden>
       <label class="control control-search">Find a movie<input type="search" data-search placeholder="Title" aria-label="Search movies"></label>
-      <label class="control">Show<select data-filter><option value="all">All movies</option><option value="dated">Diary</option><option value="earlier">Undated</option></select></label>
-      <label class="control">Sort<select data-sort><option value="newest">Recently watched</option><option value="oldest">Earliest watched</option><option value="title">Title (A–Z)</option></select></label>
+      <div class="index-filters">
+        <div class="control" role="group" aria-labelledby="show-label"><span id="show-label">Show</span><div class="pills" data-filter><button type="button" class="pill" data-value="all" aria-pressed="true">All</button><button type="button" class="pill" data-value="dated" aria-pressed="false">Diary</button><button type="button" class="pill" data-value="earlier" aria-pressed="false">Undated</button></div></div>
+        <div class="control" role="group" aria-labelledby="sort-label"><span id="sort-label">Sort</span><div class="pills" data-sort><button type="button" class="pill" data-value="newest" aria-pressed="true">Recent</button><button type="button" class="pill" data-value="oldest" aria-pressed="false">Earliest</button><button type="button" class="pill" data-value="title" aria-pressed="false">A–Z</button></div></div>
+      </div>
     </div>
-    <p class="result-count" data-count role="status" aria-live="polite">{{ site.data.movies.films | size }} movies</p>
+    <div class="index-rail">
+      <nav class="year-rail" data-year-nav aria-label="Viewing years">
+        {% assign previous_year = '' %}{% for viewing in site.data.movies.viewings %}{% assign year = viewing.group_year | default: viewing.date | slice: 0, 4 %}{% if year != previous_year %}<a href="#y{{ year }}">{{ year }}</a>{% assign previous_year = year %}{% endif %}{% endfor %}
+        <a href="#earlier">Undated</a>
+      </nav>
+      <p class="index-count" data-count role="status" aria-live="polite">{{ site.data.movies.films | size }} movies</p>
+    </div>
   </div>
-  <nav class="year-nav" data-year-nav aria-label="Viewing years">
-    {% assign previous_year = '' %}{% for viewing in site.data.movies.viewings %}{% assign year = viewing.group_year | default: viewing.date | slice: 0, 4 %}{% if year != previous_year %}<a href="#y{{ year }}">{{ year }}</a>{% assign previous_year = year %}{% endif %}{% endfor %}
-    <a href="#earlier">Undated</a>
-  </nav>
   <div data-groups>
     {% assign previous_year = '' %}
     {% for viewing in site.data.movies.viewings %}
