@@ -6,3 +6,8 @@ declare const topojson: any;
 interface Window {
   L: any;
 }
+
+// Scroll-driven animations, which TypeScript's DOM types don't have yet.
+declare class ScrollTimeline extends AnimationTimeline {
+  constructor(options?: { source?: Element | null; axis?: 'block' | 'inline' | 'x' | 'y' });
+}
