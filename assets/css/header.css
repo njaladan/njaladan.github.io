@@ -198,21 +198,3 @@
     transform: translateY(0);
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation: none !important;
-  }
-  .gentle-arrival #main {
-    animation: none;
-  }
-  .site-logo img {
-    transition: none;
-  }
-  .site-logo:hover img,
-  .site-logo:focus-visible img,
-  .site-logo:active img {
-    transform: none;
-  }
-}

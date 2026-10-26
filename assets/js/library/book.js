@@ -2,7 +2,7 @@
 // Otherwise the book comes off the shelf, its front board swings open, and the notes are laid
 // out as pages to turn.
 import { $ } from '../lib/dom.js';
-import { reducedMotion, spineColor, untilt } from './covers.js';
+import { spineColor, untilt } from './covers.js';
 import { peel, polygon, reachable } from './peel.js';
 import {
   STRIPS,
@@ -319,7 +319,7 @@ function show(target, animate = true) {
   leaves.forEach((leaf, index) => {
     const turned = index < state.spread + (state.coverOpen ? state.lead : 0);
     const rest = String(turned ? Z_LEAF_BASE + index : Z_LEAF_BASE - index);
-    if (animate && !reducedMotion() && turned !== leaf.classList.contains('turned')) {
+    if (animate && turned !== leaf.classList.contains('turned')) {
       leaf.classList.toggle('turned', turned);
       curl(leaf, turned).then(() => {
         leaf.style.zIndex = rest;
@@ -472,7 +472,7 @@ async function openBook(link, card, template) {
   ui.dialog.showModal();
   paginate();
   show(0, false);
-  if (reducedMotion() || !ui.book.animate) {
+  if (!ui.book.animate) {
     openInstantly();
   } else {
     await liftAndOpen();
@@ -484,7 +484,7 @@ async function openBook(link, card, template) {
 async function closeBook() {
   const { book, dialog } = ui;
   if (state.busy || !dialog.open) return;
-  if (reducedMotion() || !book.animate) {
+  if (!book.animate) {
     dialog.close();
     return;
   }
@@ -557,9 +557,7 @@ function preloadLargeCover(event) {
  * @param {boolean} forward
  */
 function leafToTurn(forward) {
-  if (state.busy || curls.size || !ui.dialog.classList.contains('is-open') || reducedMotion()) {
-    return null;
-  }
+  if (state.busy || curls.size || !ui.dialog.classList.contains('is-open')) return null;
   const target = state.spread + (forward ? 1 : -1);
   if (target !== clampSpread(target, state.lastSpread)) return null;
   const leaf = /** @type {HTMLElement | undefined} */ (
