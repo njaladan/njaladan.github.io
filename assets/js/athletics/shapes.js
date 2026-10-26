@@ -130,7 +130,7 @@ export function chipButton({ key, text, swatch }) {
     swatch && key !== 'all'
       ? `<span class="shape-swatch" style="background:${escapeHtml(sportColor(String(key)))}"></span>`
       : '';
-  return `<button type="button" aria-pressed="${key === 'all'}">${dot}${escapeHtml(text)}</button>`;
+  return `<button type="button" class="pill" data-value="${escapeHtml(String(key))}" aria-pressed="${key === 'all'}">${dot}${escapeHtml(text)}</button>`;
 }
 
 /**
