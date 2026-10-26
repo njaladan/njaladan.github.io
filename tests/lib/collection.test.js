@@ -1,12 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { activeIndex, fold, queryFor, readQuery } from '../../assets/js/lib/collection.js';
+import { activeIndex, queryFor, readQuery } from '../../assets/js/lib/collection.js';
 
 const defaults = { q: '', show: 'all', sort: 'newest' };
-
-test('fold drops accents and case', () => {
-  assert.equal(fold('Amélie À BOUT'), 'amelie a bout');
-});
 
 test('queryFor leaves out empty and default values', () => {
   assert.equal(queryFor(defaults, defaults), '');

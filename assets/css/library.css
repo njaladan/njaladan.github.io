@@ -87,30 +87,6 @@
   border-color: var(--accent);
   color: var(--accent);
 }
-/* The latest few, small, in one row above the shelf. */
-.recent {
-  margin: 8px 0 30px;
-}
-.recent-title {
-  font: 11px/1.5 var(--sans);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0 0 14px;
-}
-.recent-shelf {
-  display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  gap: 18px;
-  align-items: start;
-}
-.recent-shelf .card-title {
-  font-size: 12px;
-  margin-top: 8px;
-}
-.recent-shelf .card-meta {
-  display: none;
-}
 .shelf {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -370,12 +346,6 @@
   font: 12px var(--sans);
 }
 @media (max-width: 900px) {
-  .recent-shelf {
-    grid-template-columns: repeat(8, 22%);
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding-bottom: 4px;
-  }
   .library-group.is-folded .shelf {
     grid-template-columns: repeat(8, minmax(0, 1fr));
   }
@@ -410,10 +380,6 @@
   }
   .library-group.is-folded .shelf > .library-card:nth-child(n + 6) {
     display: none;
-  }
-  .recent-shelf {
-    grid-template-columns: repeat(8, 28%);
-    gap: 14px;
   }
   .cover-fallback {
     font-size: 15px;
