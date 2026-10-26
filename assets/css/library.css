@@ -279,7 +279,7 @@
   line-height: 1.4;
   margin-top: 12px;
 }
-[data-library="movies"] .card-title {
+[data-library='movies'] .card-title {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
