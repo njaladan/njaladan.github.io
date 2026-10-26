@@ -173,14 +173,18 @@ function update(shelf) {
 }
 
 /**
- * Opens the folded group with section id `id`, if there is one.
+ * Opens the folded group with section id `id`, if there is one, and folds the rest.
  * @param {Shelf} shelf
  * @param {string} id
  */
 function openGroup(shelf, id) {
-  const section = document.getElementById(id);
-  shelf.opened.add(keyFromId(id));
-  if (section?.classList.contains('is-folded')) setFolded(section, false);
+  if (!document.getElementById(id)) return;
+  shelf.opened = new Set([keyFromId(id)]);
+  for (const section of $$('.library-group', shelf.groups)) {
+    section.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
+    const folded = section.id !== id;
+    if (section.classList.contains('is-folded') !== folded) setFolded(section, folded);
+  }
 }
 
 /**
@@ -208,7 +212,15 @@ function installFolding(shelf) {
   });
   nav.addEventListener('click', event => {
     const link = /** @type {Element} */ (event.target).closest('a[href^="#"]');
-    if (link instanceof HTMLAnchorElement) openGroup(shelf, link.hash.slice(1));
+    if (!(link instanceof HTMLAnchorElement)) return;
+    const section = document.getElementById(link.hash.slice(1));
+    if (!section) return;
+    // Scrolled here rather than by the link: folding the years above would otherwise pull
+    // the page under the browser's own scroll to the anchor.
+    event.preventDefault();
+    openGroup(shelf, section.id);
+    history.pushState(history.state, '', link.hash);
+    section.scrollIntoView();
   });
 }
 
