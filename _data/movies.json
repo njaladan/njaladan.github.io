@@ -4015,6 +4015,13 @@
       "year": "1982",
       "cover": "/assets/images/movies/144deadb230d.webp",
       "art_source": "https://www.themoviedb.org/movie/783-gandhi"
+    },
+    {
+      "id": "57769e37536c",
+      "title": "The Aviator",
+      "year": "2004",
+      "cover": "/assets/images/movies/57769e37536c.webp",
+      "art_source": "https://www.themoviedb.org/movie/2567-the-aviator"
     }
   ],
   "viewings": [
@@ -5369,8 +5376,18 @@
       "rewatch": false
     },
     {
+      "film_id": "57769e37536c",
+      "date": "2015-10-14",
+      "rewatch": false
+    },
+    {
       "film_id": "16a87b225c0e",
       "date": "2015-10-08",
+      "rewatch": false
+    },
+    {
+      "film_id": "7c26036e0283",
+      "date": "2015-10-07",
       "rewatch": false
     },
     {
@@ -5816,7 +5833,6 @@
     "94e78b3c745d",
     "1a551a93f1ee",
     "a4c45dd9ed72",
-    "7c26036e0283",
     "733fb3f3c6d2",
     "b88c762e8a5a",
     "f8f5fdb7da4a",
