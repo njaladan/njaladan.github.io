@@ -224,8 +224,9 @@ function layout(data, lines) {
     /** The cross-fade from the trails to the covered streets, 0–1. */
     a: 0,
     /**
-     * The finished map redrawn sharp at some zoom, and the view it was drawn for.
-     * @type {{ c: HTMLCanvasElement, k: number, x: number, y: number } | null}
+     * The layers redrawn sharp at some zoom, and the view they were drawn for. The trails
+     * are left out once the playback has faded to the covered streets.
+     * @type {{ net: HTMLCanvasElement, covered: HTMLCanvasElement, trail: ReturnType<typeof offscreen> | null, k: number, x: number, y: number } | null}
      */
     sharp: null
   };
@@ -248,18 +249,28 @@ function draw(scene) {
   ctx.globalAlpha = scene.a;
   ctx.drawImage(scene.covered, 0, 0);
   ctx.globalAlpha = 1;
-  if (scene.u < 1) drawHeads(ctx, scene);
   const sharp = scene.sharp;
   if (sharp) {
     const s = view.k / sharp.k;
     ctx.setTransform(s, 0, 0, s, (view.x - s * sharp.x) * r, (view.y - s * sharp.y) * r);
-    ctx.drawImage(sharp.c, 0, 0);
+    ctx.drawImage(sharp.net, 0, 0);
+    if (sharp.trail) {
+      ctx.globalAlpha = 1 - scene.a;
+      ctx.drawImage(sharp.trail.c, 0, 0);
+    }
+    ctx.globalAlpha = scene.a;
+    ctx.drawImage(sharp.covered, 0, 0);
+    ctx.globalAlpha = 1;
+    // The heads are vectors, so they go on top already sharp.
+    ctx.setTransform(view.k, 0, 0, view.k, view.x * r, view.y * r);
   }
+  if (scene.u < 1) drawHeads(ctx, scene);
   ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
 
 /**
- * Redraws the finished map's vectors at the current view, so zoomed streets stay crisp.
+ * Redraws the layers' vectors at the current view, so zoomed streets and trails stay crisp.
+ * The playback then extends the sharp trails alongside the unzoomed ones.
  * @param {Scene} scene
  */
 function sharpen(scene) {
@@ -269,7 +280,8 @@ function sharpen(scene) {
   }
   const { k, x, y } = view;
   const r = scene.ratio;
-  const out = offscreen(canvas.width, canvas.height);
+  const net = offscreen(canvas.width, canvas.height);
+  const covered = offscreen(canvas.width, canvas.height);
   /** @type {(x: number, y: number) => Point} */
   const toPx = (px, py) => {
     const [bx, by] = scene.toPx(px, py);
@@ -277,9 +289,21 @@ function sharpen(scene) {
   };
   /** @type {Pen} */
   const pen = { lines: scene.lines, toPx, colors: scene.colors, ratio: r, zoom: k };
-  paintNet(out.ctx, pen);
-  paintCovered(out.ctx, pen);
-  scene.sharp = { c: out.c, k, x, y };
+  paintNet(net.ctx, pen);
+  paintCovered(covered.ctx, pen);
+  let trail = null;
+  if (scene.a < 1) {
+    // The tracks are measured in unzoomed pixels, so draw them through the view.
+    trail = offscreen(canvas.width, canvas.height);
+    trail.ctx.setTransform(k, 0, 0, k, x * r, y * r);
+    trail.ctx.strokeStyle = scene.colors.trail;
+    trail.ctx.lineWidth = (Math.max(1, 1.3 * r) * Math.sqrt(k)) / k;
+    strokeLines(
+      trail.ctx,
+      scene.tracks.flatMap(t => (t.drawn > 0 ? sliceTrack(t.pieces, 0, t.drawn) : []))
+    );
+  }
+  scene.sharp = { net: net.c, covered: covered.c, trail, k, x, y };
 }
 
 /**
@@ -291,7 +315,9 @@ function extendTrails(scene, u) {
   for (const track of scene.tracks) {
     const target = ease((u - track.start) / SPAN) * track.length;
     if (target <= track.drawn) continue;
-    strokeLines(scene.trail.ctx, sliceTrack(track.pieces, Math.max(track.drawn - 1, 0), target));
+    const stretch = sliceTrack(track.pieces, Math.max(track.drawn - 1, 0), target);
+    strokeLines(scene.trail.ctx, stretch);
+    if (scene.sharp?.trail) strokeLines(scene.sharp.trail.ctx, stretch);
     track.drawn = target;
   }
 }
@@ -390,6 +416,7 @@ async function init() {
       draw(s);
       return;
     }
+    sharpen(s);
     stop = play(s, () => {
       finished = true;
       sharpen(s);
@@ -412,9 +439,8 @@ async function init() {
     }
     clearTimeout(settle);
     settle = setTimeout(() => {
-      if (!finished) return;
       sharpen(scene);
-      draw(scene);
+      if (finished) draw(scene);
     }, SHARPEN_MS);
   };
   onZoom = onViewChange;
