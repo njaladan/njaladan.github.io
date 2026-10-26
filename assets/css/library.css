@@ -33,9 +33,6 @@
   border-top: 0;
 }
 /* Clips the covers while a year opens or folds. */
-[data-fold] .library-group.folding {
-  overflow: clip;
-}
 [data-fold] .group-heading {
   position: sticky;
   top: calc(var(--index-bar-height, 60px) + 18px);
