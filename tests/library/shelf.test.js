@@ -4,9 +4,11 @@ import {
   cardMatches,
   compareCards,
   fold,
+  foldedGroups,
   groupBy,
   groupKey,
-  groupLabels
+  groupLabels,
+  keyFromId
 } from '../../assets/js/library/shelf.js';
 
 const sorted = (cards, order) =>
@@ -85,4 +87,26 @@ test('groupBy keeps first-appearance order', () => {
       ['even', [2, 4]]
     ]
   );
+});
+
+test('foldedGroups keeps the two most recent years open in either date order', () => {
+  const keys = ['2026', '2025', '2024', '2023', 'earlier'];
+  assert.deepEqual([...foldedGroups(keys, '', 'newest')], ['2024', '2023', 'earlier']);
+  assert.deepEqual(
+    [...foldedGroups([...keys].reverse(), '', 'oldest')],
+    ['earlier', '2023', '2024']
+  );
+});
+
+test('foldedGroups folds nothing while searching, by title, or on a short shelf', () => {
+  const keys = ['2026', '2025', '2024', 'earlier'];
+  assert.equal(foldedGroups(keys, 'heat', 'newest').size, 0);
+  assert.equal(foldedGroups(['all', 'earlier'], '', 'title').size, 0);
+  assert.equal(foldedGroups(['2026', '2025', 'earlier'], '', 'newest').size, 0);
+});
+
+test('keyFromId reads the group key from a section id', () => {
+  assert.equal(keyFromId('y2017'), '2017');
+  assert.equal(keyFromId('earlier'), 'earlier');
+  assert.equal(keyFromId('all-items'), 'all-items');
 });

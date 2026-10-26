@@ -1,5 +1,8 @@
-// Pure shelf logic for the books and movies pages: matching, ordering and grouping
-// cards by the values in their data-* attributes. Nothing here touches the DOM.
+// Pure shelf logic for the books and movies pages: matching, ordering, grouping and
+// folding cards by the values in their data-* attributes. Nothing here touches the DOM.
+import { fold } from '../lib/collection.js';
+
+export { fold };
 
 /**
  * The data-* values a library card carries.
@@ -24,13 +27,8 @@
 const UNDATED = 'earlier';
 // Sorting by title shows everything as one group.
 const ALL = 'all';
-
-/**
- * Folds case and accents so "amelie" finds "Amélie".
- * @param {string} text
- * @returns {string}
- */
-export const fold = text => text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+// Years left open when the older ones fold.
+const OPEN_YEARS = 2;
 
 /**
  * Whether a card matches a folded search query and the category filter.
@@ -138,3 +136,27 @@ export function groupBy(items, keyOf) {
   }
   return groups;
 }
+
+/**
+ * The groups that start folded to a strip: on an unsearched, date-ordered shelf, every
+ * group but the most recent years, so the page opens on what came lately.
+ * @param {string[]} keys Group keys in page order.
+ * @param {string} query Already folded.
+ * @param {string} order
+ * @returns {Set<string>}
+ */
+export function foldedGroups(keys, query, order) {
+  if (query || order === 'title' || keys.length <= OPEN_YEARS + 1) return new Set();
+  const open = keys
+    .filter(key => key !== UNDATED)
+    .sort()
+    .slice(-OPEN_YEARS);
+  return new Set(keys.filter(key => !open.includes(key)));
+}
+
+/**
+ * The group key a section id or year-nav hash names.
+ * @param {string} id
+ * @returns {string}
+ */
+export const keyFromId = id => (/^y\d{4}$/.test(id) ? id.slice(1) : id);

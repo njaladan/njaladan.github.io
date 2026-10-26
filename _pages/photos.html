@@ -5,9 +5,16 @@ description: "Photos and the places they were taken."
 permalink: /photos/
 redirect_from: /travel/gallery/
 main_class: gallery-main
-styles: [/assets/css/photos.css]
+styles: [/assets/css/collection.css, /assets/css/photos.css]
 modules: [/assets/js/photos.js]
 ---
 <h1 id="gallery-title">Photos</h1>
+<div class="index-bar photo-index" data-index-bar hidden>
+  <div class="index-rail">
+    <label class="control control-search">Find a photo<input type="search" data-search placeholder="Place" aria-label="Search photos by place"></label>
+    <p class="index-count" data-count role="status" aria-live="polite"></p>
+  </div>
+</div>
 <section id="photo-gallery" class="photo-gallery" data-asset-base="{{ '/assets/' | relative_url }}" data-map-url="{{ '/travel/' | relative_url }}" aria-label="Travel photos" aria-live="polite"></section>
+<p class="empty-state photo-empty" data-empty hidden>No photos found. Try another search.</p>
 <noscript><p>Enable JavaScript to browse the photos, or explore the <a href="{{ '/travel/' | relative_url }}">travel map</a>.</p></noscript>

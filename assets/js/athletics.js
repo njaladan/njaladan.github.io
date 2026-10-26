@@ -1,7 +1,14 @@
-// Athletics: every GPS activity drawn as a shape, shuffled, with sport/year filters,
-// a viewer that draws one shape in, and a canvas "stack" of every selected shape.
+// Athletics: every GPS activity drawn as a shape, shuffled, with sport/year filters kept
+// in the address, a viewer that draws one shape in, and a canvas "stack" of every
+// selected shape.
 import { stampedUrl } from './lib/assets.js';
-import { $$ } from './lib/dom.js';
+import {
+  installBackToTop,
+  installIndexBar,
+  installPills,
+  readQuery,
+  writeQuery
+} from './lib/collection.js';
 import {
   SPORTS,
   chipButton,
@@ -49,6 +56,8 @@ async function loadShapes() {
 const all = prepareShapes(await loadShapes());
 /** @type {{ sport: string, year: 'all' | number, view: string }} */
 const state = { sport: 'all', year: 'all', view: 'grid' };
+// The filters as the address shows them, and their values with nothing chosen.
+const DEFAULTS = { sport: 'all', year: 'all', view: 'grid' };
 /** Shapes currently shown, and the one open in the viewer. @type {Shape[]} */
 let list = [];
 let current = -1;
@@ -57,6 +66,8 @@ let current = -1;
  * @typedef {object} Elements
  * @property {HTMLElement} sports
  * @property {HTMLElement} years
+ * @property {HTMLElement} views
+ * @property {HTMLElement} bar
  * @property {HTMLElement} count
  * @property {HTMLElement} grid
  * @property {HTMLElement} stack
@@ -75,31 +86,21 @@ let ui;
 const byId = id => document.getElementById(id);
 
 /**
- * Marks `pressed` as the one pressed button among `buttons`.
- * @param {Element[]} buttons
- * @param {Element} pressed
- */
-const press = (buttons, pressed) =>
-  buttons.forEach(button => button.setAttribute('aria-pressed', String(button === pressed)));
-
-/**
  * Fills `el` with one chip per key; picking a chip sets `state[key]` and re-renders.
  * @param {HTMLElement} el
  * @param {{ keys: Array<string | number>, label: (key: any) => string, swatch: boolean, key: 'sport' | 'year' }} options
+ * @returns {import('./lib/collection.js').Pills}
  */
 function chips(el, { keys, label, swatch, key }) {
   el.innerHTML = keys.map(k => chipButton({ key: k, text: String(label(k)), swatch })).join('');
-  const buttons = $$('button', el);
-  buttons.forEach((b, i) =>
-    b.addEventListener('click', () => {
-      state[key] = /** @type {any} */ (keys[i]);
-      press(buttons, b);
-      render();
-    })
-  );
+  return installPills(el, value => {
+    state[key] = /** @type {any} */ (keys.find(k => String(k) === value));
+    render();
+  });
 }
 
 function render() {
+  writeQuery({ sport: state.sport, year: String(state.year), view: state.view }, DEFAULTS);
   list = filterShapes(all, state);
   ui.count.textContent = `${list.length.toLocaleString()} shapes`;
   ui.grid.hidden = state.view !== 'grid';
@@ -176,26 +177,32 @@ function draw() {
 }
 
 function installControls() {
-  chips(ui.sports, {
-    keys: ['all', 'run', 'ride', 'foot', 'snow'],
+  const keys = { sport: ['all', 'run', 'ride', 'foot', 'snow'], year: ['all', ...shapeYears(all)] };
+  const sports = chips(ui.sports, {
+    keys: keys.sport,
     label: k => (k === 'all' ? 'Everything' : SPORTS[k].label),
     swatch: true,
     key: 'sport'
   });
-  chips(ui.years, {
-    keys: ['all', ...shapeYears(all)],
+  const years = chips(ui.years, {
+    keys: keys.year,
     label: k => (k === 'all' ? 'All years' : k),
     swatch: false,
     key: 'year'
   });
-  const views = $$('.shape-view button');
-  views.forEach(b =>
-    b.addEventListener('click', () => {
-      state.view = b.dataset.view;
-      press(views, b);
-      render();
-    })
-  );
+  const views = installPills(ui.views, value => {
+    state.view = value;
+    render();
+  });
+  // A link to a filtered view opens on it; values the page doesn't offer are ignored.
+  const chosen = readQuery(location.search, DEFAULTS);
+  if (sports.select(chosen.sport)) state.sport = chosen.sport;
+  if (years.select(chosen.year)) {
+    state.year = /** @type {any} */ (keys.year.find(k => String(k) === chosen.year));
+  }
+  if (views.select(chosen.view)) state.view = chosen.view;
+  installIndexBar(ui.bar);
+  installBackToTop();
   /** @type {ReturnType<typeof setTimeout> | undefined} */
   let resize;
   window.addEventListener('resize', () => {
@@ -227,6 +234,8 @@ function init() {
   const elements = {
     sports: byId('shape-sports'),
     years: byId('shape-years'),
+    views: byId('shape-view'),
+    bar: /** @type {HTMLElement | null} */ (document.querySelector('[data-index-bar]')),
     count: byId('shape-count'),
     grid: byId('shape-grid'),
     stack: byId('shape-stack'),

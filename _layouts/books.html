@@ -5,16 +5,22 @@ layout: default
 {% assign books = site.books | reverse | sort: 'date' %}
 <div data-library="books">
   <h1>Books</h1>
-  <div class="library-toolbar">
-    <div class="library-controls js-controls" hidden>
+  <section class="recent" data-recent aria-labelledby="recent-title" hidden><h2 class="recent-title" id="recent-title">Recently read</h2><div class="recent-shelf"></div></section>
+  <div class="index-bar" data-index-bar>
+    <div class="index-controls js-controls" hidden>
       <label class="control control-search">Find a book<input type="search" data-search placeholder="Title" aria-label="Search books by title"></label>
-      <label class="control">Show<select data-filter><option value="all">All books</option><option value="notes">With notes</option></select></label>
-      <label class="control">Sort<select data-sort><option value="oldest">Earliest read</option><option value="newest">Recently read</option><option value="title">Title (A–Z)</option></select></label>
+      <div class="index-filters">
+        <div class="control" role="group" aria-labelledby="show-label"><span id="show-label">Show</span><div class="pills" data-filter><button type="button" class="pill" data-value="all" aria-pressed="true">All</button><button type="button" class="pill" data-value="notes" aria-pressed="false">With notes</button></div></div>
+        <div class="control" role="group" aria-labelledby="sort-label"><span id="sort-label">Sort</span><div class="pills" data-sort><button type="button" class="pill" data-value="oldest" aria-pressed="true">Earliest</button><button type="button" class="pill" data-value="newest" aria-pressed="false">Recent</button><button type="button" class="pill" data-value="title" aria-pressed="false">A–Z</button></div></div>
+      </div>
+    </div>
+    <div class="index-rail">
+      <nav class="year-rail" data-year-nav aria-label="Book years">
+        {% assign previous_year = '' %}{% for book in books %}{% assign year = book.date | date: '%Y' %}{% if year != previous_year %}<a href="#y{{ year }}">{{ year }}</a>{% assign previous_year = year %}{% endif %}{% endfor %}
+      </nav>
+      <p class="index-count" data-count role="status" aria-live="polite">{{ books | size }} books</p>
     </div>
   </div>
-  <nav class="year-nav" data-year-nav aria-label="Book years">
-    {% assign previous_year = '' %}{% for book in books %}{% assign year = book.date | date: '%Y' %}{% if year != previous_year %}<a href="#y{{ year }}">{{ year }}</a>{% assign previous_year = year %}{% endif %}{% endfor %}
-  </nav>
   <div data-groups>
     {% assign previous_year = '' %}
     {% for book in books %}
