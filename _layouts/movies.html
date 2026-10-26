@@ -4,13 +4,6 @@ layout: default
 <div data-library="movies" data-fold>
   <h1>Movies</h1>
   <div class="index-bar" data-index-bar>
-    <div class="index-controls js-controls" hidden>
-      <label class="control control-search">Find a movie<input type="search" data-search placeholder="Title" aria-label="Search movies"></label>
-      <div class="index-filters">
-        <div class="control" role="group" aria-labelledby="show-label"><span id="show-label">Show</span><div class="pills" data-filter><button type="button" class="pill" data-value="all" aria-pressed="true">All</button><button type="button" class="pill" data-value="dated" aria-pressed="false">Diary</button><button type="button" class="pill" data-value="earlier" aria-pressed="false">Undated</button></div></div>
-        <div class="control" role="group" aria-labelledby="sort-label"><span id="sort-label">Sort</span><div class="pills" data-sort><button type="button" class="pill" data-value="newest" aria-pressed="true">Recent</button><button type="button" class="pill" data-value="oldest" aria-pressed="false">Earliest</button><button type="button" class="pill" data-value="title" aria-pressed="false">A–Z</button></div></div>
-      </div>
-    </div>
     <div class="index-rail">
       <nav class="year-rail" data-year-nav aria-label="Viewing years">
         {% assign previous_year = '' %}{% for viewing in site.data.movies.viewings %}{% assign year = viewing.group_year | default: viewing.date | slice: 0, 4 %}{% if year != previous_year %}<a href="#y{{ year }}">{{ year }}</a>{% assign previous_year = year %}{% endif %}{% endfor %}
@@ -36,6 +29,5 @@ layout: default
       <div class="shelf">{% for film_id in site.data.movies.earlier %}{% include movie-card.html film_id=film_id section='earlier' %}{% endfor %}</div>
     </section>
   </div>
-  <p class="empty-state" data-empty hidden>No movies found. Try another search.</p>
   <p class="art-credit">Poster artwork from <a href="https://www.themoviedb.org/">TMDB</a>.</p>
 </div>

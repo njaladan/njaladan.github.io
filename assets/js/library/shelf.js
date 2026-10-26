@@ -1,15 +1,11 @@
-// Pure shelf logic for the books and movies pages: matching, ordering, grouping and
-// folding cards by the values in their data-* attributes. Nothing here touches the DOM.
-import { fold } from '../lib/collection.js';
-
-export { fold };
+// Pure shelf logic for the books and movies pages: ordering, grouping and folding cards
+// by the values in their data-* attributes. Nothing here touches the DOM.
 
 /**
  * The data-* values a library card carries.
  * @typedef {object} CardData
  * @property {string} [title]
  * @property {string} [section] `earlier` for undated films.
- * @property {string} [notes] `true` when the item has notes.
  * @property {string} [year]
  * @property {string} [date] ISO date.
  * @property {string} [filmId]
@@ -25,24 +21,8 @@ export { fold };
 
 // Undated films sit in their own section, always after the dated diary.
 const UNDATED = 'earlier';
-// Sorting by title shows everything as one group.
-const ALL = 'all';
 // Years left open when the older ones fold.
 const OPEN_YEARS = 2;
-
-/**
- * Whether a card matches a folded search query and the category filter.
- * @param {CardData} data
- * @param {string} query Already folded.
- * @param {string} category `all`, `notes`, or a section name.
- * @returns {boolean}
- */
-export function cardMatches(data, query, category) {
-  if (!fold(data.title || '').includes(query)) return false;
-  if (category === 'all') return true;
-  if (category === 'notes') return data.notes === 'true';
-  return data.section === category;
-}
 
 /**
  * @param {CardData} data
@@ -75,7 +55,7 @@ function compareDates(a, b, oldest) {
 }
 
 /**
- * Sort comparator for cards under the `newest`, `oldest` or `title` order.
+ * Sort comparator for cards under the `newest` or `oldest` order.
  * @param {CardData} a
  * @param {CardData} b
  * @param {string} order
@@ -84,22 +64,17 @@ function compareDates(a, b, oldest) {
 export function compareCards(a, b, order) {
   // Undated films always stay after the dated diary, even when reversing dates.
   if (a.section !== b.section) return a.section === UNDATED ? 1 : -1;
-  if (a.section === UNDATED || order === 'title') return byTitle(a, b);
+  if (a.section === UNDATED) return byTitle(a, b);
   const oldest = order === 'oldest';
   return inOrder(yearOf(a), yearOf(b), oldest) || compareDates(a, b, oldest);
 }
 
 /**
- * The group a card is shelved under: `earlier`, `all` (title order) or its year.
+ * The group a card is shelved under: `earlier` or its year.
  * @param {CardData} data
- * @param {string} order
  * @returns {string}
  */
-export function groupKey(data, order) {
-  if (data.section === UNDATED) return UNDATED;
-  if (order === 'title') return ALL;
-  return yearOf(data);
-}
+export const groupKey = data => (data.section === UNDATED ? UNDATED : yearOf(data));
 
 /**
  * Text and anchor for a group's section.
@@ -112,12 +87,7 @@ export function groupLabels(key, kind) {
   if (key === UNDATED) {
     return { id: UNDATED, heading: 'Undated', link: 'Undated', noun: books ? 'books' : 'movies' };
   }
-  const noun = books ? 'books' : 'viewings';
-  if (key === ALL) {
-    const heading = books ? 'The collection' : 'The diary';
-    return { id: 'all-items', heading, link: 'The collection', noun };
-  }
-  return { id: `y${key}`, heading: key, link: key, noun };
+  return { id: `y${key}`, heading: key, link: key, noun: books ? 'books' : 'viewings' };
 }
 
 /**
@@ -138,15 +108,13 @@ export function groupBy(items, keyOf) {
 }
 
 /**
- * The groups that start folded to a strip: on an unsearched, date-ordered shelf, every
- * group but the most recent years, so the page opens on what came lately.
+ * The groups that start folded to a strip: every group but the most recent years, so the
+ * page opens on what came lately.
  * @param {string[]} keys Group keys in page order.
- * @param {string} query Already folded.
- * @param {string} order
  * @returns {Set<string>}
  */
-export function foldedGroups(keys, query, order) {
-  if (query || order === 'title' || keys.length <= OPEN_YEARS + 1) return new Set();
+export function foldedGroups(keys) {
+  if (keys.length <= OPEN_YEARS + 1) return new Set();
   const open = keys
     .filter(key => key !== UNDATED)
     .sort()
