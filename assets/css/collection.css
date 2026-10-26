@@ -68,12 +68,26 @@ html {
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 999px;
-  background: #fff;
   mix-blend-mode: difference;
   pointer-events: none;
+}
+/* Two round ends and a 1px bar drawn out between them; blended as one, so where they
+   overlap they stay a single shape. */
+.rail-marker > span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: var(--marker-size);
+  background: #fff;
   transform-origin: 0 0;
   will-change: transform;
+}
+.rail-marker-cap {
+  width: var(--marker-size);
+  border-radius: 50%;
+}
+.rail-marker-bar {
+  width: 1px;
 }
 .year-rail a:focus-visible {
   outline-offset: 0;

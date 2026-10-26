@@ -200,6 +200,38 @@ export function railAt(stops, y) {
 }
 
 /**
+ * The rail's highlight, drawn as two round ends and a bar between them so the ends stay
+ * round however far it stretches: the ends only slide, and only the bar is drawn out.
+ */
+function createMarker() {
+  const marker = document.createElement('span');
+  marker.className = 'rail-marker';
+  marker.setAttribute('aria-hidden', 'true');
+  const parts = ['cap', 'bar', 'cap'].map(name => {
+    const part = document.createElement('span');
+    part.className = `rail-marker-${name}`;
+    return part;
+  });
+  marker.append(...parts);
+  return { marker, parts };
+}
+
+/**
+ * The transforms of the highlight's left end, bar and right end between `edges`, for ends
+ * `size` across. The bar runs between the ends' centres, under them.
+ * @param {{left: number, right: number}} edges
+ * @param {number} size
+ * @returns {string[]}
+ */
+function markerPose({ left, right }, size) {
+  return [
+    `translateX(${left}px)`,
+    `translateX(${left + size / 2}px) scaleX(${Math.max(right - left - size, 0)})`,
+    `translateX(${right - size}px)`
+  ];
+}
+
+/**
  * Marks the link in `nav` to the section at the top of the window with `aria-current`, and
  * moves a highlight along with the scroll to it: stretching from one link to the next as
  * their sections pass, and kept in the middle of the rail when the links overflow it.
@@ -211,9 +243,7 @@ export function railAt(stops, y) {
  * @returns {() => void} Re-measures, for after the links or the sections change.
  */
 export function installScrollSpy(nav, offset) {
-  const marker = document.createElement('span');
-  marker.className = 'rail-marker';
-  marker.setAttribute('aria-hidden', 'true');
+  const { marker, parts } = createMarker();
   const scrollDriven = 'ScrollTimeline' in window;
   /** @type {RailStop[]} */
   let stops = [];
@@ -223,11 +253,11 @@ export function installScrollSpy(nav, offset) {
   let links = [];
   /** @type {HTMLAnchorElement | undefined} */
   let current;
-  let width = 1;
+  let height = 0;
   let frame = 0;
   let stale = true;
   /** @param {{left: number, right: number}} edges */
-  const pose = ({ left, right }) => `translateX(${left}px) scaleX(${(right - left) / width})`;
+  const pose = edges => markerPose(edges, height);
 
   const measure = () => {
     stale = false;
@@ -236,7 +266,7 @@ export function installScrollSpy(nav, offset) {
     // what it covers light.
     if (!marker.isConnected) nav.append(marker);
     marker.hidden = !links.length;
-    marker.getAnimations().forEach(animation => animation.cancel());
+    marker.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
     if (!links.length) return;
     const line = offset() + SPY_SLACK;
     starts = links.map(link => {
@@ -249,22 +279,22 @@ export function installScrollSpy(nav, offset) {
       links.map(link => ({ left: link.offsetLeft, right: link.offsetLeft + link.offsetWidth })),
       end
     );
-    width = links[0].offsetWidth;
-    Object.assign(marker.style, {
-      top: `${links[0].offsetTop}px`,
-      width: `${width}px`,
-      height: `${links[0].offsetHeight}px`
-    });
+    height = links[0].offsetHeight;
+    marker.style.top = `${links[0].offsetTop}px`;
+    marker.style.setProperty('--marker-size', `${height}px`);
     if (!scrollDriven || end <= 0) return;
     // Scroll progress runs from 0 to 1 over the page's whole scroll.
-    const frames = stops.map(stop => ({
-      offset: Math.min(Math.max(stop.y / end, 0), 1),
-      transform: pose(stop)
-    }));
-    frames.push({ offset: 1, transform: pose(stops[stops.length - 1]) });
+    const offsets = [...stops.map(stop => Math.min(Math.max(stop.y / end, 0), 1)), 1];
+    const poses = [...stops, stops[stops.length - 1]].map(pose);
     const source = document.scrollingElement ?? document.documentElement;
     const timeline = new ScrollTimeline({ source, axis: 'block' });
-    marker.animate(frames, { timeline, fill: 'both' });
+    parts.forEach((part, index) => {
+      const frames = poses.map((transforms, step) => ({
+        offset: offsets[step],
+        transform: transforms[index]
+      }));
+      part.animate(frames, { timeline, fill: 'both' });
+    });
   };
 
   const update = () => {
@@ -273,7 +303,9 @@ export function installScrollSpy(nav, offset) {
     if (!links.length) return;
     const y = scrollY;
     const edges = railAt(stops, y);
-    if (!scrollDriven) marker.style.transform = pose(edges);
+    if (!scrollDriven) {
+      pose(edges).forEach((transform, index) => (parts[index].style.transform = transform));
+    }
     if (nav.scrollWidth > nav.clientWidth) {
       nav.scrollLeft = (edges.left + edges.right) / 2 - nav.clientWidth / 2;
     }
