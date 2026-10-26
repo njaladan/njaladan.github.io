@@ -3903,6 +3903,20 @@
       "year": "1924",
       "cover": "/assets/images/movies/d74bd8334e8e.webp",
       "art_source": "https://www.themoviedb.org/movie/992-sherlock-jr"
+    },
+    {
+      "id": "8d4dbbde7707",
+      "title": "Pretty in Pink",
+      "year": "1986",
+      "cover": "/assets/images/movies/8d4dbbde7707.webp",
+      "art_source": "https://www.themoviedb.org/movie/11522-pretty-in-pink"
+    },
+    {
+      "id": "211a4cdce7f2",
+      "title": "First Man",
+      "year": "2018",
+      "cover": "/assets/images/movies/211a4cdce7f2.webp",
+      "art_source": "https://www.themoviedb.org/movie/369972-first-man"
     }
   ],
   "viewings": [
@@ -4667,6 +4681,11 @@
       "rewatch": false
     },
     {
+      "film_id": "37952bb62853",
+      "date": "2019-03-01",
+      "rewatch": false
+    },
+    {
       "film_id": "d09921782303",
       "date": "2019-02-18",
       "rewatch": false
@@ -4674,6 +4693,11 @@
     {
       "film_id": "c8473560ae29",
       "date": "2019-02-15",
+      "rewatch": false
+    },
+    {
+      "film_id": "8d4dbbde7707",
+      "date": "2019-02-12",
       "rewatch": false
     },
     {
@@ -4703,11 +4727,6 @@
     },
     {
       "film_id": "4394a8a65c81",
-      "group_year": "2019",
-      "rewatch": false
-    },
-    {
-      "film_id": "37952bb62853",
       "group_year": "2019",
       "rewatch": false
     },
@@ -4807,6 +4826,11 @@
       "rewatch": false
     },
     {
+      "film_id": "211a4cdce7f2",
+      "group_year": "2018",
+      "rewatch": false
+    },
+    {
       "film_id": "eed95c86a494",
       "date": "2017-12-28",
       "rewatch": false
@@ -4859,6 +4883,11 @@
     {
       "film_id": "f5e55a5558d9",
       "date": "2017-06-29",
+      "rewatch": false
+    },
+    {
+      "film_id": "d25c456e8678",
+      "date": "2017-06-24",
       "rewatch": false
     },
     {
@@ -5315,7 +5344,6 @@
     "50ea557ea719",
     "cf21864268e9",
     "9370b28d855a",
-    "d25c456e8678",
     "5f6673a5accf",
     "b0f9a6237442",
     "f595b979cc7d",
