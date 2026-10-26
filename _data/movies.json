@@ -6022,6 +6022,13 @@
       "source": "library"
     },
     {
+      "film_id": "6eadf3b9a2ee",
+      "date": "2011-07-15",
+      "rewatch": false,
+      "source": "theater_release",
+      "theater": true
+    },
+    {
       "film_id": "49a4eeab6703",
       "date": "2011-07-11",
       "rewatch": false,
@@ -6083,13 +6090,6 @@
       "theater": true
     },
     {
-      "film_id": "6eadf3b9a2ee",
-      "group_year": "2011",
-      "rewatch": false,
-      "source": "theater_release",
-      "theater": true
-    },
-    {
       "film_id": "251362d037c8",
       "date": "2010-12-28",
       "rewatch": false,
@@ -6114,6 +6114,13 @@
       "source": "library"
     },
     {
+      "film_id": "a9532e36c0b0",
+      "date": "2010-11-19",
+      "rewatch": false,
+      "source": "theater_release",
+      "theater": true
+    },
+    {
       "film_id": "36d49d502bf7",
       "date": "2010-11-13",
       "rewatch": false,
@@ -6128,13 +6135,6 @@
     },
     {
       "film_id": "cc34e158fcb0",
-      "group_year": "2010",
-      "rewatch": false,
-      "source": "theater_release",
-      "theater": true
-    },
-    {
-      "film_id": "a9532e36c0b0",
       "group_year": "2010",
       "rewatch": false,
       "source": "theater_release",
