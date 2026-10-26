@@ -4022,6 +4022,13 @@
       "year": "2004",
       "cover": "/assets/images/movies/57769e37536c.webp",
       "art_source": "https://www.themoviedb.org/movie/2567-the-aviator"
+    },
+    {
+      "id": "20a7896fe631",
+      "title": "Underdog",
+      "year": "2007",
+      "cover": "/assets/images/movies/20a7896fe631.webp",
+      "art_source": "https://www.themoviedb.org/movie/6589-underdog"
     }
   ],
   "viewings": [
@@ -4312,6 +4319,12 @@
       "date": "2025-11-30",
       "rewatch": false,
       "source": "letterboxd"
+    },
+    {
+      "film_id": "9b1149a0fcba",
+      "date": "2025-07-18",
+      "rewatch": false,
+      "source": "user_logged"
     },
     {
       "film_id": "699077b11b38",
@@ -4624,6 +4637,18 @@
       "group_year": "2023",
       "rewatch": false,
       "source": "user_recall"
+    },
+    {
+      "film_id": "68763cf0e9f9",
+      "date": "2022-10-28",
+      "rewatch": false,
+      "source": "user_logged"
+    },
+    {
+      "film_id": "d2525dff99e1",
+      "date": "2022-05-24",
+      "rewatch": false,
+      "source": "user_logged"
     },
     {
       "film_id": "017eb8e15f23",
@@ -5552,6 +5577,13 @@
       "source": "prime_video"
     },
     {
+      "film_id": "e30989b6c42b",
+      "date": "2016-07-05",
+      "rewatch": false,
+      "source": "user_logged",
+      "theater": true
+    },
+    {
       "film_id": "7ee1bca9fe0b",
       "date": "2016-06-28",
       "rewatch": false,
@@ -5990,6 +6022,13 @@
       "source": "library"
     },
     {
+      "film_id": "6eadf3b9a2ee",
+      "date": "2011-07-15",
+      "rewatch": false,
+      "source": "theater_release",
+      "theater": true
+    },
+    {
       "film_id": "49a4eeab6703",
       "date": "2011-07-11",
       "rewatch": false,
@@ -6073,6 +6112,13 @@
       "date": "2010-12-21",
       "rewatch": false,
       "source": "library"
+    },
+    {
+      "film_id": "a9532e36c0b0",
+      "date": "2010-11-19",
+      "rewatch": false,
+      "source": "theater_release",
+      "theater": true
     },
     {
       "film_id": "36d49d502bf7",
@@ -6185,6 +6231,20 @@
       "source": "user_recall"
     },
     {
+      "film_id": "20a7896fe631",
+      "group_year": "2007",
+      "rewatch": false,
+      "source": "theater_release",
+      "theater": true
+    },
+    {
+      "film_id": "fe91f5252cb9",
+      "group_year": "2005",
+      "rewatch": false,
+      "source": "theater_release",
+      "theater": true
+    },
+    {
       "film_id": "b6ae9f5e95b2",
       "group_year": "2004",
       "rewatch": false,
@@ -6236,19 +6296,15 @@
     "e6e026dc457c",
     "86ad823e2c3b",
     "072c359f2997",
-    "9b1149a0fcba",
-    "68763cf0e9f9",
     "a6fe0f33c060",
     "274d4f1377d3",
     "b26f018fe7ce",
     "173cd6e8cf92",
     "7c2105862e36",
     "f4e66e10e474",
-    "d2525dff99e1",
     "9de850d302c4",
     "d94b28ef00f4",
     "a06f4f01232e",
-    "e30989b6c42b",
     "f14ce80db49b",
     "f1458c889e72",
     "e9e90db2d833",
@@ -6259,9 +6315,6 @@
     "b67023ab7bf0",
     "0ba9044cf2c5",
     "dc53c1bb30e3",
-    "a9532e36c0b0",
-    "6eadf3b9a2ee",
-    "fe91f5252cb9",
     "6a8d9c43a9e5",
     "8b76795a3b02",
     "04e2e5ee2021",
