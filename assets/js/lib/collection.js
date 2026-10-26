@@ -1,18 +1,11 @@
-// The index bar shared by the collection pages (books, movies, athletics, photos): pill
-// filters, a bar pinned to the top of the window, the section in view marked in its
-// links, filters kept in the address, `/` to search and a button back to the top.
+// The index bar shared by the collection pages (books, movies, athletics): pill filters,
+// a bar pinned to the top of the window, the section in view marked in its links, filters
+// kept in the address, and a button back to the top (also on photos).
 import { $, $$ } from './dom.js';
 
 // How far below the pinned bar a section's top counts as having reached the top: past the
 // gap anchors leave under the bar.
 const SPY_SLACK = 64;
-
-/**
- * Folds case and accents so "amelie" finds "Amélie".
- * @param {string} text
- * @returns {string}
- */
-export const fold = text => text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
 /**
  * The query string for `state`, leaving out values at their defaults.
@@ -169,22 +162,6 @@ export function installScrollSpy(nav, offset) {
   addEventListener('resize', schedule);
   schedule();
   return schedule;
-}
-
-/**
- * `/` focuses the search box, unless the reader is already typing or a dialog is open.
- * @param {HTMLInputElement} input
- */
-export function installSearchKey(input) {
-  document.addEventListener('keydown', event => {
-    if (event.key !== '/' || event.metaKey || event.ctrlKey || event.altKey) return;
-    const target = /** @type {HTMLElement} */ (event.target);
-    if (target.isContentEditable || target.closest?.('input, textarea, select')) return;
-    if ($('dialog[open]')) return;
-    event.preventDefault();
-    input.focus();
-    input.select();
-  });
 }
 
 /** A button back to the top that appears once the page has scrolled well down. */
