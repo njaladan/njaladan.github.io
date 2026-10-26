@@ -1,0 +1,184 @@
+/* The index bar shared by the books, movies, athletics and photos pages: pill filters, a
+   view switch, a rail of section links or year pills, the count, and a way back up. */
+html {
+  scroll-padding-top: calc(var(--index-bar-height, 60px) + 2rem);
+}
+.index-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  padding-top: 14px;
+  margin-bottom: 4px;
+}
+.index-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: end;
+  justify-content: space-between;
+}
+.index-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: end;
+}
+.index-rail {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  min-height: 46px;
+}
+.control {
+  display: grid;
+  gap: 6px;
+  font: 11px/1.6 var(--sans);
+  color: var(--muted);
+}
+.index-count {
+  font: 12px var(--sans);
+  color: var(--muted);
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Section links, with the one in view filled in. */
+.year-rail {
+  position: relative;
+  display: flex;
+  gap: 2px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  font: 12px var(--sans);
+}
+.year-rail::-webkit-scrollbar {
+  display: none;
+}
+.year-rail a {
+  flex: none;
+  padding: 4px 9px;
+  border-radius: 999px;
+  color: var(--muted);
+  text-decoration: none;
+  transition:
+    background 150ms ease,
+    color 150ms ease;
+}
+.year-rail a:hover {
+  color: var(--ink);
+}
+.year-rail a[aria-current] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.year-rail a:focus-visible {
+  outline-offset: 0;
+}
+
+/* Pills: every choice on show, one pressed. */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pill {
+  font: 12px var(--sans);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  background: transparent;
+  border-radius: 999px;
+  padding: 6px 12px;
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  white-space: nowrap;
+}
+.pill:hover {
+  border-color: var(--muted);
+}
+.pill[aria-pressed='true'] {
+  border-color: var(--ink);
+  background: #fff;
+}
+.pills-small .pill {
+  padding: 4px 10px;
+  font-size: 11px;
+}
+.index-rail .pills {
+  flex-wrap: nowrap;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.index-rail .pills::-webkit-scrollbar {
+  display: none;
+}
+
+/* A view switch: two or three joined buttons, the current one filled in. */
+.segmented {
+  display: inline-flex;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.segmented button {
+  font: 12px var(--sans);
+  border: 0;
+  background: transparent;
+  padding: 6px 14px;
+}
+.segmented button[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.empty-state {
+  padding: 55px 0;
+  font-size: 18px;
+  color: var(--muted);
+}
+.back-to-top {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 30;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  font: 18px/1 var(--sans);
+  box-shadow: 0 4px 14px #3329181a;
+}
+.back-to-top:hover {
+  border-color: var(--ink);
+}
+
+/* On phones the filters scroll away and only the rail stays pinned. */
+@media (max-width: 600px) {
+  .index-bar {
+    display: contents;
+  }
+  .index-controls {
+    flex-direction: column;
+    align-items: stretch;
+    margin: 4px 0 8px;
+  }
+  .control-search input {
+    width: 100%;
+  }
+  .index-rail {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 4px;
+  }
+}

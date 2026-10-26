@@ -59,15 +59,15 @@ test('SVG markup carries only numbers and escaped text', () => {
 test('chipButton escapes labels and adds sport swatches', () => {
   assert.equal(
     chipButton({ key: 'all', text: 'Everything', swatch: true }),
-    '<button type="button" aria-pressed="true">Everything</button>'
+    '<button type="button" class="pill" data-value="all" aria-pressed="true">Everything</button>'
   );
   assert.equal(
     chipButton({ key: 'foot', text: 'Hiking & walking', swatch: true }),
-    '<button type="button" aria-pressed="false"><span class="shape-swatch" style="background:#7a9a22"></span>Hiking &amp; walking</button>'
+    '<button type="button" class="pill" data-value="foot" aria-pressed="false"><span class="shape-swatch" style="background:#7a9a22"></span>Hiking &amp; walking</button>'
   );
   assert.equal(
     chipButton({ key: 2024, text: '2024', swatch: false }),
-    '<button type="button" aria-pressed="false">2024</button>'
+    '<button type="button" class="pill" data-value="2024" aria-pressed="false">2024</button>'
   );
 });
 
