@@ -67,8 +67,7 @@ export function fitBesidePanel(ctx, points) {
   ctx.photos.cancel();
   const bounds = ctx.L.latLngBounds(points),
     options = { maxZoom: TRIP_MAX_ZOOM, ...panelPadding() };
-  if (ctx.reduceMotion) ctx.map.fitBounds(bounds, { ...options, animate: false });
-  else ctx.map.flyToBounds(bounds, { ...options, duration: TRIP_FLY_SECONDS });
+  ctx.map.flyToBounds(bounds, { ...options, duration: TRIP_FLY_SECONDS });
 }
 
 /**
@@ -81,7 +80,7 @@ export function fitBesidePanel(ctx, points) {
 function slideMap(ctx, shift, panel) {
   stopCamera(ctx);
   const options = {
-    animate: !ctx.reduceMotion,
+    animate: true,
     duration: parseFloat(getComputedStyle(panel).transitionDuration) || PANEL_SLIDE_SECONDS,
     easeLinearity: PANEL_EASE
   };

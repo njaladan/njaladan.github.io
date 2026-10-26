@@ -414,18 +414,6 @@
     font-size: 17px;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .cover,
-  .cover:after {
-    transition: none;
-  }
-  .card-link:is(:hover, :focus-visible) .cover {
-    transform: none;
-  }
-  .card-link:hover .cover:after {
-    opacity: 0;
-  }
-}
 .cover:not(.movie-cover) img {
   object-fit: contain;
   background: #f0ede7;
@@ -482,18 +470,6 @@
 @media (hover: hover) and (pointer: fine) {
   .card-link[data-review]:hover .cover-with-notes {
     --note-fold: calc(var(--note-fold-rest) + 5px);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .note-corner,
-  .cover-with-notes > img,
-  .cover-with-notes > .cover-fallback {
-    transition: none;
-  }
-  .card-link[data-review]:hover .cover-with-notes,
-  .card-link[data-review]:focus-visible .cover-with-notes {
-    --note-fold: var(--note-fold-rest);
-    transform: none;
   }
 }
 .dialog-content > p:first-of-type::first-letter {

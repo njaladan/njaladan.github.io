@@ -559,13 +559,6 @@ main {
     font-size: 7px !important;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *:before,
-  *:after {
-    transition: none !important;
-  }
-}
 
 .site-footer {
   height: 42px;

@@ -193,10 +193,6 @@ export function gondolaRide(ctx, coords, color) {
     start() {
       if (frame !== null || line.total === 0) return;
       marker.setLatLng(line.points[0]).addTo(map);
-      if (ctx.reduceMotion) {
-        marker.setLatLng(pointAt(line, line.total / 2));
-        return;
-      }
       let px = 0;
       for (let i = 1; i < line.points.length; i++) {
         px += map.project(line.points[i - 1]).distanceTo(map.project(line.points[i]));

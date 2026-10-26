@@ -24,11 +24,10 @@ const MAX_WHEEL_STEP = 1;
 /**
  * Replaces Leaflet's stepped wheel zoom with a smooth, pointer-anchored zoom.
  * @param {any} map Leaflet map (or the globe renderer, which provides its own)
- * @param {boolean} reduceMotion jump straight to each target zoom
  * @returns {{finish: () => void}}
  */
-export function installSmoothZoom(map, reduceMotion) {
-  if (map.installSmoothZoom) return map.installSmoothZoom(reduceMotion);
+export function installSmoothZoom(map) {
+  if (map.installSmoothZoom) return map.installSmoothZoom();
   const element = map.getContainer();
   const camera = { frame: null, target: map.getZoom(), anchor: null, point: null, moving: false };
   let lastTime = 0,
@@ -49,7 +48,7 @@ export function installSmoothZoom(map, reduceMotion) {
       lastTime === null ? FIRST_FRAME_MS : Math.max(1, Math.min(time - lastTime, MAX_FRAME_MS));
     lastTime = time;
     const current = map.getZoom();
-    const ease = reduceMotion ? 1 : 1 - Math.exp(-elapsed / EASE_MS);
+    const ease = 1 - Math.exp(-elapsed / EASE_MS);
     const next = current + (camera.target - current) * ease;
     const zoom = Math.abs(camera.target - next) < SNAP_EPSILON ? camera.target : next;
     const offset = camera.point.subtract(map.getSize().divideBy(2));

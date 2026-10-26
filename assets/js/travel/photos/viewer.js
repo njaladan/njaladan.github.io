@@ -297,10 +297,10 @@ function resizeViewer(v) {
 
 /**
  * @param {NonNullable<ReturnType<typeof findViewerElements>>} elements
- * @param {{map: any, pins: ViewerPins, reduceMotion: boolean, asset: (src: string) => string,
+ * @param {{map: any, pins: ViewerPins, asset: (src: string) => string,
  *   containerPoint: (coords: any) => any}} options
  */
-function createViewerContext(elements, { map, pins, reduceMotion, asset, containerPoint }) {
+function createViewerContext(elements, { map, pins, asset, containerPoint }) {
   const v = {
     ...elements,
     map,
@@ -322,7 +322,7 @@ function createViewerContext(elements, { map, pins, reduceMotion, asset, contain
       /** @type {ReturnType<typeof setTimeout> | null} */
       zoomTimer: null
     },
-    fadeBackdrop: createBackdropFade(elements.backdrop, reduceMotion),
+    fadeBackdrop: createBackdropFade(elements.backdrop),
     /** @type {ReturnType<typeof installPhotoZoom>} */
     zoom: null,
     /** @type {ReturnType<typeof createViewerImage>} */
@@ -346,7 +346,6 @@ function createViewerContext(elements, { map, pins, reduceMotion, asset, contain
     canCommit: () => !v.motion.active && !v.state.closing && v.state.view !== 'closed'
   });
   v.motion = createFrameMotion(elements, {
-    reduceMotion,
     resized: () => requestImage(v),
     settled: animated => {
       if (animated) v.zoom.invalidate();

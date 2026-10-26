@@ -134,11 +134,7 @@ function revealLink(nav, link) {
   const left = link.offsetLeft;
   const right = left + link.offsetWidth;
   if (left >= nav.scrollLeft && right <= nav.scrollLeft + nav.clientWidth) return;
-  const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
-  nav.scrollTo({
-    left: left - (nav.clientWidth - link.offsetWidth) / 2,
-    behavior: smooth ? 'smooth' : 'auto'
-  });
+  nav.scrollTo({ left: left - (nav.clientWidth - link.offsetWidth) / 2, behavior: 'smooth' });
 }
 
 /**
@@ -183,10 +179,7 @@ export function installBackToTop() {
   button.setAttribute('aria-label', 'Back to top');
   button.textContent = '↑';
   button.hidden = true;
-  button.addEventListener('click', () => {
-    const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
-    scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
-  });
+  button.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
   document.body.append(button);
   const toggle = () => {
     button.hidden = scrollY < innerHeight * 1.5;

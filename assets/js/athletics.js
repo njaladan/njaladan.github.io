@@ -159,8 +159,7 @@ function open(n) {
 function draw() {
   const polys = [...ui.big.querySelectorAll('polyline')];
   const lengths = polys.map(p => p.getTotalLength());
-  const duration = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : DRAW_MS;
-  const schedule = drawSchedule(lengths, duration);
+  const schedule = drawSchedule(lengths, DRAW_MS);
   polys.forEach((p, i) => {
     p.style.transition = 'none';
     p.style.strokeDasharray = String(lengths[i]);
@@ -172,7 +171,7 @@ function draw() {
   });
   const end = ui.big.querySelector('.shape-end');
   if (!(end instanceof SVGElement)) return;
-  end.style.transition = `opacity .3s ${duration}ms`;
+  end.style.transition = `opacity .3s ${DRAW_MS}ms`;
   requestAnimationFrame(() => end.setAttribute('opacity', '1'));
 }
 

@@ -226,14 +226,6 @@ body:has(dialog[open]) {
     font-size: 17px;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  a {
-    transition: none;
-  }
-}
 .site-shell {
   display: flex;
   flex-direction: column;
@@ -267,12 +259,6 @@ body:has(dialog[open]) {
   background-size:
     100% 1.5px,
     100% 1px;
-}
-@media (prefers-reduced-motion: reduce) {
-  :is(.bio-copy p, .page-intro, .earlier-intro, .article-body, .dialog-content, .site-footer)
-    a:not([class]) {
-    transition: none;
-  }
 }
 .article-body > p:first-of-type::first-letter {
   float: left;

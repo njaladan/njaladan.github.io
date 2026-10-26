@@ -115,7 +115,7 @@ export function stopCamera(ctx) {
 export function fitView(ctx, bounds, maxZoom = 10, animate = true) {
   stopCamera(ctx);
   const options = { maxZoom, ...FIT_PADDING };
-  if (ctx.reduceMotion || !animate) ctx.map.fitBounds(bounds, { ...options, animate: false });
+  if (!animate) ctx.map.fitBounds(bounds, { ...options, animate: false });
   else ctx.map.flyToBounds(bounds, { ...options, duration: FLY_SECONDS });
 }
 

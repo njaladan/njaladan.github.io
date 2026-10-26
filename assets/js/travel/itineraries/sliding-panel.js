@@ -6,9 +6,9 @@ const FALLBACK_SLIDE_SECONDS = 0.34;
 
 /**
  * @param {HTMLDialogElement} panel
- * @param {{reduceMotion: boolean, onToggle: (open: boolean, resize?: boolean) => void}} options
+ * @param {{onToggle: (open: boolean, resize?: boolean) => void}} options
  */
-export function createSlidingPanel(panel, { reduceMotion, onToggle }) {
+export function createSlidingPanel(panel, { onToggle }) {
   /** @type {ReturnType<typeof setTimeout> | null} */
   let closeTimer = null;
   return {
@@ -40,10 +40,6 @@ export function createSlidingPanel(panel, { reduceMotion, onToggle }) {
         closeTimer = null;
         panel.close();
       };
-      if (reduceMotion) {
-        finish();
-        return;
-      }
       const seconds =
         parseFloat(getComputedStyle(panel).transitionDuration) || FALLBACK_SLIDE_SECONDS;
       closeTimer = setTimeout(finish, seconds * 1000);
