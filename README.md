@@ -82,6 +82,10 @@ Importers write compact JSON; run `npm run format` afterwards, since CI checks t
 data files are pretty-printed (`assets/data/athletics/` is exempt because of its size).
 Production builds minify HTML, JS and JSON with `jekyll-minifier`.
 
+## Credits
+
+Movie poster artwork comes from [TMDB](https://www.themoviedb.org/).
+
 ## License
 
 Code is MIT-licensed; the writing, photos and data are not. See [LICENSE](LICENSE).
