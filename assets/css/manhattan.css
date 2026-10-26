@@ -70,6 +70,72 @@
   display: block;
   width: 100%;
   height: 100%;
+  /* One finger scrolls the page until the map is zoomed in; pinches go to manhattan.js. */
+  touch-action: pan-x pan-y;
+}
+.cov-stage.is-zoomed canvas {
+  touch-action: none;
+  cursor: grab;
+}
+.cov-stage.is-dragging canvas {
+  cursor: grabbing;
+}
+.cov-zoom {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+}
+.cov-zoom[hidden] {
+  display: none;
+}
+.cov-zoom-buttons {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--paper);
+  overflow: hidden;
+  pointer-events: auto;
+}
+.cov-zoom button {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: 18px/1 var(--sans);
+  cursor: pointer;
+}
+.cov-zoom button + button {
+  border-top: 1px solid var(--rule);
+}
+.cov-zoom button:hover {
+  background: #fff;
+}
+.cov-zoom button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.cov-zoom-hint {
+  margin: 0;
+  font: 11px var(--sans);
+  color: var(--muted);
+  text-align: right;
+  max-width: 9em;
+  transition: opacity 0.3s;
+}
+.cov-stage.is-zoomed .cov-zoom-hint {
+  opacity: 0;
+}
+@media (hover: none) {
+  .cov-zoom-hint {
+    display: none;
+  }
 }
 .cov-loading {
   position: absolute;
