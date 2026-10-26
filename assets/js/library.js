@@ -276,9 +276,14 @@ function installShelf(root) {
   const hash = decodeURIComponent(location.hash.slice(1));
   if (hash) shelf.opened.add(keyFromId(hash));
   installFolding(shelf);
-  update(shelf);
-  // The groups were rebuilt, so an anchor in the address needs scrolling to again, once
-  // the browser has made its own attempt.
+  // The movies page arrives shelved and folded, so it loads as it will look; the books
+  // page is shelved here.
+  if (shelf.folds && $('.library-group[data-key]', groups)) {
+    if (hash) openGroup(shelf, hash);
+    shelf.spy();
+  } else update(shelf);
+  // The groups changed, so an anchor in the address needs scrolling to again, once the
+  // browser has made its own attempt.
   const target = hash && document.getElementById(hash);
   const jump = () => target?.scrollIntoView({ behavior: 'instant' });
   if (target) addEventListener('load', jump, { once: true });
