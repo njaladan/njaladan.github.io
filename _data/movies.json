@@ -5873,6 +5873,13 @@
       "source": "prime_video"
     },
     {
+      "film_id": "660d2b093611",
+      "date": "2014-06-13",
+      "rewatch": false,
+      "source": "theater_release",
+      "theater": true
+    },
+    {
       "film_id": "5a48746dc4ff",
       "date": "2014-06-05",
       "rewatch": false,
@@ -6390,7 +6397,6 @@
     "57fb5c6bf125",
     "6859f98b2679",
     "57c2a32d1175",
-    "660d2b093611",
     "01823cf01380",
     "262bbdee3d12",
     "f99067f57140",
