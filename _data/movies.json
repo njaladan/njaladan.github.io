@@ -4741,6 +4741,12 @@
       "source": "user_recall"
     },
     {
+      "film_id": "fede8bf62592",
+      "date": "2021-07-16",
+      "rewatch": false,
+      "source": "movies_journal"
+    },
+    {
       "film_id": "6dd18f791872",
       "date": "2021-07-15",
       "rewatch": false,
@@ -6487,7 +6493,6 @@
     "50ea557ea719",
     "fd21fceb378a",
     "1b81499e5dc3",
-    "fede8bf62592",
     "0d439d68dc04",
     "7dba718d5d8c",
     "6112d92bb27b",
