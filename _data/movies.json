@@ -5880,6 +5880,13 @@
       "source": "prime_video"
     },
     {
+      "film_id": "20b10a649d6f",
+      "date": "2014-11-12",
+      "rewatch": false,
+      "source": "theater_release",
+      "theater": true
+    },
+    {
       "film_id": "660d2b093611",
       "date": "2014-06-13",
       "rewatch": false,
@@ -5897,13 +5904,6 @@
       "date": "2014-05-31",
       "rewatch": false,
       "source": "library"
-    },
-    {
-      "film_id": "20b10a649d6f",
-      "group_year": "2014",
-      "rewatch": false,
-      "source": "theater_release",
-      "theater": true
     },
     {
       "film_id": "34cc55cbebc3",
