@@ -4055,7 +4055,8 @@
       "film_id": "1ebe9e303cb6",
       "date": "2026-10-06",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "6cb8becf5b51",
@@ -4109,7 +4110,8 @@
       "film_id": "a257b8e58216",
       "date": "2026-09-14",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "cce39c0ffcbb",
@@ -4139,7 +4141,8 @@
       "film_id": "45688ff0d2a2",
       "date": "2026-08-05",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "7ad5ca75a12e",
@@ -4223,7 +4226,8 @@
       "film_id": "a0e0c09f375e",
       "date": "2026-06-05",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "9523baec2834",
@@ -4241,7 +4245,8 @@
       "film_id": "2d54f467e5d5",
       "date": "2026-04-13",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "f84af39d7a3a",
@@ -4325,7 +4330,8 @@
       "film_id": "3709bd33401c",
       "date": "2025-11-30",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "9b1149a0fcba",
@@ -4337,7 +4343,8 @@
       "film_id": "699077b11b38",
       "date": "2025-03-17",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "1f0bf967ae12",
@@ -4361,13 +4368,15 @@
       "film_id": "c29d22b980c1",
       "date": "2025-01-11",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "dfe40771074e",
       "group_year": "2025",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "b867601118ea",
@@ -4397,7 +4406,8 @@
       "film_id": "c5c75653ffa8",
       "date": "2024-11-14",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "574838750e89",
@@ -4409,7 +4419,8 @@
       "film_id": "cd73ffe2cb09",
       "date": "2024-10-28",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "005e8e44d612",
@@ -4421,7 +4432,8 @@
       "film_id": "e173bcbb6f05",
       "date": "2024-08-09",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "cc6ddb92f8d7",
@@ -4439,25 +4451,29 @@
       "film_id": "7835cf1ce22e",
       "date": "2024-05-10",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "91422df20658",
       "date": "2024-05-08",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "2fb787beff8e",
       "date": "2024-04-21",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "4912ffe042a5",
       "date": "2024-02-15",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "9dee25e0dae2",
@@ -4475,7 +4491,8 @@
       "film_id": "3f1fb92b955a",
       "group_year": "2024",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "38434bd35c24",
@@ -4487,7 +4504,8 @@
       "film_id": "9c8760a2d615",
       "date": "2023-11-05",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "5bf33032aea0",
@@ -4511,13 +4529,15 @@
       "film_id": "31cd18bf5a20",
       "date": "2023-07-24",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "2aa070f07ff8",
       "date": "2023-07-23",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "463613331da4",
@@ -4541,13 +4561,15 @@
       "film_id": "0b1c7094b770",
       "date": "2023-06-15",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "e5f4c88dabf4",
       "date": "2023-06-15",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "d0281b565516",
@@ -4577,13 +4599,15 @@
       "film_id": "3889367643d8",
       "date": "2023-04-29",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "6d52c11267ca",
       "date": "2023-04-25",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "969ad72f2ac8",
@@ -4607,7 +4631,8 @@
       "film_id": "6bcaa4811799",
       "date": "2023-01-20",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "50f88383a000",
@@ -4631,7 +4656,8 @@
       "film_id": "1a09176ca493",
       "group_year": "2023",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "d497ca0f2c9c",
@@ -4649,7 +4675,8 @@
       "film_id": "68763cf0e9f9",
       "date": "2022-10-28",
       "rewatch": false,
-      "source": "user_logged"
+      "source": "user_logged",
+      "theater": true
     },
     {
       "film_id": "d2525dff99e1",
@@ -4679,13 +4706,15 @@
       "film_id": "cb46cad7879e",
       "group_year": "2022",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "7d5165471a3f",
       "group_year": "2022",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "bdb5018e2652",
@@ -4697,7 +4726,8 @@
       "film_id": "5ceaedfada04",
       "group_year": "2022",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "4bdce34515b5",
@@ -4709,19 +4739,22 @@
       "film_id": "56ae65da4f3d",
       "group_year": "2022",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "3fa7b7f2bb1f",
       "group_year": "2022",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "34b9078b2fe6",
       "group_year": "2022",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "22967d395341",
@@ -4733,7 +4766,8 @@
       "film_id": "13a5417e6d26",
       "group_year": "2022",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "c2d0f6b48a46",
@@ -4751,7 +4785,8 @@
       "film_id": "8e650f008de4",
       "date": "2022-01-23",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "fede8bf62592",
@@ -4781,7 +4816,8 @@
       "film_id": "8e585f5c4532",
       "group_year": "2021",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "ec6e67b31613",
@@ -4793,7 +4829,8 @@
       "film_id": "c028e8cfea6b",
       "group_year": "2021",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "9651a5fc044e",
@@ -4871,7 +4908,8 @@
       "film_id": "0a7833ad4d1e",
       "date": "2020-01-21",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "dfc6fcf0316a",
@@ -5020,7 +5058,8 @@
       "film_id": "0d949148393f",
       "date": "2019-08-20",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "428b8dfc4433",
@@ -5033,7 +5072,8 @@
       "film_id": "5488e94ba0f4",
       "date": "2019-07-06",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "9e1db37121c1",
@@ -5046,7 +5086,8 @@
       "film_id": "106b0ddf6415",
       "date": "2019-04-25",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "510d7dca983f",
@@ -5113,13 +5154,15 @@
       "film_id": "a0c76806279e",
       "date": "2019-01-02",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "bbe70e83edfe",
       "group_year": "2019",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "a0fca33eb644",
@@ -5149,13 +5192,15 @@
       "film_id": "a5863e21034a",
       "date": "2018-12-21",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "479644859c29",
       "date": "2018-12-20",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "3b423e77ca7b",
@@ -5221,7 +5266,8 @@
       "film_id": "6b0a916fed42",
       "date": "2018-05-27",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "8dd88ff409cf",
@@ -5239,31 +5285,36 @@
       "film_id": "b8c70cd259a6",
       "date": "2018-04-26",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "875618a2c54d",
       "group_year": "2018",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "6b4a32e2b3fa",
       "group_year": "2018",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "211a4cdce7f2",
       "group_year": "2018",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "eed95c86a494",
       "date": "2017-12-28",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "f9f6e69fd216",
@@ -5275,7 +5326,8 @@
       "film_id": "b652eaa05f04",
       "date": "2017-12-14",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "1bb2e2b5b66b",
@@ -5473,25 +5525,29 @@
       "film_id": "c25bbbf25d81",
       "group_year": "2017",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "7d56644e3630",
       "group_year": "2017",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "a330d361277d",
       "group_year": "2017",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "e62d83de86c0",
       "group_year": "2017",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "e098f7d11818",
@@ -5503,7 +5559,8 @@
       "film_id": "ba3b538f1b70",
       "group_year": "2017",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "af4a4bde4f71",
@@ -5515,7 +5572,8 @@
       "film_id": "eca81cd2d817",
       "group_year": "2017",
       "rewatch": false,
-      "source": "release_date"
+      "source": "release_date",
+      "theater": true
     },
     {
       "film_id": "c29d09b82ff5",
@@ -5678,7 +5736,8 @@
       "film_id": "59d9e7d513a3",
       "group_year": "2016",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "fc01a1041a16",
@@ -5690,13 +5749,15 @@
       "film_id": "2e0f746bc25a",
       "group_year": "2016",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "8a7781f0aed7",
       "group_year": "2016",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "ed71222dea23",
@@ -5708,7 +5769,8 @@
       "film_id": "055bf5be8945",
       "group_year": "2016",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "9e4a92122d76",
@@ -5852,13 +5914,15 @@
       "film_id": "8bd00508f6dc",
       "group_year": "2015",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "9d75c54cf2ce",
       "group_year": "2015",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "7db3ec3c3b92",
@@ -5870,7 +5934,8 @@
       "film_id": "a808a3946f0a",
       "group_year": "2015",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "5dbb89274f76",
