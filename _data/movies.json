@@ -6079,7 +6079,8 @@
       "film_id": "5625c7954bd5",
       "date": "2013-05-25",
       "rewatch": false,
-      "source": "prime_video"
+      "source": "prime_video",
+      "theater": true
     },
     {
       "film_id": "144deadb230d",
