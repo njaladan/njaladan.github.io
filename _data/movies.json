@@ -5058,7 +5058,8 @@
       "film_id": "0d949148393f",
       "date": "2019-08-20",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "428b8dfc4433",
@@ -5071,7 +5072,8 @@
       "film_id": "5488e94ba0f4",
       "date": "2019-07-06",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "9e1db37121c1",
@@ -5084,7 +5086,8 @@
       "film_id": "106b0ddf6415",
       "date": "2019-04-25",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "510d7dca983f",
@@ -5151,13 +5154,15 @@
       "film_id": "a0c76806279e",
       "date": "2019-01-02",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "bbe70e83edfe",
       "group_year": "2019",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "a0fca33eb644",
@@ -5187,13 +5192,15 @@
       "film_id": "a5863e21034a",
       "date": "2018-12-21",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "479644859c29",
       "date": "2018-12-20",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "3b423e77ca7b",
@@ -5259,7 +5266,8 @@
       "film_id": "6b0a916fed42",
       "date": "2018-05-27",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "8dd88ff409cf",
@@ -5277,31 +5285,36 @@
       "film_id": "b8c70cd259a6",
       "date": "2018-04-26",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "875618a2c54d",
       "group_year": "2018",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "6b4a32e2b3fa",
       "group_year": "2018",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "211a4cdce7f2",
       "group_year": "2018",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "eed95c86a494",
       "date": "2017-12-28",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "f9f6e69fd216",
@@ -5313,7 +5326,8 @@
       "film_id": "b652eaa05f04",
       "date": "2017-12-14",
       "rewatch": false,
-      "source": "movies_journal"
+      "source": "movies_journal",
+      "theater": true
     },
     {
       "film_id": "1bb2e2b5b66b",
@@ -5511,25 +5525,29 @@
       "film_id": "c25bbbf25d81",
       "group_year": "2017",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "7d56644e3630",
       "group_year": "2017",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "a330d361277d",
       "group_year": "2017",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "e62d83de86c0",
       "group_year": "2017",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "e098f7d11818",
@@ -5541,7 +5559,8 @@
       "film_id": "ba3b538f1b70",
       "group_year": "2017",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "af4a4bde4f71",
@@ -5553,7 +5572,8 @@
       "film_id": "eca81cd2d817",
       "group_year": "2017",
       "rewatch": false,
-      "source": "release_date"
+      "source": "release_date",
+      "theater": true
     },
     {
       "film_id": "c29d09b82ff5",
@@ -5716,7 +5736,8 @@
       "film_id": "59d9e7d513a3",
       "group_year": "2016",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "fc01a1041a16",
@@ -5728,13 +5749,15 @@
       "film_id": "2e0f746bc25a",
       "group_year": "2016",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "8a7781f0aed7",
       "group_year": "2016",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "ed71222dea23",
@@ -5746,7 +5769,8 @@
       "film_id": "055bf5be8945",
       "group_year": "2016",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "9e4a92122d76",
@@ -5890,13 +5914,15 @@
       "film_id": "8bd00508f6dc",
       "group_year": "2015",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "9d75c54cf2ce",
       "group_year": "2015",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "7db3ec3c3b92",
@@ -5908,7 +5934,8 @@
       "film_id": "a808a3946f0a",
       "group_year": "2015",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "5dbb89274f76",
