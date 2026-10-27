@@ -4029,6 +4029,13 @@
       "year": "2007",
       "cover": "/assets/images/movies/20a7896fe631.webp",
       "art_source": "https://www.themoviedb.org/movie/6589-underdog"
+    },
+    {
+      "id": "ed5c4b1ddb86",
+      "title": "Mirror Mirror",
+      "year": "2012",
+      "cover": "/assets/images/movies/ed5c4b1ddb86.webp",
+      "art_source": "https://www.themoviedb.org/movie/62764-mirror-mirror"
     }
   ],
   "viewings": [
@@ -6030,6 +6037,13 @@
     {
       "film_id": "2d5f74820a27",
       "date": "2012-05-04",
+      "rewatch": false,
+      "source": "theater_release",
+      "theater": true
+    },
+    {
+      "film_id": "ed5c4b1ddb86",
+      "date": "2012-04-20",
       "rewatch": false,
       "source": "theater_release",
       "theater": true
