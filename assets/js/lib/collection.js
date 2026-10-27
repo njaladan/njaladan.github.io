@@ -242,9 +242,11 @@ export function createMotion() {
      * @param {{left: number, right: number}} glide Where the scroll puts it.
      * @param {{left: number, right: number}} rest The marked link.
      * @param {number} time
-     * @param {boolean} still Whether the page has stopped scrolling.
+     * @param {{still: boolean, trail?: boolean}} how Whether the page has stopped scrolling,
+     *   and whether it draws out a tail: not when the rail scrolls under it instead, as on a
+     *   phone, where it stays in place and the years pass by.
      */
-    at(glide, rest, time, still) {
+    at(glide, rest, time, { still, trail = true }) {
       const centre = (glide.left + glide.right) / 2;
       const elapsed = Math.max(time - last.time, 1);
       const moved = Number.isNaN(last.centre) ? 0 : centre - last.centre;
@@ -260,7 +262,7 @@ export function createMotion() {
         right: shift.right + (target.right - shift.right) * ease
       };
       // Draws back in on its own as the glide slows.
-      const tail = Math.min(Math.abs(speed) * TAIL_MS, TAIL_MAX);
+      const tail = trail ? Math.min(Math.abs(speed) * TAIL_MS, TAIL_MAX) : 0;
       const off = Math.max(
         Math.abs(target.left - shift.left),
         Math.abs(target.right - shift.right)
@@ -344,11 +346,15 @@ export function installScrollSpy(nav, offset) {
     const y = scrollY;
     const active = activeIndex(starts, y);
     const still = time - scrolled >= SETTLE_DELAY;
-    const { left, right, moving } = motion.at(railAt(stops, y), rests[active], time, still);
+    const overflows = nav.scrollWidth > nav.clientWidth;
+    const { left, right, moving } = motion.at(railAt(stops, y), rests[active], time, {
+      still,
+      trail: !overflows
+    });
     markerPose({ left, right }, height).forEach((transform, index) => {
       parts[index].style.transform = transform;
     });
-    if (nav.scrollWidth > nav.clientWidth) {
+    if (overflows) {
       nav.scrollLeft = (left + right) / 2 - nav.clientWidth / 2;
     }
     // Carries on after the scrolling stops, until the highlight has settled.

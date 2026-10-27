@@ -81,14 +81,25 @@ test('createMotion trails a tail while scrolling and rests unstretched on the li
   // Scrolling: gliding right a few pixels a frame draws out a tail behind.
   for (let x = 0; x < 30; x += 3) {
     time += 16;
-    frame = motion.at({ left: 40 + x, right: 90 + x }, rest, time, false);
+    frame = motion.at({ left: 40 + x, right: 90 + x }, rest, time, { still: false });
   }
   assert.ok(frame.right - frame.left > 55, 'stretched while moving');
   assert.ok(frame.moving);
   // Still, partway between two links: it settles onto the marked one, at its own size.
   for (let step = 0; step < 40; step++) {
     time += 16;
-    frame = motion.at({ left: 70, right: 120 }, rest, time, true);
+    frame = motion.at({ left: 70, right: 120 }, rest, time, { still: true });
   }
   assert.deepEqual(frame, { ...rest, moving: false });
+});
+
+test('createMotion draws out no tail when the rail scrolls under it', () => {
+  const motion = createMotion();
+  const rest = { left: 50, right: 100 };
+  let frame;
+  for (let x = 0, time = 0; x < 30; x += 3) {
+    time += 16;
+    frame = motion.at({ left: 40 + x, right: 90 + x }, rest, time, { still: false, trail: false });
+  }
+  assert.equal(frame.right - frame.left, 50);
 });
