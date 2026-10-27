@@ -5874,6 +5874,13 @@
       "source": "prime_video"
     },
     {
+      "film_id": "7aa0c4d93b20",
+      "date": "2014-11-28",
+      "rewatch": false,
+      "source": "user_recall",
+      "theater": true
+    },
+    {
       "film_id": "deaf9ebbe7e0",
       "date": "2014-11-26",
       "rewatch": false,
@@ -6335,7 +6342,6 @@
     "b88c762e8a5a",
     "f8f5fdb7da4a",
     "3caf042e7c50",
-    "7aa0c4d93b20",
     "0f49810b1540",
     "b95dc54a620c",
     "235648ce8b9d",
