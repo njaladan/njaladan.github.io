@@ -18,9 +18,10 @@ layout: default
     {% for year in years %}
       {% comment %}Ordered as library.js orders them: dated viewings as listed, then the rest by title.{% endcomment %}
       {% assign dated = year.items | where_exp: 'viewing', 'viewing.date' %}
-      {% assign undated_ids = year.items | where_exp: 'viewing', 'viewing.date == nil' | map: 'film_id' %}
+      {% assign undated_viewings = year.items | where_exp: 'viewing', 'viewing.date == nil' %}
+      {% assign undated_ids = undated_viewings | map: 'film_id' %}
       {% assign undated = site.data.movies.films | where_exp: 'film', 'undated_ids contains film.id' | sort_natural: 'title' %}
-      {% capture cards %}{% for viewing in dated %}{% include movie-card.html film_id=viewing.film_id date=viewing.date year=year.name section='dated' %}{% endfor %}{% for film in undated %}{% include movie-card.html film_id=film.id year=year.name section='dated' %}{% endfor %}{% endcapture %}
+      {% capture cards %}{% for viewing in dated %}{% include movie-card.html film_id=viewing.film_id date=viewing.date theater=viewing.theater year=year.name section='dated' %}{% endfor %}{% for film in undated %}{% assign viewing = undated_viewings | where: 'film_id', film.id | first %}{% include movie-card.html film_id=film.id theater=viewing.theater year=year.name section='dated' %}{% endfor %}{% endcapture %}
       {% assign year_id = year.name | prepend: 'y' %}
       {% include movie-year.html id=year_id key=year.name heading=year.name total=year.size noun='viewings' cards=cards %}
     {% endfor %}
