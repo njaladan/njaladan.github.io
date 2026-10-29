@@ -5406,7 +5406,8 @@
       "film_id": "07dab2f89dc5",
       "date": "2017-07-17",
       "rewatch": false,
-      "source": "user_logged"
+      "source": "user_logged",
+      "theater": true
     },
     {
       "film_id": "81498fb80642",
