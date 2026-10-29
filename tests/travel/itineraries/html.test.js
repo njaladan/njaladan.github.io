@@ -9,6 +9,7 @@ const thumbnail = photo => `/t/${photo.id}`;
 const format = {
   mode: key => ({ name: `<${key}>`, color: `#000" x="` }),
   distance: km => `${km} km`,
+  elevation: meters => `${meters} m`,
   thumbnail
 };
 
