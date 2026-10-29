@@ -20,7 +20,7 @@ import {
 // HTML for route cards, built with routes/card-html.js's shared layout.
 
 /** @typedef {import('./context.js').AtlasContext} AtlasContext */
-/** @typedef {[string | number, string] | { distanceKm: number, precision: number }} Stat */
+/** @typedef {[string | number, string] | { distanceKm: number, precision: number } | { elevationM: number }} Stat */
 
 // A title names the nearest known place within this distance (km).
 const PLACE_RADIUS_KM = 30;
@@ -59,9 +59,7 @@ function activityStats(cards, day) {
   const stats = [];
   if (Number.isFinite(day.distance_m)) stats.push(cards.distance(day.distance_m / 1000, 1));
   if (Number.isFinite(day.elapsed_s)) stats.push([clock(day.elapsed_s), 'Hours']);
-  if (Number.isFinite(day.elevation_m)) {
-    stats.push([Math.round(day.elevation_m).toLocaleString(), 'Climb m']);
-  }
+  if (Number.isFinite(day.elevation_m)) stats.push(cards.elevation(day.elevation_m));
   return stats;
 }
 

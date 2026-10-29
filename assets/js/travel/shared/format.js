@@ -1,6 +1,7 @@
 // Display formatting for route cards and itineraries. Side-effect free.
 
 const KM_PER_MILE = 1.609344;
+const METERS_PER_FOOT = 0.3048;
 
 /**
  * Localized distance value and its unit label, e.g. ['12.5', 'Km'].
@@ -18,6 +19,17 @@ export function formatDistance(distanceKm, precision, unit) {
     }),
     unit === 'mi' ? 'Miles' : 'Km'
   ];
+}
+
+/**
+ * Localized elevation value and its unit label: meters with km, feet with miles.
+ * @param {number} meters
+ * @param {'km' | 'mi'} unit the distance unit the elevation follows
+ * @returns {[string, string]}
+ */
+export function formatElevation(meters, unit) {
+  const value = unit === 'mi' ? meters / METERS_PER_FOOT : meters;
+  return [Math.round(value).toLocaleString(), unit === 'mi' ? 'ft' : 'm'];
 }
 
 /**
