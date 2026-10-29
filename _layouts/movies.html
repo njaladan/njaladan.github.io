@@ -4,6 +4,9 @@ layout: default
 <div data-library="movies" data-fold>
   <h1>Movies</h1>
   <div class="index-bar" data-index-bar>
+    <div class="index-controls">
+      <input type="search" data-search placeholder="Search movies" aria-label="Search movies" autocomplete="off" spellcheck="false" hidden>
+    </div>
     <div class="index-rail">
       <nav class="year-rail" data-year-nav aria-label="Viewing years">
         {% assign previous_year = '' %}{% for viewing in site.data.movies.viewings %}{% assign year = viewing.group_year | default: viewing.date | slice: 0, 4 %}{% if year != previous_year %}<a href="#y{{ year }}">{{ year }}</a>{% assign previous_year = year %}{% endif %}{% endfor %}
@@ -13,6 +16,7 @@ layout: default
     </div>
   </div>
   <noscript><style>[data-fold-toggle] { display: none; } .is-folded .shelf > .library-card { display: block !important; }</style></noscript>
+  <p class="search-empty" data-search-empty hidden></p>
   <div data-groups>
     {% assign years = site.data.movies.viewings | group_by_exp: 'viewing', "viewing.group_year | default: viewing.date | slice: 0, 4" %}
     {% for year in years %}
