@@ -4036,6 +4036,13 @@
       "year": "2012",
       "cover": "/assets/images/movies/ed5c4b1ddb86.webp",
       "art_source": "https://www.themoviedb.org/movie/62764-mirror-mirror"
+    },
+    {
+      "id": "07dab2f89dc5",
+      "title": "Despicable Me 3",
+      "year": "2017",
+      "cover": "/assets/images/movies/07dab2f89dc5.webp",
+      "art_source": "https://www.themoviedb.org/movie/324852-despicable-me-3"
     }
   ],
   "viewings": [
@@ -5394,6 +5401,12 @@
       "date": "2017-07-18",
       "rewatch": false,
       "source": "movies_journal"
+    },
+    {
+      "film_id": "07dab2f89dc5",
+      "date": "2017-07-17",
+      "rewatch": false,
+      "source": "user_logged"
     },
     {
       "film_id": "81498fb80642",
