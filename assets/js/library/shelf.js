@@ -111,3 +111,32 @@ export function groupBy(items, keyOf) {
  * @returns {string}
  */
 export const keyFromId = id => (/^y\d{4}$/.test(id) ? id.slice(1) : id);
+
+/**
+ * `text` folded for matching: lower case, without accents or apostrophes, other
+ * punctuation as spaces.
+ * @param {string} text
+ * @returns {string}
+ */
+const fold = text =>
+  text
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '')
+    .toLowerCase()
+    .replace(/['’]/g, '')
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim();
+
+/**
+ * Whether `title` holds every word of `query`, each starting a word of it, ignoring case,
+ * accents and punctuation. An empty query matches everything.
+ * @param {string} title
+ * @param {string} query
+ * @returns {boolean}
+ */
+export function matchesQuery(title, query) {
+  const words = ` ${fold(title)}`;
+  return fold(query)
+    .split(' ')
+    .every(word => words.includes(` ${word}`));
+}
