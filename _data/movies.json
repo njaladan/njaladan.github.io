@@ -5427,12 +5427,6 @@
       "source": "movies_journal"
     },
     {
-      "film_id": "ef523fdc0138",
-      "date": "2017-07-13",
-      "rewatch": false,
-      "source": "letterboxd"
-    },
-    {
       "film_id": "013606e8f67c",
       "date": "2017-07-09",
       "rewatch": false,
@@ -5832,6 +5826,12 @@
       "date": "2015-10-04",
       "rewatch": false,
       "source": "prime_video"
+    },
+    {
+      "film_id": "ef523fdc0138",
+      "date": "2015-10-02",
+      "rewatch": false,
+      "source": "user_logged"
     },
     {
       "film_id": "49b01216b2cc",
