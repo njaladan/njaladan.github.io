@@ -27,10 +27,20 @@
   align-items: start;
   margin-top: 0;
   padding: 18px 0;
+}
+/* Ruled off from the year above, skipping any a search has hidden. */
+[data-fold] .library-group:not([hidden]) ~ .library-group {
   border-top: 1px solid var(--rule);
 }
-[data-fold] .library-group:first-child {
-  border-top: 0;
+/* While searching every year with a match stays open, so its toggle and count step aside. */
+[data-searching] [data-fold-toggle],
+[data-searching] .group-heading span {
+  display: none;
+}
+.search-empty {
+  font: 13px var(--sans);
+  color: var(--muted);
+  padding: 18px 0;
 }
 /* Clips the covers while a year opens or folds. */
 [data-fold] .group-heading {

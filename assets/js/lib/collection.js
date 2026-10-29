@@ -282,6 +282,14 @@ export function createMotion() {
 }
 
 /**
+ * The links in `nav` to sections on the page, leaving out any a filter has hidden.
+ * @param {HTMLElement} nav
+ * @returns {HTMLAnchorElement[]}
+ */
+const sectionLinks = nav =>
+  /** @type {HTMLAnchorElement[]} */ ($$('a[href^="#"]', nav)).filter(link => !link.hidden);
+
+/**
  * Marks the link in `nav` to the section at the top of the window with `aria-current`, and
  * moves a highlight along with the scroll to it: gliding from one link to the next as their
  * sections pass, drawing out a tail behind it the faster it goes, and kept in the middle of
@@ -314,7 +322,7 @@ export function installScrollSpy(nav, offset) {
   const measure = () => {
     stale = false;
     motion.reset();
-    links = $$('a[href^="#"]', nav);
+    links = sectionLinks(nav);
     // The links can be rebuilt, taking the marker with them. It goes over them, turning
     // what it covers light.
     if (!marker.isConnected) nav.append(marker);
