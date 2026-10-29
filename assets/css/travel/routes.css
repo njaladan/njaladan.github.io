@@ -430,36 +430,3 @@ button.card-row span:first-child {
     box-shadow: 0 0 0 9px #e2b36b00;
   }
 }
-/* The cabin that rides a hovered gondola line. It hangs from its wheel on the cable. */
-.gondola-cabin {
-  pointer-events: none;
-}
-.gondola-cabin span {
-  display: block;
-  transform: rotate(var(--swing, 0deg));
-  transform-origin: 12px 3px;
-  filter: drop-shadow(0 2px 3px #23323d59);
-}
-.gondola-cabin svg {
-  display: block;
-  width: 24px;
-  height: 34px;
-}
-.gondola-wheel {
-  fill: #23323d;
-  stroke: #fff;
-  stroke-width: 1.2;
-}
-.gondola-hanger {
-  stroke: #23323d;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-}
-.gondola-body {
-  fill: var(--mode);
-  stroke: #fff;
-  stroke-width: 1.6;
-}
-.gondola-window {
-  fill: #e8f4fb;
-}
