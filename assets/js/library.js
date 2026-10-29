@@ -1,10 +1,24 @@
 // Books and movies pages: shelve the cards into year groups, fold movie years to a strip,
-// mark the year in view, tilt covers toward the pointer, and open notes as a book.
+// search movies by title, mark the year in view, tilt covers toward the pointer, and open
+// notes as a book.
 import { $, $$ } from './lib/dom.js';
-import { installBackToTop, installIndexBar, installScrollSpy } from './lib/collection.js';
+import {
+  installBackToTop,
+  installIndexBar,
+  installScrollSpy,
+  readQuery,
+  writeQuery
+} from './lib/collection.js';
 import { installBookDialog } from './library/book.js';
 import { installCoverFallbacks, installCoverTilt } from './library/covers.js';
-import { compareCards, groupBy, groupKey, groupLabels, keyFromId } from './library/shelf.js';
+import {
+  compareCards,
+  groupBy,
+  groupKey,
+  groupLabels,
+  keyFromId,
+  matchesQuery
+} from './library/shelf.js';
 
 /**
  * @typedef {object} Shelf
@@ -26,6 +40,8 @@ const FOLD_MS = 420;
 const FOLD_EASE = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
 // How long what a fold hides takes to fade out before the covers move.
 const FADE_MS = 160;
+// The search box's value in the address, as `?q=`.
+const SEARCH_DEFAULTS = { q: '' };
 // The furthest the years below slide to their new place; further than this, they rise or
 // drop just this far and fade in, rather than racing a long way across the screen.
 const SETTLE_PX = 48;
@@ -275,10 +291,74 @@ function installFolding(shelf) {
     // Scrolled here rather than by the link: folding the years above would otherwise pull
     // the page under the browser's own scroll to the anchor.
     event.preventDefault();
-    openGroup(shelf, section.id);
+    // While searching every year with a match stays open.
+    if (!groups.closest('[data-searching]')) openGroup(shelf, section.id);
     history.pushState(history.state, '', link.hash);
     section.scrollIntoView();
   });
+}
+
+/**
+ * Narrows the shelves to the cards whose titles match the search box: every year with a
+ * match opens in full, the rest step aside along with their links, and clearing it folds
+ * the years back as the reader left them. Kept in the address as `?q=`.
+ * @param {Shelf} shelf
+ * @param {HTMLElement} root
+ */
+function installSearch(shelf, root) {
+  const input = $('[data-search]', root);
+  if (!(input instanceof HTMLInputElement)) return;
+  const count = $('[data-count]', root);
+  const empty = $('[data-search-empty]', root);
+  const films = new Set(shelf.cards.map(card => card.dataset.filmId)).size;
+  let searching = false;
+
+  const apply = () => {
+    const query = input.value.trim();
+    const sections = $$('.library-group', shelf.groups);
+    /** @type {Set<string | undefined>} */
+    const found = new Set();
+    for (const card of shelf.cards) {
+      card.hidden = !matchesQuery(card.dataset.title ?? '', query);
+      if (!card.hidden) found.add(card.dataset.filmId);
+    }
+    for (const section of sections) {
+      section.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
+      delete section.dataset.fading;
+      section.hidden = !$$('.library-card', section).some(card => !card.hidden);
+      const link = $(`a[href="#${section.id}"]`, shelf.nav);
+      if (link) link.hidden = section.hidden;
+      // Searching opens every year; clearing folds them back as the reader left them.
+      if (shelf.folds && (query || searching)) {
+        setFolded(section, !query && !shelf.opened.has(section.dataset.key ?? ''));
+      }
+    }
+    searching = Boolean(query);
+    root.toggleAttribute('data-searching', searching);
+    if (count) {
+      count.textContent = query ? `${found.size} of ${films} movies` : `${films} movies`;
+    }
+    if (empty) {
+      empty.hidden = !query || found.size > 0;
+      empty.textContent = `No movies match “${query}”.`;
+    }
+    shelf.spy();
+  };
+
+  input.addEventListener('input', () => {
+    apply();
+    writeQuery({ q: input.value.trim() }, SEARCH_DEFAULTS);
+    // Brings the results up under the bar when they start above the window.
+    if (shelf.groups.getBoundingClientRect().top < 0) shelf.groups.scrollIntoView();
+  });
+  input.addEventListener('keydown', event => {
+    if (event.key !== 'Escape' || !input.value) return;
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
+  });
+  input.hidden = false;
+  input.value = readQuery(location.search, SEARCH_DEFAULTS).q;
+  if (input.value.trim()) apply();
 }
 
 /**
@@ -309,6 +389,7 @@ function installShelf(root) {
     if (hash) openGroup(shelf, hash);
     shelf.spy();
   } else update(shelf);
+  installSearch(shelf, root);
   // The groups changed, so an anchor in the address needs scrolling to again, once the
   // browser has made its own attempt.
   const target = hash && document.getElementById(hash);
