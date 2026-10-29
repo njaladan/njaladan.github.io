@@ -5302,9 +5302,9 @@
     },
     {
       "film_id": "875618a2c54d",
-      "group_year": "2018",
+      "date": "2018-03-24",
       "rewatch": false,
-      "source": "user_recall",
+      "source": "user_logged",
       "theater": true
     },
     {
