@@ -4036,6 +4036,13 @@
       "year": "2004",
       "cover": "/assets/images/movies/6b2d1be00397.webp",
       "art_source": "https://www.themoviedb.org/movie/10096-13-going-on-30"
+    },
+    {
+      "id": "ae6597f0b825",
+      "title": "Miss Congeniality",
+      "year": "2000",
+      "cover": "/assets/images/movies/ae6597f0b825.webp",
+      "art_source": "https://www.themoviedb.org/movie/1493-miss-congeniality"
     }
   ],
   "viewings": [
@@ -6537,6 +6544,7 @@
     "4b71c4fa2da9",
     "0554c4c807b8",
     "fb2ae88d99c5",
+    "ae6597f0b825",
     "8c8eeda90c01",
     "85e2f4cc3a60",
     "c60b0300c4b5",
