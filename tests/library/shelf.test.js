@@ -5,7 +5,8 @@ import {
   groupBy,
   groupKey,
   groupLabels,
-  keyFromId
+  keyFromId,
+  matchesQuery
 } from '../../assets/js/library/shelf.js';
 
 const sorted = (cards, order) =>
@@ -65,4 +66,20 @@ test('groupBy keeps first-appearance order', () => {
 test('keyFromId reads the group key from a section id', () => {
   assert.equal(keyFromId('y2017'), '2017');
   assert.equal(keyFromId('earlier'), 'earlier');
+});
+
+test('matchesQuery finds every word at the start of a word in the title', () => {
+  assert.equal(matchesQuery('The Dark Knight', ''), true);
+  assert.equal(matchesQuery('The Dark Knight', 'dark'), true);
+  assert.equal(matchesQuery('The Dark Knight', 'knight dar'), true);
+  assert.equal(matchesQuery('The Dark Knight', 'ark'), false);
+  assert.equal(matchesQuery('The Dark Knight', 'dark rises'), false);
+});
+
+test('matchesQuery ignores case, accents and punctuation', () => {
+  assert.equal(matchesQuery('Amélie', 'AMELIE'), true);
+  assert.equal(matchesQuery('WALL·E', 'wall e'), true);
+  assert.equal(matchesQuery("Ocean's Eleven", 'oceans'), true);
+  assert.equal(matchesQuery('Ocean’s Eleven', "ocean's 11"), false);
+  assert.equal(matchesQuery('Spider-Man: No Way Home', 'spider man'), true);
 });
