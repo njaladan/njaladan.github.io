@@ -17,7 +17,7 @@ const NO_SCROLL = { preventScroll: true };
  * @typedef {import('./model.js').Trip} Trip
  * @typedef {import('./model.js').TripRef} TripRef
  * @typedef {object} ItineraryOptions
- * @property {{formatDistance: (km: number, precision?: number) => [string, string]}} cards
+ * @property {{formatDistance: (km: number, precision?: number) => [string, string], formatElevation: (meters: number) => [string, string]}} cards
  * @property {Record<string, {name: string, color: string}>} modes
  * @property {(points: number[][]) => void} onFit
  * @property {(refs: {kind: string, id: string}[] | null) => void} onHighlight
@@ -117,6 +117,7 @@ function formatters({ cards, modes }) {
       const [value, unit] = cards.formatDistance(km, 1);
       return `${value} ${unit.toLowerCase()}`;
     },
+    elevation: meters => cards.formatElevation(meters).join(' '),
     thumbnail: photo => travelAsset(photo.variants.thumbnail.src)
   };
 }

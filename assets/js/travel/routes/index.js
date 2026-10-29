@@ -2,7 +2,7 @@ import { $$ } from '../../lib/dom.js';
 import { escapeHtml } from '../../lib/html.js';
 import { travelAsset } from '../shared/runtime.js';
 import { haversine, midpoint, pathKm, photosNear } from '../shared/geo.js';
-import { formatDistance } from '../shared/format.js';
+import { formatDistance, formatElevation } from '../shared/format.js';
 import { icon } from '../shared/route-icons.js';
 import { cardHtml } from './card-html.js';
 
@@ -21,10 +21,17 @@ export function installRouteCards(L = window.L) {
   let distanceUnit = 'km';
   /** @type {(distanceKm: number, precision?: number) => [string, string]} */
   const format = (distanceKm, precision) => formatDistance(distanceKm, precision, distanceUnit);
+  /** Climb in meters or feet, following the distance unit. */
+  const formatClimb = meters => {
+    const [value, unit] = formatElevation(meters, distanceUnit);
+    return /** @type {[string, string]} */ ([value, `Climb ${unit}`]);
+  };
   /** A distance stat, formatted in the current unit when rendered. */
   const distance = (distanceKm, precision = 0) => ({ distanceKm, precision });
+  /** An elevation stat, formatted in the current unit when rendered. */
+  const elevation = elevationM => ({ elevationM });
 
-  /** Switches units and rewrites the distance stats of any open card. */
+  /** Switches units and rewrites the distance and elevation stats of any open card. */
   function setDistanceUnit(unit) {
     distanceUnit = unit === 'mi' ? 'mi' : 'km';
     $$('.card-stats [data-distance-km]').forEach(node => {
@@ -35,12 +42,18 @@ export function installRouteCards(L = window.L) {
       node.querySelector('b').textContent = value;
       node.querySelector('small').textContent = label;
     });
+    $$('.card-stats [data-elevation-m]').forEach(node => {
+      const [value, label] = formatClimb(Number(node.dataset.elevationM));
+      node.querySelector('b').textContent = value;
+      node.querySelector('small').textContent = label;
+    });
   }
 
   /** @param {import('./card-html.js').RouteCard} card */
   const html = card =>
     cardHtml(card, {
       formatDistance: format,
+      formatElevation: formatClimb,
       thumbnail: photo => travelAsset(photo.variants.thumbnail.src)
     });
 
@@ -72,7 +85,9 @@ export function installRouteCards(L = window.L) {
     haversine,
     photosNear,
     distance,
+    elevation,
     formatDistance: format,
+    formatElevation: meters => formatElevation(meters, distanceUnit),
     setDistanceUnit
   };
 }
