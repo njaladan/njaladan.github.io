@@ -4679,6 +4679,12 @@
       "theater": true
     },
     {
+      "film_id": "1a332ea12e60",
+      "date": "2022-05-30",
+      "rewatch": false,
+      "source": "user_logged"
+    },
+    {
       "film_id": "d2525dff99e1",
       "date": "2022-05-24",
       "rewatch": false,
@@ -4803,12 +4809,6 @@
     {
       "film_id": "9fe9090b9717",
       "date": "2021-03-11",
-      "rewatch": false,
-      "source": "letterboxd"
-    },
-    {
-      "film_id": "1a332ea12e60",
-      "group_year": "2021",
       "rewatch": false,
       "source": "letterboxd"
     },
