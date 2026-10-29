@@ -4029,6 +4029,13 @@
       "year": "2017",
       "cover": "/assets/images/movies/07dab2f89dc5.webp",
       "art_source": "https://www.themoviedb.org/movie/324852-despicable-me-3"
+    },
+    {
+      "id": "10e8e9971de5",
+      "title": "The Wandering Earth",
+      "year": "2019",
+      "cover": "/assets/images/movies/10e8e9971de5.webp",
+      "art_source": "https://www.themoviedb.org/movie/535167"
     }
   ],
   "viewings": [
@@ -5183,6 +5190,12 @@
     },
     {
       "film_id": "6f2294447397",
+      "group_year": "2019",
+      "rewatch": false,
+      "source": "user_recall"
+    },
+    {
+      "film_id": "10e8e9971de5",
       "group_year": "2019",
       "rewatch": false,
       "source": "user_recall"
