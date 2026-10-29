@@ -2743,13 +2743,6 @@
       "art_source": "https://www.themoviedb.org/movie/1865-pirates-of-the-caribbean-on-stranger-tides"
     },
     {
-      "id": "9651a5fc044e",
-      "title": "The Matrix Resurrections",
-      "year": "2021",
-      "cover": "/assets/images/movies/9651a5fc044e.webp",
-      "art_source": "https://www.themoviedb.org/movie/624860-the-matrix-resurrections"
-    },
-    {
       "id": "479644859c29",
       "title": "Ralph Breaks the Internet",
       "year": "2018",
@@ -2804,13 +2797,6 @@
       "year": "2010",
       "cover": "/assets/images/movies/45463293391c.webp",
       "art_source": "https://www.themoviedb.org/movie/32657-percy-jackson-the-olympians-the-lightning-thief"
-    },
-    {
-      "id": "45be0f695d6e",
-      "title": "Percy Jackson: Sea of Monsters",
-      "year": "2013",
-      "cover": "/assets/images/movies/45be0f695d6e.webp",
-      "art_source": "https://www.themoviedb.org/movie/76285-percy-jackson-sea-of-monsters"
     },
     {
       "id": "9c97a6f9ad28",
@@ -4833,12 +4819,6 @@
       "theater": true
     },
     {
-      "film_id": "9651a5fc044e",
-      "group_year": "2021",
-      "rewatch": false,
-      "source": "letterboxd"
-    },
-    {
       "film_id": "bcb6dd537253",
       "group_year": "2021",
       "rewatch": false,
@@ -6568,7 +6548,6 @@
     "99b827206bb2",
     "d9b78076ff3c",
     "3ecc6e6a7260",
-    "45be0f695d6e",
     "634b9e264709",
     "4aac2b6c6096",
     "c2f0400adac3",
