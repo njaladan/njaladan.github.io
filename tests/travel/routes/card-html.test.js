@@ -5,6 +5,8 @@ import { attributesHtml, cardHtml, statHtml } from '../../../assets/js/travel/ro
 const EVIL = '"><img src=x onerror=alert(1)>';
 
 const formatDistance = (km, precision) => [km.toFixed(precision), 'Km'];
+const formatElevation = meters => [String(meters), 'Climb m'];
+const formatters = { formatDistance, formatElevation };
 
 const thumbnail = photo => `/t/${photo.id}`;
 
@@ -17,13 +19,17 @@ test('attributesHtml escapes map values and passes markup strings through', () =
   assert.equal(attributesHtml(undefined), '');
 });
 
-test('statHtml keeps raw distances for unit changes', () => {
+test('statHtml keeps raw distances and elevations for unit changes', () => {
   assert.equal(
-    statHtml({ distanceKm: 2.5, precision: 1 }, formatDistance),
+    statHtml({ distanceKm: 2.5, precision: 1 }, formatters),
     '<div data-distance-km="2.5" data-distance-precision="1"><b>2.5</b><small>Km</small></div>'
   );
   assert.equal(
-    statHtml(['<1', 'Hours'], formatDistance),
+    statHtml({ elevationM: 120 }, formatters),
+    '<div data-elevation-m="120"><b>120</b><small>Climb m</small></div>'
+  );
+  assert.equal(
+    statHtml(['<1', 'Hours'], formatters),
     '<div><b>&lt;1</b><small>Hours</small></div>'
   );
 });
@@ -46,7 +52,7 @@ test('cardHtml escapes every interpolated field', () => {
       stepper: { index: 0, total: 2 },
       trip: { id: EVIL, title: 't', noun: EVIL, index: 0, steps: [{}] }
     },
-    { formatDistance, thumbnail }
+    { formatDistance, formatElevation, thumbnail }
   );
   assert.ok(!html.includes('<img src=x'));
   assert.ok(!html.includes('" onclick'));

@@ -15,6 +15,7 @@ const DAY_PHOTO_LIMIT = 6;
  * @typedef {object} ItineraryFormatters
  * @property {(key: string) => {name: string, color: string}} mode
  * @property {(km: number) => string} distance e.g. '4.2 km'
+ * @property {(meters: number) => string} elevation e.g. '120 m' or '394 ft'
  * @property {(photo: any) => string} thumbnail URL of a photo's thumbnail
  */
 
@@ -33,7 +34,7 @@ export function legStats(leg, format) {
     Number.isFinite(leg.distanceKm) ? format.distance(leg.distanceKm) : '',
     Number.isFinite(leg.elapsed) ? `${formatDuration(leg.elapsed)} h` : '',
     Number.isFinite(leg.elevation) && leg.elevation > 0
-      ? `↑ ${Math.round(leg.elevation).toLocaleString()} m`
+      ? `↑ ${format.elevation(leg.elevation)}`
       : ''
   ]
     .filter(Boolean)

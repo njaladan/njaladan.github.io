@@ -1,7 +1,7 @@
 import { $ } from '../../lib/dom.js';
 import { readSetting, writeSetting } from '../../lib/storage.js';
 
-// The settings dialog: projection, photo pins and distance unit. Each choice
+// The settings dialog: projection, photo pins and units (distance and climb). Each choice
 // is remembered in localStorage; globe/index.js reads the projection on load.
 const UNIT_KEY = 'atlas-distance-unit';
 const PHOTOS_KEY = 'atlas-show-photos';

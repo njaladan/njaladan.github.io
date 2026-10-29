@@ -12,7 +12,7 @@ const ROW_CHEVRON =
   '<svg class="card-row-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg>';
 
 /**
- * @typedef {[string | number, string] | {distanceKm: number, precision: number}} CardStat
+ * @typedef {[string | number, string] | {distanceKm: number, precision: number} | {elevationM: number}} CardStat
  * @typedef {string | Record<string, string | number | boolean | null | undefined>} CardAttrs
  *   Extra attributes: a map of name → value (escaped; true adds a bare attribute),
  *   or a string of attribute markup the caller has already escaped.
@@ -37,6 +37,7 @@ const ROW_CHEVRON =
  *
  * @typedef {object} CardFormatters
  * @property {(distanceKm: number, precision: number) => [string, string]} formatDistance
+ * @property {(meters: number) => [string, string]} formatElevation e.g. ['120', 'Climb m']
  * @property {(photo: any) => string} thumbnail URL of a photo's thumbnail
  */
 
@@ -61,14 +62,19 @@ const paragraph = (className, text) =>
   text ? `<p class="${className}">${escapeHtml(text)}</p>` : '';
 
 /**
- * One stat cell; distances carry their raw value so a unit change can rewrite them.
+ * One stat cell; distances and elevations carry their raw value so a unit
+ * change can rewrite them.
  * @param {CardStat} stat
- * @param {CardFormatters['formatDistance']} formatDistance
+ * @param {Pick<CardFormatters, 'formatDistance' | 'formatElevation'>} formatters
  */
-export function statHtml(stat, formatDistance) {
-  if (!Array.isArray(stat) && Number.isFinite(stat.distanceKm)) {
+export function statHtml(stat, { formatDistance, formatElevation }) {
+  if (!Array.isArray(stat) && 'distanceKm' in stat && Number.isFinite(stat.distanceKm)) {
     const [value, label] = formatDistance(stat.distanceKm, stat.precision);
     return `<div data-distance-km="${escapeHtml(stat.distanceKm)}" data-distance-precision="${escapeHtml(stat.precision)}"><b>${escapeHtml(value)}</b><small>${escapeHtml(label)}</small></div>`;
+  }
+  if (!Array.isArray(stat) && 'elevationM' in stat && Number.isFinite(stat.elevationM)) {
+    const [value, label] = formatElevation(stat.elevationM);
+    return `<div data-elevation-m="${escapeHtml(stat.elevationM)}"><b>${escapeHtml(value)}</b><small>${escapeHtml(label)}</small></div>`;
   }
   const [value, label] = /** @type {[string, string]} */ (stat);
   return `<div><b>${escapeHtml(value)}</b><small>${escapeHtml(label)}</small></div>`;
@@ -161,12 +167,12 @@ function tripHtml(trip) {
  * @param {CardFormatters} formatters
  * @returns {string}
  */
-export function cardHtml(card, { formatDistance, thumbnail }) {
+export function cardHtml(card, { formatDistance, formatElevation, thumbnail }) {
   const classes = ['route-card', card.modeKey === 'Bus' && 'bus-card', card.trip && 'trip-card']
     .filter(Boolean)
     .join(' ');
   const stats = card.stats.length
-    ? `<div class="card-stats">${card.stats.map(stat => statHtml(stat, formatDistance)).join('')}</div>`
+    ? `<div class="card-stats">${card.stats.map(stat => statHtml(stat, { formatDistance, formatElevation })).join('')}</div>`
     : '';
   const quote = card.quote ? `“${card.quote}”` : '';
   return `<div class="${escapeHtml(classes)}" style="--mode:${escapeHtml(card.color)}" ${attributesHtml(card.attrs)}>
