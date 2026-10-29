@@ -799,13 +799,6 @@
       "art_source": "https://www.themoviedb.org/movie/150540-inside-out"
     },
     {
-      "id": "a3c4d25fba9c",
-      "title": "Howl's Moving Castle",
-      "year": "2004",
-      "cover": "/assets/images/movies/a3c4d25fba9c.webp",
-      "art_source": "https://www.themoviedb.org/movie/4935"
-    },
-    {
       "id": "e014907344f9",
       "title": "Catch Me If You Can",
       "year": "2002",
@@ -3695,13 +3688,6 @@
       "art_source": "https://www.themoviedb.org/movie/207703-kingsman-the-secret-service"
     },
     {
-      "id": "201ff04d61dd",
-      "title": "Kingsman: The Golden Circle",
-      "year": "2017",
-      "cover": "/assets/images/movies/201ff04d61dd.webp",
-      "art_source": "https://www.themoviedb.org/movie/343668-kingsman-the-golden-circle"
-    },
-    {
       "id": "d859996c5358",
       "title": "Bullet Train",
       "year": "2022",
@@ -6505,7 +6491,6 @@
     "92ad8d29b0f8",
     "8a4d2516ee4f",
     "989d08d90cce",
-    "a3c4d25fba9c",
     "641a3887bb33",
     "e8faca57ec78",
     "a6980ba64215",
@@ -6518,7 +6503,6 @@
     "434d77900a74",
     "fd3d74674af4",
     "54a12bce9ab0",
-    "201ff04d61dd",
     "175e927fd51d",
     "9af04f246067",
     "fbc12c0dd63c",
