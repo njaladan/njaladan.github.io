@@ -6493,6 +6493,19 @@
       "theater": true
     },
     {
+      "film_id": "f14ce80db49b",
+      "group_year": "2006",
+      "rewatch": false,
+      "source": "theater_release",
+      "theater": true
+    },
+    {
+      "film_id": "01fa41b39471",
+      "group_year": "2006",
+      "rewatch": false,
+      "source": "user_recall"
+    },
+    {
       "film_id": "9a6ce05a5946",
       "group_year": "2005",
       "rewatch": false,
@@ -6556,7 +6569,6 @@
     "9de850d302c4",
     "d94b28ef00f4",
     "a06f4f01232e",
-    "f14ce80db49b",
     "f1458c889e72",
     "e9e90db2d833",
     "c420e8c260e8",
@@ -6633,7 +6645,6 @@
     "f951c8a64c48",
     "26f0e596db08",
     "ea61ffe8d5df",
-    "01fa41b39471",
     "509295032dec",
     "ed2a21ab64da",
     "8675bf010a38",
