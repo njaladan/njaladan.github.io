@@ -6363,6 +6363,13 @@
       "source": "library"
     },
     {
+      "film_id": "3705d6bf7418",
+      "date": "2010-12-08",
+      "rewatch": false,
+      "source": "user_logged",
+      "theater": true
+    },
+    {
       "film_id": "a9532e36c0b0",
       "date": "2010-11-19",
       "rewatch": false,
@@ -6665,7 +6672,6 @@
     "6bb5eb75afaf",
     "6c5dab76930a",
     "36c1cc08f30b",
-    "3705d6bf7418",
     "784d6246e3cd",
     "8c7df425d054",
     "ac9fcde19da5",
