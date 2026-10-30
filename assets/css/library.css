@@ -37,6 +37,22 @@
 [data-searching] .group-heading span {
   display: none;
 }
+/* Narrows the movies to those seen in a theater; pressed, it fills in like a year pill. */
+.theater-toggle {
+  align-self: center;
+  margin-right: auto;
+}
+.theater-toggle .theater-mark::before {
+  margin-left: 0;
+}
+.theater-toggle[aria-pressed='true'] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+.theater-toggle[aria-pressed='true'] .theater-mark::before {
+  background: var(--paper);
+}
 .search-empty {
   font: 13px var(--sans);
   color: var(--muted);
@@ -387,6 +403,9 @@
   }
 }
 @media (max-width: 600px) {
+  .theater-toggle {
+    align-self: flex-start;
+  }
   .shelf {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px 14px;
