@@ -1,0 +1,157 @@
+/* Telugu checklist: one film at a time with yes / no / not sure buttons and a running count. */
+.telugu-header,
+.telugu {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.telugu-tally {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 4px 18px;
+  margin: 10px 0 26px;
+  font-family: var(--sans);
+}
+.telugu-count {
+  margin: 0;
+  font: 400 54px/1 var(--serif);
+  letter-spacing: -0.03em;
+}
+.telugu-count-label {
+  font: 13px var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.telugu-progress-text {
+  margin: 0;
+  justify-self: end;
+  font-size: 13px;
+  color: var(--muted);
+}
+.telugu-progress {
+  grid-column: 1 / -1;
+  height: 4px;
+  background: var(--rule);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.telugu-progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 200ms ease;
+}
+.telugu-card {
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 30px 30px 26px;
+  background: #fffdf8;
+}
+.telugu-rank {
+  margin: 0 0 6px;
+  font: 12px var(--sans);
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+.telugu-card h2 {
+  margin: 0 0 8px;
+  font-size: clamp(30px, 5vw, 40px);
+  line-height: 1.15;
+}
+.telugu-people {
+  margin: 0 0 12px;
+  font-size: 17px;
+  color: #66635e;
+}
+.telugu-lookup {
+  font: 13px var(--sans);
+}
+.telugu-buttons {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 10px;
+  margin-top: 26px;
+}
+.telugu-buttons button,
+.telugu-tools button {
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: transparent;
+  font-family: var(--sans);
+}
+.telugu-buttons button {
+  min-height: 60px;
+  padding: 0 18px;
+  font-size: 18px;
+}
+.telugu-buttons .telugu-unsure {
+  font-size: 14px;
+  color: var(--muted);
+}
+.telugu-buttons .telugu-yes {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.telugu-buttons button:hover {
+  border-color: var(--ink);
+}
+.telugu-buttons .telugu-yes:hover {
+  background: #8c4231;
+}
+kbd {
+  margin-left: 6px;
+  font: 11px var(--sans);
+  opacity: 0.6;
+}
+.telugu-done {
+  font-size: 24px;
+  text-align: center;
+  padding: 40px 0;
+}
+.telugu-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 18px 0 30px;
+}
+.telugu-tools button {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+.telugu-tools button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.telugu-status {
+  font: 13px var(--sans);
+  color: var(--muted);
+}
+.telugu-seen-list summary {
+  cursor: pointer;
+  font: 13px var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.telugu-seen-list ol {
+  margin: 14px 0 0;
+  padding-left: 1.6em;
+  font-size: 17px;
+}
+@media (hover: none) {
+  kbd {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .telugu-card {
+    padding: 22px 18px 18px;
+  }
+  .telugu-buttons button {
+    padding: 0 10px;
+  }
+}

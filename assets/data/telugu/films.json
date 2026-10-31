@@ -1,0 +1,3004 @@
+{
+  "films": [
+    {
+      "id": "baahubali-the-beginning-2015",
+      "title": "Baahubali: The Beginning",
+      "year": 2015,
+      "people": "Prabhas · S. S. Rajamouli"
+    },
+    {
+      "id": "baahubali-2-the-conclusion-2017",
+      "title": "Baahubali 2: The Conclusion",
+      "year": 2017,
+      "people": "Prabhas · S. S. Rajamouli"
+    },
+    {
+      "id": "rrr-2022",
+      "title": "RRR",
+      "year": 2022,
+      "people": "N. T. Rama Rao Jr., Ram Charan · S. S. Rajamouli"
+    },
+    {
+      "id": "eega-2012",
+      "title": "Eega",
+      "year": 2012,
+      "people": "Nani, Sudeep · S. S. Rajamouli"
+    },
+    {
+      "id": "magadheera-2009",
+      "title": "Magadheera",
+      "year": 2009,
+      "people": "Ram Charan · S. S. Rajamouli"
+    },
+    {
+      "id": "pushpa-the-rise-2021",
+      "title": "Pushpa: The Rise",
+      "year": 2021,
+      "people": "Allu Arjun · Sukumar"
+    },
+    {
+      "id": "pokiri-2006",
+      "title": "Pokiri",
+      "year": 2006,
+      "people": "Mahesh Babu · Puri Jagannadh"
+    },
+    {
+      "id": "athadu-2005",
+      "title": "Athadu",
+      "year": 2005,
+      "people": "Mahesh Babu · Trivikram"
+    },
+    {
+      "id": "bommarillu-2006",
+      "title": "Bommarillu",
+      "year": 2006,
+      "people": "Siddharth, Genelia"
+    },
+    {
+      "id": "ala-vaikunthapurramuloo-2020",
+      "title": "Ala Vaikunthapurramuloo",
+      "year": 2020,
+      "people": "Allu Arjun · Trivikram"
+    },
+    {
+      "id": "pushpa-2-the-rule-2024",
+      "title": "Pushpa 2: The Rule",
+      "year": 2024,
+      "people": "Allu Arjun · Sukumar"
+    },
+    {
+      "id": "dookudu-2011",
+      "title": "Dookudu",
+      "year": 2011,
+      "people": "Mahesh Babu · Srinu Vaitla"
+    },
+    {
+      "id": "kalki-2898-ad-2024",
+      "title": "Kalki 2898 AD",
+      "year": 2024,
+      "people": "Prabhas, Amitabh Bachchan · Nag Ashwin"
+    },
+    {
+      "id": "arya-2004",
+      "title": "Arya",
+      "year": 2004,
+      "people": "Allu Arjun · Sukumar"
+    },
+    {
+      "id": "arjun-reddy-2017",
+      "title": "Arjun Reddy",
+      "year": 2017,
+      "people": "Vijay Deverakonda · Sandeep Reddy Vanga"
+    },
+    {
+      "id": "attarintiki-daredi-2013",
+      "title": "Attarintiki Daredi",
+      "year": 2013,
+      "people": "Pawan Kalyan · Trivikram"
+    },
+    {
+      "id": "happy-days-2007",
+      "title": "Happy Days",
+      "year": 2007,
+      "people": "Varun Sandesh, Tamannaah · Sekhar Kammula"
+    },
+    {
+      "id": "okkadu-2003",
+      "title": "Okkadu",
+      "year": 2003,
+      "people": "Mahesh Babu · Gunasekhar"
+    },
+    {
+      "id": "gabbar-singh-2012",
+      "title": "Gabbar Singh",
+      "year": 2012,
+      "people": "Pawan Kalyan · Harish Shankar"
+    },
+    {
+      "id": "srimanthudu-2015",
+      "title": "Srimanthudu",
+      "year": 2015,
+      "people": "Mahesh Babu · Koratala Siva"
+    },
+    {
+      "id": "seethamma-vakitlo-sirimalle-chettu-2013",
+      "title": "Seethamma Vakitlo Sirimalle Chettu",
+      "year": 2013,
+      "people": "Venkatesh, Mahesh Babu"
+    },
+    {
+      "id": "geetha-govindam-2018",
+      "title": "Geetha Govindam",
+      "year": 2018,
+      "people": "Vijay Deverakonda, Rashmika Mandanna"
+    },
+    {
+      "id": "fidaa-2017",
+      "title": "Fidaa",
+      "year": 2017,
+      "people": "Varun Tej, Sai Pallavi · Sekhar Kammula"
+    },
+    {
+      "id": "rangasthalam-2018",
+      "title": "Rangasthalam",
+      "year": 2018,
+      "people": "Ram Charan · Sukumar"
+    },
+    {
+      "id": "businessman-2012",
+      "title": "Businessman",
+      "year": 2012,
+      "people": "Mahesh Babu · Puri Jagannadh"
+    },
+    {
+      "id": "khaleja-2010",
+      "title": "Khaleja",
+      "year": 2010,
+      "people": "Mahesh Babu · Trivikram"
+    },
+    {
+      "id": "yamadonga-2007",
+      "title": "Yamadonga",
+      "year": 2007,
+      "people": "N. T. Rama Rao Jr. · S. S. Rajamouli"
+    },
+    {
+      "id": "mahanati-2018",
+      "title": "Mahanati",
+      "year": 2018,
+      "people": "Keerthy Suresh · Nag Ashwin"
+    },
+    {
+      "id": "salaar-part-1-ceasefire-2023",
+      "title": "Salaar: Part 1 – Ceasefire",
+      "year": 2023,
+      "people": "Prabhas · Prashanth Neel"
+    },
+    {
+      "id": "jersey-2019",
+      "title": "Jersey",
+      "year": 2019,
+      "people": "Nani · Gowtam Tinnanuri"
+    },
+    {
+      "id": "nuvvostanante-nenoddantana-2005",
+      "title": "Nuvvostanante Nenoddantana",
+      "year": 2005,
+      "people": "Siddharth, Trisha · Prabhu Deva"
+    },
+    {
+      "id": "race-gurram-2014",
+      "title": "Race Gurram",
+      "year": 2014,
+      "people": "Allu Arjun · Surender Reddy"
+    },
+    {
+      "id": "bharat-ane-nenu-2018",
+      "title": "Bharat Ane Nenu",
+      "year": 2018,
+      "people": "Mahesh Babu · Koratala Siva"
+    },
+    {
+      "id": "julayi-2012",
+      "title": "Julayi",
+      "year": 2012,
+      "people": "Allu Arjun · Trivikram"
+    },
+    {
+      "id": "sita-ramam-2022",
+      "title": "Sita Ramam",
+      "year": 2022,
+      "people": "Dulquer Salmaan, Mrunal Thakur"
+    },
+    {
+      "id": "maryada-ramanna-2010",
+      "title": "Maryada Ramanna",
+      "year": 2010,
+      "people": "Sunil · S. S. Rajamouli"
+    },
+    {
+      "id": "chatrapathi-2005",
+      "title": "Chatrapathi",
+      "year": 2005,
+      "people": "Prabhas · S. S. Rajamouli"
+    },
+    {
+      "id": "vikramarkudu-2006",
+      "title": "Vikramarkudu",
+      "year": 2006,
+      "people": "Ravi Teja · S. S. Rajamouli"
+    },
+    {
+      "id": "simhadri-2003",
+      "title": "Simhadri",
+      "year": 2003,
+      "people": "N. T. Rama Rao Jr. · S. S. Rajamouli"
+    },
+    {
+      "id": "arya-2-2009",
+      "title": "Arya 2",
+      "year": 2009,
+      "people": "Allu Arjun · Sukumar"
+    },
+    {
+      "id": "maharshi-2019",
+      "title": "Maharshi",
+      "year": 2019,
+      "people": "Mahesh Babu · Vamshi Paidipally"
+    },
+    {
+      "id": "sarileru-neekevvaru-2020",
+      "title": "Sarileru Neekevvaru",
+      "year": 2020,
+      "people": "Mahesh Babu · Anil Ravipudi"
+    },
+    {
+      "id": "jalsa-2008",
+      "title": "Jalsa",
+      "year": 2008,
+      "people": "Pawan Kalyan · Trivikram"
+    },
+    {
+      "id": "ye-maaya-chesave-2010",
+      "title": "Ye Maaya Chesave",
+      "year": 2010,
+      "people": "Naga Chaitanya, Samantha · Gautham Vasudev Menon"
+    },
+    {
+      "id": "indra-2002",
+      "title": "Indra",
+      "year": 2002,
+      "people": "Chiranjeevi · B. Gopal"
+    },
+    {
+      "id": "darling-2010",
+      "title": "Darling",
+      "year": 2010,
+      "people": "Prabhas, Kajal Aggarwal"
+    },
+    {
+      "id": "mr-perfect-2011",
+      "title": "Mr. Perfect",
+      "year": 2011,
+      "people": "Prabhas, Kajal Aggarwal"
+    },
+    {
+      "id": "hanuman-2024",
+      "title": "HanuMan",
+      "year": 2024,
+      "people": "Teja Sajja · Prasanth Varma"
+    },
+    {
+      "id": "manam-2014",
+      "title": "Manam",
+      "year": 2014,
+      "people": "Akkineni Nageswara Rao, Nagarjuna, Naga Chaitanya"
+    },
+    {
+      "id": "varsham-2004",
+      "title": "Varsham",
+      "year": 2004,
+      "people": "Prabhas, Trisha"
+    },
+    {
+      "id": "kushi-2001",
+      "title": "Kushi",
+      "year": 2001,
+      "people": "Pawan Kalyan, Bhumika"
+    },
+    {
+      "id": "tholi-prema-1998",
+      "title": "Tholi Prema",
+      "year": 1998,
+      "people": "Pawan Kalyan · A. Karunakaran"
+    },
+    {
+      "id": "mirchi-2013",
+      "title": "Mirchi",
+      "year": 2013,
+      "people": "Prabhas · Koratala Siva"
+    },
+    {
+      "id": "saaho-2019",
+      "title": "Saaho",
+      "year": 2019,
+      "people": "Prabhas · Sujeeth"
+    },
+    {
+      "id": "devara-part-1-2024",
+      "title": "Devara: Part 1",
+      "year": 2024,
+      "people": "N. T. Rama Rao Jr. · Koratala Siva"
+    },
+    {
+      "id": "sye-raa-narasimha-reddy-2019",
+      "title": "Sye Raa Narasimha Reddy",
+      "year": 2019,
+      "people": "Chiranjeevi · Surender Reddy"
+    },
+    {
+      "id": "shankar-dada-m-b-b-s-2004",
+      "title": "Shankar Dada M.B.B.S.",
+      "year": 2004,
+      "people": "Chiranjeevi · Jayanth C. Paranjee"
+    },
+    {
+      "id": "desamuduru-2007",
+      "title": "Desamuduru",
+      "year": 2007,
+      "people": "Allu Arjun · Puri Jagannadh"
+    },
+    {
+      "id": "kick-2009",
+      "title": "Kick",
+      "year": 2009,
+      "people": "Ravi Teja · Surender Reddy"
+    },
+    {
+      "id": "temper-2015",
+      "title": "Temper",
+      "year": 2015,
+      "people": "N. T. Rama Rao Jr. · Puri Jagannadh"
+    },
+    {
+      "id": "janatha-garage-2016",
+      "title": "Janatha Garage",
+      "year": 2016,
+      "people": "N. T. Rama Rao Jr., Mohanlal · Koratala Siva"
+    },
+    {
+      "id": "pelli-choopulu-2016",
+      "title": "Pelli Choopulu",
+      "year": 2016,
+      "people": "Vijay Deverakonda, Ritu Varma · Tharun Bhascker"
+    },
+    {
+      "id": "nannaku-prematho-2016",
+      "title": "Nannaku Prematho",
+      "year": 2016,
+      "people": "N. T. Rama Rao Jr. · Sukumar"
+    },
+    {
+      "id": "ready-2008",
+      "title": "Ready",
+      "year": 2008,
+      "people": "Ram, Genelia · Srinu Vaitla"
+    },
+    {
+      "id": "dhee-2007",
+      "title": "Dhee",
+      "year": 2007,
+      "people": "Vishnu Manchu, Genelia · Srinu Vaitla"
+    },
+    {
+      "id": "murari-2001",
+      "title": "Murari",
+      "year": 2001,
+      "people": "Mahesh Babu · Krishna Vamsi"
+    },
+    {
+      "id": "parugu-2008",
+      "title": "Parugu",
+      "year": 2008,
+      "people": "Allu Arjun · Bhaskar"
+    },
+    {
+      "id": "aravinda-sametha-veera-raghava-2018",
+      "title": "Aravinda Sametha Veera Raghava",
+      "year": 2018,
+      "people": "N. T. Rama Rao Jr. · Trivikram"
+    },
+    {
+      "id": "tagore-2003",
+      "title": "Tagore",
+      "year": 2003,
+      "people": "Chiranjeevi · V. V. Vinayak"
+    },
+    {
+      "id": "stalin-2006",
+      "title": "Stalin",
+      "year": 2006,
+      "people": "Chiranjeevi · A. R. Murugadoss"
+    },
+    {
+      "id": "baadshah-2013",
+      "title": "Baadshah",
+      "year": 2013,
+      "people": "N. T. Rama Rao Jr. · Srinu Vaitla"
+    },
+    {
+      "id": "khaidi-no-150-2017",
+      "title": "Khaidi No. 150",
+      "year": 2017,
+      "people": "Chiranjeevi · V. V. Vinayak"
+    },
+    {
+      "id": "idiot-2002",
+      "title": "Idiot",
+      "year": 2002,
+      "people": "Ravi Teja · Puri Jagannadh"
+    },
+    {
+      "id": "nuvve-kavali-2000",
+      "title": "Nuvve Kavali",
+      "year": 2000,
+      "people": "Tarun, Richa · K. Vijaya Bhaskar"
+    },
+    {
+      "id": "nuvvu-naaku-nachav-2001",
+      "title": "Nuvvu Naaku Nachav",
+      "year": 2001,
+      "people": "Venkatesh, Aarthi Agarwal"
+    },
+    {
+      "id": "manmadhudu-2002",
+      "title": "Manmadhudu",
+      "year": 2002,
+      "people": "Nagarjuna, Sonali Bendre"
+    },
+    {
+      "id": "ee-nagaraniki-emaindi-2018",
+      "title": "Ee Nagaraniki Emaindi",
+      "year": 2018,
+      "people": "Vishwak Sen · Tharun Bhascker"
+    },
+    {
+      "id": "jathi-ratnalu-2021",
+      "title": "Jathi Ratnalu",
+      "year": 2021,
+      "people": "Naveen Polishetty · Anudeep K. V."
+    },
+    {
+      "id": "agent-sai-srinivasa-athreya-2019",
+      "title": "Agent Sai Srinivasa Athreya",
+      "year": 2019,
+      "people": "Naveen Polishetty"
+    },
+    {
+      "id": "bhale-bhale-magadivoi-2015",
+      "title": "Bhale Bhale Magadivoi",
+      "year": 2015,
+      "people": "Nani · Maruthi"
+    },
+    {
+      "id": "dasara-2023",
+      "title": "Dasara",
+      "year": 2023,
+      "people": "Nani · Srikanth Odela"
+    },
+    {
+      "id": "ninnu-kori-2017",
+      "title": "Ninnu Kori",
+      "year": 2017,
+      "people": "Nani, Nivetha Thomas"
+    },
+    {
+      "id": "nenu-local-2017",
+      "title": "Nenu Local",
+      "year": 2017,
+      "people": "Nani, Keerthy Suresh"
+    },
+    {
+      "id": "hi-nanna-2023",
+      "title": "Hi Nanna",
+      "year": 2023,
+      "people": "Nani, Mrunal Thakur"
+    },
+    {
+      "id": "brindavanam-2010",
+      "title": "Brindavanam",
+      "year": 2010,
+      "people": "N. T. Rama Rao Jr. · Vamshi Paidipally"
+    },
+    {
+      "id": "adhurs-2010",
+      "title": "Adhurs",
+      "year": 2010,
+      "people": "N. T. Rama Rao Jr. · V. V. Vinayak"
+    },
+    {
+      "id": "leader-2010",
+      "title": "Leader",
+      "year": 2010,
+      "people": "Rana Daggubati · Sekhar Kammula"
+    },
+    {
+      "id": "kotha-bangaru-lokam-2008",
+      "title": "Kotha Bangaru Lokam",
+      "year": 2008,
+      "people": "Varun Sandesh, Swetha Basu Prasad"
+    },
+    {
+      "id": "oopiri-2016",
+      "title": "Oopiri",
+      "year": 2016,
+      "people": "Nagarjuna, Karthi · Vamshi Paidipally"
+    },
+    {
+      "id": "kshanam-2016",
+      "title": "Kshanam",
+      "year": 2016,
+      "people": "Adivi Sesh"
+    },
+    {
+      "id": "goodachari-2018",
+      "title": "Goodachari",
+      "year": 2018,
+      "people": "Adivi Sesh"
+    },
+    {
+      "id": "major-2022",
+      "title": "Major",
+      "year": 2022,
+      "people": "Adivi Sesh"
+    },
+    {
+      "id": "karthikeya-2-2022",
+      "title": "Karthikeya 2",
+      "year": 2022,
+      "people": "Nikhil Siddhartha"
+    },
+    {
+      "id": "uppena-2021",
+      "title": "Uppena",
+      "year": 2021,
+      "people": "Panja Vaisshnav Tej, Krithi Shetty"
+    },
+    {
+      "id": "godavari-2006",
+      "title": "Godavari",
+      "year": 2006,
+      "people": "Sumanth, Kamalinee Mukherjee · Sekhar Kammula"
+    },
+    {
+      "id": "anand-2004",
+      "title": "Anand",
+      "year": 2004,
+      "people": "Raja, Kamalinee Mukherjee · Sekhar Kammula"
+    },
+    {
+      "id": "krishna-2008",
+      "title": "Krishna",
+      "year": 2008,
+      "people": "Ravi Teja, Trisha · V. V. Vinayak"
+    },
+    {
+      "id": "dubai-seenu-2007",
+      "title": "Dubai Seenu",
+      "year": 2007,
+      "people": "Ravi Teja · Srinu Vaitla"
+    },
+    {
+      "id": "bhadra-2005",
+      "title": "Bhadra",
+      "year": 2005,
+      "people": "Ravi Teja · Boyapati Srinu"
+    },
+    {
+      "id": "amma-nanna-o-tamila-ammayi-2003",
+      "title": "Amma Nanna O Tamila Ammayi",
+      "year": 2003,
+      "people": "Ravi Teja · Puri Jagannadh"
+    },
+    {
+      "id": "sye-2004",
+      "title": "Sye",
+      "year": 2004,
+      "people": "Nithiin · S. S. Rajamouli"
+    },
+    {
+      "id": "student-no-1-2001",
+      "title": "Student No. 1",
+      "year": 2001,
+      "people": "N. T. Rama Rao Jr. · S. S. Rajamouli"
+    },
+    {
+      "id": "gharshana-2004",
+      "title": "Gharshana",
+      "year": 2004,
+      "people": "Venkatesh · Gautham Vasudev Menon"
+    },
+    {
+      "id": "santhosham-2002",
+      "title": "Santhosham",
+      "year": 2002,
+      "people": "Nagarjuna · Dasaradh"
+    },
+    {
+      "id": "mass-2004",
+      "title": "Mass",
+      "year": 2004,
+      "people": "Nagarjuna · Raghava Lawrence"
+    },
+    {
+      "id": "nuvvu-nenu-2001",
+      "title": "Nuvvu Nenu",
+      "year": 2001,
+      "people": "Uday Kiran, Anita · Teja"
+    },
+    {
+      "id": "manasantha-nuvve-2001",
+      "title": "Manasantha Nuvve",
+      "year": 2001,
+      "people": "Uday Kiran, Reema Sen"
+    },
+    {
+      "id": "chitram-2000",
+      "title": "Chitram",
+      "year": 2000,
+      "people": "Uday Kiran, Reema Sen · Teja"
+    },
+    {
+      "id": "jayam-2002",
+      "title": "Jayam",
+      "year": 2002,
+      "people": "Nithiin, Sadha · Teja"
+    },
+    {
+      "id": "mathu-vadalara-2019",
+      "title": "Mathu Vadalara",
+      "year": 2019,
+      "people": "Sri Simha Koduri · Ritesh Rana"
+    },
+    {
+      "id": "c-o-kancharapalem-2018",
+      "title": "C/o Kancharapalem",
+      "year": 2018,
+      "people": "Venkatesh Maha"
+    },
+    {
+      "id": "ala-modalaindi-2011",
+      "title": "Ala Modalaindi",
+      "year": 2011,
+      "people": "Nani, Nithya Menen · Nandini Reddy"
+    },
+    {
+      "id": "ashta-chamma-2008",
+      "title": "Ashta Chamma",
+      "year": 2008,
+      "people": "Nani, Colors Swathi · Mohana Krishna Indraganti"
+    },
+    {
+      "id": "ishq-2012",
+      "title": "Ishq",
+      "year": 2012,
+      "people": "Nithiin, Nithya Menen"
+    },
+    {
+      "id": "gamyam-2008",
+      "title": "Gamyam",
+      "year": 2008,
+      "people": "Sharwanand, Allari Naresh · Krish"
+    },
+    {
+      "id": "vedam-2010",
+      "title": "Vedam",
+      "year": 2010,
+      "people": "Allu Arjun, Manchu Manoj, Anushka Shetty · Krish"
+    },
+    {
+      "id": "yevade-subramanyam-2015",
+      "title": "Yevade Subramanyam",
+      "year": 2015,
+      "people": "Nani, Vijay Deverakonda · Nag Ashwin"
+    },
+    {
+      "id": "mayabazar-1957",
+      "title": "Mayabazar",
+      "year": 1957,
+      "people": "N. T. Rama Rao, Savitri, ANR · K. V. Reddy"
+    },
+    {
+      "id": "jagadeka-veerudu-athiloka-sundari-1990",
+      "title": "Jagadeka Veerudu Athiloka Sundari",
+      "year": 1990,
+      "people": "Chiranjeevi, Sridevi · K. Raghavendra Rao"
+    },
+    {
+      "id": "aditya-369-1991",
+      "title": "Aditya 369",
+      "year": 1991,
+      "people": "Balakrishna · Singeetam Srinivasa Rao"
+    },
+    {
+      "id": "gang-leader-1991",
+      "title": "Gang Leader",
+      "year": 1991,
+      "people": "Chiranjeevi · Vijaya Bapineedu"
+    },
+    {
+      "id": "shiva-1989",
+      "title": "Shiva",
+      "year": 1989,
+      "people": "Nagarjuna · Ram Gopal Varma"
+    },
+    {
+      "id": "sankranthiki-vasthunam-2025",
+      "title": "Sankranthiki Vasthunam",
+      "year": 2025,
+      "people": "Venkatesh · Anil Ravipudi"
+    },
+    {
+      "id": "they-call-him-og-2025",
+      "title": "They Call Him OG",
+      "year": 2025,
+      "people": "Pawan Kalyan · Sujeeth"
+    },
+    {
+      "id": "game-changer-2025",
+      "title": "Game Changer",
+      "year": 2025,
+      "people": "Ram Charan · S. Shankar"
+    },
+    {
+      "id": "lucky-baskhar-2024",
+      "title": "Lucky Baskhar",
+      "year": 2024,
+      "people": "Dulquer Salmaan · Venky Atluri"
+    },
+    {
+      "id": "waltair-veerayya-2023",
+      "title": "Waltair Veerayya",
+      "year": 2023,
+      "people": "Chiranjeevi, Ravi Teja"
+    },
+    {
+      "id": "bheemla-nayak-2022",
+      "title": "Bheemla Nayak",
+      "year": 2022,
+      "people": "Pawan Kalyan, Rana Daggubati"
+    },
+    {
+      "id": "sarkaru-vaari-paata-2022",
+      "title": "Sarkaru Vaari Paata",
+      "year": 2022,
+      "people": "Mahesh Babu · Parasuram"
+    },
+    {
+      "id": "guntur-kaaram-2024",
+      "title": "Guntur Kaaram",
+      "year": 2024,
+      "people": "Mahesh Babu · Trivikram"
+    },
+    {
+      "id": "akhanda-2021",
+      "title": "Akhanda",
+      "year": 2021,
+      "people": "Balakrishna · Boyapati Srinu"
+    },
+    {
+      "id": "vakeel-saab-2021",
+      "title": "Vakeel Saab",
+      "year": 2021,
+      "people": "Pawan Kalyan · Venu Sriram"
+    },
+    {
+      "id": "love-story-2021",
+      "title": "Love Story",
+      "year": 2021,
+      "people": "Naga Chaitanya, Sai Pallavi · Sekhar Kammula"
+    },
+    {
+      "id": "majili-2019",
+      "title": "Majili",
+      "year": 2019,
+      "people": "Naga Chaitanya, Samantha · Shiva Nirvana"
+    },
+    {
+      "id": "shyam-singha-roy-2021",
+      "title": "Shyam Singha Roy",
+      "year": 2021,
+      "people": "Nani, Sai Pallavi"
+    },
+    {
+      "id": "ante-sundaraniki-2022",
+      "title": "Ante Sundaraniki",
+      "year": 2022,
+      "people": "Nani, Nazriya Nazim · Vivek Athreya"
+    },
+    {
+      "id": "dj-tillu-2022",
+      "title": "DJ Tillu",
+      "year": 2022,
+      "people": "Siddhu Jonnalagadda"
+    },
+    {
+      "id": "tillu-square-2024",
+      "title": "Tillu Square",
+      "year": 2024,
+      "people": "Siddhu Jonnalagadda, Anupama Parameswaran"
+    },
+    {
+      "id": "baby-2023",
+      "title": "Baby",
+      "year": 2023,
+      "people": "Anand Deverakonda, Vaishnavi Chaitanya"
+    },
+    {
+      "id": "balagam-2023",
+      "title": "Balagam",
+      "year": 2023,
+      "people": "Priyadarshi · Venu Yeldandi"
+    },
+    {
+      "id": "saripodhaa-sanivaaram-2024",
+      "title": "Saripodhaa Sanivaaram",
+      "year": 2024,
+      "people": "Nani, S. J. Suryah · Vivek Athreya"
+    },
+    {
+      "id": "hit-the-first-case-2020",
+      "title": "HIT: The First Case",
+      "year": 2020,
+      "people": "Vishwak Sen · Sailesh Kolanu"
+    },
+    {
+      "id": "hit-the-second-case-2022",
+      "title": "HIT: The Second Case",
+      "year": 2022,
+      "people": "Adivi Sesh · Sailesh Kolanu"
+    },
+    {
+      "id": "hit-the-third-case-2025",
+      "title": "HIT: The Third Case",
+      "year": 2025,
+      "people": "Nani · Sailesh Kolanu"
+    },
+    {
+      "id": "mirai-2025",
+      "title": "Mirai",
+      "year": 2025,
+      "people": "Teja Sajja · Karthik Gattamneni"
+    },
+    {
+      "id": "karthikeya-2014",
+      "title": "Karthikeya",
+      "year": 2014,
+      "people": "Nikhil Siddhartha · Chandoo Mondeti"
+    },
+    {
+      "id": "f2-fun-and-frustration-2019",
+      "title": "F2: Fun and Frustration",
+      "year": 2019,
+      "people": "Venkatesh, Varun Tej · Anil Ravipudi"
+    },
+    {
+      "id": "geethanjali-1989",
+      "title": "Geethanjali",
+      "year": 1989,
+      "people": "Nagarjuna, Girija · Mani Ratnam"
+    },
+    {
+      "id": "ninne-pelladata-1996",
+      "title": "Ninne Pelladata",
+      "year": 1996,
+      "people": "Nagarjuna, Tabu · Krishna Vamsi"
+    },
+    {
+      "id": "annamayya-1997",
+      "title": "Annamayya",
+      "year": 1997,
+      "people": "Nagarjuna · K. Raghavendra Rao"
+    },
+    {
+      "id": "sri-ramadasu-2006",
+      "title": "Sri Ramadasu",
+      "year": 2006,
+      "people": "Nagarjuna · K. Raghavendra Rao"
+    },
+    {
+      "id": "gharana-mogudu-1992",
+      "title": "Gharana Mogudu",
+      "year": 1992,
+      "people": "Chiranjeevi, Nagma · K. Raghavendra Rao"
+    },
+    {
+      "id": "swathi-muthyam-1986",
+      "title": "Swathi Muthyam",
+      "year": 1986,
+      "people": "Kamal Haasan, Raadhika · K. Viswanath"
+    },
+    {
+      "id": "thandel-2025",
+      "title": "Thandel",
+      "year": 2025,
+      "people": "Naga Chaitanya, Sai Pallavi · Chandoo Mondeti"
+    },
+    {
+      "id": "dear-comrade-2019",
+      "title": "Dear Comrade",
+      "year": 2019,
+      "people": "Vijay Deverakonda, Rashmika Mandanna"
+    },
+    {
+      "id": "sankarabharanam-1980",
+      "title": "Sankarabharanam",
+      "year": 1980,
+      "people": "J. V. Somayajulu · K. Viswanath"
+    },
+    {
+      "id": "sagara-sangamam-1983",
+      "title": "Sagara Sangamam",
+      "year": 1983,
+      "people": "Kamal Haasan, Jaya Prada · K. Viswanath"
+    },
+    {
+      "id": "gundamma-katha-1962",
+      "title": "Gundamma Katha",
+      "year": 1962,
+      "people": "N. T. Rama Rao, ANR, Savitri"
+    },
+    {
+      "id": "missamma-1955",
+      "title": "Missamma",
+      "year": 1955,
+      "people": "N. T. Rama Rao, Savitri, ANR"
+    },
+    {
+      "id": "pelli-sandadi-1996",
+      "title": "Pelli Sandadi",
+      "year": 1996,
+      "people": "Srikanth · K. Raghavendra Rao"
+    },
+    {
+      "id": "hello-brother-1994",
+      "title": "Hello Brother",
+      "year": 1994,
+      "people": "Nagarjuna · E. V. V. Satyanarayana"
+    },
+    {
+      "id": "choodalani-vundi-1998",
+      "title": "Choodalani Vundi",
+      "year": 1998,
+      "people": "Chiranjeevi, Soundarya · Gunasekhar"
+    },
+    {
+      "id": "badri-2000",
+      "title": "Badri",
+      "year": 2000,
+      "people": "Pawan Kalyan · Puri Jagannadh"
+    },
+    {
+      "id": "thammudu-1999",
+      "title": "Thammudu",
+      "year": 1999,
+      "people": "Pawan Kalyan · P. A. Arun Prasad"
+    },
+    {
+      "id": "court-state-vs-a-nobody-2025",
+      "title": "Court: State vs. A Nobody",
+      "year": 2025,
+      "people": "Priyadarshi · Ram Jagadeesh"
+    },
+    {
+      "id": "taxiwaala-2018",
+      "title": "Taxiwaala",
+      "year": 2018,
+      "people": "Vijay Deverakonda · Rahul Sankrityan"
+    },
+    {
+      "id": "evaru-2019",
+      "title": "Evaru",
+      "year": 2019,
+      "people": "Adivi Sesh, Regina Cassandra"
+    },
+    {
+      "id": "100-love-2011",
+      "title": "100% Love",
+      "year": 2011,
+      "people": "Naga Chaitanya, Tamannaah · Sukumar"
+    },
+    {
+      "id": "suswagatham-1998",
+      "title": "Suswagatham",
+      "year": 1998,
+      "people": "Pawan Kalyan · Bhimaneni Srinivasa Rao"
+    },
+    {
+      "id": "samarasimha-reddy-1999",
+      "title": "Samarasimha Reddy",
+      "year": 1999,
+      "people": "Balakrishna · B. Gopal"
+    },
+    {
+      "id": "narasimha-naidu-2001",
+      "title": "Narasimha Naidu",
+      "year": 2001,
+      "people": "Balakrishna · B. Gopal"
+    },
+    {
+      "id": "simha-2010",
+      "title": "Simha",
+      "year": 2010,
+      "people": "Balakrishna · Boyapati Srinu"
+    },
+    {
+      "id": "legend-2014",
+      "title": "Legend",
+      "year": 2014,
+      "people": "Balakrishna · Boyapati Srinu"
+    },
+    {
+      "id": "gautamiputra-satakarni-2017",
+      "title": "Gautamiputra Satakarni",
+      "year": 2017,
+      "people": "Balakrishna · Krish"
+    },
+    {
+      "id": "rudhramadevi-2015",
+      "title": "Rudhramadevi",
+      "year": 2015,
+      "people": "Anushka Shetty, Allu Arjun · Gunasekhar"
+    },
+    {
+      "id": "arundhati-2009",
+      "title": "Arundhati",
+      "year": 2009,
+      "people": "Anushka Shetty · Kodi Ramakrishna"
+    },
+    {
+      "id": "bhaagamathie-2018",
+      "title": "Bhaagamathie",
+      "year": 2018,
+      "people": "Anushka Shetty · G. Ashok"
+    },
+    {
+      "id": "mad-2023",
+      "title": "Mad",
+      "year": 2023,
+      "people": "Narne Nithiin, Sangeeth Shobhan · Kalyan Shankar"
+    },
+    {
+      "id": "mathu-vadalara-2-2024",
+      "title": "Mathu Vadalara 2",
+      "year": 2024,
+      "people": "Sri Simha Koduri · Ritesh Rana"
+    },
+    {
+      "id": "awe-2018",
+      "title": "Awe",
+      "year": 2018,
+      "people": "Kajal Aggarwal, Nithya Menen · Prasanth Varma"
+    },
+    {
+      "id": "prasthanam-2010",
+      "title": "Prasthanam",
+      "year": 2010,
+      "people": "Sharwanand, Sai Kumar · Deva Katta"
+    },
+    {
+      "id": "oye-2009",
+      "title": "Oye!",
+      "year": 2009,
+      "people": "Siddharth, Shamili · Anand Ranga"
+    },
+    {
+      "id": "konchem-ishtam-konchem-kashtam-2009",
+      "title": "Konchem Ishtam Konchem Kashtam",
+      "year": 2009,
+      "people": "Siddharth, Tamannaah · Kishore Kumar Pardasani"
+    },
+    {
+      "id": "rakta-charitra-2010",
+      "title": "Rakta Charitra",
+      "year": 2010,
+      "people": "Vivek Oberoi · Ram Gopal Varma"
+    },
+    {
+      "id": "the-ghazi-attack-2017",
+      "title": "The Ghazi Attack",
+      "year": 2017,
+      "people": "Rana Daggubati · Sankalp Reddy"
+    },
+    {
+      "id": "drushyam-2014",
+      "title": "Drushyam",
+      "year": 2014,
+      "people": "Venkatesh, Meena · Sripriya"
+    },
+    {
+      "id": "gopala-gopala-2015",
+      "title": "Gopala Gopala",
+      "year": 2015,
+      "people": "Venkatesh, Pawan Kalyan"
+    },
+    {
+      "id": "aadavari-matalaku-arthale-verule-2007",
+      "title": "Aadavari Matalaku Arthale Verule",
+      "year": 2007,
+      "people": "Venkatesh, Trisha · Selvaraghavan"
+    },
+    {
+      "id": "malliswari-2004",
+      "title": "Malliswari",
+      "year": 2004,
+      "people": "Venkatesh, Katrina Kaif · K. Vijaya Bhaskar"
+    },
+    {
+      "id": "kalisundam-raa-2000",
+      "title": "Kalisundam Raa",
+      "year": 2000,
+      "people": "Venkatesh, Simran"
+    },
+    {
+      "id": "kushi-2023",
+      "title": "Kushi",
+      "year": 2023,
+      "people": "Vijay Deverakonda, Samantha · Shiva Nirvana"
+    },
+    {
+      "id": "brochevarevarura-2019",
+      "title": "Brochevarevarura",
+      "year": 2019,
+      "people": "Sree Vishnu, Nivetha Thomas · Vivek Athreya"
+    },
+    {
+      "id": "mallesham-2019",
+      "title": "Mallesham",
+      "year": 2019,
+      "people": "Priyadarshi · Raj R"
+    },
+    {
+      "id": "middle-class-abbayi-2017",
+      "title": "Middle Class Abbayi",
+      "year": 2017,
+      "people": "Nani, Sai Pallavi · Venu Sriram"
+    },
+    {
+      "id": "sankranthi-2005",
+      "title": "Sankranthi",
+      "year": 2005,
+      "people": "Venkatesh, Srikanth"
+    },
+    {
+      "id": "lakshmi-2006",
+      "title": "Lakshmi",
+      "year": 2006,
+      "people": "Venkatesh · V. V. Vinayak"
+    },
+    {
+      "id": "chirutha-2007",
+      "title": "Chirutha",
+      "year": 2007,
+      "people": "Ram Charan · Puri Jagannadh"
+    },
+    {
+      "id": "orange-2010",
+      "title": "Orange",
+      "year": 2010,
+      "people": "Ram Charan, Genelia · Bhaskar"
+    },
+    {
+      "id": "naayak-2013",
+      "title": "Naayak",
+      "year": 2013,
+      "people": "Ram Charan · V. V. Vinayak"
+    },
+    {
+      "id": "yevadu-2014",
+      "title": "Yevadu",
+      "year": 2014,
+      "people": "Ram Charan, Allu Arjun · Vamshi Paidipally"
+    },
+    {
+      "id": "dhruva-2016",
+      "title": "Dhruva",
+      "year": 2016,
+      "people": "Ram Charan · Surender Reddy"
+    },
+    {
+      "id": "sarrainodu-2016",
+      "title": "Sarrainodu",
+      "year": 2016,
+      "people": "Allu Arjun · Boyapati Srinu"
+    },
+    {
+      "id": "s-o-satyamurthy-2015",
+      "title": "S/O Satyamurthy",
+      "year": 2015,
+      "people": "Allu Arjun · Trivikram"
+    },
+    {
+      "id": "mad-square-2025",
+      "title": "Mad Square",
+      "year": 2025,
+      "people": "Narne Nithiin, Sangeeth Shobhan · Kalyan Shankar"
+    },
+    {
+      "id": "daaku-maharaaj-2025",
+      "title": "Daaku Maharaaj",
+      "year": 2025,
+      "people": "Balakrishna · Bobby Kolli"
+    },
+    {
+      "id": "liger-2022",
+      "title": "Liger",
+      "year": 2022,
+      "people": "Vijay Deverakonda · Puri Jagannadh"
+    },
+    {
+      "id": "colour-photo-2020",
+      "title": "Colour Photo",
+      "year": 2020,
+      "people": "Suhas, Chandini Chowdary · Sandeep Raj"
+    },
+    {
+      "id": "uma-maheswara-ugra-roopasya-2020",
+      "title": "Uma Maheswara Ugra Roopasya",
+      "year": 2020,
+      "people": "Satyadev · Venkatesh Maha"
+    },
+    {
+      "id": "virupaksha-2023",
+      "title": "Virupaksha",
+      "year": 2023,
+      "people": "Sai Dharam Tej, Samyuktha · Karthik Dandu"
+    },
+    {
+      "id": "aithe-2003",
+      "title": "Aithe",
+      "year": 2003,
+      "people": "Chandra Sekhar Yeleti"
+    },
+    {
+      "id": "premam-2016",
+      "title": "Premam",
+      "year": 2016,
+      "people": "Naga Chaitanya, Shruti Haasan · Chandoo Mondeti"
+    },
+    {
+      "id": "krishna-gaadi-veera-prema-gaadha-2016",
+      "title": "Krishna Gaadi Veera Prema Gaadha",
+      "year": 2016,
+      "people": "Nani, Mehreen Pirzada · Hanu Raghavapudi"
+    },
+    {
+      "id": "a-aa-2016",
+      "title": "A Aa",
+      "year": 2016,
+      "people": "Nithiin, Samantha · Trivikram"
+    },
+    {
+      "id": "cameraman-gangatho-rambabu-2012",
+      "title": "Cameraman Gangatho Rambabu",
+      "year": 2012,
+      "people": "Pawan Kalyan, Tamannaah · Puri Jagannadh"
+    },
+    {
+      "id": "anandam-2001",
+      "title": "Anandam",
+      "year": 2001,
+      "people": "Akash, Rekha · Srinu Vaitla"
+    },
+    {
+      "id": "lava-kusa-1963",
+      "title": "Lava Kusa",
+      "year": 1963,
+      "people": "N. T. Rama Rao, Anjali Devi"
+    },
+    {
+      "id": "iddarammayilatho-2013",
+      "title": "Iddarammayilatho",
+      "year": 2013,
+      "people": "Allu Arjun · Puri Jagannadh"
+    },
+    {
+      "id": "duvvada-jagannadham-2017",
+      "title": "Duvvada Jagannadham",
+      "year": 2017,
+      "people": "Allu Arjun · Harish Shankar"
+    },
+    {
+      "id": "naa-peru-surya-naa-illu-india-2018",
+      "title": "Naa Peru Surya, Naa Illu India",
+      "year": 2018,
+      "people": "Allu Arjun · Vakkantham Vamsi"
+    },
+    {
+      "id": "bunny-2005",
+      "title": "Bunny",
+      "year": 2005,
+      "people": "Allu Arjun · V. V. Vinayak"
+    },
+    {
+      "id": "happy-2006",
+      "title": "Happy",
+      "year": 2006,
+      "people": "Allu Arjun, Genelia · A. Karunakaran"
+    },
+    {
+      "id": "gangotri-2003",
+      "title": "Gangotri",
+      "year": 2003,
+      "people": "Allu Arjun · K. Raghavendra Rao"
+    },
+    {
+      "id": "badrinath-2011",
+      "title": "Badrinath",
+      "year": 2011,
+      "people": "Allu Arjun, Tamannaah · V. V. Vinayak"
+    },
+    {
+      "id": "hari-hara-veera-mallu-2025",
+      "title": "Hari Hara Veera Mallu",
+      "year": 2025,
+      "people": "Pawan Kalyan · Jyothi Krisna"
+    },
+    {
+      "id": "middle-class-melodies-2020",
+      "title": "Middle Class Melodies",
+      "year": 2020,
+      "people": "Anand Deverakonda, Varsha Bollamma"
+    },
+    {
+      "id": "bimbisara-2022",
+      "title": "Bimbisara",
+      "year": 2022,
+      "people": "Nandamuri Kalyan Ram · Vassishta"
+    },
+    {
+      "id": "virata-parvam-2022",
+      "title": "Virata Parvam",
+      "year": 2022,
+      "people": "Rana Daggubati, Sai Pallavi · Venu Udugula"
+    },
+    {
+      "id": "pelli-pustakam-1991",
+      "title": "Pelli Pustakam",
+      "year": 1991,
+      "people": "Rajendra Prasad, Divyavani · Bapu"
+    },
+    {
+      "id": "gang-leader-2019",
+      "title": "Gang Leader",
+      "year": 2019,
+      "people": "Nani, Priyanka Mohan · Vikram Kumar"
+    },
+    {
+      "id": "devadasu-2006",
+      "title": "Devadasu",
+      "year": 2006,
+      "people": "Ram, Ileana · Y. V. S. Chowdary"
+    },
+    {
+      "id": "dil-2003",
+      "title": "Dil",
+      "year": 2003,
+      "people": "Nithiin, Neha · V. V. Vinayak"
+    },
+    {
+      "id": "krack-2021",
+      "title": "Krack",
+      "year": 2021,
+      "people": "Ravi Teja, Shruti Haasan · Gopichand Malineni"
+    },
+    {
+      "id": "bhagavanth-kesari-2023",
+      "title": "Bhagavanth Kesari",
+      "year": 2023,
+      "people": "Balakrishna, Sreeleela · Anil Ravipudi"
+    },
+    {
+      "id": "varudu-2010",
+      "title": "Varudu",
+      "year": 2010,
+      "people": "Allu Arjun · Gunasekhar"
+    },
+    {
+      "id": "1-nenokkadine-2014",
+      "title": "1: Nenokkadine",
+      "year": 2014,
+      "people": "Mahesh Babu · Sukumar"
+    },
+    {
+      "id": "spyder-2017",
+      "title": "Spyder",
+      "year": 2017,
+      "people": "Mahesh Babu · A. R. Murugadoss"
+    },
+    {
+      "id": "aagadu-2014",
+      "title": "Aagadu",
+      "year": 2014,
+      "people": "Mahesh Babu · Srinu Vaitla"
+    },
+    {
+      "id": "athidhi-2007",
+      "title": "Athidhi",
+      "year": 2007,
+      "people": "Mahesh Babu · Surender Reddy"
+    },
+    {
+      "id": "brahmotsavam-2016",
+      "title": "Brahmotsavam",
+      "year": 2016,
+      "people": "Mahesh Babu · Srikanth Addala"
+    },
+    {
+      "id": "arjun-2004",
+      "title": "Arjun",
+      "year": 2004,
+      "people": "Mahesh Babu · Gunasekhar"
+    },
+    {
+      "id": "nijam-2003",
+      "title": "Nijam",
+      "year": 2003,
+      "people": "Mahesh Babu · Teja"
+    },
+    {
+      "id": "sainikudu-2006",
+      "title": "Sainikudu",
+      "year": 2006,
+      "people": "Mahesh Babu · Gunasekhar"
+    },
+    {
+      "id": "kingdom-2025",
+      "title": "Kingdom",
+      "year": 2025,
+      "people": "Vijay Deverakonda · Gowtam Tinnanuri"
+    },
+    {
+      "id": "little-hearts-2025",
+      "title": "Little Hearts",
+      "year": 2025,
+      "people": "Mouli Tanuj · Sai Marthand"
+    },
+    {
+      "id": "cinema-bandi-2021",
+      "title": "Cinema Bandi",
+      "year": 2021,
+      "people": "Vikas Vasistha · Praveen Kandregula"
+    },
+    {
+      "id": "masooda-2022",
+      "title": "Masooda",
+      "year": 2022,
+      "people": "Sangitha, Thiruveer · Sai Kiran"
+    },
+    {
+      "id": "keedaa-cola-2023",
+      "title": "Keedaa Cola",
+      "year": 2023,
+      "people": "Brahmanandam, Chaitanya Rao · Tharun Bhascker"
+    },
+    {
+      "id": "rx-100-2018",
+      "title": "RX 100",
+      "year": 2018,
+      "people": "Kartikeya Gummakonda, Payal Rajput · Ajay Bhupathi"
+    },
+    {
+      "id": "swamy-ra-ra-2013",
+      "title": "Swamy Ra Ra",
+      "year": 2013,
+      "people": "Nikhil Siddhartha, Colors Swathi · Sudheer Varma"
+    },
+    {
+      "id": "shatamanam-bhavati-2017",
+      "title": "Shatamanam Bhavati",
+      "year": 2017,
+      "people": "Sharwanand, Anupama Parameswaran · Satish Vegesna"
+    },
+    {
+      "id": "anukokunda-oka-roju-2005",
+      "title": "Anukokunda Oka Roju",
+      "year": 2005,
+      "people": "Charmy Kaur · Chandra Sekhar Yeleti"
+    },
+    {
+      "id": "aa-naluguru-2004",
+      "title": "Aa Naluguru",
+      "year": 2004,
+      "people": "Rajendra Prasad · Chandra Siddhartha"
+    },
+    {
+      "id": "anaganaga-o-dheerudu-2011",
+      "title": "Anaganaga O Dheerudu",
+      "year": 2011,
+      "people": "Siddharth, Shruti Haasan · Prakash Kovelamudi"
+    },
+    {
+      "id": "golconda-high-school-2011",
+      "title": "Golconda High School",
+      "year": 2011,
+      "people": "Sumanth · Mohana Krishna Indraganti"
+    },
+    {
+      "id": "josh-2009",
+      "title": "Josh",
+      "year": 2009,
+      "people": "Naga Chaitanya · Vasu Varma"
+    },
+    {
+      "id": "tadakha-2013",
+      "title": "Tadakha",
+      "year": 2013,
+      "people": "Naga Chaitanya, Sunil · Kishore Kumar Pardasani"
+    },
+    {
+      "id": "pilla-zamindar-2011",
+      "title": "Pilla Zamindar",
+      "year": 2011,
+      "people": "Nani, Haripriya · G. Ashok"
+    },
+    {
+      "id": "yeto-vellipoyindhi-manasu-2012",
+      "title": "Yeto Vellipoyindhi Manasu",
+      "year": 2012,
+      "people": "Nani, Samantha · Gautham Vasudev Menon"
+    },
+    {
+      "id": "nenu-sailaja-2016",
+      "title": "Nenu Sailaja",
+      "year": 2016,
+      "people": "Ram, Keerthy Suresh · Kishore Tirumala"
+    },
+    {
+      "id": "ismart-shankar-2019",
+      "title": "iSmart Shankar",
+      "year": 2019,
+      "people": "Ram, Nidhhi Agerwal · Puri Jagannadh"
+    },
+    {
+      "id": "bheeshma-2020",
+      "title": "Bheeshma",
+      "year": 2020,
+      "people": "Nithiin, Rashmika Mandanna · Venky Kudumula"
+    },
+    {
+      "id": "chitralahari-2019",
+      "title": "Chitralahari",
+      "year": 2019,
+      "people": "Sai Dharam Tej · Kishore Tirumala"
+    },
+    {
+      "id": "agnyaathavaasi-2018",
+      "title": "Agnyaathavaasi",
+      "year": 2018,
+      "people": "Pawan Kalyan · Trivikram"
+    },
+    {
+      "id": "dhamaka-2022",
+      "title": "Dhamaka",
+      "year": 2022,
+      "people": "Ravi Teja, Sreeleela · Trinadha Rao Nakkina"
+    },
+    {
+      "id": "okariki-okaru-2003",
+      "title": "Okariki Okaru",
+      "year": 2003,
+      "people": "Sriram, Aarthi Chhabria · Rasool Ellore"
+    },
+    {
+      "id": "nuvve-nuvve-2002",
+      "title": "Nuvve Nuvve",
+      "year": 2002,
+      "people": "Tarun, Shriya Saran · Trivikram"
+    },
+    {
+      "id": "swathi-kiranam-1992",
+      "title": "Swathi Kiranam",
+      "year": 1992,
+      "people": "Mammootty, Radhika · K. Viswanath"
+    },
+    {
+      "id": "daana-veera-soora-karna-1977",
+      "title": "Daana Veera Soora Karna",
+      "year": 1977,
+      "people": "N. T. Rama Rao · N. T. Rama Rao"
+    },
+    {
+      "id": "veera-simha-reddy-2023",
+      "title": "Veera Simha Reddy",
+      "year": 2023,
+      "people": "Balakrishna, Shruti Haasan · Gopichand Malineni"
+    },
+    {
+      "id": "takkari-donga-2002",
+      "title": "Takkari Donga",
+      "year": 2002,
+      "people": "Mahesh Babu · Jayanth C. Paranjee"
+    },
+    {
+      "id": "raja-kumarudu-1999",
+      "title": "Raja Kumarudu",
+      "year": 1999,
+      "people": "Mahesh Babu · K. Raghavendra Rao"
+    },
+    {
+      "id": "naani-2004",
+      "title": "Naani",
+      "year": 2004,
+      "people": "Mahesh Babu · S. J. Suryah"
+    },
+    {
+      "id": "bobby-2002",
+      "title": "Bobby",
+      "year": 2002,
+      "people": "Mahesh Babu, Aarthi Agarwal"
+    },
+    {
+      "id": "yuvaraju-2000",
+      "title": "Yuvaraju",
+      "year": 2000,
+      "people": "Mahesh Babu · Y. V. S. Chowdary"
+    },
+    {
+      "id": "vamsi-2000",
+      "title": "Vamsi",
+      "year": 2000,
+      "people": "Mahesh Babu, Namrata Shirodkar"
+    },
+    {
+      "id": "rebel-2012",
+      "title": "Rebel",
+      "year": 2012,
+      "people": "Prabhas · Raghava Lawrence"
+    },
+    {
+      "id": "billa-2009",
+      "title": "Billa",
+      "year": 2009,
+      "people": "Prabhas, Anushka Shetty · Meher Ramesh"
+    },
+    {
+      "id": "bujjigadu-2008",
+      "title": "Bujjigadu",
+      "year": 2008,
+      "people": "Prabhas, Trisha · Puri Jagannadh"
+    },
+    {
+      "id": "kannappa-2025",
+      "title": "Kannappa",
+      "year": 2025,
+      "people": "Vishnu Manchu · Mukesh Kumar Singh"
+    },
+    {
+      "id": "dorasaani-2019",
+      "title": "Dorasaani",
+      "year": 2019,
+      "people": "Anand Deverakonda, Shivatmika Rajashekar"
+    },
+    {
+      "id": "falaknuma-das-2019",
+      "title": "Falaknuma Das",
+      "year": 2019,
+      "people": "Vishwak Sen"
+    },
+    {
+      "id": "george-reddy-2019",
+      "title": "George Reddy",
+      "year": 2019,
+      "people": "Sandeep Madhav · Jeevan Reddy"
+    },
+    {
+      "id": "writer-padmabhushan-2023",
+      "title": "Writer Padmabhushan",
+      "year": 2023,
+      "people": "Suhas · Shanmukha Prasanth"
+    },
+    {
+      "id": "mem-famous-2023",
+      "title": "Mem Famous",
+      "year": 2023,
+      "people": "Sumanth Prabhas"
+    },
+    {
+      "id": "mangalavaaram-2023",
+      "title": "Mangalavaaram",
+      "year": 2023,
+      "people": "Payal Rajput · Ajay Bhupathi"
+    },
+    {
+      "id": "mental-madhilo-2017",
+      "title": "Mental Madhilo",
+      "year": 2017,
+      "people": "Sree Vishnu, Nivetha Pethuraj · Vivek Athreya"
+    },
+    {
+      "id": "run-raja-run-2014",
+      "title": "Run Raja Run",
+      "year": 2014,
+      "people": "Sharwanand, Seerat Kapoor · Sujeeth"
+    },
+    {
+      "id": "express-raja-2016",
+      "title": "Express Raja",
+      "year": 2016,
+      "people": "Sharwanand · Merlapaka Gandhi"
+    },
+    {
+      "id": "oke-oka-jeevitham-2022",
+      "title": "Oke Oka Jeevitham",
+      "year": 2022,
+      "people": "Sharwanand, Amala Akkineni · Shree Karthick"
+    },
+    {
+      "id": "okkadunnadu-2007",
+      "title": "Okkadunnadu",
+      "year": 2007,
+      "people": "Gopichand · Chandra Sekhar Yeleti"
+    },
+    {
+      "id": "aata-2007",
+      "title": "Aata",
+      "year": 2007,
+      "people": "Siddharth, Ileana · V. N. Aditya"
+    },
+    {
+      "id": "gentleman-2016",
+      "title": "Gentleman",
+      "year": 2016,
+      "people": "Nani, Surabhi · Mohana Krishna Indraganti"
+    },
+    {
+      "id": "prati-roju-pandage-2019",
+      "title": "Prati Roju Pandage",
+      "year": 2019,
+      "people": "Sai Dharam Tej, Raashii Khanna · Maruthi"
+    },
+    {
+      "id": "sardaar-gabbar-singh-2016",
+      "title": "Sardaar Gabbar Singh",
+      "year": 2016,
+      "people": "Pawan Kalyan · K. S. Ravindra"
+    },
+    {
+      "id": "sontham-2002",
+      "title": "Sontham",
+      "year": 2002,
+      "people": "Aryan Rajesh, Namitha · Srinu Vaitla"
+    },
+    {
+      "id": "nee-sneham-2002",
+      "title": "Nee Sneham",
+      "year": 2002,
+      "people": "Uday Kiran, Aarthi Agarwal · Paruchuri Murali"
+    },
+    {
+      "id": "priyamaina-neeku-2001",
+      "title": "Priyamaina Neeku",
+      "year": 2001,
+      "people": "Tarun, Sneha · Balasekaran"
+    },
+    {
+      "id": "ninne-ishtapaddanu-2003",
+      "title": "Ninne Ishtapaddanu",
+      "year": 2003,
+      "people": "Tarun, Rajiv Kanakala · Kondaa"
+    },
+    {
+      "id": "kithakithalu-2006",
+      "title": "Kithakithalu",
+      "year": 2006,
+      "people": "Allari Naresh · E. V. V. Satyanarayana"
+    },
+    {
+      "id": "sudigadu-2012",
+      "title": "Sudigadu",
+      "year": 2012,
+      "people": "Allari Naresh · Bhimaneni Srinivasa Rao"
+    },
+    {
+      "id": "andala-ramudu-2006",
+      "title": "Andala Ramudu",
+      "year": 2006,
+      "people": "Sunil, Aarthi Agarwal · P. Lakshminarayana"
+    },
+    {
+      "id": "swarna-kamalam-1988",
+      "title": "Swarna Kamalam",
+      "year": 1988,
+      "people": "Venkatesh, Bhanupriya · K. Viswanath"
+    },
+    {
+      "id": "sirivennela-1986",
+      "title": "Sirivennela",
+      "year": 1986,
+      "people": "Sarvadaman Banerjee, Suhasini · K. Viswanath"
+    },
+    {
+      "id": "aha-naa-pellanta-1987",
+      "title": "Aha Naa-Pellanta!",
+      "year": 1987,
+      "people": "Rajendra Prasad, Rajani · Jandhyala"
+    },
+    {
+      "id": "nartanasala-1963",
+      "title": "Nartanasala",
+      "year": 1963,
+      "people": "N. T. Rama Rao, Savitri · Kamalakara Kameswara Rao"
+    },
+    {
+      "id": "devadasu-1953",
+      "title": "Devadasu",
+      "year": 1953,
+      "people": "ANR, Savitri · Vedantam Raghavaiah"
+    },
+    {
+      "id": "patala-bhairavi-1951",
+      "title": "Patala Bhairavi",
+      "year": 1951,
+      "people": "N. T. Rama Rao · K. V. Reddy"
+    },
+    {
+      "id": "aakasamantha-2009",
+      "title": "Aakasamantha",
+      "year": 2009,
+      "people": "Prakash Raj, Trisha · Radha Mohan"
+    },
+    {
+      "id": "bhamakalapam-2022",
+      "title": "Bhamakalapam",
+      "year": 2022,
+      "people": "Priyamani · Abhimanyu Tadimeti"
+    },
+    {
+      "id": "gautham-nanda-2017",
+      "title": "Gautham Nanda",
+      "year": 2017,
+      "people": "Gopichand, Hansika Motwani · Sampath Nandi"
+    },
+    {
+      "id": "yogi-2007",
+      "title": "Yogi",
+      "year": 2007,
+      "people": "Prabhas · V. V. Vinayak"
+    },
+    {
+      "id": "chakram-2005",
+      "title": "Chakram",
+      "year": 2005,
+      "people": "Prabhas · Krishna Vamsi"
+    },
+    {
+      "id": "pournami-2006",
+      "title": "Pournami",
+      "year": 2006,
+      "people": "Prabhas, Trisha · Prabhu Deva"
+    },
+    {
+      "id": "munna-2007",
+      "title": "Munna",
+      "year": 2007,
+      "people": "Prabhas, Ileana · Vamshi Paidipally"
+    },
+    {
+      "id": "eeswar-2002",
+      "title": "Eeswar",
+      "year": 2002,
+      "people": "Prabhas · Jayanth C. Paranjee"
+    },
+    {
+      "id": "ek-niranjan-2009",
+      "title": "Ek Niranjan",
+      "year": 2009,
+      "people": "Prabhas, Kangana Ranaut · Puri Jagannadh"
+    },
+    {
+      "id": "radhe-shyam-2022",
+      "title": "Radhe Shyam",
+      "year": 2022,
+      "people": "Prabhas, Pooja Hegde · Radha Krishna Kumar"
+    },
+    {
+      "id": "adipurush-2023",
+      "title": "Adipurush",
+      "year": 2023,
+      "people": "Prabhas · Om Raut"
+    },
+    {
+      "id": "the-raja-saab-2026",
+      "title": "The Raja Saab",
+      "year": 2026,
+      "people": "Prabhas · Maruthi"
+    },
+    {
+      "id": "the-family-star-2024",
+      "title": "The Family Star",
+      "year": 2024,
+      "people": "Vijay Deverakonda, Mrunal Thakur · Parasuram"
+    },
+    {
+      "id": "gaami-2024",
+      "title": "Gaami",
+      "year": 2024,
+      "people": "Vishwak Sen · Vidyadhar Kagita"
+    },
+    {
+      "id": "aay-2024",
+      "title": "Aay",
+      "year": 2024,
+      "people": "Narne Nithiin · Anji K. Maniputhra"
+    },
+    {
+      "id": "35-chinna-katha-kaadu-2024",
+      "title": "35 Chinna Katha Kaadu",
+      "year": 2024,
+      "people": "Nivetha Thomas · Nanda Kishore Emani"
+    },
+    {
+      "id": "committee-kurrollu-2024",
+      "title": "Committee Kurrollu",
+      "year": 2024,
+      "people": "Sandeep Saroj · Yadhu Vamsi"
+    },
+    {
+      "id": "ka-2024",
+      "title": "Ka",
+      "year": 2024,
+      "people": "Kiran Abbavaram · Sujith, Sandeep"
+    },
+    {
+      "id": "hushaaru-2018",
+      "title": "Hushaaru",
+      "year": 2018,
+      "people": "Tejus Kancherla · Sree Harsha Konuganti"
+    },
+    {
+      "id": "prema-katha-chitram-2013",
+      "title": "Prema Katha Chitram",
+      "year": 2013,
+      "people": "Sudheer Babu · J. Prabhakar Reddy"
+    },
+    {
+      "id": "uyyala-jampala-2013",
+      "title": "Uyyala Jampala",
+      "year": 2013,
+      "people": "Raj Tarun, Avika Gor · Virinchi Varma"
+    },
+    {
+      "id": "mithunam-2012",
+      "title": "Mithunam",
+      "year": 2012,
+      "people": "S. P. Balasubrahmanyam, Lakshmi · Tanikella Bharani"
+    },
+    {
+      "id": "oka-laila-kosam-2014",
+      "title": "Oka Laila Kosam",
+      "year": 2014,
+      "people": "Naga Chaitanya, Pooja Hegde · Vijay Kumar Konda"
+    },
+    {
+      "id": "rarandoi-veduka-chuddam-2017",
+      "title": "Rarandoi Veduka Chuddam",
+      "year": 2017,
+      "people": "Naga Chaitanya, Rakul Preet Singh"
+    },
+    {
+      "id": "majnu-2016",
+      "title": "Majnu",
+      "year": 2016,
+      "people": "Nani, Anu Emmanuel · Virinchi Varma"
+    },
+    {
+      "id": "gunde-jaari-gallanthayyinde-2013",
+      "title": "Gunde Jaari Gallanthayyinde",
+      "year": 2013,
+      "people": "Nithiin, Nithya Menen · Vijay Kumar Konda"
+    },
+    {
+      "id": "katamarayudu-2017",
+      "title": "Katamarayudu",
+      "year": 2017,
+      "people": "Pawan Kalyan · Kishore Kumar Pardasani"
+    },
+    {
+      "id": "panjaa-2011",
+      "title": "Panjaa",
+      "year": 2011,
+      "people": "Pawan Kalyan · Vishnuvardhan"
+    },
+    {
+      "id": "annavaram-2006",
+      "title": "Annavaram",
+      "year": 2006,
+      "people": "Pawan Kalyan, Asin · Bhimaneni Srinivasa Rao"
+    },
+    {
+      "id": "raja-the-great-2017",
+      "title": "Raja the Great",
+      "year": 2017,
+      "people": "Ravi Teja · Anil Ravipudi"
+    },
+    {
+      "id": "power-2014",
+      "title": "Power",
+      "year": 2014,
+      "people": "Ravi Teja · K. S. Ravindra"
+    },
+    {
+      "id": "kshana-kshanam-1991",
+      "title": "Kshana Kshanam",
+      "year": 1991,
+      "people": "Venkatesh, Sridevi · Ram Gopal Varma"
+    },
+    {
+      "id": "allari-2002",
+      "title": "Allari",
+      "year": 2002,
+      "people": "Allari Naresh · Ravi Babu"
+    },
+    {
+      "id": "seema-sastri-2007",
+      "title": "Seema Sastri",
+      "year": 2007,
+      "people": "Allari Naresh · G. Nageswara Reddy"
+    },
+    {
+      "id": "bendu-apparao-r-m-p-2009",
+      "title": "Bendu Apparao R.M.P",
+      "year": 2009,
+      "people": "Allari Naresh · E. V. V. Satyanarayana"
+    },
+    {
+      "id": "naandhi-2021",
+      "title": "Naandhi",
+      "year": 2021,
+      "people": "Allari Naresh · Vijay Kanakamedala"
+    },
+    {
+      "id": "yamaleela-1994",
+      "title": "Yamaleela",
+      "year": 1994,
+      "people": "Ali, Indraja · S. V. Krishna Reddy"
+    },
+    {
+      "id": "ghatotkachudu-1995",
+      "title": "Ghatotkachudu",
+      "year": 1995,
+      "people": "Ali, Satyanarayana · S. V. Krishna Reddy"
+    },
+    {
+      "id": "jamba-lakidi-pamba-1993",
+      "title": "Jamba Lakidi Pamba",
+      "year": 1993,
+      "people": "Naresh, Aamani · E. V. V. Satyanarayana"
+    },
+    {
+      "id": "chantabbai-1986",
+      "title": "Chantabbai",
+      "year": 1986,
+      "people": "Chiranjeevi, Suhasini · Jandhyala"
+    },
+    {
+      "id": "ladies-tailor-1986",
+      "title": "Ladies Tailor",
+      "year": 1986,
+      "people": "Rajendra Prasad, Archana · Vamsy"
+    },
+    {
+      "id": "sri-krishnarjuna-yuddham-1963",
+      "title": "Sri Krishnarjuna Yuddham",
+      "year": 1963,
+      "people": "N. T. Rama Rao, ANR · K. V. Reddy"
+    },
+    {
+      "id": "rowdy-fellow-2014",
+      "title": "Rowdy Fellow",
+      "year": 2014,
+      "people": "Nara Rohit · Krishna Chaitanya"
+    },
+    {
+      "id": "ammu-2022",
+      "title": "Ammu",
+      "year": 2022,
+      "people": "Aishwarya Lekshmi · Charukesh Sekar"
+    },
+    {
+      "id": "mail-2021",
+      "title": "Mail",
+      "year": 2021,
+      "people": "Priyadarshi, Harshith Malgireddy · Uday Gurrala"
+    },
+    {
+      "id": "ekkadiki-pothavu-chinnavada-2016",
+      "title": "Ekkadiki Pothavu Chinnavada",
+      "year": 2016,
+      "people": "Nikhil Siddhartha, Hebah Patel · V. I. Anand"
+    },
+    {
+      "id": "raghavendra-2003",
+      "title": "Raghavendra",
+      "year": 2003,
+      "people": "Prabhas · Suresh Krissna"
+    },
+    {
+      "id": "adavi-ramudu-2004",
+      "title": "Adavi Ramudu",
+      "year": 2004,
+      "people": "Prabhas, Aarthi Agarwal"
+    },
+    {
+      "id": "jai-lava-kusa-2017",
+      "title": "Jai Lava Kusa",
+      "year": 2017,
+      "people": "N. T. Rama Rao Jr. · K. S. Ravindra"
+    },
+    {
+      "id": "ramayya-vasthavayya-2013",
+      "title": "Ramayya Vasthavayya",
+      "year": 2013,
+      "people": "N. T. Rama Rao Jr. · Harish Shankar"
+    },
+    {
+      "id": "rakhi-2006",
+      "title": "Rakhi",
+      "year": 2006,
+      "people": "N. T. Rama Rao Jr. · Krishna Vamsi"
+    },
+    {
+      "id": "ashok-2006",
+      "title": "Ashok",
+      "year": 2006,
+      "people": "N. T. Rama Rao Jr. · Surender Reddy"
+    },
+    {
+      "id": "samba-2004",
+      "title": "Samba",
+      "year": 2004,
+      "people": "N. T. Rama Rao Jr. · V. V. Vinayak"
+    },
+    {
+      "id": "aadi-2002",
+      "title": "Aadi",
+      "year": 2002,
+      "people": "N. T. Rama Rao Jr. · V. V. Vinayak"
+    },
+    {
+      "id": "baava-2010",
+      "title": "Baava",
+      "year": 2010,
+      "people": "Siddharth, Pranitha · Rambabu"
+    },
+    {
+      "id": "savyasachi-2018",
+      "title": "Savyasachi",
+      "year": 2018,
+      "people": "Naga Chaitanya · Chandoo Mondeti"
+    },
+    {
+      "id": "v-2020",
+      "title": "V",
+      "year": 2020,
+      "people": "Nani, Sudheer Babu · Mohana Krishna Indraganti"
+    },
+    {
+      "id": "tuck-jagadish-2021",
+      "title": "Tuck Jagadish",
+      "year": 2021,
+      "people": "Nani, Ritu Varma · Shiva Nirvana"
+    },
+    {
+      "id": "red-2021",
+      "title": "Red",
+      "year": 2021,
+      "people": "Ram · Kishore Tirumala"
+    },
+    {
+      "id": "kandireega-2011",
+      "title": "Kandireega",
+      "year": 2011,
+      "people": "Ram, Hansika Motwani · Santosh Srinivas"
+    },
+    {
+      "id": "bro-2023",
+      "title": "Bro",
+      "year": 2023,
+      "people": "Pawan Kalyan, Sai Dharam Tej · Samuthirakani"
+    },
+    {
+      "id": "pilla-nuvvu-leni-jeevitham-2014",
+      "title": "Pilla Nuvvu Leni Jeevitham",
+      "year": 2014,
+      "people": "Sai Dharam Tej · A. S. Ravi Kumar Chowdary"
+    },
+    {
+      "id": "teen-maar-2011",
+      "title": "Teen Maar",
+      "year": 2011,
+      "people": "Pawan Kalyan, Trisha · Jayanth C. Paranjee"
+    },
+    {
+      "id": "komaram-puli-2010",
+      "title": "Komaram Puli",
+      "year": 2010,
+      "people": "Pawan Kalyan · S. J. Suryah"
+    },
+    {
+      "id": "balu-2005",
+      "title": "Balu",
+      "year": 2005,
+      "people": "Pawan Kalyan, Shriya Saran · A. Karunakaran"
+    },
+    {
+      "id": "gudumba-shankar-2004",
+      "title": "Gudumba Shankar",
+      "year": 2004,
+      "people": "Pawan Kalyan, Meera Jasmine · Veera Shankar"
+    },
+    {
+      "id": "gokulamlo-seetha-1997",
+      "title": "Gokulamlo Seetha",
+      "year": 1997,
+      "people": "Pawan Kalyan, Raasi · Muthyala Subbaiah"
+    },
+    {
+      "id": "tiger-nageswara-rao-2023",
+      "title": "Tiger Nageswara Rao",
+      "year": 2023,
+      "people": "Ravi Teja · Vamsee"
+    },
+    {
+      "id": "balupu-2013",
+      "title": "Balupu",
+      "year": 2013,
+      "people": "Ravi Teja, Shruti Haasan · Gopichand Malineni"
+    },
+    {
+      "id": "mirapakay-2011",
+      "title": "Mirapakay",
+      "year": 2011,
+      "people": "Ravi Teja, Richa Gangopadhyay · Harish Shankar"
+    },
+    {
+      "id": "neninthe-2008",
+      "title": "Neninthe",
+      "year": 2008,
+      "people": "Ravi Teja, Siya · Puri Jagannadh"
+    },
+    {
+      "id": "venky-2004",
+      "title": "Venky",
+      "year": 2004,
+      "people": "Ravi Teja, Sneha · Srinu Vaitla"
+    },
+    {
+      "id": "naa-autograph-2004",
+      "title": "Naa Autograph",
+      "year": 2004,
+      "people": "Ravi Teja, Bhumika · S. Gopal Reddy"
+    },
+    {
+      "id": "khadgam-2002",
+      "title": "Khadgam",
+      "year": 2002,
+      "people": "Srikanth, Ravi Teja, Prakash Raj · Krishna Vamsi"
+    },
+    {
+      "id": "gulabi-1996",
+      "title": "Gulabi",
+      "year": 1996,
+      "people": "J. D. Chakravarthy, Maheswari · Krishna Vamsi"
+    },
+    {
+      "id": "antahpuram-1998",
+      "title": "Antahpuram",
+      "year": 1998,
+      "people": "Soundarya, Jagapathi Babu · Krishna Vamsi"
+    },
+    {
+      "id": "blade-babji-2008",
+      "title": "Blade Babji",
+      "year": 2008,
+      "people": "Allari Naresh · Devi Prasad"
+    },
+    {
+      "id": "poola-rangadu-2012",
+      "title": "Poola Rangadu",
+      "year": 2012,
+      "people": "Sunil · Veerabhadram"
+    },
+    {
+      "id": "sruthilayalu-1987",
+      "title": "Sruthilayalu",
+      "year": 1987,
+      "people": "Rajasekhar, Sumalatha · K. Viswanath"
+    },
+    {
+      "id": "saptapadi-1981",
+      "title": "Saptapadi",
+      "year": 1981,
+      "people": "J. V. Somayajulu · K. Viswanath"
+    },
+    {
+      "id": "mayalodu-1993",
+      "title": "Mayalodu",
+      "year": 1993,
+      "people": "Rajendra Prasad, Soundarya · S. V. Krishna Reddy"
+    },
+    {
+      "id": "rendu-rella-aaru-1986",
+      "title": "Rendu Rella Aaru",
+      "year": 1986,
+      "people": "Chandra Mohan, Rajendra Prasad · Jandhyala"
+    },
+    {
+      "id": "srivariki-premalekha-1984",
+      "title": "Srivariki Premalekha",
+      "year": 1984,
+      "people": "Naresh, Poornima · Jandhyala"
+    },
+    {
+      "id": "april-1-vidudala-1991",
+      "title": "April 1 Vidudala",
+      "year": 1991,
+      "people": "Rajendra Prasad, Shobana · Vamsy"
+    },
+    {
+      "id": "muthyala-muggu-1975",
+      "title": "Muthyala Muggu",
+      "year": 1975,
+      "people": "Sridhar, Sangeeta · Bapu"
+    },
+    {
+      "id": "malliswari-1951",
+      "title": "Malliswari",
+      "year": 1951,
+      "people": "N. T. Rama Rao, Bhanumathi · B. N. Reddy"
+    },
+    {
+      "id": "bhookailas-1958",
+      "title": "Bhookailas",
+      "year": 1958,
+      "people": "N. T. Rama Rao, ANR · K. Shankar"
+    },
+    {
+      "id": "sri-venkateswara-mahatyam-1960",
+      "title": "Sri Venkateswara Mahatyam",
+      "year": 1960,
+      "people": "N. T. Rama Rao, Savitri · P. Pullaiah"
+    },
+    {
+      "id": "alluri-seetharama-raju-1974",
+      "title": "Alluri Seetharama Raju",
+      "year": 1974,
+      "people": "Krishna, Vijaya Nirmala · V. Ramachandra Rao"
+    },
+    {
+      "id": "bhairava-dweepam-1994",
+      "title": "Bhairava Dweepam",
+      "year": 1994,
+      "people": "Balakrishna, Roja · Singeetam Srinivasa Rao"
+    },
+    {
+      "id": "nootokka-jillala-andagadu-2021",
+      "title": "Nootokka Jillala Andagadu",
+      "year": 2021,
+      "people": "Avasarala Srinivas · Rachakonda Vidyasagar"
+    },
+    {
+      "id": "raja-vaaru-rani-gaaru-2019",
+      "title": "Raja Vaaru Rani Gaaru",
+      "year": 2019,
+      "people": "Kiran Abbavaram · Ravi Kiran Kola"
+    },
+    {
+      "id": "pareshan-2023",
+      "title": "Pareshan",
+      "year": 2023,
+      "people": "Thiruveer · Rupak Ronaldson"
+    },
+    {
+      "id": "loukyam-2014",
+      "title": "Loukyam",
+      "year": 2014,
+      "people": "Gopichand, Rakul Preet Singh · Sriwass"
+    },
+    {
+      "id": "ranam-2006",
+      "title": "Ranam",
+      "year": 2006,
+      "people": "Gopichand, Kamna Jethmalani · Amma Rajasekhar"
+    },
+    {
+      "id": "kanche-2015",
+      "title": "Kanche",
+      "year": 2015,
+      "people": "Varun Tej, Pragya Jaiswal · Krish"
+    },
+    {
+      "id": "tholi-prema-2018",
+      "title": "Tholi Prema",
+      "year": 2018,
+      "people": "Varun Tej, Raashii Khanna · Venky Atluri"
+    },
+    {
+      "id": "nene-raju-nene-mantri-2017",
+      "title": "Nene Raju Nene Mantri",
+      "year": 2017,
+      "people": "Rana Daggubati, Kajal Aggarwal · Teja"
+    },
+    {
+      "id": "bhale-manchi-roju-2015",
+      "title": "Bhale Manchi Roju",
+      "year": 2015,
+      "people": "Sudheer Babu · Sriram Aditya"
+    },
+    {
+      "id": "kirrak-party-2018",
+      "title": "Kirrak Party",
+      "year": 2018,
+      "people": "Nikhil Siddhartha · Sharan Koppisetty"
+    },
+    {
+      "id": "happy-wedding-2018",
+      "title": "Happy Wedding",
+      "year": 2018,
+      "people": "Sumanth Ashwin, Niharika Konidela · Lakshman Karya"
+    },
+    {
+      "id": "malli-raava-2017",
+      "title": "Malli Raava",
+      "year": 2017,
+      "people": "Sumanth, Aakanksha Singh · Gowtam Tinnanuri"
+    },
+    {
+      "id": "pelli-sandad-2021",
+      "title": "Pelli SandaD",
+      "year": 2021,
+      "people": "Roshan Meka, Sreeleela · Gowri Ronanki"
+    },
+    {
+      "id": "naa-alludu-2005",
+      "title": "Naa Alludu",
+      "year": 2005,
+      "people": "N. T. Rama Rao Jr. · Vara Mullapudi"
+    },
+    {
+      "id": "andhrawala-2004",
+      "title": "Andhrawala",
+      "year": 2004,
+      "people": "N. T. Rama Rao Jr. · Puri Jagannadh"
+    },
+    {
+      "id": "narasimhudu-2005",
+      "title": "Narasimhudu",
+      "year": 2005,
+      "people": "N. T. Rama Rao Jr. · B. Gopal"
+    },
+    {
+      "id": "naaga-2003",
+      "title": "Naaga",
+      "year": 2003,
+      "people": "N. T. Rama Rao Jr. · D. K. Suresh"
+    },
+    {
+      "id": "kantri-2008",
+      "title": "Kantri",
+      "year": 2008,
+      "people": "N. T. Rama Rao Jr. · Meher Ramesh"
+    },
+    {
+      "id": "shakti-2011",
+      "title": "Shakti",
+      "year": 2011,
+      "people": "N. T. Rama Rao Jr. · Meher Ramesh"
+    },
+    {
+      "id": "oosaravelli-2011",
+      "title": "Oosaravelli",
+      "year": 2011,
+      "people": "N. T. Rama Rao Jr., Tamannaah · Surender Reddy"
+    },
+    {
+      "id": "dammu-2012",
+      "title": "Dammu",
+      "year": 2012,
+      "people": "N. T. Rama Rao Jr. · Boyapati Srinu"
+    },
+    {
+      "id": "rabhasa-2014",
+      "title": "Rabhasa",
+      "year": 2014,
+      "people": "N. T. Rama Rao Jr. · Santosh Srinivas"
+    },
+    {
+      "id": "world-famous-lover-2020",
+      "title": "World Famous Lover",
+      "year": 2020,
+      "people": "Vijay Deverakonda · Kranthi Madhav"
+    },
+    {
+      "id": "mahanubhavudu-2017",
+      "title": "Mahanubhavudu",
+      "year": 2017,
+      "people": "Sharwanand, Mehreen Pirzada · Maruthi"
+    },
+    {
+      "id": "ride-2009",
+      "title": "Ride",
+      "year": 2009,
+      "people": "Nani, Tanish · Ramesh Varma"
+    },
+    {
+      "id": "supreme-2016",
+      "title": "Supreme",
+      "year": 2016,
+      "people": "Sai Dharam Tej, Raashii Khanna · Anil Ravipudi"
+    },
+    {
+      "id": "johnny-2003",
+      "title": "Johnny",
+      "year": 2003,
+      "people": "Pawan Kalyan, Renu Desai · Pawan Kalyan"
+    },
+    {
+      "id": "bangaram-2006",
+      "title": "Bangaram",
+      "year": 2006,
+      "people": "Pawan Kalyan · Dharani"
+    },
+    {
+      "id": "don-seenu-2010",
+      "title": "Don Seenu",
+      "year": 2010,
+      "people": "Ravi Teja · Gopichand Malineni"
+    },
+    {
+      "id": "kick-2-2015",
+      "title": "Kick 2",
+      "year": 2015,
+      "people": "Ravi Teja · Surender Reddy"
+    },
+    {
+      "id": "itlu-sravani-subramanyam-2001",
+      "title": "Itlu Sravani Subramanyam",
+      "year": 2001,
+      "people": "Ravi Teja · Puri Jagannadh"
+    },
+    {
+      "id": "chandamama-2007",
+      "title": "Chandamama",
+      "year": 2007,
+      "people": "Navdeep, Kajal Aggarwal · Krishna Vamsi"
+    },
+    {
+      "id": "mahatma-2009",
+      "title": "Mahatma",
+      "year": 2009,
+      "people": "Srikanth · Krishna Vamsi"
+    },
+    {
+      "id": "sindhooram-1997",
+      "title": "Sindhooram",
+      "year": 1997,
+      "people": "Ravi Teja, Brahmaji · Krishna Vamsi"
+    },
+    {
+      "id": "anaganaga-oka-roju-1997",
+      "title": "Anaganaga Oka Roju",
+      "year": 1997,
+      "people": "J. D. Chakravarthy, Urmila · Ram Gopal Varma"
+    },
+    {
+      "id": "sutradharulu-1989",
+      "title": "Sutradharulu",
+      "year": 1989,
+      "people": "ANR, Bhanu Chander · K. Viswanath"
+    },
+    {
+      "id": "subhodayam-1980",
+      "title": "Subhodayam",
+      "year": 1980,
+      "people": "Chandra Mohan, Sulakshana · K. Viswanath"
+    },
+    {
+      "id": "subhalagnam-1994",
+      "title": "Subhalagnam",
+      "year": 1994,
+      "people": "Jagapathi Babu, Aamani · S. V. Krishna Reddy"
+    },
+    {
+      "id": "rajendrudu-gajendrudu-1993",
+      "title": "Rajendrudu Gajendrudu",
+      "year": 1993,
+      "people": "Rajendra Prasad, Soundarya · S. V. Krishna Reddy"
+    },
+    {
+      "id": "appula-appa-rao-1992",
+      "title": "Appula Appa Rao",
+      "year": 1992,
+      "people": "Rajendra Prasad, Shobana · E. V. V. Satyanarayana"
+    },
+    {
+      "id": "seethakoka-chilaka-1981",
+      "title": "Seethakoka Chilaka",
+      "year": 1981,
+      "people": "Karthik, Muchcherla Aruna · Bharathiraja"
+    },
+    {
+      "id": "maro-charitra-1978",
+      "title": "Maro Charitra",
+      "year": 1978,
+      "people": "Kamal Haasan, Saritha · K. Balachander"
+    },
+    {
+      "id": "sampoorna-ramayanam-1972",
+      "title": "Sampoorna Ramayanam",
+      "year": 1972,
+      "people": "Sobhan Babu, Chandrakala · Bapu"
+    },
+    {
+      "id": "bhakta-prahlada-1967",
+      "title": "Bhakta Prahlada",
+      "year": 1967,
+      "people": "S. V. Ranga Rao, Roja Ramani · Chitrapu Narayana Rao"
+    },
+    {
+      "id": "jagadeka-veeruni-katha-1961",
+      "title": "Jagadeka Veeruni Katha",
+      "year": 1961,
+      "people": "N. T. Rama Rao · K. V. Reddy"
+    },
+    {
+      "id": "ramudu-bheemudu-1964",
+      "title": "Ramudu Bheemudu",
+      "year": 1964,
+      "people": "N. T. Rama Rao · Tapi Chanakya"
+    },
+    {
+      "id": "appu-chesi-pappu-koodu-1959",
+      "title": "Appu Chesi Pappu Koodu",
+      "year": 1959,
+      "people": "N. T. Rama Rao, Savitri · L. V. Prasad"
+    },
+    {
+      "id": "prema-nagar-1971",
+      "title": "Prema Nagar",
+      "year": 1971,
+      "people": "ANR, Vanisri · K. S. Prakash Rao"
+    },
+    {
+      "id": "sri-rama-rajyam-2011",
+      "title": "Sri Rama Rajyam",
+      "year": 2011,
+      "people": "Balakrishna, Nayanthara · Bapu"
+    },
+    {
+      "id": "ntr-kathanayakudu-2019",
+      "title": "NTR: Kathanayakudu",
+      "year": 2019,
+      "people": "Balakrishna · Krish"
+    },
+    {
+      "id": "yagnam-2004",
+      "title": "Yagnam",
+      "year": 2004,
+      "people": "Gopichand, Sameera Banerjee · A. S. Ravi Kumar Chowdary"
+    },
+    {
+      "id": "gaddalakonda-ganesh-2019",
+      "title": "Gaddalakonda Ganesh",
+      "year": 2019,
+      "people": "Varun Tej, Atharvaa · Harish Shankar"
+    },
+    {
+      "id": "ghani-2022",
+      "title": "Ghani",
+      "year": 2022,
+      "people": "Varun Tej · Kiran Korrapati"
+    },
+    {
+      "id": "sammohanam-2018",
+      "title": "Sammohanam",
+      "year": 2018,
+      "people": "Sudheer Babu, Aditi Rao Hydari · Mohana Krishna Indraganti"
+    },
+    {
+      "id": "kumari-21f-2015",
+      "title": "Kumari 21F",
+      "year": 2015,
+      "people": "Raj Tarun, Hebah Patel · Palnati Surya Pratap"
+    },
+    {
+      "id": "cinema-chupistha-maava-2015",
+      "title": "Cinema Chupistha Maava",
+      "year": 2015,
+      "people": "Raj Tarun, Avika Gor · Trinadha Rao Nakkina"
+    },
+    {
+      "id": "ninnu-choodalani-2001",
+      "title": "Ninnu Choodalani",
+      "year": 2001,
+      "people": "N. T. Rama Rao Jr. · V. R. Pratap"
+    },
+    {
+      "id": "subbu-2001",
+      "title": "Subbu",
+      "year": 2001,
+      "people": "N. T. Rama Rao Jr. · Rudraraju Suresh Varma"
+    },
+    {
+      "id": "allari-ramudu-2002",
+      "title": "Allari Ramudu",
+      "year": 2002,
+      "people": "N. T. Rama Rao Jr. · B. Gopal"
+    },
+    {
+      "id": "racha-2012",
+      "title": "Racha",
+      "year": 2012,
+      "people": "Ram Charan, Tamannaah · Sampath Nandi"
+    },
+    {
+      "id": "govindudu-andarivadele-2014",
+      "title": "Govindudu Andarivadele",
+      "year": 2014,
+      "people": "Ram Charan, Kajal Aggarwal · Krishna Vamsi"
+    },
+    {
+      "id": "bruce-lee-the-fighter-2015",
+      "title": "Bruce Lee: The Fighter",
+      "year": 2015,
+      "people": "Ram Charan · Srinu Vaitla"
+    },
+    {
+      "id": "vinaya-vidheya-rama-2019",
+      "title": "Vinaya Vidheya Rama",
+      "year": 2019,
+      "people": "Ram Charan · Boyapati Srinu"
+    },
+    {
+      "id": "acharya-2022",
+      "title": "Acharya",
+      "year": 2022,
+      "people": "Chiranjeevi, Ram Charan · Koratala Siva"
+    },
+    {
+      "id": "godfather-2022",
+      "title": "Godfather",
+      "year": 2022,
+      "people": "Chiranjeevi · Mohan Raja"
+    },
+    {
+      "id": "nota-2018",
+      "title": "NOTA",
+      "year": 2018,
+      "people": "Vijay Deverakonda · Anand Shankar"
+    },
+    {
+      "id": "solo-brathuke-so-better-2020",
+      "title": "Solo Brathuke So Better",
+      "year": 2020,
+      "people": "Sai Dharam Tej · Subbu"
+    },
+    {
+      "id": "akkada-ammayi-ikkada-abbayi-1996",
+      "title": "Akkada Ammayi Ikkada Abbayi",
+      "year": 1996,
+      "people": "Pawan Kalyan, Supriya · E. V. V. Satyanarayana"
+    },
+    {
+      "id": "aa-okkati-adakku-1992",
+      "title": "Aa Okkati Adakku",
+      "year": 1992,
+      "people": "Rajendra Prasad, Rambha · E. V. V. Satyanarayana"
+    },
+    {
+      "id": "kobbari-bondam-1991",
+      "title": "Kobbari Bondam",
+      "year": 1991,
+      "people": "Rajendra Prasad, Nirosha · Katragadda Ravi Teja"
+    },
+    {
+      "id": "anveshana-1985",
+      "title": "Anveshana",
+      "year": 1985,
+      "people": "Karthik, Bhanupriya · Vamsy"
+    },
+    {
+      "id": "sitara-1984",
+      "title": "Sitara",
+      "year": 1984,
+      "people": "Bhanupriya, Suman · Vamsy"
+    },
+    {
+      "id": "manchu-pallaki-1982",
+      "title": "Manchu Pallaki",
+      "year": 1982,
+      "people": "Chiranjeevi, Suhasini · Vamsy"
+    },
+    {
+      "id": "seetha-kalyanam-1976",
+      "title": "Seetha Kalyanam",
+      "year": 1976,
+      "people": "Ravi, Jayaprada · Bapu"
+    },
+    {
+      "id": "gulebakavali-katha-1962",
+      "title": "Gulebakavali Katha",
+      "year": 1962,
+      "people": "N. T. Rama Rao · N. T. Rama Rao"
+    },
+    {
+      "id": "pelli-chesi-choodu-1952",
+      "title": "Pelli Chesi Choodu",
+      "year": 1952,
+      "people": "N. T. Rama Rao, G. Varalakshmi · L. V. Prasad"
+    },
+    {
+      "id": "mooga-manasulu-1964",
+      "title": "Mooga Manasulu",
+      "year": 1964,
+      "people": "ANR, Savitri · Adurthi Subba Rao"
+    },
+    {
+      "id": "doctor-chakravarty-1964",
+      "title": "Doctor Chakravarty",
+      "year": 1964,
+      "people": "ANR, Savitri · Adurthi Subba Rao"
+    },
+    {
+      "id": "pandava-vanavasam-1965",
+      "title": "Pandava Vanavasam",
+      "year": 1965,
+      "people": "N. T. Rama Rao, Savitri · Kamalakara Kameswara Rao"
+    },
+    {
+      "id": "premabhishekam-1981",
+      "title": "Premabhishekam",
+      "year": 1981,
+      "people": "ANR, Sridevi · Dasari Narayana Rao"
+    },
+    {
+      "id": "megha-sandesam-1982",
+      "title": "Megha Sandesam",
+      "year": 1982,
+      "people": "ANR, Jaya Prada · Dasari Narayana Rao"
+    },
+    {
+      "id": "adavi-ramudu-1977",
+      "title": "Adavi Ramudu",
+      "year": 1977,
+      "people": "N. T. Rama Rao, Jaya Prada · K. Raghavendra Rao"
+    },
+    {
+      "id": "yamagola-1977",
+      "title": "Yamagola",
+      "year": 1977,
+      "people": "N. T. Rama Rao, Jaya Prada · Tatineni Rama Rao"
+    },
+    {
+      "id": "mosagallaku-mosagadu-1971",
+      "title": "Mosagallaku Mosagadu",
+      "year": 1971,
+      "people": "Krishna · K. S. R. Das"
+    },
+    {
+      "id": "muddula-mavayya-1989",
+      "title": "Muddula Mavayya",
+      "year": 1989,
+      "people": "Balakrishna, Vijayashanti · Kodi Ramakrishna"
+    },
+    {
+      "id": "lakshmi-narasimha-2004",
+      "title": "Lakshmi Narasimha",
+      "year": 2004,
+      "people": "Balakrishna, Asin · Jayanth C. Paranjee"
+    },
+    {
+      "id": "mee-sreyobhilashi-2007",
+      "title": "Mee Sreyobhilashi",
+      "year": 2007,
+      "people": "Rajendra Prasad · V. Eswar Reddy"
+    },
+    {
+      "id": "lakshyam-2007",
+      "title": "Lakshyam",
+      "year": 2007,
+      "people": "Gopichand, Anushka Shetty · Sriwass"
+    },
+    {
+      "id": "antariksham-9000-kmph-2018",
+      "title": "Antariksham 9000 KMPH",
+      "year": 2018,
+      "people": "Varun Tej, Aditi Rao Hydari · Sankalp Reddy"
+    },
+    {
+      "id": "bholaa-shankar-2023",
+      "title": "Bholaa Shankar",
+      "year": 2023,
+      "people": "Chiranjeevi · Meher Ramesh"
+    },
+    {
+      "id": "anji-2004",
+      "title": "Anji",
+      "year": 2004,
+      "people": "Chiranjeevi · Kodi Ramakrishna"
+    },
+    {
+      "id": "andarivaadu-2005",
+      "title": "Andarivaadu",
+      "year": 2005,
+      "people": "Chiranjeevi · Srinu Vaitla"
+    },
+    {
+      "id": "jai-chiranjeeva-2005",
+      "title": "Jai Chiranjeeva",
+      "year": 2005,
+      "people": "Chiranjeevi · K. Vijaya Bhaskar"
+    },
+    {
+      "id": "shankar-dada-zindabad-2007",
+      "title": "Shankar Dada Zindabad",
+      "year": 2007,
+      "people": "Chiranjeevi · Prabhu Deva"
+    },
+    {
+      "id": "daddy-2001",
+      "title": "Daddy",
+      "year": 2001,
+      "people": "Chiranjeevi · Suresh Krissna"
+    },
+    {
+      "id": "mrugaraju-2001",
+      "title": "Mrugaraju",
+      "year": 2001,
+      "people": "Chiranjeevi · Gunasekhar"
+    },
+    {
+      "id": "annayya-2000",
+      "title": "Annayya",
+      "year": 2000,
+      "people": "Chiranjeevi · Muthyala Subbaiah"
+    },
+    {
+      "id": "iddaru-mitrulu-1999",
+      "title": "Iddaru Mitrulu",
+      "year": 1999,
+      "people": "Chiranjeevi · K. Raghavendra Rao"
+    },
+    {
+      "id": "avunu-valliddaru-ishtapaddaru-2002",
+      "title": "Avunu Valliddaru Ishtapaddaru",
+      "year": 2002,
+      "people": "Ravi Teja, Kalyani · Vamsy"
+    },
+    {
+      "id": "money-1993",
+      "title": "Money",
+      "year": 1993,
+      "people": "J. D. Chakravarthy, Brahmanandam · Siva Nageswara Rao"
+    },
+    {
+      "id": "mr-pellam-1993",
+      "title": "Mr. Pellam",
+      "year": 1993,
+      "people": "Rajendra Prasad, Aamani · Bapu"
+    },
+    {
+      "id": "shavukaru-1950",
+      "title": "Shavukaru",
+      "year": 1950,
+      "people": "N. T. Rama Rao, Sowcar Janaki · L. V. Prasad"
+    },
+    {
+      "id": "dasara-bullodu-1971",
+      "title": "Dasara Bullodu",
+      "year": 1971,
+      "people": "ANR, Vanisri · V. B. Rajendra Prasad"
+    }
+  ]
+}
