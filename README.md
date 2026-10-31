@@ -16,7 +16,7 @@ npm run check    # what CI runs: ESLint, Prettier, tsc, tests, Ruff and a Jekyll
 _pages/           Site pages, one file per URL, including the Atom feed
 _books/           Book notes, one file per book, at /<title>/ and on /books
 _drafts/          Unpublished project posts; preview with `jekyll serve --drafts`
-_layouts/         default (page frame), book, books, movies, redirect
+_layouts/         default (page frame), book, books, movies
 _includes/        Header, footer and the movie card
 _plugins/         cache_bust.rb: version-stamps asset URLs on every build
 _data/            books.json and movies.json, read by Liquid at build time
@@ -29,7 +29,7 @@ assets/
   js/             One entry module per page; lib/ holds helpers they share
     travel/       The travel map: app.js wires map/, globe/, photos/,
                   itineraries/ and routes/; shared/ is used by more than one
-  data/           JSON fetched by the browser at runtime (travel/, athletics/, telugu/)
+  data/           JSON fetched by the browser at runtime (travel/, athletics/)
   images/         site/, projects/, books/, movies/ and travel/
   vendor/         Third-party libraries; versions in vendor/README.md
 scripts/          Python importers that write _data/ and assets/data/
@@ -45,8 +45,7 @@ builds, and `assets/data/` is downloaded by the page's JavaScript.
 
 Pages use the `default` layout and list their own `styles` and `modules` (ES modules)
 in front matter; `scripts` loads classic scripts such as the vendored libraries.
-`full_screen: true` drops the page frame and `base.css` for the travel map. Moved URLs
-use `redirect_from:`.
+`full_screen: true` drops the page frame and `base.css` for the travel map.
 
 Modules import each other with relative paths. `_plugins/cache_bust.rb` adds the
 build's version to every asset URL and writes an import map so imported modules get it

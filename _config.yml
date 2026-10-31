@@ -12,7 +12,6 @@ email: ganesh.jaladanki@gmail.com
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
-  - jekyll-redirect-from
 
 # Book notes: one file per book in _books/, listed on /books and served at /<title>/.
 collections:
@@ -47,9 +46,6 @@ exclude:
   - tests/
   - types/
   - pyproject.toml
-
-redirect_from:
-  json: false
 
 # The minifier's CSS compressor mangles custom properties inside calc()/max(),
 # e.g. var(--viewport-height) becomes var( -  - viewport - height), which drops
