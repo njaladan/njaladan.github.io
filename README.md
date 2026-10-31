@@ -29,7 +29,7 @@ assets/
   js/             One entry module per page; lib/ holds helpers they share
     travel/       The travel map: app.js wires map/, globe/, photos/,
                   itineraries/ and routes/; shared/ is used by more than one
-  data/           JSON fetched by the browser at runtime (travel/, athletics/)
+  data/           JSON fetched by the browser at runtime (travel/, athletics/, telugu/)
   images/         site/, projects/, books/, movies/ and travel/
   vendor/         Third-party libraries; versions in vendor/README.md
 scripts/          Python importers that write _data/ and assets/data/
