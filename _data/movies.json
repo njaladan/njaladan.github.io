@@ -4211,6 +4211,13 @@
       "year": "1977",
       "cover": "/assets/images/movies/0f759def4c29.webp",
       "art_source": "https://www.themoviedb.org/movie/80556"
+    },
+    {
+      "id": "fc1232267ecd",
+      "title": "Nightmare Alley",
+      "year": "2021",
+      "cover": "/assets/images/movies/fc1232267ecd.webp",
+      "art_source": "https://www.themoviedb.org/movie/597208-nightmare-alley"
     }
   ],
   "viewings": [
@@ -4759,7 +4766,8 @@
       "film_id": "6727e525d2d9",
       "date": "2023-07-17",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "76a4701bdae4",
@@ -5028,6 +5036,13 @@
       "group_year": "2021",
       "rewatch": false,
       "source": "user_recall"
+    },
+    {
+      "film_id": "fc1232267ecd",
+      "date": "2021-10-19",
+      "rewatch": false,
+      "source": "ticket",
+      "theater": true
     },
     {
       "film_id": "fede8bf62592",
