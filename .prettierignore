@@ -5,3 +5,4 @@ assets/vendor/
 assets/data/athletics/
 archive/
 package-lock.json
+scripts/street_coverage/state.json
