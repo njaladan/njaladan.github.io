@@ -4393,6 +4393,12 @@
       "theater": true
     },
     {
+      "film_id": "17e6fb442111",
+      "date": "2023-04-11",
+      "rewatch": false,
+      "source": "user_logged"
+    },
+    {
       "film_id": "dfe40771074e",
       "group_year": "2025",
       "rewatch": false,
@@ -4666,12 +4672,6 @@
       "date": "2023-01-05",
       "rewatch": false,
       "source": "film_club"
-    },
-    {
-      "film_id": "17e6fb442111",
-      "group_year": "2023",
-      "rewatch": false,
-      "source": "letterboxd"
     },
     {
       "film_id": "1a09176ca493",
