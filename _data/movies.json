@@ -4129,6 +4129,27 @@
       "art_source": "https://www.themoviedb.org/movie/80274-ender-s-game"
     },
     {
+      "id": "e1a4c7d92b05",
+      "title": "Mary Poppins",
+      "year": "1964",
+      "cover": "/assets/images/movies/e1a4c7d92b05.webp",
+      "art_source": "https://www.themoviedb.org/movie/433-mary-poppins"
+    },
+    {
+      "id": "2f9b6e8a3d71",
+      "title": "Mary Poppins Returns",
+      "year": "2018",
+      "cover": "/assets/images/movies/2f9b6e8a3d71.webp",
+      "art_source": "https://www.themoviedb.org/movie/400650-mary-poppins-returns"
+    },
+    {
+      "id": "8c5d0a3f7b19",
+      "title": "Freaky Friday",
+      "year": "2003",
+      "cover": "/assets/images/movies/8c5d0a3f7b19.webp",
+      "art_source": "https://www.themoviedb.org/movie/10330-freaky-friday"
+    },
+    {
       "id": "bbc97a54ae5f",
       "title": "Star Trek",
       "year": "2009",
@@ -6894,6 +6915,9 @@
     "9a2c4e6f1b78",
     "5d1e8a3c7f26",
     "a8d4f1b62e95",
-    "d6b3a7c0f142"
+    "d6b3a7c0f142",
+    "e1a4c7d92b05",
+    "2f9b6e8a3d71",
+    "8c5d0a3f7b19"
   ]
 }
