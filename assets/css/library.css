@@ -342,6 +342,9 @@
   line-height: 1.4;
   margin-top: 12px;
 }
+.title-end {
+  white-space: nowrap;
+}
 .theater-mark::before {
   content: '';
   display: inline-block;

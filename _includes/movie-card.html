@@ -4,5 +4,7 @@
     <div class="cover-fallback" aria-hidden="true"><span>{{ film.title | escape }}</span></div>
     {% if film.cover %}<img src="{{ film.cover | relative_url }}" alt="" width="300" height="450" loading="lazy" decoding="async">{% endif %}
   </div>
-  <span class="card-title" title="{{ film.title | escape }}">{% if film.title.size > 65 %}{{ film.title | truncatewords: 9, "…" | escape }}{% else %}{{ film.title | escape }}{% endif %}{% if include.theater %}<span class="theater-mark" title="Seen in a theater"><span class="visually-hidden">, seen in a theater</span></span>{% endif %}</span>
+  {%- if film.title.size > 65 %}{% assign shown = film.title | truncatewords: 9, "…" %}{% else %}{% assign shown = film.title %}{% endif %}
+  {%- comment %} The ticket holds onto the title's last word, so it never wraps onto a line alone. {% endcomment %}
+  <span class="card-title" title="{{ film.title | escape }}">{% if include.theater %}{% assign words = shown | split: ' ' %}{% assign lead = words.size | minus: 1 %}{% if lead > 0 %}{{ words | slice: 0, lead | join: ' ' | escape }} {% endif %}<span class="title-end">{{ words | last | escape }}<span class="theater-mark" title="Seen in a theater"><span class="visually-hidden">, seen in a theater</span></span></span>{% else %}{{ shown | escape }}{% endif %}</span>
 </article>
