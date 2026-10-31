@@ -4218,6 +4218,13 @@
       "year": "2021",
       "cover": "/assets/images/movies/fc1232267ecd.webp",
       "art_source": "https://www.themoviedb.org/movie/597208-nightmare-alley"
+    },
+    {
+      "id": "e69fe1c4716e",
+      "title": "Friday the 13th",
+      "year": "1980",
+      "cover": "/assets/images/movies/e69fe1c4716e.webp",
+      "art_source": "https://www.themoviedb.org/movie/4488-friday-the-13th"
     }
   ],
   "viewings": [
@@ -5611,6 +5618,18 @@
       "source": "movies_journal"
     },
     {
+      "film_id": "e69fe1c4716e",
+      "date": "2017-12-20",
+      "rewatch": false,
+      "source": "user_recall"
+    },
+    {
+      "film_id": "121bd5c9af8e",
+      "date": "2017-12-19",
+      "rewatch": false,
+      "source": "user_recall"
+    },
+    {
       "film_id": "b652eaa05f04",
       "date": "2017-12-14",
       "rewatch": false,
@@ -6953,7 +6972,6 @@
     "8c7df425d054",
     "9caab7159464",
     "c761abd920f3",
-    "121bd5c9af8e",
     "e2e81c87bf20",
     "5ccd215d9e69",
     "4c969d21362e",
