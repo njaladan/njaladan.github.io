@@ -4176,6 +4176,13 @@
       "year": "2021",
       "cover": "/assets/images/movies/46ad98ea5b70.webp",
       "art_source": "https://www.themoviedb.org/movie/628534-the-white-tiger"
+    },
+    {
+      "id": "6e0a8d4b2c97",
+      "title": "Ne Zha",
+      "year": "2019",
+      "cover": "/assets/images/movies/6e0a8d4b2c97.webp",
+      "art_source": "https://www.themoviedb.org/movie/615453-ne-zha"
     }
   ],
   "viewings": [
@@ -4994,6 +5001,12 @@
       "date": "2021-03-11",
       "rewatch": false,
       "source": "letterboxd"
+    },
+    {
+      "film_id": "6e0a8d4b2c97",
+      "group_year": "2021",
+      "rewatch": false,
+      "source": "user_recall"
     },
     {
       "film_id": "8e585f5c4532",
