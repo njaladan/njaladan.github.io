@@ -5621,6 +5621,13 @@
       "source": "prime_video"
     },
     {
+      "film_id": "c25bbbf25d81",
+      "date": "2017-11-09",
+      "rewatch": false,
+      "source": "ticket",
+      "theater": true
+    },
+    {
       "film_id": "f0b4a2b3f27a",
       "date": "2017-10-21",
       "rewatch": false,
@@ -5802,13 +5809,6 @@
       "date": "2017-01-13",
       "rewatch": false,
       "source": "prime_video"
-    },
-    {
-      "film_id": "c25bbbf25d81",
-      "group_year": "2017",
-      "rewatch": false,
-      "source": "user_recall",
-      "theater": true
     },
     {
       "film_id": "7d56644e3630",
