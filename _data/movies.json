@@ -4080,6 +4080,13 @@
       "art_source": "https://www.themoviedb.org/movie/568-apollo-13"
     },
     {
+      "id": "3f8b6d2e5a14",
+      "title": "KPop Demon Hunters",
+      "year": "2025",
+      "cover": "/assets/images/movies/3f8b6d2e5a14.webp",
+      "art_source": "https://www.themoviedb.org/movie/803796-kpop-demon-hunters"
+    },
+    {
       "id": "bbc97a54ae5f",
       "title": "Star Trek",
       "year": "2009",
@@ -6809,6 +6816,7 @@
     "6112d92bb27b",
     "015778a1185c",
     "45e0655aabd9",
-    "e7a05b3c91d2"
+    "e7a05b3c91d2",
+    "3f8b6d2e5a14"
   ]
 }
