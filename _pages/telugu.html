@@ -1,0 +1,50 @@
+---
+layout: default
+title: Telugu Movies
+description: "Which Telugu movies have I seen? Five hundred guesses, most likely first."
+permalink: /telugu/
+sitemap: false
+styles: [/assets/css/telugu.css]
+modules: [/assets/js/telugu.js]
+---
+<header class="telugu-header">
+  <p class="eyebrow">Telugu checklist</p>
+  <h1>Seen it?</h1>
+  <p class="page-intro">Five hundred Telugu films, ordered from the ones I most likely saw to the ones I least likely did. Answers are saved in this browser.</p>
+</header>
+
+<section id="telugu" class="telugu" data-films-url="{{ '/assets/data/telugu/films.json' | relative_url }}" aria-label="Telugu movie checklist">
+  <div class="telugu-tally" aria-live="polite">
+    <p class="telugu-count"><span id="telugu-seen">0</span> <span class="telugu-count-label">seen</span></p>
+    <p class="telugu-progress-text"><span id="telugu-answered">0</span> of <span id="telugu-total">500</span> answered</p>
+    <div class="telugu-progress" aria-hidden="true"><span id="telugu-bar"></span></div>
+  </div>
+
+  <article id="telugu-card" class="telugu-card" hidden>
+    <p class="telugu-rank" id="telugu-rank"></p>
+    <h2 id="telugu-title"></h2>
+    <p class="telugu-people" id="telugu-people"></p>
+    <a id="telugu-lookup" class="telugu-lookup" target="_blank" rel="noopener">Look it up ↗</a>
+    <div class="telugu-buttons">
+      <button type="button" class="telugu-no" data-answer="no">No <kbd>N</kbd></button>
+      <button type="button" class="telugu-unsure" data-answer="unsure">Not sure <kbd>S</kbd></button>
+      <button type="button" class="telugu-yes" data-answer="yes">Yes <kbd>Y</kbd></button>
+    </div>
+  </article>
+
+  <p id="telugu-done" class="telugu-done" hidden></p>
+
+  <div class="telugu-tools">
+    <button type="button" id="telugu-undo" disabled>Undo <kbd>U</kbd></button>
+    <button type="button" id="telugu-copy">Copy seen list</button>
+    <button type="button" id="telugu-export">Copy progress</button>
+    <button type="button" id="telugu-import">Paste progress</button>
+    <span id="telugu-status" class="telugu-status" role="status"></span>
+  </div>
+
+  <details class="telugu-seen-list">
+    <summary>Seen so far</summary>
+    <ol id="telugu-seen-list"></ol>
+  </details>
+</section>
+<noscript><p>Enable JavaScript to use the checklist.</p></noscript>
