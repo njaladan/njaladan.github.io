@@ -1,21 +1,23 @@
-"""Rebuild the Manhattan coverage page's data from a Strava export.
+"""Rebuild the Manhattan coverage page's data from a full Strava export.
 
     python -m scripts.street_coverage.build EXPORT/activities [new_ride.fit ...] [--cache DIR]
 
-Writes _data/manhattan_coverage.json (the figures, rendered into the page) and
-assets/data/athletics/manhattan.json (the map), then prints what the newest day added.
-Published rides dated after everything given here are carried over from the current
-map, so a ride added earlier isn't lost when it's missing from a fresh export.
+Writes _data/manhattan_coverage.json (the figures, rendered into the page),
+assets/data/athletics/manhattan.json (the map) and state.json (what later rides are
+added to with add.py), then prints what the newest day added. Published rides dated
+after everything given here are carried over from the current map, so a ride added
+earlier isn't lost when it's missing from a fresh export.
 """
 
 import argparse
 import json
-from datetime import date
+from datetime import date, timedelta
+from pathlib import Path
 
 import numpy as np
 
 from scripts.common.paths import ATHLETICS_DATA, DATA
-from scripts.street_coverage import activities, coverage, display, network
+from scripts.street_coverage import activities, coverage, display, network, state
 
 SUMMARY = DATA / "manhattan_coverage.json"
 MAP = ATHLETICS_DATA / "manhattan.json"
@@ -52,15 +54,16 @@ def carried_over(after, origin):
     ]
 
 
-def summary(cov, covered_by_year, bands):
+def summary(cov, first, latest, bands):
     total = np.ones(len(cov.segs), bool)
-    final = covered_by_year[max(covered_by_year)]
+    final = cov.covered(first, latest)
     pct = lambda mask: round(100 * cov.km(mask) / cov.km(total), 2)  # noqa: E731
+    years = range(FIRST_YEAR_SHOWN, int(latest[:4]) + 1)
     return {
-        "asOf": date.today().isoformat(),
+        "asOf": latest,
         "now": pct(final),
         "km": [round(cov.km(final), 1), round(cov.km(total), 1)],
-        "years": {str(y): pct(c) for y, c in sorted(covered_by_year.items()) if y >= FIRST_YEAR_SHOWN},
+        "years": {str(y): pct(cov.covered(first, f"{y}-12-31")) for y in years},
         "bands": [
             {"name": name, "done": round(cov.km(mask & final), 1), "total": round(cov.km(mask), 1)}
             for name, mask in bands.items()
@@ -68,14 +71,18 @@ def summary(cov, covered_by_year, bands):
     }
 
 
-def report(cov, dates, final, before):
-    gained = final & ~before
+def day_before(d):
+    return (date.fromisoformat(d) - timedelta(days=1)).isoformat()
+
+
+def report(cov, label, before, after):
+    gained = after & ~before
     names = sorted({s.name for s, g in zip(cov.segs, gained, strict=True) if g and s.name})
-    total = cov.km(np.ones_like(final))
+    total = cov.km(np.ones_like(after))
     print(
-        f"{dates[-1]}: +{cov.km(gained):.1f} km, "
-        f"{100 * cov.km(before) / total:.2f}% -> {100 * cov.km(final) / total:.2f}% "
-        f"({cov.km(final):.1f} of {total:.1f} km)"
+        f"{label}: +{cov.km(gained):.1f} km, "
+        f"{100 * cov.km(before) / total:.2f}% -> {100 * cov.km(after) / total:.2f}% "
+        f"({cov.km(after):.1f} of {total:.1f} km)"
     )
     if names:
         print("  " + ", ".join(names))
@@ -99,6 +106,29 @@ def map_data(boundary, segs, final, tracks):
     }
 
 
+def snapped(boundary, acts, xy):
+    """Map tracks for new activities: their Manhattan pieces, snapped and encoded."""
+    origin = np.array(boundary.bounds[:2])
+    snapper = display.Snapper(network.load_ways())
+    tracks = []
+    for a, p in zip(acts, xy, strict=True):
+        pieces = [snapper.snap(piece) for piece in display.clip(boundary, p)]
+        if pieces:
+            tracks.append({"d": a.date, "b": int(a.bike), "p": [display.encode(s, origin, Q, 1.2) for s in pieces]})
+    return tracks
+
+
+def write(boundary, cov, first, latest, tracks, added):
+    tracks = sorted(tracks, key=lambda t: t["d"])
+    final = cov.covered(first, latest)
+    figures = summary(cov, first, latest, coverage.bands(cov.segs))
+    SUMMARY.write_text(json.dumps(figures, indent=2, ensure_ascii=False) + "\n")
+    MAP.write_text(json.dumps(map_data(boundary, cov.segs, final, tracks), separators=(",", ":")) + "\n")
+    state.save(cov.samples, first, latest, added)
+    size = MAP.stat().st_size // 1024
+    print(f"wrote {SUMMARY.name}, {state.PATH.name} and {MAP.name} ({size} KB, {len(tracks)} tracks)")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("sources", nargs="+", help="Strava export activities folders or single activity files")
@@ -112,32 +142,17 @@ def main():
     keep = dedupe(acts, xy)
     acts, xy = [acts[i] for i in keep], [xy[i] for i in keep]
     extra = carried_over(acts[-1].date, origin)
-    dates = [a.date for a in acts] + [t["d"] for t in extra]
-    # Hit-test each piece on its own: a carried-over track is already split at its gaps.
-    pieces = [(i, p) for i, p in enumerate(xy)] + [(len(acts) + k, p) for k, t in enumerate(extra) for p in t["xy"]]
-    segs = network.segments(boundary)
-    cov = coverage.Coverage(segs, [p for _, p in pieces])
+    # A carried-over track is already split at its gaps, so each piece is hit-tested on its own.
+    pieces = xy + [p for t in extra for p in t["xy"]]
+    dates = [a.date for a in acts] + [t["d"] for t in extra for _ in t["xy"]]
+    cov = coverage.Coverage(network.segments(boundary))
+    first = cov.first_hits(pieces, dates)
+    latest = max(dates)
+    report(cov, latest, cov.covered(first, day_before(latest)), cov.covered(first, latest))
 
-    def upto(test):
-        return cov.covered([j for j, (i, _) in enumerate(pieces) if test(dates[i])])
-
-    first, last = int(dates[0][:4]), int(dates[-1][:4])
-    years = {y: upto(lambda d, y=str(y): d[:4] <= y) for y in range(first, last + 1)}
-    final = years[max(years)]
-    report(cov, dates, final, upto(lambda d: d < dates[-1]))
-
-    snapper = display.Snapper(network.load_ways())
-    tracks = []
-    for a, p in zip(acts, xy, strict=True):
-        pieces = [snapper.snap(piece) for piece in display.clip(boundary, p)]
-        if pieces:
-            tracks.append({"d": a.date, "b": int(a.bike), "p": [display.encode(s, origin, Q, 1.2) for s in pieces]})
-    tracks += [{"d": t["d"], "b": t["b"], "p": t["p"]} for t in extra]
-    tracks.sort(key=lambda t: t["d"])
-
-    SUMMARY.write_text(json.dumps(summary(cov, years, coverage.bands(segs)), indent=2, ensure_ascii=False) + "\n")
-    MAP.write_text(json.dumps(map_data(boundary, segs, final, tracks), separators=(",", ":")) + "\n")
-    print(f"wrote {SUMMARY} and {MAP} ({MAP.stat().st_size // 1024} KB, {len(tracks)} tracks)")
+    tracks = snapped(boundary, acts, xy) + [{"d": t["d"], "b": t["b"], "p": t["p"]} for t in extra]
+    added = [state.file_hash(p) for p in map(Path, args.sources) if p.is_file()]
+    write(boundary, cov, first, latest, tracks, added)
 
 
 if __name__ == "__main__":

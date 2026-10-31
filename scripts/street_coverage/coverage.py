@@ -37,27 +37,42 @@ def densify(xy):
 
 
 class Coverage:
-    """Hit tests the segment samples against any subset of the activities."""
+    """Hit tests the segment samples against tracks, one track at a time, so the date each
+    sample was first hit can be kept and later tracks added without the earlier ones."""
 
-    def __init__(self, segs, tracks):
+    def __init__(self, segs):
         self.segs = segs
         self.samples = np.vstack([s.samples for s in segs])
         self.bearings = np.concatenate([s.bearings for s in segs])
         self.owner = np.repeat(np.arange(len(segs)), [len(s.samples) for s in segs])
         self.lengths = np.array([s.length for s in segs], float)
-        self.tracks = [densify(t) for t in tracks]
+        self.tree = cKDTree(self.samples)
 
-    def covered(self, which):
-        """Boolean per segment, for the tracks at indices `which`."""
-        parts = [self.tracks[i] for i in which if len(self.tracks[i][0])]
+    def hits(self, xy):
+        """Boolean per sample: hit by this track."""
         hit = np.zeros(len(self.samples), bool)
-        if parts:
-            pts = np.vstack([p for p, _ in parts])
-            headings = np.concatenate([h for _, h in parts])
-            for j, near in enumerate(cKDTree(pts).query_ball_point(self.samples, HIT_M)):
-                if near:
-                    diff = np.abs((headings[near] - self.bearings[j] + np.pi / 2) % np.pi - np.pi / 2)
-                    hit[j] = (diff < HIT_ANGLE).any()
+        pts, headings = densify(xy)
+        if not len(pts):
+            return hit
+        for p, h in zip(self.tree.query_ball_point(pts, HIT_M), headings, strict=True):
+            if p:
+                p = np.array(p)
+                diff = np.abs((self.bearings[p] - h + np.pi / 2) % np.pi - np.pi / 2)
+                hit[p[diff < HIT_ANGLE]] = True
+        return hit
+
+    def first_hits(self, tracks, dates, first=None):
+        """Per sample, the earliest date (YYYY-MM-DD) any track hit it, or "" if none did,
+        starting from an earlier `first`."""
+        first = np.full(len(self.samples), "", "U10") if first is None else first.copy()
+        for xy, date in zip(tracks, dates, strict=True):
+            hit = self.hits(xy) & ((first == "") | (first > date))
+            first[hit] = date
+        return first
+
+    def covered(self, first, upto):
+        """Boolean per segment, counting the samples first hit on or before `upto`."""
+        hit = (first != "") & (first <= upto)
         share = np.bincount(self.owner, hit, len(self.segs)) / np.bincount(self.owner, minlength=len(self.segs))
         return self.drop_small(share >= COVERED_SHARE)
 
