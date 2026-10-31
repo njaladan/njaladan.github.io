@@ -4057,6 +4057,13 @@
       "year": "2019",
       "cover": "/assets/images/movies/484dd7b38350.webp",
       "art_source": "https://www.themoviedb.org/movie/559969-el-camino-a-breaking-bad-movie"
+    },
+    {
+      "id": "4119acb7885a",
+      "title": "A Real Pain",
+      "year": "2024",
+      "cover": "/assets/images/movies/4119acb7885a.webp",
+      "art_source": "https://www.themoviedb.org/movie/1013850-a-real-pain"
     }
   ],
   "viewings": [
@@ -4357,6 +4364,12 @@
     {
       "film_id": "9b1149a0fcba",
       "date": "2025-07-18",
+      "rewatch": false,
+      "source": "user_logged"
+    },
+    {
+      "film_id": "4119acb7885a",
+      "date": "2025-03-22",
       "rewatch": false,
       "source": "user_logged"
     },
