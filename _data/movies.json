@@ -4937,7 +4937,8 @@
       "film_id": "bcb6dd537253",
       "group_year": "2021",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "f10bae19c8c7",
