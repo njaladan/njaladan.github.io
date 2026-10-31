@@ -1191,11 +1191,6 @@
       "art_source": "https://www.themoviedb.org/movie/13310-lat-den-ratte-komma-in"
     },
     {
-      "id": "cc6ddb92f8d7",
-      "title": "Nathan for You: Finding Frances",
-      "year": "2017"
-    },
-    {
       "id": "005e8e44d612",
       "title": "Hot Fuzz",
       "year": "2007",
@@ -4897,10 +4892,24 @@
       "source": "user_recall"
     },
     {
+      "film_id": "4bdce34515b5",
+      "date": "2022-12-08",
+      "rewatch": false,
+      "source": "ticket",
+      "theater": true
+    },
+    {
       "film_id": "0f759def4c29",
       "date": "2022-11-11",
       "rewatch": false,
       "source": "user_recall",
+      "theater": true
+    },
+    {
+      "film_id": "cb46cad7879e",
+      "date": "2022-10-31",
+      "rewatch": false,
+      "source": "ticket",
       "theater": true
     },
     {
@@ -4953,13 +4962,6 @@
       "source": "letterboxd"
     },
     {
-      "film_id": "cb46cad7879e",
-      "group_year": "2022",
-      "rewatch": false,
-      "source": "letterboxd",
-      "theater": true
-    },
-    {
       "film_id": "7d5165471a3f",
       "group_year": "2022",
       "rewatch": false,
@@ -4978,12 +4980,6 @@
       "rewatch": false,
       "source": "letterboxd",
       "theater": true
-    },
-    {
-      "film_id": "4bdce34515b5",
-      "group_year": "2022",
-      "rewatch": false,
-      "source": "letterboxd"
     },
     {
       "film_id": "56ae65da4f3d",
