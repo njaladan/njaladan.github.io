@@ -4524,7 +4524,8 @@
       "film_id": "3113efc0474f",
       "date": "2025-04-05",
       "rewatch": false,
-      "source": "user_recall"
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "4119acb7885a",
