@@ -4197,6 +4197,13 @@
       "year": "2007",
       "cover": "/assets/images/movies/9b6c2e4f8a50.webp",
       "art_source": "https://www.themoviedb.org/movie/2270-stardust"
+    },
+    {
+      "id": "3113efc0474f",
+      "title": "Black Bag",
+      "year": "2025",
+      "cover": "/assets/images/movies/3113efc0474f.webp",
+      "art_source": "https://www.themoviedb.org/movie/1233575-black-bag"
     }
   ],
   "viewings": [
@@ -4512,6 +4519,12 @@
       "date": "2025-07-18",
       "rewatch": false,
       "source": "user_logged"
+    },
+    {
+      "film_id": "3113efc0474f",
+      "date": "2025-04-05",
+      "rewatch": false,
+      "source": "user_recall"
     },
     {
       "film_id": "4119acb7885a",
