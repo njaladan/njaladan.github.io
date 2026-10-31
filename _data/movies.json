@@ -4050,6 +4050,76 @@
       "year": "2015",
       "cover": "/assets/images/movies/caf168add9ed.webp",
       "art_source": "https://www.themoviedb.org/movie/105864-the-good-dinosaur"
+    },
+    {
+      "id": "484dd7b38350",
+      "title": "El Camino: A Breaking Bad Movie",
+      "year": "2019",
+      "cover": "/assets/images/movies/484dd7b38350.webp",
+      "art_source": "https://www.themoviedb.org/movie/559969-el-camino-a-breaking-bad-movie"
+    },
+    {
+      "id": "4119acb7885a",
+      "title": "A Real Pain",
+      "year": "2024",
+      "cover": "/assets/images/movies/4119acb7885a.webp",
+      "art_source": "https://www.themoviedb.org/movie/1013850-a-real-pain"
+    },
+    {
+      "id": "c4d9e2a17b53",
+      "title": "Wake Up Dead Man: A Knives Out Mystery",
+      "year": "2025",
+      "cover": "/assets/images/movies/c4d9e2a17b53.webp",
+      "art_source": "https://www.themoviedb.org/movie/812583-wake-up-dead-man-a-knives-out-mystery"
+    },
+    {
+      "id": "e7a05b3c91d2",
+      "title": "Apollo 13",
+      "year": "1995",
+      "cover": "/assets/images/movies/e7a05b3c91d2.webp",
+      "art_source": "https://www.themoviedb.org/movie/568-apollo-13"
+    },
+    {
+      "id": "3f8b6d2e5a14",
+      "title": "KPop Demon Hunters",
+      "year": "2025",
+      "cover": "/assets/images/movies/3f8b6d2e5a14.webp",
+      "art_source": "https://www.themoviedb.org/movie/803796-kpop-demon-hunters"
+    },
+    {
+      "id": "9a2c4e6f1b78",
+      "title": "The Trial of the Chicago 7",
+      "year": "2020",
+      "cover": "/assets/images/movies/9a2c4e6f1b78.webp",
+      "art_source": "https://www.themoviedb.org/movie/556984-the-trial-of-the-chicago-7"
+    },
+    {
+      "id": "5d1e8a3c7f26",
+      "title": "Molly's Game",
+      "year": "2017",
+      "cover": "/assets/images/movies/5d1e8a3c7f26.webp",
+      "art_source": "https://www.themoviedb.org/movie/396371-molly-s-game"
+    },
+    {
+      "id": "bbc97a54ae5f",
+      "title": "Star Trek",
+      "year": "2009",
+      "cover": "/assets/images/movies/bbc97a54ae5f.webp",
+      "art_source": "https://www.themoviedb.org/movie/13475-star-trek"
+    },
+    {
+      "id": "808ba38373f7",
+      "title": "Star Trek Into Darkness",
+      "year": "2013",
+      "cover": "/assets/images/movies/808ba38373f7.webp",
+      "art_source": "https://www.themoviedb.org/movie/54138-star-trek-into-darkness"
+    },
+    {
+      "id": "421464342781",
+      "title": "Star Trek Beyond",
+      "year": "2016",
+      "cover": "/assets/images/movies/421464342781.webp",
+      "art_source": "https://www.themoviedb.org/movie/188927-star-trek-beyond"
     }
   ],
   "viewings": [
@@ -4348,8 +4418,21 @@
       "theater": true
     },
     {
+      "film_id": "c4d9e2a17b53",
+      "date": "2025-10-08",
+      "rewatch": false,
+      "source": "user_recall",
+      "theater": true
+    },
+    {
       "film_id": "9b1149a0fcba",
       "date": "2025-07-18",
+      "rewatch": false,
+      "source": "user_logged"
+    },
+    {
+      "film_id": "4119acb7885a",
+      "date": "2025-03-22",
       "rewatch": false,
       "source": "user_logged"
     },
@@ -4624,6 +4707,12 @@
       "theater": true
     },
     {
+      "film_id": "17e6fb442111",
+      "date": "2023-04-11",
+      "rewatch": false,
+      "source": "user_logged"
+    },
+    {
       "film_id": "969ad72f2ac8",
       "date": "2023-03-04",
       "rewatch": false,
@@ -4661,12 +4750,6 @@
       "source": "film_club"
     },
     {
-      "film_id": "17e6fb442111",
-      "group_year": "2023",
-      "rewatch": false,
-      "source": "letterboxd"
-    },
-    {
       "film_id": "1a09176ca493",
       "group_year": "2023",
       "rewatch": false,
@@ -4693,6 +4776,12 @@
       "theater": true
     },
     {
+      "film_id": "2d75d5db5ab5",
+      "date": "2022-08-04",
+      "rewatch": false,
+      "source": "user_logged"
+    },
+    {
       "film_id": "1a332ea12e60",
       "date": "2022-05-30",
       "rewatch": false,
@@ -4709,6 +4798,12 @@
       "date": "2022-03-29",
       "rewatch": false,
       "source": "prime_video"
+    },
+    {
+      "film_id": "484dd7b38350",
+      "date": "2022-02-11",
+      "rewatch": false,
+      "source": "user_logged"
     },
     {
       "film_id": "613d7895893a",
@@ -4856,7 +4951,8 @@
       "film_id": "bcb6dd537253",
       "group_year": "2021",
       "rewatch": false,
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "f10bae19c8c7",
@@ -5717,6 +5813,13 @@
       "source": "prime_video"
     },
     {
+      "film_id": "421464342781",
+      "date": "2016-08-06",
+      "rewatch": false,
+      "source": "user_recall",
+      "theater": true
+    },
+    {
       "film_id": "f755e1c0d7c7",
       "date": "2016-07-15",
       "rewatch": false,
@@ -6032,6 +6135,12 @@
       "rewatch": false,
       "source": "theater_release",
       "theater": true
+    },
+    {
+      "film_id": "ac9fcde19da5",
+      "group_year": "2014",
+      "rewatch": false,
+      "source": "user_recall"
     },
     {
       "film_id": "cf21864268e9",
@@ -6644,7 +6753,6 @@
     "eb1335c7248a",
     "184f832c0afe",
     "434fe6cb30dc",
-    "2d75d5db5ab5",
     "99b827206bb2",
     "d9b78076ff3c",
     "3ecc6e6a7260",
@@ -6671,6 +6779,8 @@
     "357622d4d16b",
     "3699462c1ca7",
     "5b089cd3a86c",
+    "bbc97a54ae5f",
+    "808ba38373f7",
     "2b96fe2bb8d6",
     "430dd13c62ad",
     "ecd6853b34b7",
@@ -6680,7 +6790,6 @@
     "36c1cc08f30b",
     "784d6246e3cd",
     "8c7df425d054",
-    "ac9fcde19da5",
     "9caab7159464",
     "c761abd920f3",
     "121bd5c9af8e",
@@ -6721,6 +6830,10 @@
     "7dba718d5d8c",
     "6112d92bb27b",
     "015778a1185c",
-    "45e0655aabd9"
+    "45e0655aabd9",
+    "e7a05b3c91d2",
+    "3f8b6d2e5a14",
+    "9a2c4e6f1b78",
+    "5d1e8a3c7f26"
   ]
 }
