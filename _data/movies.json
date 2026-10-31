@@ -4393,12 +4393,6 @@
       "theater": true
     },
     {
-      "film_id": "17e6fb442111",
-      "date": "2023-04-11",
-      "rewatch": false,
-      "source": "user_logged"
-    },
-    {
       "film_id": "dfe40771074e",
       "group_year": "2025",
       "rewatch": false,
@@ -4635,6 +4629,12 @@
       "rewatch": false,
       "source": "movies_journal",
       "theater": true
+    },
+    {
+      "film_id": "17e6fb442111",
+      "date": "2023-04-11",
+      "rewatch": false,
+      "source": "user_logged"
     },
     {
       "film_id": "969ad72f2ac8",
