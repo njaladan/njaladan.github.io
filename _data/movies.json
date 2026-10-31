@@ -4204,6 +4204,13 @@
       "year": "2025",
       "cover": "/assets/images/movies/3113efc0474f.webp",
       "art_source": "https://www.themoviedb.org/movie/1233575-black-bag"
+    },
+    {
+      "id": "0f759def4c29",
+      "title": "The Chess Players",
+      "year": "1977",
+      "cover": "/assets/images/movies/0f759def4c29.webp",
+      "art_source": "https://www.themoviedb.org/movie/80556"
     }
   ],
   "viewings": [
@@ -4864,6 +4871,13 @@
       "group_year": "2023",
       "rewatch": false,
       "source": "user_recall"
+    },
+    {
+      "film_id": "0f759def4c29",
+      "date": "2022-11-11",
+      "rewatch": false,
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "68763cf0e9f9",
