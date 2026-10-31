@@ -4108,6 +4108,13 @@
       "art_source": "https://www.themoviedb.org/movie/29154-stand-and-deliver"
     },
     {
+      "id": "7c2f9a4e6d18",
+      "title": "Materialists",
+      "year": "2025",
+      "cover": "/assets/images/movies/7c2f9a4e6d18.webp",
+      "art_source": "https://www.themoviedb.org/movie/1136867-materialists"
+    },
+    {
       "id": "bbc97a54ae5f",
       "title": "Star Trek",
       "year": "2009",
@@ -4430,6 +4437,12 @@
       "rewatch": false,
       "source": "letterboxd",
       "theater": true
+    },
+    {
+      "film_id": "7c2f9a4e6d18",
+      "date": "2025-11-18",
+      "rewatch": false,
+      "source": "user_logged"
     },
     {
       "film_id": "c4d9e2a17b53",
