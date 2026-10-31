@@ -4066,6 +4066,13 @@
       "art_source": "https://www.themoviedb.org/movie/1013850-a-real-pain"
     },
     {
+      "id": "c4d9e2a17b53",
+      "title": "Wake Up Dead Man: A Knives Out Mystery",
+      "year": "2025",
+      "cover": "/assets/images/movies/c4d9e2a17b53.webp",
+      "art_source": "https://www.themoviedb.org/movie/812583-wake-up-dead-man-a-knives-out-mystery"
+    },
+    {
       "id": "bbc97a54ae5f",
       "title": "Star Trek",
       "year": "2009",
@@ -4380,6 +4387,13 @@
       "date": "2025-11-30",
       "rewatch": false,
       "source": "letterboxd",
+      "theater": true
+    },
+    {
+      "film_id": "c4d9e2a17b53",
+      "date": "2025-10-08",
+      "rewatch": false,
+      "source": "user_recall",
       "theater": true
     },
     {
