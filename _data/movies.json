@@ -4122,6 +4122,13 @@
       "art_source": "https://www.themoviedb.org/movie/157354-fruitvale-station"
     },
     {
+      "id": "d6b3a7c0f142",
+      "title": "Ender's Game",
+      "year": "2013",
+      "cover": "/assets/images/movies/d6b3a7c0f142.webp",
+      "art_source": "https://www.themoviedb.org/movie/80274-ender-s-game"
+    },
+    {
       "id": "bbc97a54ae5f",
       "title": "Star Trek",
       "year": "2009",
@@ -6886,6 +6893,7 @@
     "3f8b6d2e5a14",
     "9a2c4e6f1b78",
     "5d1e8a3c7f26",
-    "a8d4f1b62e95"
+    "a8d4f1b62e95",
+    "d6b3a7c0f142"
   ]
 }
