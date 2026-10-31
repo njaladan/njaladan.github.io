@@ -1,6 +1,6 @@
 // Books and movies pages: shelve the cards into year groups, fold movie years to a strip,
-// search movies by title, mark the year in view, tilt covers toward the pointer, and open
-// notes as a book.
+// search movies by title or narrow them to theater viewings, mark the year in view, tilt
+// covers toward the pointer, and open notes as a book.
 import { $, $$ } from './lib/dom.js';
 import {
   installBackToTop,
@@ -40,8 +40,8 @@ const FOLD_MS = 420;
 const FOLD_EASE = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
 // How long what a fold hides takes to fade out before the covers move.
 const FADE_MS = 160;
-// The search box's value in the address, as `?q=`.
-const SEARCH_DEFAULTS = { q: '' };
+// The search box's value and the theater toggle in the address, as `?q=` and `?theater=1`.
+const SEARCH_DEFAULTS = { q: '', theater: '' };
 // The furthest the years below slide to their new place; further than this, they rise or
 // drop just this far and fade in, rather than racing a long way across the screen.
 const SETTLE_PX = 48;
@@ -299,66 +299,97 @@ function installFolding(shelf) {
 }
 
 /**
- * Narrows the shelves to the cards whose titles match the search box: every year with a
- * match opens in full, the rest step aside along with their links, and clearing it folds
- * the years back as the reader left them. Kept in the address as `?q=`.
+ * Hides the cards whose titles miss `query`, or that were not seen in a theater when
+ * `onlyTheater`, and gives the films still on show.
+ * @param {HTMLElement[]} cards
+ * @param {string} query
+ * @param {boolean} onlyTheater
+ */
+function narrowCards(cards, query, onlyTheater) {
+  /** @type {Set<string | undefined>} */
+  const found = new Set();
+  for (const card of cards) {
+    card.hidden =
+      !matchesQuery(card.dataset.title ?? '', query) ||
+      (onlyTheater && !('theater' in card.dataset));
+    if (!card.hidden) found.add(card.dataset.filmId);
+  }
+  return found;
+}
+
+/**
+ * Narrows the shelves to the cards whose titles match the search box and, with the theater
+ * toggle pressed, to those seen in a theater: every year with a match opens in full, the
+ * rest step aside along with their links, and clearing both folds the years back as the
+ * reader left them. Kept in the address as `?q=` and `?theater=1`.
  * @param {Shelf} shelf
  * @param {HTMLElement} root
  */
 function installSearch(shelf, root) {
   const input = $('[data-search]', root);
   if (!(input instanceof HTMLInputElement)) return;
+  const theater = $('[data-theater-toggle]', root);
   const count = $('[data-count]', root);
   const empty = $('[data-search-empty]', root);
   const films = new Set(shelf.cards.map(card => card.dataset.filmId)).size;
   let searching = false;
 
+  const theaterOnly = () => theater?.getAttribute('aria-pressed') === 'true';
   const apply = () => {
     const query = input.value.trim();
+    const onlyTheater = theaterOnly();
+    const filtering = Boolean(query) || onlyTheater;
     const sections = $$('.library-group', shelf.groups);
-    /** @type {Set<string | undefined>} */
-    const found = new Set();
-    for (const card of shelf.cards) {
-      card.hidden = !matchesQuery(card.dataset.title ?? '', query);
-      if (!card.hidden) found.add(card.dataset.filmId);
-    }
+    const found = narrowCards(shelf.cards, query, onlyTheater);
     for (const section of sections) {
       section.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
       delete section.dataset.fading;
       section.hidden = !$$('.library-card', section).some(card => !card.hidden);
       const link = $(`a[href="#${section.id}"]`, shelf.nav);
       if (link) link.hidden = section.hidden;
-      // Searching opens every year; clearing folds them back as the reader left them.
-      if (shelf.folds && (query || searching)) {
-        setFolded(section, !query && !shelf.opened.has(section.dataset.key ?? ''));
+      // Filtering opens every year; clearing folds them back as the reader left them.
+      if (shelf.folds && (filtering || searching)) {
+        setFolded(section, !filtering && !shelf.opened.has(section.dataset.key ?? ''));
       }
     }
-    searching = Boolean(query);
+    searching = filtering;
     root.toggleAttribute('data-searching', searching);
     if (count) {
-      count.textContent = query ? `${found.size} of ${films} movies` : `${films} movies`;
+      count.textContent = filtering ? `${found.size} of ${films} movies` : `${films} movies`;
     }
     if (empty) {
-      empty.hidden = !query || found.size > 0;
-      empty.textContent = `No movies match “${query}”.`;
+      empty.hidden = !filtering || found.size > 0;
+      empty.textContent = query
+        ? `No ${onlyTheater ? 'theater ' : ''}movies match “${query}”.`
+        : 'No movies seen in a theater.';
     }
     shelf.spy();
   };
-
-  input.addEventListener('input', () => {
+  const remember = () =>
+    writeQuery({ q: input.value.trim(), theater: theaterOnly() ? '1' : '' }, SEARCH_DEFAULTS);
+  const changed = () => {
     apply();
-    writeQuery({ q: input.value.trim() }, SEARCH_DEFAULTS);
+    remember();
     // Brings the results up under the bar when they start above the window.
     if (shelf.groups.getBoundingClientRect().top < 0) shelf.groups.scrollIntoView();
-  });
+  };
+
+  input.addEventListener('input', changed);
   input.addEventListener('keydown', event => {
     if (event.key !== 'Escape' || !input.value) return;
     input.value = '';
     input.dispatchEvent(new Event('input'));
   });
+  theater?.addEventListener('click', () => {
+    theater.setAttribute('aria-pressed', String(!theaterOnly()));
+    changed();
+  });
   input.hidden = false;
-  input.value = readQuery(location.search, SEARCH_DEFAULTS).q;
-  if (input.value.trim()) apply();
+  if (theater) theater.hidden = false;
+  const state = readQuery(location.search, SEARCH_DEFAULTS);
+  input.value = state.q;
+  theater?.setAttribute('aria-pressed', String(state.theater === '1'));
+  if (input.value.trim() || theaterOnly()) apply();
 }
 
 /**
