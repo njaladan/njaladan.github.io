@@ -4050,6 +4050,13 @@
       "year": "2015",
       "cover": "/assets/images/movies/caf168add9ed.webp",
       "art_source": "https://www.themoviedb.org/movie/105864-the-good-dinosaur"
+    },
+    {
+      "id": "484dd7b38350",
+      "title": "El Camino: A Breaking Bad Movie",
+      "year": "2019",
+      "cover": "/assets/images/movies/484dd7b38350.webp",
+      "art_source": "https://www.themoviedb.org/movie/559969-el-camino-a-breaking-bad-movie"
     }
   ],
   "viewings": [
@@ -4693,6 +4700,12 @@
       "theater": true
     },
     {
+      "film_id": "2d75d5db5ab5",
+      "date": "2022-08-04",
+      "rewatch": false,
+      "source": "user_logged"
+    },
+    {
       "film_id": "1a332ea12e60",
       "date": "2022-05-30",
       "rewatch": false,
@@ -4709,6 +4722,12 @@
       "date": "2022-03-29",
       "rewatch": false,
       "source": "prime_video"
+    },
+    {
+      "film_id": "484dd7b38350",
+      "date": "2022-02-11",
+      "rewatch": false,
+      "source": "user_logged"
     },
     {
       "film_id": "613d7895893a",
@@ -6644,7 +6663,6 @@
     "eb1335c7248a",
     "184f832c0afe",
     "434fe6cb30dc",
-    "2d75d5db5ab5",
     "99b827206bb2",
     "d9b78076ff3c",
     "3ecc6e6a7260",
