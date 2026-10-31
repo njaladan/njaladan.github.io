@@ -67,7 +67,9 @@ python -m scripts.library.library_art
 python -m scripts.athletics.summarize_strava activities/ SUMMARY.json
 python -m scripts.athletics.build_athletics_shapes activities/ SUMMARY.json
 
-# Manhattan street coverage (Strava export plus any newer .fit rides)
+# Manhattan street coverage: add a new ride, run or walk (a few seconds, no export needed)
+python -m scripts.street_coverage.add new_ride.fit
+# ...or rebuild everything from a full Strava export (also rewrites state.json)
 python -m scripts.street_coverage.build activities/ new_ride.fit --cache ~/.cache/street-coverage
 
 # Travel map
