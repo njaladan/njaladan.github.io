@@ -4087,6 +4087,13 @@
       "art_source": "https://www.themoviedb.org/movie/803796-kpop-demon-hunters"
     },
     {
+      "id": "9a2c4e6f1b78",
+      "title": "The Trial of the Chicago 7",
+      "year": "2020",
+      "cover": "/assets/images/movies/9a2c4e6f1b78.webp",
+      "art_source": "https://www.themoviedb.org/movie/556984-the-trial-of-the-chicago-7"
+    },
+    {
       "id": "bbc97a54ae5f",
       "title": "Star Trek",
       "year": "2009",
@@ -6818,6 +6825,7 @@
     "015778a1185c",
     "45e0655aabd9",
     "e7a05b3c91d2",
-    "3f8b6d2e5a14"
+    "3f8b6d2e5a14",
+    "9a2c4e6f1b78"
   ]
 }
