@@ -4101,6 +4101,13 @@
       "art_source": "https://www.themoviedb.org/movie/396371-molly-s-game"
     },
     {
+      "id": "b3e7c19d4a60",
+      "title": "Stand and Deliver",
+      "year": "1988",
+      "cover": "/assets/images/movies/b3e7c19d4a60.webp",
+      "art_source": "https://www.themoviedb.org/movie/29154-stand-and-deliver"
+    },
+    {
       "id": "bbc97a54ae5f",
       "title": "Star Trek",
       "year": "2009",
@@ -6354,6 +6361,12 @@
       "rewatch": false,
       "source": "theater_release",
       "theater": true
+    },
+    {
+      "film_id": "b3e7c19d4a60",
+      "group_year": "2012",
+      "rewatch": false,
+      "source": "user_recall"
     },
     {
       "film_id": "d1b0d5b9d7e3",
