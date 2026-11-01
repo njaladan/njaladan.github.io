@@ -1,4 +1,4 @@
-// Photos page: a gallery of geotagged travel photos, each linking to its spot on the map.
+// Photos page: a gallery of geotagged travel photos, each opening on its spot on the map.
 import { $ } from './lib/dom.js';
 import { stampedUrl } from './lib/assets.js';
 import { installBackToTop } from './lib/collection.js';
@@ -118,7 +118,13 @@ function photoCard(photo, imagePath, mapUrl) {
   const label = location ? `${subject} — ${location}` : subject;
   const link = document.createElement('a');
   link.className = 'photo-card';
-  link.href = `${mapUrl}?lat=${encodeURIComponent(photo.coords[0])}&lng=${encodeURIComponent(photo.coords[1])}&zoom=${MAP_ZOOM}`;
+  const params = new URLSearchParams({
+    lat: String(photo.coords[0]),
+    lng: String(photo.coords[1]),
+    zoom: String(MAP_ZOOM),
+    photo: photo.id
+  });
+  link.href = `${mapUrl}?${params}`;
   link.setAttribute('aria-label', `View ${label} on the map`);
   const figure = document.createElement('figure');
   figure.style.margin = '0';

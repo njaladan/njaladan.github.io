@@ -44,7 +44,8 @@ const INERT_PHOTOS = {
   occupied: () => [],
   cancel() {},
   isOpen: () => false,
-  show() {}
+  show() {},
+  reveal() {}
 };
 
 /**
@@ -177,6 +178,24 @@ function select(atlas, items) {
         atlas.viewer.open(items);
       }
     }) || null;
+}
+
+/**
+ * Opens one photo in the medium viewer at the current view, without moving
+ * the camera; the rest of its pin's stack stays a step away.
+ * @param {Atlas} atlas
+ * @param {string} id
+ */
+function reveal(atlas, id) {
+  if (!atlas.visible || !atlas.photos.some(photo => photo.id === id)) return;
+  cancelFocus(atlas);
+  atlas.map.closePopup();
+  // Group pins for the view just set, so the viewer grows out of the right print.
+  relayout(atlas);
+  const pin = [...atlas.pins.values()].find(item => item.items.some(photo => photo.id === id));
+  const items = pin ? pin.items : atlas.photos.filter(photo => photo.id === id);
+  const index = items.findIndex(photo => photo.id === id);
+  atlas.viewer.open(items, Math.max(0, index));
 }
 
 /** @param {Atlas} atlas */
@@ -420,6 +439,7 @@ export function installAtlasPhotos(map, { focus, onLayout }) {
     show: ids => {
       const items = atlas.photos.filter(photo => ids.includes(photo.id));
       if (items.length) select(atlas, items);
-    }
+    },
+    reveal: id => reveal(atlas, id)
   };
 }

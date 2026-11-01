@@ -5,7 +5,8 @@ import { focusCountry, showWorld } from './countries.js';
 import { parseAtlasHash } from './format.js';
 import { parseViewParams } from './geometry.js';
 
-// URL state: #country=…&state=… selects a place; ?lat=&lng=&zoom= opens a view.
+// URL state: #country=…&state=… selects a place; ?lat=&lng=&zoom= opens a
+// view, and &photo=<id> also opens that photo in the medium viewer.
 
 /** @typedef {import('./context.js').AtlasContext} AtlasContext */
 
@@ -27,7 +28,8 @@ export function applyHash(ctx, animate = true) {
 }
 
 /**
- * Opens the view a `?lat=&lng=&zoom=` link names, such as a photo's location.
+ * Opens the view a `?lat=&lng=&zoom=` link names, such as a photo's location,
+ * and the photo a `&photo=` parameter names.
  * @param {AtlasContext} ctx
  */
 export function applyDeepLink(ctx) {
@@ -36,7 +38,10 @@ export function applyDeepLink(ctx) {
     minZoom: MIN_ZOOM,
     maxZoom: MAX_ZOOM
   });
-  if (view) ctx.map.setView([view.lat, view.lng], view.zoom, { animate: false });
+  if (!view) return;
+  ctx.map.setView([view.lat, view.lng], view.zoom, { animate: false });
+  const photo = new URLSearchParams(location.search).get('photo');
+  if (photo) ctx.photos.reveal(photo);
 }
 
 /**
