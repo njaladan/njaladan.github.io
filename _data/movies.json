@@ -4220,9 +4220,22 @@
       "year": "1980",
       "cover": "/assets/images/movies/e69fe1c4716e.webp",
       "art_source": "https://www.themoviedb.org/movie/4488-friday-the-13th"
+    },
+    {
+      "id": "ed49bf354f49",
+      "title": "Rashomon",
+      "year": "1950",
+      "cover": "/assets/images/movies/ed49bf354f49.webp",
+      "art_source": "https://www.themoviedb.org/movie/548-rashomon"
     }
   ],
   "viewings": [
+    {
+      "film_id": "ed49bf354f49",
+      "date": "2026-11-01",
+      "rewatch": false,
+      "source": "user_logged"
+    },
     {
       "film_id": "d74bd8334e8e",
       "date": "2026-10-25",
@@ -4729,13 +4742,6 @@
       "date": "2023-09-14",
       "rewatch": false,
       "source": "film_club"
-    },
-    {
-      "film_id": "5488e94ba0f4",
-      "date": "2023-08-22",
-      "rewatch": true,
-      "source": "ticket",
-      "theater": true
     },
     {
       "film_id": "4826b33aa3bd",
