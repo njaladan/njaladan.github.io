@@ -24,24 +24,19 @@ def import_movies(diary, watched):
     for row in watched:
         key = film_key(row)
         films.setdefault(key, {"id": film_id(key), "title": row["Name"].strip(), "year": row["Year"].strip()})
-    viewings = []
-    logged = set()
+    first_seen = {}
     for row in diary:
         key = film_key(row)
-        film = films.setdefault(key, {"id": film_id(key), "title": row["Name"].strip(), "year": row["Year"].strip()})
+        films.setdefault(key, {"id": film_id(key), "title": row["Name"].strip(), "year": row["Year"].strip()})
         when = row.get("Watched Date", "").strip()
         if not when:
             continue
         date.fromisoformat(when)
-        logged.add(key)
-        viewings.append(
-            {
-                "film_id": film["id"],
-                "date": when,
-                "rewatch": row.get("Rewatch", "").strip().casefold() == "yes",
-                "source": "letterboxd",
-            }
-        )
+        if key not in first_seen or when < first_seen[key]:
+            first_seen[key] = when
+    logged = set(first_seen)
+    # Only the first viewing of each film is tracked; Letterboxd rewatches are dropped.
+    viewings = [{"film_id": films[key]["id"], "date": when, "source": "letterboxd"} for key, when in first_seen.items()]
     viewings.sort(key=lambda item: item["date"], reverse=True)
     earlier = [films[key]["id"] for key in films if key not in logged]
     by_id = {film["id"]: film for film in films.values()}
