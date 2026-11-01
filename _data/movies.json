@@ -694,13 +694,6 @@
       "art_source": "https://www.themoviedb.org/movie/15-citizen-kane"
     },
     {
-      "id": "4d3162ce2cf7",
-      "title": "The Green Man",
-      "year": "1956",
-      "cover": "/assets/images/movies/4d3162ce2cf7.webp",
-      "art_source": "https://www.themoviedb.org/movie/58470-the-green-man"
-    },
-    {
       "id": "6bf0119f3910",
       "title": "Hamilton",
       "year": "2020",
@@ -2983,13 +2976,6 @@
       "art_source": "https://www.themoviedb.org/movie/270946-penguins-of-madagascar"
     },
     {
-      "id": "d497ca0f2c9c",
-      "title": "The Boss Baby",
-      "year": "2017",
-      "cover": "/assets/images/movies/d497ca0f2c9c.webp",
-      "art_source": "https://www.themoviedb.org/movie/295693-the-boss-baby"
-    },
-    {
       "id": "a0ab7f474814",
       "title": "Puss in Boots",
       "year": "2011",
@@ -4487,6 +4473,12 @@
       "source": "user_logged"
     },
     {
+      "film_id": "4cb292d57cc7",
+      "date": "2025-10-21",
+      "rewatch": false,
+      "source": "user_recall"
+    },
+    {
       "film_id": "c4d9e2a17b53",
       "date": "2025-10-08",
       "source": "user_recall",
@@ -4497,6 +4489,12 @@
       "date": "2025-09-24",
       "source": "ticket",
       "theater": true
+    },
+    {
+      "film_id": "3f8b6d2e5a14",
+      "date": "2025-08-17",
+      "rewatch": false,
+      "source": "user_recall"
     },
     {
       "film_id": "9b1149a0fcba",
@@ -4546,11 +4544,6 @@
       "date": "2025-01-11",
       "source": "letterboxd",
       "theater": true
-    },
-    {
-      "film_id": "4cb292d57cc7",
-      "group_year": "2025",
-      "source": "user_recall"
     },
     {
       "film_id": "008fd10a4564",
@@ -4619,6 +4612,13 @@
       "theater": true
     },
     {
+      "film_id": "3f1fb92b955a",
+      "date": "2024-03-05",
+      "rewatch": false,
+      "source": "user_recall",
+      "theater": true
+    },
+    {
       "film_id": "4912ffe042a5",
       "date": "2024-02-10",
       "source": "ticket",
@@ -4633,12 +4633,6 @@
       "film_id": "caf3db0f7443",
       "date": "2024-01-01",
       "source": "letterboxd"
-    },
-    {
-      "film_id": "3f1fb92b955a",
-      "group_year": "2024",
-      "source": "letterboxd",
-      "theater": true
     },
     {
       "film_id": "38434bd35c24",
@@ -4660,6 +4654,12 @@
       "film_id": "012821c10105",
       "date": "2023-09-14",
       "source": "film_club"
+    },
+    {
+      "film_id": "b2bbf5ca754d",
+      "date": "2023-09-03",
+      "rewatch": false,
+      "source": "user_recall"
     },
     {
       "film_id": "4826b33aa3bd",
@@ -4755,6 +4755,13 @@
       "source": "film_club"
     },
     {
+      "film_id": "1a09176ca493",
+      "date": "2023-03-02",
+      "rewatch": false,
+      "source": "user_recall",
+      "theater": true
+    },
+    {
       "film_id": "50bb7dcb09dd",
       "date": "2023-02-23",
       "source": "film_club"
@@ -4776,25 +4783,22 @@
       "source": "film_club"
     },
     {
-      "film_id": "1a09176ca493",
-      "group_year": "2023",
-      "source": "letterboxd",
-      "theater": true
-    },
-    {
-      "film_id": "d497ca0f2c9c",
-      "group_year": "2023",
-      "source": "user_recall"
-    },
-    {
-      "film_id": "b2bbf5ca754d",
-      "group_year": "2023",
+      "film_id": "c2d0f6b48a46",
+      "date": "2022-12-13",
+      "rewatch": false,
       "source": "user_recall"
     },
     {
       "film_id": "4bdce34515b5",
       "date": "2022-12-08",
       "source": "ticket",
+      "theater": true
+    },
+    {
+      "film_id": "56ae65da4f3d",
+      "date": "2022-11-26",
+      "rewatch": false,
+      "source": "user_recall",
       "theater": true
     },
     {
@@ -4816,9 +4820,23 @@
       "theater": true
     },
     {
+      "film_id": "3fa7b7f2bb1f",
+      "date": "2022-10-25",
+      "rewatch": false,
+      "source": "user_recall",
+      "theater": true
+    },
+    {
       "film_id": "2d75d5db5ab5",
       "date": "2022-08-04",
       "source": "user_logged"
+    },
+    {
+      "film_id": "13a5417e6d26",
+      "date": "2022-06-27",
+      "rewatch": false,
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "1a332ea12e60",
@@ -4829,6 +4847,13 @@
       "film_id": "d2525dff99e1",
       "date": "2022-05-24",
       "source": "user_logged"
+    },
+    {
+      "film_id": "5ceaedfada04",
+      "date": "2022-04-05",
+      "rewatch": false,
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "017eb8e15f23",
@@ -4862,24 +4887,6 @@
       "source": "letterboxd"
     },
     {
-      "film_id": "5ceaedfada04",
-      "group_year": "2022",
-      "source": "letterboxd",
-      "theater": true
-    },
-    {
-      "film_id": "56ae65da4f3d",
-      "group_year": "2022",
-      "source": "letterboxd",
-      "theater": true
-    },
-    {
-      "film_id": "3fa7b7f2bb1f",
-      "group_year": "2022",
-      "source": "letterboxd",
-      "theater": true
-    },
-    {
       "film_id": "34b9078b2fe6",
       "group_year": "2022",
       "source": "letterboxd",
@@ -4891,26 +4898,42 @@
       "source": "letterboxd"
     },
     {
-      "film_id": "13a5417e6d26",
-      "group_year": "2022",
-      "source": "letterboxd",
-      "theater": true
-    },
-    {
-      "film_id": "c2d0f6b48a46",
-      "group_year": "2022",
-      "source": "letterboxd"
-    },
-    {
-      "film_id": "469dc00e1d08",
-      "group_year": "2022",
-      "source": "user_recall"
-    },
-    {
       "film_id": "8e650f008de4",
       "date": "2022-01-23",
       "source": "letterboxd",
       "theater": true
+    },
+    {
+      "film_id": "c028e8cfea6b",
+      "date": "2021-12-19",
+      "rewatch": false,
+      "source": "user_recall",
+      "theater": true
+    },
+    {
+      "film_id": "8e585f5c4532",
+      "date": "2021-07-27",
+      "rewatch": false,
+      "source": "user_recall",
+      "theater": true
+    },
+    {
+      "film_id": "73ebaa2110c3",
+      "date": "2021-07-24",
+      "rewatch": false,
+      "source": "user_recall"
+    },
+    {
+      "film_id": "6bf0119f3910",
+      "date": "2021-07-04",
+      "rewatch": false,
+      "source": "user_recall"
+    },
+    {
+      "film_id": "469dc00e1d08",
+      "date": "2021-05-29",
+      "rewatch": false,
+      "source": "user_recall"
     },
     {
       "film_id": "94dbc24893a6",
@@ -4949,21 +4972,9 @@
       "source": "user_recall"
     },
     {
-      "film_id": "8e585f5c4532",
-      "group_year": "2021",
-      "source": "letterboxd",
-      "theater": true
-    },
-    {
       "film_id": "ec6e67b31613",
       "group_year": "2021",
       "source": "letterboxd"
-    },
-    {
-      "film_id": "c028e8cfea6b",
-      "group_year": "2021",
-      "source": "letterboxd",
-      "theater": true
     },
     {
       "film_id": "bcb6dd537253",
@@ -4978,11 +4989,6 @@
     },
     {
       "film_id": "ad3a075fa2f9",
-      "group_year": "2021",
-      "source": "user_recall"
-    },
-    {
-      "film_id": "73ebaa2110c3",
       "group_year": "2021",
       "source": "user_recall"
     },
@@ -5067,11 +5073,6 @@
       "film_id": "4d24a5c6c9c2",
       "group_year": "2020",
       "source": "user_recall"
-    },
-    {
-      "film_id": "6bf0119f3910",
-      "group_year": "2020",
-      "source": "release_date"
     },
     {
       "film_id": "a31774170a34",
@@ -6563,7 +6564,6 @@
     "5ccd215d9e69",
     "4c969d21362e",
     "cc0f231abd8c",
-    "4d3162ce2cf7",
     "a33a5b9b0fbd",
     "9ae94ca893b4",
     "14f5742579fd",
@@ -6598,7 +6598,6 @@
     "015778a1185c",
     "45e0655aabd9",
     "e7a05b3c91d2",
-    "3f8b6d2e5a14",
     "9a2c4e6f1b78",
     "5d1e8a3c7f26",
     "a8d4f1b62e95",
