@@ -4255,9 +4255,21 @@
       "year": "2020",
       "cover": "/assets/images/movies/e2f49427c017.webp",
       "art_source": "https://www.themoviedb.org/movie/773655-death-to-2020"
+    },
+    {
+      "id": "90b8c6d6d2d7",
+      "title": "You Can See Everything",
+      "year": "2026",
+      "cover": "/assets/images/movies/90b8c6d6d2d7.webp",
+      "art_source": "https://www.themoviedb.org/movie/1765072-you-can-see-everything"
     }
   ],
   "viewings": [
+    {
+      "film_id": "90b8c6d6d2d7",
+      "date": "2026-11-04",
+      "source": "user_logged"
+    },
     {
       "film_id": "f2452db1764a",
       "date": "2026-11-01",
@@ -4772,7 +4784,8 @@
     {
       "film_id": "d9a17b61e95c",
       "date": "2023-04-29",
-      "source": "letterboxd"
+      "source": "letterboxd",
+      "theater": true
     },
     {
       "film_id": "c2f9c4623ff1",
