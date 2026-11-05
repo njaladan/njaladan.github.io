@@ -537,7 +537,9 @@
     { "number": "VB686", "from": "MTY", "to": "JFK", "duration_s": 11040 },
     { "number": "DL1057", "from": "SFO", "to": "JFK", "duration_s": 20100 },
     { "number": "UA349", "from": "SFO", "to": "EWR", "duration_s": 19320 },
-    { "number": "UA1257", "from": "EWR", "to": "SFO", "duration_s": 22080 }
+    { "number": "UA1257", "from": "EWR", "to": "SFO", "duration_s": 22080 },
+    { "number": "UA1525", "from": "EWR", "to": "ORD", "duration_s": 9960 },
+    { "number": "UA2475", "from": "ORD", "to": "EWR", "duration_s": 8700 }
   ],
   "routes": [
     {
@@ -1662,7 +1664,7 @@
     },
     {
       "airports": ["EWR", "ORD"],
-      "flights": [69, 114, 129, 130],
+      "flights": [69, 114, 129, 130, 151, 152],
       "segments": [
         [
           [40.6894, -74.170545],
