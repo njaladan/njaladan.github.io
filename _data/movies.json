@@ -4268,7 +4268,8 @@
     {
       "film_id": "90b8c6d6d2d7",
       "date": "2026-11-04",
-      "source": "user_logged"
+      "source": "user_logged",
+      "theater": true
     },
     {
       "film_id": "f2452db1764a",
