@@ -5274,6 +5274,11 @@
       "theater": true
     },
     {
+      "film_id": "e618c3457e05",
+      "date": "2019-08-16",
+      "source": "user_recall"
+    },
+    {
       "film_id": "428b8dfc4433",
       "date": "2019-07-30",
       "source": "movies_journal",
@@ -5361,11 +5366,6 @@
     },
     {
       "film_id": "a0fca33eb644",
-      "group_year": "2019",
-      "source": "user_recall"
-    },
-    {
-      "film_id": "e618c3457e05",
       "group_year": "2019",
       "source": "user_recall"
     },
