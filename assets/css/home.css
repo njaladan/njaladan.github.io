@@ -36,19 +36,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 1;
   transition: opacity 220ms ease;
 }
-.portrait-current {
-  opacity: 1;
-}
-.portrait-childhood {
+.portrait img:not(.is-active) {
   opacity: 0;
-}
-.portrait[aria-pressed='true'] .portrait-current {
-  opacity: 0;
-}
-.portrait[aria-pressed='true'] .portrait-childhood {
-  opacity: 1;
 }
 .bio-copy .bio-contact {
   font: 14px var(--sans);
