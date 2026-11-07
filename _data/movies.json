@@ -4880,6 +4880,11 @@
       "theater": true
     },
     {
+      "film_id": "22967d395341",
+      "date": "2022-11-26",
+      "source": "user_recall"
+    },
+    {
       "film_id": "0f759def4c29",
       "date": "2022-11-11",
       "source": "user_recall",
@@ -4969,11 +4974,6 @@
       "group_year": "2022",
       "source": "letterboxd",
       "theater": true
-    },
-    {
-      "film_id": "22967d395341",
-      "group_year": "2022",
-      "source": "letterboxd"
     },
     {
       "film_id": "8e650f008de4",
