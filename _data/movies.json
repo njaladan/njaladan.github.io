@@ -4266,7 +4266,9 @@
     {
       "id": "e69f6c1482fb",
       "title": "Kill Bill: Vol. 1",
-      "year": "2003"
+      "year": "2003",
+      "cover": "/assets/images/movies/e69f6c1482fb.webp",
+      "art_source": "https://www.themoviedb.org/movie/24-kill-bill-vol-1"
     }
   ],
   "viewings": [
