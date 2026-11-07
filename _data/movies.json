@@ -4262,9 +4262,19 @@
       "year": "2026",
       "cover": "/assets/images/movies/90b8c6d6d2d7.webp",
       "art_source": "https://www.themoviedb.org/movie/1765072-you-can-see-everything"
+    },
+    {
+      "id": "e69f6c1482fb",
+      "title": "Kill Bill: Vol. 1",
+      "year": "2003"
     }
   ],
   "viewings": [
+    {
+      "film_id": "e69f6c1482fb",
+      "date": "2026-11-07",
+      "source": "user_logged"
+    },
     {
       "film_id": "90b8c6d6d2d7",
       "date": "2026-11-04",
