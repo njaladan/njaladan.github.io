@@ -4297,9 +4297,21 @@
       "year": "2022",
       "cover": "/assets/images/movies/6cf69589bd75.webp",
       "art_source": "https://www.themoviedb.org/movie/555604-guillermo-del-toro-s-pinocchio"
+    },
+    {
+      "id": "ebff4aefda51",
+      "title": "The Rocky Horror Picture Show",
+      "year": "1975",
+      "cover": "/assets/images/movies/ebff4aefda51.webp",
+      "art_source": "https://www.themoviedb.org/movie/36685-the-rocky-horror-picture-show"
     }
   ],
   "viewings": [
+    {
+      "film_id": "ebff4aefda51",
+      "date": "2026-11-07",
+      "source": "user_logged"
+    },
     {
       "film_id": "e69f6c1482fb",
       "date": "2026-11-07",
