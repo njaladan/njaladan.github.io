@@ -4878,16 +4878,16 @@
       "theater": true
     },
     {
-      "film_id": "56ae65da4f3d",
-      "date": "2022-11-26",
-      "rewatch": false,
-      "source": "user_recall",
-      "theater": true
-    },
-    {
       "film_id": "22967d395341",
       "date": "2022-11-26",
       "source": "user_recall"
+    },
+    {
+      "film_id": "56ae65da4f3d",
+      "date": "2022-11-25",
+      "rewatch": false,
+      "source": "user_recall",
+      "theater": true
     },
     {
       "film_id": "0f759def4c29",
