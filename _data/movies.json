@@ -4290,6 +4290,13 @@
       "year": "2018",
       "cover": "/assets/images/movies/4cdea47b4ea5.webp",
       "art_source": "https://www.themoviedb.org/movie/457712-the-velocipastor"
+    },
+    {
+      "id": "6cf69589bd75",
+      "title": "Guillermo del Toro's Pinocchio",
+      "year": "2022",
+      "cover": "/assets/images/movies/6cf69589bd75.webp",
+      "art_source": "https://www.themoviedb.org/movie/555604-guillermo-del-toro-s-pinocchio"
     }
   ],
   "viewings": [
@@ -4901,6 +4908,11 @@
       "film_id": "144ec458c9be",
       "date": "2023-01-05",
       "source": "film_club"
+    },
+    {
+      "film_id": "6cf69589bd75",
+      "date": "2023-01-01",
+      "source": "daylio"
     },
     {
       "film_id": "c2d0f6b48a46",
