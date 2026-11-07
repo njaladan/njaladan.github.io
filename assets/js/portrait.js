@@ -1,26 +1,37 @@
-// Home page portrait: a click or tap toggles the childhood photo; a mouse previews it on hover.
+// Home page portrait: each mouse hover, click or tap advances to the next photo.
 import { $ } from './lib/dom.js';
-
-/** @param {HTMLElement} portrait @param {boolean} show */
-const showChildhood = (portrait, show) => {
-  portrait.setAttribute('aria-pressed', String(show));
-};
 
 function init() {
   const portrait = $('.portrait');
   if (!portrait) return;
+  const photos = [...portrait.querySelectorAll('img')];
+  if (photos.length < 2) return;
 
-  portrait.addEventListener('click', () => {
-    showChildhood(portrait, portrait.getAttribute('aria-pressed') !== 'true');
-  });
+  let index = Math.max(
+    0,
+    photos.findIndex(photo => photo.classList.contains('is-active'))
+  );
+  const advance = () => {
+    photos[index].classList.remove('is-active');
+    index = (index + 1) % photos.length;
+    photos[index].classList.add('is-active');
+  };
 
-  // Touch taps toggle persistently; a mouse can still preview on hover.
+  // A mouse that hovers and then clicks would otherwise skip a photo, so a click
+  // right after a hover-advance is ignored.
+  let hoveredAt = 0;
   portrait.addEventListener('pointerenter', event => {
-    if (event.pointerType === 'mouse') showChildhood(portrait, true);
+    if (event.pointerType !== 'mouse') return;
+    hoveredAt = event.timeStamp;
+    advance();
   });
-  portrait.addEventListener('pointerleave', event => {
-    if (event.pointerType === 'mouse') showChildhood(portrait, false);
+  portrait.addEventListener('click', event => {
+    if (event.detail > 0 && event.timeStamp - hoveredAt < 400) return;
+    advance();
   });
+
+  // Warm the lazy images so the first swap doesn't flash.
+  for (const photo of photos) photo.loading = 'eager';
 }
 
 init();
