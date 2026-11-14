@@ -13,7 +13,7 @@ npm run check    # what CI runs: ESLint, Prettier, tsc, tests, Ruff and a Jekyll
 ## Layout
 
 ```
-_pages/           Site pages, one file per URL, including the Atom feed
+_pages/           Site pages, one file per URL
 _books/           Book notes, one file per book, at /<title>/ and on /books
 _drafts/          Unpublished project posts; preview with `jekyll serve --drafts`
 _layouts/         default (page frame), book, books, movies
