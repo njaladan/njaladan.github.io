@@ -356,10 +356,18 @@
               "route": "san-jose-seattle-drive-red-bluff-lassen"
             },
             {
+              "activity": "7347250887",
+              "name": "Lassen"
+            },
+            {
               "route": "san-jose-seattle-drive-lassen-redding"
             },
             {
               "route": "san-jose-seattle-drive-redding-mount-shasta"
+            },
+            {
+              "activity": "7348390377",
+              "name": "Mount Shasta"
             },
             {
               "route": "san-jose-seattle-drive-mount-shasta-ashland"
@@ -373,6 +381,10 @@
               "route": "san-jose-seattle-drive-ashland-crater-lake"
             },
             {
+              "activity": "7353791549",
+              "name": "Crater Lake"
+            },
+            {
               "route": "san-jose-seattle-drive-crater-lake-bend"
             }
           ]
@@ -380,6 +392,10 @@
         {
           "title": "Bend → Portland",
           "legs": [
+            {
+              "activity": "7358589780",
+              "name": "Smith Rock"
+            },
             {
               "route": "san-jose-seattle-drive-bend-mount-hood"
             },
@@ -396,6 +412,10 @@
             },
             {
               "route": "san-jose-seattle-drive-cannon-beach-mount-rainier"
+            },
+            {
+              "activity": "7366303918",
+              "name": "Mount Rainier"
             },
             {
               "route": "san-jose-seattle-drive-mount-rainier-seattle"

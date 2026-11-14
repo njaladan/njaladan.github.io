@@ -2,7 +2,9 @@
 """Add one watch FIT file (Garmin, Coros, ...) to the travel map, optionally as a trip day.
 
 Reads the track and recorded statistics straight from the FIT file (no Strava export
-needed), thins it, snaps it onto OpenStreetMap paths with Valhalla, and writes it to
+needed). A GPX file from a Strava export works too; its distance, time and climb are
+worked out from the track, and its times are UTC unless --utc-offset says otherwise.
+The track is thinned, snapped onto OpenStreetMap paths with Valhalla, and written to
 assets/data/travel/activities.json. With --trip it also appends the activity as a leg
 of that trip's day in itineraries.json. Re-running replaces the earlier import.
 
@@ -11,12 +13,14 @@ of that trip's day in itineraries.json. Re-running replaces the earlier import.
 
 import argparse
 import gzip
+import xml.etree.ElementTree as ET
 from datetime import timedelta
 from pathlib import Path
 
 from scripts.common.geo import distance_m
+from scripts.travel.import_gpx import parse_time
 from scripts.travel.import_strava import simplify
-from scripts.travel.match_activities import PROFILES, match_segment
+from scripts.travel.match_activities import PROFILES, length, match_segment, tidy
 from scripts.travel.trips import ACTIVITIES, COUNTRIES, add_leg, country_ids, load, save
 
 # FIT sport → (map activity type, Strava-style sport label).
@@ -29,6 +33,12 @@ SPORTS = {
 }
 SEMICIRCLE = 180 / 2**31
 GAP_S, GAP_M = 120, 200
+# GPX tracks carry no recorded totals, and one-second GPS jitter inflates both. Distance
+# is measured on the track thinned to this spacing; elevation is averaged over this many
+# seconds either side, then only rises of at least CLIMB_STEP_M count as climb.
+DISTANCE_SPACING_M = 12
+ELEVATION_WINDOW_S = 30
+CLIMB_STEP_M = 4
 
 
 def read_fit(path):
@@ -80,11 +90,76 @@ def read_fit(path):
     return segments, session, offset or timedelta()
 
 
+def climb(samples):
+    """Total ascent from (time, elevation) samples, smoothed against GPS noise."""
+    smoothed, start, end, running = [], 0, 0, 0.0
+    for when, _ in samples:
+        while end < len(samples) and (samples[end][0] - when).total_seconds() <= ELEVATION_WINDOW_S:
+            running += samples[end][1]
+            end += 1
+        while (when - samples[start][0]).total_seconds() > ELEVATION_WINDOW_S:
+            running -= samples[start][1]
+            start += 1
+        smoothed.append(running / (end - start))
+    total, low = 0.0, None
+    for value in smoothed:
+        if low is None or value < low:
+            low = value
+        elif value - low >= CLIMB_STEP_M:
+            total += value - low
+            low = value
+    return total
+
+
+def read_gpx(path):
+    """A Strava-export GPX track in the same shape as read_fit's result."""
+    opener = gzip.open if path.suffix == ".gz" else open
+    with opener(path, "rb") as source:
+        root = ET.parse(source).getroot()
+    segments, elevations, times = [], [], []
+    for track_segment in root.findall(".//{*}trkseg"):
+        points, previous_time = [], None
+        for node in track_segment.findall("{*}trkpt"):
+            point = [float(node.attrib["lat"]), float(node.attrib["lon"])]
+            timestamp = parse_time(node.findtext("{*}time"))
+            if (
+                points
+                and timestamp
+                and previous_time
+                and (timestamp - previous_time).total_seconds() > GAP_S
+                and distance_m(points[-1], point) > GAP_M
+            ):
+                if len(points) >= 2:
+                    segments.append(points)
+                points = []
+            points.append(point)
+            elevation = node.findtext("{*}ele")
+            if elevation is not None and timestamp:
+                elevations.append((timestamp, float(elevation)))
+            if timestamp:
+                times.append(timestamp)
+                previous_time = timestamp
+        if len(points) >= 2:
+            segments.append(points)
+    if not segments or not times:
+        raise SystemExit(f"No dated GPS track in {path.name}")
+    session = {
+        "start_time": min(times),
+        "sport": (root.findtext("./{*}trk/{*}type") or "").strip(),
+        "total_distance": sum(length(tidy(segment, DISTANCE_SPACING_M)) for segment in segments),
+        "total_elapsed_time": (max(times) - min(times)).total_seconds(),
+        "title": (root.findtext("./{*}trk/{*}name") or "").strip(),
+    }
+    if elevations:
+        session["total_ascent"] = round(climb(elevations))
+    return segments, session
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("file", type=Path, help="FIT file (.fit or .fit.gz)")
+    parser.add_argument("file", type=Path, help="FIT or Strava-export GPX file (.fit, .gpx, optionally .gz)")
     parser.add_argument("--name", required=True, help="Display name on the map, e.g. 'Indiana Dunes'")
-    parser.add_argument("--title", help="Original activity title (defaults to --name)")
+    parser.add_argument("--title", help="Original activity title (defaults to the GPX track name, else --name)")
     parser.add_argument("--country", action="append", required=True, help="Country name or ISO numeric ID; repeat")
     parser.add_argument("--id", help="Activity id (defaults to fit-<UTC start>, or pass the Strava/Garmin id)")
     parser.add_argument("--type", choices=sorted(PROFILES), help="Override the sport read from the file")
@@ -95,10 +170,17 @@ def main():
     parser.add_argument("--day-title", help="Title for the trip day (defaults to --name for a new day)")
     parser.add_argument("--leg-name", help="Leg label in the itinerary (defaults to --name)")
     parser.add_argument("--no-match", action="store_true", help="Keep the GPS line; skip Valhalla map matching")
+    parser.add_argument("--utc-offset", type=float, help="GPX only: local time minus UTC in hours (e.g. -7)")
     parser.add_argument("--cache", type=Path, default=Path.home() / ".cache/travel-valhalla")
     args = parser.parse_args()
 
-    segments, session, offset = read_fit(args.file)
+    if ".gpx" in args.file.suffixes:
+        segments, session = read_gpx(args.file)
+        offset = timedelta(hours=args.utc_offset or 0)
+        source_format, statistics = "GPX", "GPX track"
+    else:
+        segments, session, offset = read_fit(args.file)
+        source_format, statistics = "FIT", "FIT session"
     start = session["start_time"]
     local_date = (start.replace(tzinfo=None) + offset).date().isoformat()
     sport = str(session.get("sport", ""))
@@ -113,7 +195,7 @@ def main():
     day = {
         "id": activity_id,
         "name": args.name,
-        "original_title": args.title or args.name,
+        "original_title": args.title or session.get("title") or args.name,
         "type": activity_type,
         "sport": sport_label,
         "countries": countries,
@@ -125,9 +207,9 @@ def main():
         day["elevation_m"] = float(session["total_ascent"])
     source = {
         "file": args.file.name,
-        "format": "FIT",
+        "format": source_format,
         "points": raw_points,
-        "statistics": "FIT session",
+        "statistics": statistics,
         "simplification_m": 3,
     }
     if args.no_match:

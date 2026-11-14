@@ -56,6 +56,21 @@ python -m scripts.travel.add_route --mode Train --operator "South Shore Line" --
   --stop "Chicago=41.88455,-87.62345" --stop "Dune Park=41.64496,-87.06057" --skip-if-overlap 0.3
 ```
 
+`add_fit` also takes a `.gpx` (or `.gpx.gz`) from a Strava export. GPX files carry no
+recorded totals, so distance, time and climb are worked out from the track, smoothed
+against GPS jitter. Their times are UTC: pass `--utc-offset` (for example `-7` for a
+Pacific summer date) so the local date is right, and pass the Strava id with `--id`.
+The 2022 Washington hikes and West Coast road trip stops were added this way:
+
+```sh
+python -m scripts.travel.add_fit export/activities/7347250887.gpx --id 7347250887 \
+  --name "Lassen" --country "United States" --utc-offset -7
+```
+
+For a trip whose days have no dates (like `san-jose-seattle`), leave out `--trip` and
+add the `{"activity": id, "name": ...}` leg by hand between the drive legs, because
+`--trip` matches days by date.
+
 Useful flags:
 
 | Flag | Script | Effect |
@@ -73,6 +88,7 @@ Useful flags:
 | `--id` | both | Override the generated id. Activities default to `fit-<UTC start>`; pass the Strava id if you know it. |
 | `--journey` | add_fit | Journey bucket. Defaults to `<country>-activities` (for example `united-states-activities`). |
 | `--type` | add_fit | Override the sport read from the file (hiking, walking, running, cycling). |
+| `--utc-offset` | add_fit | GPX only: local time minus UTC, in hours. |
 | `--no-match` | add_fit | Keep the raw GPS line and skip map matching. |
 | `--cache DIR` | add_fit | Valhalla response cache (default `~/.cache/travel-valhalla`). |
 
