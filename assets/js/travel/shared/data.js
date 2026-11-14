@@ -195,6 +195,7 @@ export const US_VISITS = {
   },
   '13': { name: 'Georgia', cities: [['Atlanta', 33.749, -84.388]], parks: [] },
   '17': { name: 'Illinois', cities: [['Chicago', 41.8781, -87.6298]], parks: [] },
+  '18': { name: 'Indiana', cities: [], parks: [['Indiana Dunes', 41.6533, -87.0524]] },
   '22': { name: 'Louisiana', cities: [['New Orleans', 29.9511, -90.0715]], parks: [] },
   '23': {
     name: 'Maine',
