@@ -279,6 +279,10 @@
       "place": "Central Pier No. 10 — Hong Kong",
       "coords": [22.2869, 114.1581],
       "caption": "",
+      "credit": {
+        "name": "Linda Weng",
+        "url": "https://www.instagram.com/lindaweng_/"
+      },
       "width": 1536,
       "height": 2048,
       "sha256": "4aa22d54cf7e5512a766e289b6a3e1c0f853cdd94a24b92d469cdbe7f47fc431",

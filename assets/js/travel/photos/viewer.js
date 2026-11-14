@@ -3,7 +3,7 @@ import { installPhotoZoom } from './zoom.js';
 import { createBackdropFade } from './backdrop.js';
 import { createFrameMotion } from './frame-motion.js';
 import { createViewerImage } from './image.js';
-import { photoLabel } from './records.js';
+import { photoCredit, photoLabel } from './records.js';
 import { mediumFrame, mediumFrameSize, onScreen } from './viewer-geometry.js';
 
 // The photo viewer grows out of a pin's front print into a medium window over
@@ -43,6 +43,7 @@ export function findViewerElements() {
     image: /** @type {HTMLImageElement} */ ($('img', dialog)),
     title: $('#photo-title', dialog),
     caption: $('.photo-caption', dialog),
+    credit: $('.photo-credit', dialog),
     counter: $('.photo-counter', dialog),
     previous: $('.photo-previous', dialog),
     next: $('.photo-next', dialog),
@@ -184,6 +185,19 @@ function present(v, view, { from = presentFrom(v), focusControl = true } = {}) {
 }
 
 /**
+ * Shows "Photo: Name" for photos taken by someone else.
+ * @param {HTMLElement} line
+ * @param {{name: string, url: string} | null} credit
+ */
+function showCredit(line, credit) {
+  const link = /** @type {HTMLAnchorElement} */ ($('a', line));
+  line.hidden = !credit;
+  link.textContent = credit?.name || '';
+  if (credit?.url) link.href = credit.url;
+  else link.removeAttribute('href');
+}
+
+/**
  * Steps through the selection, updating text and image.
  * @param {Viewer} v
  * @param {number} [delta]
@@ -200,6 +214,7 @@ function changeImage(v, delta = 0, resize = true) {
   v.title.textContent = photoLabel(photo);
   v.caption.textContent = photo.caption || '';
   v.caption.hidden = !v.caption.textContent;
+  showCredit(v.credit, photoCredit(photo));
   v.counter.textContent = count > 1 ? `${state.index + 1} / ${count}` : '';
   v.previous.hidden = count < 2;
   v.next.hidden = count < 2;

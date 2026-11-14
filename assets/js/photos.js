@@ -2,6 +2,7 @@
 import { $ } from './lib/dom.js';
 import { stampedUrl } from './lib/assets.js';
 import { installBackToTop } from './lib/collection.js';
+import { photoCredit } from './travel/photos/records.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const MAP_ZOOM = 15;
@@ -15,6 +16,7 @@ const MAP_ZOOM = 15;
  * @property {string} [caption]
  * @property {{ small?: { src: string }, medium?: { src: string } }} variants
  * @property {{ subject?: string, location?: string }} [gallery]
+ * @property {{ name?: string, url?: string }} [credit]
  */
 
 /**
@@ -107,7 +109,26 @@ function caption(photo, subject, location) {
 }
 
 /**
- * A gallery card linking to the photo's spot on the map.
+ * "Photo: Name", linking to the photographer when a link is given.
+ * @param {{name: string, url: string}} credit
+ */
+function creditLine(credit) {
+  const line = document.createElement('p');
+  line.className = 'photo-credit';
+  line.append('Photo: ');
+  if (credit.url) {
+    const link = document.createElement('a');
+    link.href = credit.url;
+    link.rel = 'noopener';
+    link.textContent = credit.name;
+    line.append(link);
+  } else line.append(credit.name);
+  return line;
+}
+
+/**
+ * A gallery card linking to the photo's spot on the map, with any
+ * photographer credit kept outside the map link.
  * @param {Photo} photo
  * @param {string} imagePath
  * @param {string} mapUrl
@@ -116,8 +137,10 @@ function photoCard(photo, imagePath, mapUrl) {
   const subject = photo.gallery?.subject || photo.place;
   const location = photo.gallery?.location || '';
   const label = location ? `${subject} — ${location}` : subject;
+  const card = document.createElement('div');
+  card.className = 'photo-card';
   const link = document.createElement('a');
-  link.className = 'photo-card';
+  link.className = 'photo-link';
   const params = new URLSearchParams({
     lat: String(photo.coords[0]),
     lng: String(photo.coords[1]),
@@ -135,7 +158,10 @@ function photoCard(photo, imagePath, mapUrl) {
   image.decoding = 'async';
   figure.append(image, caption(photo, subject, location));
   link.append(figure);
-  return link;
+  card.append(link);
+  const credit = photoCredit(/** @type {any} */ (photo));
+  if (credit) card.append(creditLine(credit));
+  return card;
 }
 
 async function init() {

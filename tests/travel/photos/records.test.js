@@ -4,6 +4,7 @@ import {
   groupKey,
   isAtlasPhotoPath,
   normalizePhotos,
+  photoCredit,
   photoDepths,
   photoLabel,
   viewerVariant
@@ -74,4 +75,17 @@ test('viewerVariant picks the smallest sufficient width', () => {
   assert.equal(viewerVariant(photo('a'), 500).width, 800);
   assert.equal(viewerVariant(photo('a'), 5000).width, 1600);
   assert.equal(viewerVariant(photo('a'), 10).width, 400);
+});
+
+test('photoCredit returns the photographer and keeps only https links', () => {
+  assert.equal(photoCredit(photo('a')), null);
+  assert.equal(photoCredit(photo('a', { credit: { name: '  ' } })), null);
+  assert.deepEqual(
+    photoCredit(photo('a', { credit: { name: 'Linda Weng', url: 'https://example.com/x/' } })),
+    { name: 'Linda Weng', url: 'https://example.com/x/' }
+  );
+  assert.deepEqual(photoCredit(photo('a', { credit: { name: 'A', url: 'javascript:alert(1)' } })), {
+    name: 'A',
+    url: ''
+  });
 });

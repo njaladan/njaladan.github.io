@@ -13,6 +13,7 @@ const DEPTH_BASE = 1000;
  * @typedef {{id: string, place: string, coords: number[], width: number, height: number,
  *   date?: string, country?: string, caption?: string,
  *   gallery?: {subject?: string, location?: string},
+ *   credit?: {name?: string, url?: string},
  *   variants: Record<string, PhotoVariant>}} Photo
  */
 
@@ -87,6 +88,19 @@ export function photoLabel(photo) {
   const subject = photo.gallery?.subject || photo.place;
   const location = photo.gallery?.location || '';
   return location ? `${subject} — ${location}` : subject;
+}
+
+/**
+ * Photographer credit for a photo taken by someone else, or null. Only https
+ * links are kept.
+ * @param {Photo} photo
+ * @returns {{name: string, url: string} | null}
+ */
+export function photoCredit(photo) {
+  const name = typeof photo.credit?.name === 'string' ? photo.credit.name.trim() : '';
+  if (!name) return null;
+  const url = photo.credit?.url;
+  return { name, url: typeof url === 'string' && /^https:\/\/[^\s"<>]+$/.test(url) ? url : '' };
 }
 
 /**

@@ -205,6 +205,23 @@
   color: #77756f;
   overflow-wrap: anywhere;
 }
+.photo-viewer-header .photo-credit {
+  margin: 3px 0 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #77756f;
+}
+.photo-viewer-header .photo-credit a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: #dedbd2;
+  text-underline-offset: 2px;
+}
+.photo-viewer-header .photo-credit a:hover,
+.photo-viewer-header .photo-credit a:focus-visible {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
 .photo-window-actions {
   display: flex;
   gap: 6px;
