@@ -403,6 +403,26 @@
           ]
         }
       ]
+    },
+    {
+      "id": "indiana-dunes",
+      "fit": "activities",
+      "title": "Indiana Dunes National Park",
+      "days": [
+        {
+          "date": "2026-11-14",
+          "title": "Chicago → Indiana Dunes",
+          "legs": [
+            {
+              "route": "chicago-dune-park"
+            },
+            {
+              "activity": "fit-20261114T161516Z",
+              "name": "Indiana Dunes"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

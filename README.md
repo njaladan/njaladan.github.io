@@ -70,7 +70,14 @@ python -m scripts.street_coverage.add new_ride.fit
 # ...or rebuild everything from a full Strava export (also rewrites state.json)
 python -m scripts.street_coverage.build activities/ new_ride.fit --cache ~/.cache/street-coverage
 
-# Travel map
+# Travel map: one watch FIT file plus the train/drive legs around it
+# (step-by-step guide: scripts/travel/ADDING_ACTIVITIES.md)
+python -m scripts.travel.add_route --mode Train --country "United States" \
+  --stop "Chicago=41.88455,-87.62345" --stop "Dune Park=41.64496,-87.06057" \
+  --trip indiana-dunes --trip-title "Indiana Dunes National Park" --date 2026-11-14
+python -m scripts.travel.add_fit hike.fit --name "Indiana Dunes" --country "United States" --trip indiana-dunes
+
+# Travel map: bulk imports
 python -m scripts.travel.import_photo photo.jpg --place "Louvre · Paris" --lat 48.86 --lon 2.34
 python -m scripts.travel.import_strava export/ REVIEW.json
 python -m scripts.travel.import_gpx track.gpx --journey trip --name "Ride" --countries 528
