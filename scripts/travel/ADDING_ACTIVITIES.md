@@ -1,4 +1,4 @@
-# Adding a FIT file (and the trip around it) to the travel map
+# Adding a FIT file (and the legs around it) to the travel map
 
 Use this checklist when a FIT file from a watch (Garmin, Coros, ...) comes in to go on
 `/travel/`. Two commands do the work, and you can re-run either one without creating
@@ -9,9 +9,16 @@ duplicates:
 - `scripts.travel.add_route` draws a train, drive, bus, ferry or gondola leg (BRouter
   rail or OSRM driving) and adds it to `transport.json`.
 
-Pass `--trip` to either command to also add the leg to a trip in `itineraries.json`, so
-the outing shows up under **Itineraries** on the map. Legs are added in the order the
-commands run, so run them in the order things happened (train out, hike, train back).
+**Don't create an itinerary trip unless the user asks for one.** Activities and routes
+show on the map without one. If the user does want one, pass `--trip` to either command
+to add the leg to a trip in `itineraries.json`. Legs are added in the order the commands
+run, so run them in the order things happened (train out, hike, train back).
+
+**Don't draw a transport leg on top of an existing one.** `add_route` prints how much of
+the new line runs along existing routes. Pass `--skip-if-overlap 0.3` to write nothing
+when that share is 30% or more, then tell the user what it overlapped. For example, a
+Chicago → Dune Park South Shore train was left out because 41% of it ran along the
+existing `chicago-nyc` line.
 
 ## 1. Setup (once per machine)
 
@@ -34,18 +41,19 @@ curl -s -A travel-map-importer \
 
 (Overpass is blocked in the cloud sandbox; Nominatim, BRouter, OSRM and Valhalla work.)
 
-## 3. Add the legs in order
+## 3. Add the activity and legs
 
-The Indiana Dunes outing (2026-11-14) was added like this:
+The Indiana Dunes hike (2026-11-14) was added with:
+
+```sh
+python -m scripts.travel.add_fit indiana_dunes_park.fit --name "Indiana Dunes" --country "United States"
+```
+
+A transport leg looks like this. This one was rejected for overlap, so it is not on the site:
 
 ```sh
 python -m scripts.travel.add_route --mode Train --operator "South Shore Line" --country "United States" \
-  --stop "Chicago=41.88455,-87.62345" --stop "Dune Park=41.64496,-87.06057" \
-  --trip indiana-dunes --trip-title "Indiana Dunes National Park" \
-  --date 2026-11-14 --day-title "Chicago → Indiana Dunes"
-
-python -m scripts.travel.add_fit indiana_dunes_park.fit --name "Indiana Dunes" \
-  --country "United States" --trip indiana-dunes
+  --stop "Chicago=41.88455,-87.62345" --stop "Dune Park=41.64496,-87.06057" --skip-if-overlap 0.3
 ```
 
 Useful flags:
@@ -53,7 +61,8 @@ Useful flags:
 | Flag | Script | Effect |
 | --- | --- | --- |
 | `--country` | both | Country name from `COUNTRIES` in `trips.py`, or a 3-digit ISO numeric ID. Repeat for cross-border legs. |
-| `--trip` / `--trip-title` | both | Trip to add the leg to; `--trip-title` is needed only when the trip is new. |
+| `--skip-if-overlap SHARE` | add_route | Write nothing if this share (0–1) of the line runs along an existing route. |
+| `--trip` / `--trip-title` | both | Only when asked: trip to add the leg to; `--trip-title` is needed only when the trip is new. |
 | `--day-title` | both | Day heading in the itinerary panel. |
 | `--leg-name` | both | Leg label, if it should differ from the activity or route name. |
 | `--date` | add_route | Which trip day (YYYY-MM-DD). `add_fit` takes the date from the file, in the watch's local time. |
@@ -88,7 +97,7 @@ The importers only add or replace the entries they touch, so `git diff --stat` s
 show insertions only, unless you are re-importing something.
 
 To look at the result, run `npm run serve` and open
-`/travel/?lat=<lat>&lng=<lon>&zoom=11`, then open **Itineraries** and pick the trip. If
+`/travel/?lat=<lat>&lng=<lon>&zoom=11` (and the trip under **Itineraries**, if you made one). If
 `bundle exec jekyll` reports "command not found" in the cloud sandbox, run
 `/opt/rbenv/versions/3.3.6/bin/jekyll serve` instead.
 
