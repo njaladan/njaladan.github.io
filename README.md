@@ -15,7 +15,6 @@ npm run check    # what CI runs: ESLint, Prettier, tsc, tests, Ruff and a Jekyll
 ```
 _pages/           Site pages, one file per URL
 _books/           Book notes, one file per book, at /<title>/ and on /books
-_drafts/          Unpublished project posts; preview with `jekyll serve --drafts`
 _layouts/         default (page frame), book, books, movies
 _includes/        Header, footer and the movie card
 _plugins/         cache_bust.rb: version-stamps asset URLs on every build
@@ -30,7 +29,7 @@ assets/
     travel/       The travel map: app.js wires map/, globe/, photos/,
                   itineraries/ and routes/; shared/ is used by more than one
   data/           JSON fetched by the browser at runtime (travel/, athletics/)
-  images/         site/, projects/, books/, movies/ and travel/
+  images/         site/, books/, movies/ and travel/
   vendor/         Third-party libraries; versions in vendor/README.md
 scripts/          Python importers that write _data/ and assets/data/
   common/         Paths and geometry shared by the importers
