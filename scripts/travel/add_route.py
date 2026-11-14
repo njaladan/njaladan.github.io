@@ -8,8 +8,7 @@ assets/data/travel/transport.json; with --trip, also appends the route as a leg 
 that trip's day in itineraries.json. Re-running with the same id replaces it.
 
     python -m scripts.travel.add_route --mode Train --operator "South Shore Line" --country 840 \\
-        --stop "Chicago=41.88455,-87.62345" --stop "Dune Park=41.64496,-87.06057" \\
-        --trip indiana-dunes --trip-title "Indiana Dunes National Park" --date 2026-11-14
+        --stop "Chicago=41.88455,-87.62345" --stop "Dune Park=41.64496,-87.06057" --skip-if-overlap 0.3
 
 Stops are "Name=lat,lon"; look coordinates up on openstreetmap.org (right-click → Show
 address) or Nominatim. --via adds unnamed waypoints to steer the router.
@@ -17,9 +16,11 @@ address) or Nominatim. --via adds unnamed waypoints to steer the router.
 
 import argparse
 import json
+import math
 import time
 import urllib.parse
 import urllib.request
+from itertools import pairwise
 
 from scripts.common.geo import distance_m
 from scripts.travel.import_strava import simplify
@@ -64,6 +65,34 @@ def osrm_driving(points):
     return [[lat, lon] for lon, lat in data["routes"][0]["geometry"]["coordinates"]], "OSRM driving"
 
 
+def overlap_share(coords, other, within_m=150):
+    """Share of `coords` (sampled every ~100 m) lying within `within_m` of the `other` line."""
+    scale = math.cos(math.radians(coords[0][0]))
+
+    def xy(point):
+        return point[1] * 111195 * scale, point[0] * 111195
+
+    lat_min, lat_max = min(p[0] for p in coords) - 0.05, max(p[0] for p in coords) + 0.05
+    lon_min, lon_max = min(p[1] for p in coords) - 0.05, max(p[1] for p in coords) + 0.05
+    nearby = [xy(p) for p in other if lat_min <= p[0] <= lat_max and lon_min <= p[1] <= lon_max]
+    if len(nearby) < 2:
+        return 0
+    samples = []
+    for a, b in pairwise(map(xy, coords)):
+        steps = max(1, int(math.dist(a, b) // 100))
+        samples += [(a[0] + (b[0] - a[0]) * i / steps, a[1] + (b[1] - a[1]) * i / steps) for i in range(steps)]
+
+    def gap(p, a, b):
+        dx, dy = b[0] - a[0], b[1] - a[1]
+        span = dx * dx + dy * dy
+        t = max(0, min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / span)) if span else 0
+        return math.hypot(a[0] + t * dx - p[0], a[1] + t * dy - p[1])
+
+    segments = list(pairwise(nearby))
+    close = sum(any(gap(p, a, b) < within_m for a, b in segments) for p in samples)
+    return close / max(len(samples), 1)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--mode", required=True, choices=MODES)
@@ -81,6 +110,12 @@ def main():
     parser.add_argument("--day-title", help="Title for the trip day")
     parser.add_argument("--leg-name", help="Leg label in the itinerary (defaults to the route name)")
     parser.add_argument("--new-day", action="store_true", help="Without --date, start a new trip day")
+    parser.add_argument(
+        "--skip-if-overlap",
+        type=float,
+        metavar="SHARE",
+        help="Write nothing if this share (0-1) of the line already runs along an existing route, e.g. 0.3",
+    )
     args = parser.parse_args()
 
     stops = [parse_stop(text) for text in args.stop]
@@ -113,6 +148,16 @@ def main():
         route["note"] = args.note
 
     document = load(TRANSPORT, {"routes": []})
+    # Two lines drawn on top of each other look like a mistake on the map; report it.
+    overlaps = sorted(
+        ((overlap_share(coords, r["coords"]), r["id"]) for r in document["routes"] if r["id"] != route_id),
+        reverse=True,
+    )
+    for share, other in overlaps:
+        if share >= 0.1:
+            print(f"Overlap: {share:.0%} of this line runs along existing route {other}")
+    if args.skip_if_overlap is not None and overlaps and overlaps[0][0] >= args.skip_if_overlap:
+        raise SystemExit(f"Not added: overlaps {overlaps[0][1]} more than {args.skip_if_overlap:.0%}")
     index = next((i for i, r in enumerate(document["routes"]) if r["id"] == route_id), None)
     if index is None:
         document["routes"].append(route)

@@ -6,8 +6,7 @@ needed), thins it, snaps it onto OpenStreetMap paths with Valhalla, and writes i
 assets/data/travel/activities.json. With --trip it also appends the activity as a leg
 of that trip's day in itineraries.json. Re-running replaces the earlier import.
 
-    python -m scripts.travel.add_fit hike.fit --name "Indiana Dunes" --country "United States" \\
-        --trip indiana-dunes --trip-title "Indiana Dunes National Park"
+    python -m scripts.travel.add_fit hike.fit --name "Indiana Dunes" --country "United States"
 """
 
 import argparse
