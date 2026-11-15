@@ -4304,9 +4304,21 @@
       "year": "1975",
       "cover": "/assets/images/movies/ebff4aefda51.webp",
       "art_source": "https://www.themoviedb.org/movie/36685-the-rocky-horror-picture-show"
+    },
+    {
+      "id": "cc54aa8b57af",
+      "title": "The Super Mario Galaxy Movie",
+      "year": "2026",
+      "cover": "/assets/images/movies/cc54aa8b57af.webp",
+      "art_source": "https://www.themoviedb.org/movie/1226863-the-super-mario-galaxy-movie"
     }
   ],
   "viewings": [
+    {
+      "film_id": "cc54aa8b57af",
+      "date": "2026-11-14",
+      "source": "user_logged"
+    },
     {
       "film_id": "ebff4aefda51",
       "date": "2026-11-07",
