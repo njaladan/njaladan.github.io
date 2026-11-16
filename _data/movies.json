@@ -4311,9 +4311,21 @@
       "year": "2026",
       "cover": "/assets/images/movies/cc54aa8b57af.webp",
       "art_source": "https://www.themoviedb.org/movie/1226863-the-super-mario-galaxy-movie"
+    },
+    {
+      "id": "7f8d619fee3d",
+      "title": "Kill Bill: Vol. 2",
+      "year": "2004",
+      "cover": "/assets/images/movies/7f8d619fee3d.webp",
+      "art_source": "https://www.themoviedb.org/movie/393-kill-bill-vol-2"
     }
   ],
   "viewings": [
+    {
+      "film_id": "7f8d619fee3d",
+      "date": "2026-11-15",
+      "source": "user_logged"
+    },
     {
       "film_id": "cc54aa8b57af",
       "date": "2026-11-14",
