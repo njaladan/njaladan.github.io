@@ -4318,9 +4318,21 @@
       "year": "2004",
       "cover": "/assets/images/movies/7f8d619fee3d.webp",
       "art_source": "https://www.themoviedb.org/movie/393-kill-bill-vol-2"
+    },
+    {
+      "id": "dcfa530d0b0c",
+      "title": "Neon Genesis Evangelion: The End of Evangelion",
+      "year": "1997",
+      "cover": "/assets/images/movies/dcfa530d0b0c.webp",
+      "art_source": "https://www.themoviedb.org/movie/18491-neon-genesis-evangelion-the-end-of-evangelion"
     }
   ],
   "viewings": [
+    {
+      "film_id": "dcfa530d0b0c",
+      "date": "2026-11-22",
+      "source": "user_logged"
+    },
     {
       "film_id": "7f8d619fee3d",
       "date": "2026-11-15",
