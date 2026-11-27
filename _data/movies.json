@@ -4325,9 +4325,21 @@
       "year": "1997",
       "cover": "/assets/images/movies/dcfa530d0b0c.webp",
       "art_source": "https://www.themoviedb.org/movie/18491-neon-genesis-evangelion-the-end-of-evangelion"
+    },
+    {
+      "id": "b00804c79036",
+      "title": "Schindler's List",
+      "year": "1993",
+      "cover": "/assets/images/movies/b00804c79036.webp",
+      "art_source": "https://www.themoviedb.org/movie/424-schindler-s-list"
     }
   ],
   "viewings": [
+    {
+      "film_id": "b00804c79036",
+      "date": "2026-11-27",
+      "source": "user_logged"
+    },
     {
       "film_id": "dcfa530d0b0c",
       "date": "2026-11-22",
