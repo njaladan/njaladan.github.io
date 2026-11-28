@@ -1,5 +1,15 @@
 [
   {
+    "id": "2026-11-27-born-a-crime",
+    "title": "Born a Crime",
+    "date": "2026-11-27",
+    "author": "Trevor Noah",
+    "pages": 304,
+    "cover": "/assets/images/books/2026-11-27-born-a-crime.webp",
+    "art_source": "https://covers.openlibrary.org/b/id/8294078-M.jpg",
+    "cover_ratio": 0.643
+  },
+  {
     "id": "2026-03-08-the-anthropocene-reviewed",
     "title": "The Anthropocene Reviewed",
     "date": "2026-03-08",
