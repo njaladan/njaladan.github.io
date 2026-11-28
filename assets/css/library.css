@@ -367,11 +367,6 @@
   color: var(--muted);
   max-width: 650px;
 }
-.art-credit {
-  font: 11px var(--sans);
-  color: var(--muted);
-  margin-top: 50px;
-}
 .dialog-close {
   position: sticky;
   top: 0;

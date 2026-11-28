@@ -42,7 +42,7 @@ layout: default
       {% if forloop.last %}</div></section>{% endif %}
     {% endfor %}
   </div>
-  <p class="art-credit">Cover artwork from publishers, booksellers, and <a href="https://openlibrary.org/">Open Library</a>.</p>
+  {% comment %}Cover art is cited in code, not on the page: each book's art_source in _data/books.json points at its Open Library cover, the same way each film's art_source in _data/movies.json points at TMDB.{% endcomment %}
 </div>
 <dialog id="review-dialog" class="book-dialog" aria-labelledby="review-title">
   <button class="dialog-close" type="button" aria-label="Close review" autofocus>×</button>
